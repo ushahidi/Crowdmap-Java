@@ -1,8 +1,8 @@
 /*****************************************************************************
- ** Copyright (c) 2010 - 2012 Ushahidi Inc
+ ** Copyright (c) 2010 - 2012 Crowdmap Inc
  ** All rights reserved
- ** Contact: team@ushahidi.com
- ** Website: http://www.ushahidi.com
+ ** Contact: team@Crowdmap.com
+ ** Website: http://www.Crowdmap.com
  **
  ** GNU Lesser General Public License Usage
  ** This file may be used under the terms of the GNU Lesser
@@ -14,14 +14,54 @@
  **
  **
  ** If you have questions regarding the use of this file, please contact
- ** Ushahidi developers at team@ushahidi.com.
+ ** Crowdmap developers at team@Crowdmap.com.
  **
  *****************************************************************************/
 package com.crowdmap.java.sdk;
 
 /**
- * 
+ * Handles all exception
  */
-public class CrowdmapException {
+public class CrowdmapException extends RuntimeException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6639204130451563983L;
+
+	/**
+	 * Instantiates a new Crowdmap exception.
+	 */
+	public CrowdmapException() {
+	}
+
+	/**
+	 * Instantiates a new Crowdmap exception.
+	 * 
+	 * @param cause
+	 *            the cause
+	 */
+	public CrowdmapException(Throwable cause) {
+		super(cause);
+	}
+
+	/**
+	 * 
+	 * @param message
+	 *            The message be shown
+	 */
+	public CrowdmapException(String message) {
+		super(message);
+	}
+
+	/**
+	 * 
+	 * @param message
+	 *            The message to be shown.
+	 * @param cause
+	 *            The cause of the exception.
+	 */
+	public CrowdmapException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }
