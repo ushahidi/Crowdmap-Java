@@ -17,7 +17,7 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.service;
+package com.crowdmap.java.sdk.service;
 
 import java.util.List;
 
