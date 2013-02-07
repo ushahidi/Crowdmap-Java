@@ -19,9 +19,122 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.model;
 
+import java.util.Date;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
- * 
+ * Map Model
  */
 public class Map {
 
+	/**
+	 * The ID of the map.
+	 */
+	@SerializedName("map_id")
+	private int id;
+
+	@SerializedName("user_id")
+	private int userId;
+
+	@SerializedName("media_id_hero")
+	private int mediaIdHero;
+
+	private String subdomain;
+
+	private String name;
+
+	@SerializedName("public")
+	private int pub;
+
+	private double lat;
+
+	private double lon;
+
+	private int zoom;
+
+	@SerializedName("date_created")
+	private Date dateCreated;
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public void setMediaIdHero(int mediaIdHero) {
+		this.mediaIdHero = mediaIdHero;
+	}
+
+	public void setSubdomain(String subdomain) {
+		this.subdomain = subdomain;
+	}
+
+	public void setPub(int pub) {
+		this.pub = pub;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public void setZoom(int zoom) {
+		this.zoom = zoom;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public int mediaIdHero() {
+		return mediaIdHero;
+	}
+
+	public String getSubdomain() {
+		return subdomain;
+	}
+
+	public int getPub() {
+		return pub;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
+	public int getZoom() {
+		return zoom;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	//TODO override toString()
 }

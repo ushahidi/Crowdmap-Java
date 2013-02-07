@@ -17,11 +17,18 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
+
 package com.crowdmap.java.sdk.json;
 
 /**
+ * The class represents the Main response returned as a result of a Crowdmap
+ * 
+ * @author eyedol
  * 
  */
-public class MapJson {
+public class ResponseJson {
+
+	protected boolean success;
+	protected int status;
 
 }
