@@ -22,6 +22,6 @@ package com.crowdmap.java.sdk.model;
 /**
  * 
  */
-public class MapModel {
+public class Map {
 
 }

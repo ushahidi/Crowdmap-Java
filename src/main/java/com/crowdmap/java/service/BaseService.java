@@ -19,63 +19,58 @@
  *****************************************************************************/
 package com.crowdmap.java.service;
 
-import java.util.List;
-
-import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+import com.google.gson.Gson;
 
 /**
- * Service for interacting with various maps setup on crowdmap
+ * Base crowdmap service class
  */
-public class MapService extends BaseService {
+public class BaseService {
+
+	private static Gson gson;
+
+	protected CrowdmapHttpClient client;
 
 	/**
-	 * Create map service
-	 */
-	public MapService() {
-		super();
-	}
-
-	/**
-	 * Create map service
+	 * Create a the task using the default {@link CrowdmapHttpClient}
 	 * 
 	 * @param client
+	 *            The HttpClient
 	 */
-	public MapService(CrowdmapHttpClient client) {
-		super(client);
+	public BaseService(CrowdmapHttpClient client) {
+
+		if (client == null) {
+			throw new IllegalArgumentException("Client cannot be null");
+		}
 	}
 
 	/**
-	 * Get list of maps.
+	 * Create a service using a default {@link CrowdmapHttpClient}
 	 * 
-	 * @return A list containing all the maps
 	 */
-	public List<Map> getMaps() {
-		return getMaps(0, 20);
+	public BaseService() {
+		this(new CrowdmapHttpClient());
 	}
 
 	/**
-	 * Get Maps based on restricted set
+	 * Get the configured HTTP client
 	 * 
-	 * @param offset
-	 *            The offset number
-	 * @param limit
-	 *            The limit number
-	 * @return A list containing all the maps
 	 */
-	public List<Map> getMaps(int offset, int limit) {
-		return null;
+	public CrowdmapHttpClient getClient() {
+		return client;
 	}
 
 	/**
-	 * Returns a specific map
+	 * Deserialise the JSON string into Java objects representing the various
+	 * Crowdmap models.
 	 * 
-	 * @return A specific map
+	 * @param json
+	 *            the json string to be converted
+	 * @param cls
+	 *            the class for the model
+	 * @return The Object related to the Crowdmap API model
 	 */
-	public Map getMap() {
-		return null;
+	public static <T> T fromString(String json, Class<T> cls) {
+		return gson.fromJson(json, cls);
 	}
-	
-	
-
 }
