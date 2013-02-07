@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project name="Ushahidi-SDK" default="compile" basedir=".">
 	<description>Crowdmap Java SDK build file</description>
+	
 	<!-- Set global properties for this build -->
 	<property name="src" location="src/main/java" />
 	<property name="egsrc" location="src/examples/java" />
@@ -38,12 +39,13 @@
 		</javac>
 	</target>
 
+	<!--  Comment this out for now. Enable when run examples is implemented 
 	<target name="RunExamples">
-		<java classname="com.ushahidi.java.sdk.example.RunExamples"
+		<java classname="com.crowdmap.java.sdk.example.RunExamples"
 			failonerror="true" fork="yes">
 			<classpath refid="compile.classpath" />
 		</java>
-	</target>
+	</target> -->
 
 	<target name="javadoc" description="Generate Javadoc from source files in {$src}">
 		<javadoc sourcepath="${src}" destdir="${doc}">
