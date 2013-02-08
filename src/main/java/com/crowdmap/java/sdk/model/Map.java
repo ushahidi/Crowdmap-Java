@@ -34,25 +34,47 @@ public class Map {
 	@SerializedName("map_id")
 	private int id;
 
+	/**
+	 * The ID of the user
+	 */
 	@SerializedName("user_id")
 	private int userId;
 
 	@SerializedName("media_id_hero")
 	private int mediaIdHero;
 
+	/**
+	 * The subdomain of crowdmap
+	 */
 	private String subdomain;
 
+	/**
+	 * The name of the map
+	 */
 	private String name;
 
+	
 	@SerializedName("public")
 	private int pub;
 
+	/**
+	 * The latitude
+	 */
 	private double lat;
 
+	/**
+	 * The longitude
+	 */
 	private double lon;
 
+	/**
+	 * The zoom level
+	 */
 	private int zoom;
 
+	/**
+	 * The date the map was created
+	 */
 	@SerializedName("date_created")
 	private Date dateCreated;
 
@@ -91,7 +113,7 @@ public class Map {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -131,10 +153,16 @@ public class Map {
 	public Date getDateCreated() {
 		return dateCreated;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
-	//TODO override toString()
+
+	@Override
+	public String toString() {
+		return "Map[id:" + id + ", user_id:" + userId + ", media_id_hero:"
+				+ mediaIdHero + ", subdomain:" + subdomain + ", name:" + name
+				+ ", pub:" + pub + ", lat:" + lat + ", lon:" + lon + ", zoom:"
+				+ zoom + ", date_created:" + dateCreated + "]";
+	}
 }
