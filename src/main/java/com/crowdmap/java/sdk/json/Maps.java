@@ -19,19 +19,16 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import java.io.Serializable;
-import java.util.List;
+import com.crowdmap.java.sdk.model.Map;
 
 /**
- * Maps response model class
+ * 
  */
-public class MapsJson extends ResponseJson implements Serializable {
+public class Maps extends Map {
 
 	/**
-	 * Seria version UID
+	 * Serial version UID
 	 */
-	private static final long serialVersionUID = 6835878593630432210L;
-	
-	public List <Maps> maps;
+	private static final long serialVersionUID = -2845656024887624417L;
 
 }

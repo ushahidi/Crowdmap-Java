@@ -19,14 +19,20 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Map Model
+ * Map Model class
  */
-public class Map {
+public class Map implements Serializable{
+
+	/**
+	 * Seriala version UID
+	 */
+	private static final long serialVersionUID = 5567922863749709665L;
 
 	/**
 	 * The ID of the map.
