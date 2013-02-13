@@ -19,6 +19,8 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.DATE_FORMAT;
+
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +35,7 @@ import com.crowdmap.java.sdk.CrowdmapException;
 public class DateDeserializer implements JsonDeserializer<Date> {
 
 	private static final SimpleDateFormat PARSER = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss", Locale.US);
+			DATE_FORMAT, Locale.US);
 
 	@Override
 	public Date deserialize(JsonElement arg0, Type arg1,
