@@ -17,19 +17,13 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-
 package com.crowdmap.java.sdk.json;
 
-/**
- * The class represents the Main response returned as a result of a Crowdmap 
- * api call.
- * 
- * @author eyedol
- * 
- */
-public class ResponseJson {
+public class Date extends java.util.Date {
 
-	protected boolean success;
-	protected int status;
+	private static final long serialVersionUID = -2667623647943795029L;
 
+	public Date(java.util.Date date) {
+		super(date.getTime());
+	}
 }

@@ -17,19 +17,32 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-
 package com.crowdmap.java.sdk.json;
 
-/**
- * The class represents the Main response returned as a result of a Crowdmap 
- * api call.
- * 
- * @author eyedol
- * 
- */
-public class ResponseJson {
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-	protected boolean success;
-	protected int status;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.crowdmap.java.sdk.CrowdmapException;
+
+public class DateDeserializer implements JsonDeserializer<Date> {
+
+	private static final SimpleDateFormat PARSER = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss", Locale.US);
+
+	@Override
+	public Date deserialize(JsonElement arg0, Type arg1,
+			JsonDeserializationContext arg2) throws JsonParseException {
+		try {
+			return new Date(PARSER.parse(arg0.getAsString()));
+		} catch (ParseException e) {
+			throw new CrowdmapException(e);
+		}
+	}
 
 }
