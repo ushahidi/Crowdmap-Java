@@ -23,10 +23,39 @@ package com.crowdmap.java.sdk.net;
  * Crowdmap constants for http related activities
  */
 public interface ICrowdmapConstants {
-	
+
 	public String CHARSET_UTF8 = "UTF-8";
-	
+
 	public String CONTENT_TYPE_JSON = "application/json";
-	
+
 	public String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+	public String HOST_API = "api.crdmp3.com";
+
+	public String API_VERSION = "v1";
+
+	public String PROTOCOL_HTTPS = "https";
+
+	public String PROTOCOL_HTTP = "http";
+
+	public String URL_API = PROTOCOL_HTTP + "://" + HOST_API;
+
+	public String SEGMENT_MEDIA = "/media";
+
+	public String SEGMENT_MAPS = "/maps";
+
+	public String SEGMENT_LOCATIONS = "/locations";
+
+	public String SEGMENT_POSTS = "/posts";
+
+	public String SEGMENT_PEOPLE = "/people";
+
+	public String SEGMENT_EXTERNALS = "/externals";
+
+	public String SEGMENT_ABOUT = "/about";
+
+	public String SEGMENT_HEARTBEAT = "/heartbeat";
+
+	public String SEGMENT_PLACES_SEARCH = "/places/search";
+
 }
