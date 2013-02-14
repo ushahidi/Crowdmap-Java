@@ -19,18 +19,42 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import static org.junit.Assert.*;
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import com.crowdmap.java.sdk.json.MapsJson;
 
 /**
  * 
  */
-public class MapsServiceTest extends MapService {
+public class MapServiceTest extends BaseServiceTest {
+
+	/** Maps Service */
+	private MapService mapService;
+
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		mapService = new MapService(client);
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
+		mapService = null;
+	}
+
+	/**
+	 * Test method for fetching all public maps
+	 * 
+	 * {@link com.crowdmap.java.sdk.service.MapService }
+	 */
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testGetMaps() {
+		MapsJson maps = mapService.getMaps();
+		assertNotNull("Maps cannot be null ", maps);
 	}
 
 }

@@ -42,7 +42,7 @@ public interface ICrowdmapConstants {
 	
 	public String USER_AGENT = "Crowdmap-Java/1.0.0";
 	
-	public String GZIP_DEFLATE = "gzip, deflate";
+	public String GZIP_DEFLATE = "gzip";
 	
 	public String REFERRER = "Referer";
 

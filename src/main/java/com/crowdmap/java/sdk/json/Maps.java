@@ -19,24 +19,145 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import java.util.List;
-
-import com.crowdmap.java.sdk.model.Map;
-import com.crowdmap.java.sdk.model.Media;
 import com.crowdmap.java.sdk.model.Person;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * 
  */
-public class Maps extends Map {
+public class Maps {
 
 	/**
-	 * Serial version UID
+	 * The ID of the map.
 	 */
-	private static final long serialVersionUID = -2845656024887624417L;
-	
-	public List<Media> media;
-	
+	@SerializedName("map_id")
+	private int id;
+
+	// public List<Media> media;
+
 	public Person users;
+
+	/**
+	 * The ID of the user
+	 */
+	@SerializedName("user_id")
+	private int userId;
+
+	@SerializedName("media_id_hero")
+	private int mediaIdHero;
+
+	/**
+	 * The subdomain of crowdmap
+	 */
+	private String subdomain;
+
+	/**
+	 * The name of the map
+	 */
+	private String name;
+
+	@SerializedName("public")
+	private int pub;
+
+	/**
+	 * The latitude
+	 */
+	private double lat;
+
+	/**
+	 * The longitude
+	 */
+	private double lon;
+
+	/**
+	 * The zoom level
+	 */
+	private int zoom;
+
+	/**
+	 * The date the map was created
+	 */
+	@SerializedName("date_created")
+	private Date dateCreated;
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public void setMediaIdHero(int mediaIdHero) {
+		this.mediaIdHero = mediaIdHero;
+	}
+
+	public void setSubdomain(String subdomain) {
+		this.subdomain = subdomain;
+	}
+
+	public void setPub(int pub) {
+		this.pub = pub;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public void setZoom(int zoom) {
+		this.zoom = zoom;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public int mediaIdHero() {
+		return mediaIdHero;
+	}
+
+	public String getSubdomain() {
+		return subdomain;
+	}
+
+	public int getPub() {
+		return pub;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
+	public int getZoom() {
+		return zoom;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 }

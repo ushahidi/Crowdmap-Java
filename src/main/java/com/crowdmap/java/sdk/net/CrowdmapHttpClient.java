@@ -107,6 +107,7 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 
 			// Which HTTP request method is being executed
 			if (method.equals(METHOD_POST)) {
+
 				if (body != null) {
 					inputStream = postRequest(url, body);
 				} else {
@@ -114,8 +115,10 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 				}
 
 			} else if (method.equals(METHOD_GET)) {
+
 				inputStream = getRequest(url);
 			} else if (method.equals(METHOD_MULTIPART)) {
+
 				if (body != null) {
 					inputStream = postMultipartRequest(url, body);
 				}

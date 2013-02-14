@@ -23,8 +23,8 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 
 import java.util.List;
 
-import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.MapsJson;
+import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**
@@ -53,12 +53,13 @@ public class MapService extends BaseService {
 	 * 
 	 * @return A list containing all the maps
 	 */
-	public List<Maps> getMaps() {
+	public MapsJson getMaps() {
 		StringBuilder url = new StringBuilder(apiUrl);
-		url.append('/').append(SEGMENT_MAPS);
-		MapsJson mapsJson = fromString(client.sendGetRequest(url.toString()),
+		url.append(SEGMENT_MAPS);
+		String response = client.sendGetRequest(url.toString());
+		MapsJson mapsJson = fromString(response,
 				MapsJson.class);
-		return mapsJson.maps;
+		return mapsJson;
 	}
 
 	/**

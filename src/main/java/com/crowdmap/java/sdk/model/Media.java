@@ -37,7 +37,7 @@ public class Media implements Serializable {
 	/**
 	 * The media ID
 	 */
-	@SerializedName("user_id")
+	@SerializedName("media_id")
 	private int id;
 
 	/**
@@ -115,7 +115,7 @@ public class Media implements Serializable {
 	/**
 	 * The small media file name
 	 */
-	@SerializedName("filename_l")
+	@SerializedName("filename_s")
 	private String filenameSmall;
 
 	/**
@@ -161,7 +161,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -175,7 +176,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -189,7 +191,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param lat the lat to set
+	 * @param lat
+	 *            the lat to set
 	 */
 	public void setLat(double lat) {
 		this.lat = lat;
@@ -203,7 +206,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param lon the lon to set
+	 * @param lon
+	 *            the lon to set
 	 */
 	public void setLon(double lon) {
 		this.lon = lon;
@@ -217,7 +221,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param source the source to set
+	 * @param source
+	 *            the source to set
 	 */
 	public void setSource(String source) {
 		this.source = source;
@@ -231,7 +236,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param fileDatetime the fileDatetime to set
+	 * @param fileDatetime
+	 *            the fileDatetime to set
 	 */
 	public void setFileDatetime(Date fileDatetime) {
 		this.fileDatetime = fileDatetime;
@@ -245,7 +251,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param uploadDatetime the uploadDatetime to set
+	 * @param uploadDatetime
+	 *            the uploadDatetime to set
 	 */
 	public void setUploadDatetime(Date uploadDatetime) {
 		this.uploadDatetime = uploadDatetime;
@@ -259,7 +266,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param fileLocation the fileLocation to set
+	 * @param fileLocation
+	 *            the fileLocation to set
 	 */
 	public void setFileLocation(String fileLocation) {
 		this.fileLocation = fileLocation;
@@ -273,7 +281,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param filename the filename to set
+	 * @param filename
+	 *            the filename to set
 	 */
 	public void setFilename(String filename) {
 		this.filename = filename;
@@ -287,7 +296,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param width the width to set
+	 * @param width
+	 *            the width to set
 	 */
 	public void setWidth(int width) {
 		this.width = width;
@@ -301,7 +311,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param height the height to set
+	 * @param height
+	 *            the height to set
 	 */
 	public void setHeight(int height) {
 		this.height = height;
@@ -315,7 +326,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param filenameLarge the filenameLarge to set
+	 * @param filenameLarge
+	 *            the filenameLarge to set
 	 */
 	public void setFilenameLarge(String filenameLarge) {
 		this.filenameLarge = filenameLarge;
@@ -329,7 +341,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param largeWidth the largeWidth to set
+	 * @param largeWidth
+	 *            the largeWidth to set
 	 */
 	public void setLargeWidth(String largeWidth) {
 		this.largeWidth = largeWidth;
@@ -343,7 +356,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param largeHeight the largeHeight to set
+	 * @param largeHeight
+	 *            the largeHeight to set
 	 */
 	public void setLargeHeight(String largeHeight) {
 		this.largeHeight = largeHeight;
@@ -357,7 +371,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param filenameSmall the filenameSmall to set
+	 * @param filenameSmall
+	 *            the filenameSmall to set
 	 */
 	public void setFilenameSmall(String filenameSmall) {
 		this.filenameSmall = filenameSmall;
@@ -371,7 +386,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param smallWidth the smallWidth to set
+	 * @param smallWidth
+	 *            the smallWidth to set
 	 */
 	public void setSmallWidth(int smallWidth) {
 		this.smallWidth = smallWidth;
@@ -385,7 +401,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param smallHeight the smallHeight to set
+	 * @param smallHeight
+	 *            the smallHeight to set
 	 */
 	public void setSmallHeight(int smallHeight) {
 		this.smallHeight = smallHeight;
@@ -399,7 +416,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param filenameThumbnail the filenameThumbnail to set
+	 * @param filenameThumbnail
+	 *            the filenameThumbnail to set
 	 */
 	public void setFilenameThumbnail(String filenameThumbnail) {
 		this.filenameThumbnail = filenameThumbnail;
@@ -413,7 +431,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param thumbnailWidth the thumbnailWidth to set
+	 * @param thumbnailWidth
+	 *            the thumbnailWidth to set
 	 */
 	public void setThumbnailWidth(String thumbnailWidth) {
 		this.thumbnailWidth = thumbnailWidth;
@@ -427,7 +446,8 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param thumbnailHeight the thumbnailHeight to set
+	 * @param thumbnailHeight
+	 *            the thumbnailHeight to set
 	 */
 	public void setThumbnailHeight(String thumbnailHeight) {
 		this.thumbnailHeight = thumbnailHeight;
@@ -441,11 +461,11 @@ public class Media implements Serializable {
 	}
 
 	/**
-	 * @param mime the mime to set
+	 * @param mime
+	 *            the mime to set
 	 */
 	public void setMime(String mime) {
 		this.mime = mime;
 	}
 
-	
 }

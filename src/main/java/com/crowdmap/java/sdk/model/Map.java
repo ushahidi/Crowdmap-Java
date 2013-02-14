@@ -20,8 +20,8 @@
 package com.crowdmap.java.sdk.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import com.crowdmap.java.sdk.json.Date;
 import com.google.gson.annotations.SerializedName;
 
 /**

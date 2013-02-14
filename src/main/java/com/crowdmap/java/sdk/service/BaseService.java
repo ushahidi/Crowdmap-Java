@@ -57,7 +57,8 @@ public class BaseService {
 			throw new IllegalArgumentException("Client cannot be null");
 		}
 
-		apiUrl = API_URL + "/" + API_VERSION + "/";
+		apiUrl = API_URL + "/" + API_VERSION;
+		this.client = client;
 	}
 
 	/**

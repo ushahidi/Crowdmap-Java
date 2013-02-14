@@ -43,7 +43,7 @@ public class Person implements Serializable {
 	 * The person's crowdmap ID
 	 */
 	@SerializedName("crowdmap_id")
-	private int crowdmapId;
+	private String crowdmapId;
 
 	/**
 	 * The person's username
@@ -93,7 +93,7 @@ public class Person implements Serializable {
 	 * @param crowdmapId
 	 *            The crowdmap ID
 	 */
-	public void setCrowdmapId(int crowdmapId) {
+	public void setCrowdmapId(String crowdmapId) {
 		this.crowdmapId = crowdmapId;
 	}
 
@@ -156,9 +156,9 @@ public class Person implements Serializable {
 	
 	/**
 	 * Get the persons crowdmap id
-	 * @return int The crowdmap ID
+	 * @return String The crowdmap ID
 	 */
-	public int getCrowdmapId() {
+	public String getCrowdmapId() {
 		return this.crowdmapId;
 	}
 

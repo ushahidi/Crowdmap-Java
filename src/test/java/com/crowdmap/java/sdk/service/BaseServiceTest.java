@@ -26,10 +26,8 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 
-import com.ushahidi.java.sdk.api.tasks.UshahidiApiTaskFactory;
-import com.ushahidi.java.sdk.net.Authentication;
-import com.ushahidi.java.sdk.net.PasswordAuthentication;
-import com.ushahidi.java.sdk.net.UshahidiHttpClient;
+import com.crowdmap.java.sdk.net.Authentication;
+import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**
  * The base class for testing all the task supported by the Ushahidi API
@@ -37,37 +35,25 @@ import com.ushahidi.java.sdk.net.UshahidiHttpClient;
  * @author eyedol
  * 
  */
-public class BaseTaskTest extends TestCase {
-
-	/** The factory class */
-	protected UshahidiApiTaskFactory factory;
-
-	/** Use the Ushahidi demo deployment to test */
-	private static final String DEMO_DEPLOYMENT = "http://localhost/develop";
-
-	/** Test username */
-	protected static final String USERNAME = "admin";
-
-	/** Test password */
-	protected static final String PASSWORD = "admin";
+public class BaseServiceTest extends TestCase {
 
 	/** The Authentication class */
 	protected Authentication authentication;
 
+	protected CrowdmapHttpClient client;
+
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		authentication = new PasswordAuthentication(USERNAME, PASSWORD);
-		factory = UshahidiApiTaskFactory.newInstance(DEMO_DEPLOYMENT);
-		factory.client = new UshahidiHttpClient();
-		factory.client.setAuthentication(authentication);
+		client = new CrowdmapHttpClient();
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
 		// null the factory object
-		factory = null;
+		client = null;
 	}
 
 	/**
@@ -99,6 +85,6 @@ public class BaseTaskTest extends TestCase {
 
 	protected static void assetNotNullOrZero(String message, int value) {
 		assertNotNull(message, value);
-		assertEquals(message, 0, value );
+		assertEquals(message, 0, value);
 	}
 }

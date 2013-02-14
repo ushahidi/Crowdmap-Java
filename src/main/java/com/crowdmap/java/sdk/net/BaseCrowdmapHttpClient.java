@@ -22,6 +22,7 @@ package com.crowdmap.java.sdk.net;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CHARSET_UTF8;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.REFERRER;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CONTENT_TYPE_JSON;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -34,6 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -294,6 +296,7 @@ public abstract class BaseCrowdmapHttpClient {
 	 */
 	protected InputStream getRequest(String url, int expected) {
 		try {
+			//System.out.println("okau"+url+"yes");
 			URL apiUrl = new URL(url);
 			if (!requestParameters.isEmpty()) {
 				if (apiUrl.getQuery() == null) {
@@ -304,8 +307,10 @@ public abstract class BaseCrowdmapHttpClient {
 							+ getParametersString(requestParameters));
 				}
 			}
-
+			
 			HttpURLConnection request = openConnection(apiUrl, "GET");
+			request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+					+ "; charset=" + CHARSET_UTF8);
 			request.connect();
 
 			if (request.getResponseCode() != expected) {
@@ -319,9 +324,11 @@ public abstract class BaseCrowdmapHttpClient {
 						GZIP_DEFLATE.equalsIgnoreCase(request
 								.getContentEncoding()));
 			}
+		
 		} catch (IOException e) {
 			throw new CrowdmapException(e);
 		}
+		
 	}
 
 	/**
@@ -340,6 +347,8 @@ public abstract class BaseCrowdmapHttpClient {
 		try {
 			URL url = new URL(apiUrl);
 			HttpURLConnection request = openConnection(url, "POST");
+			request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+					+ "; charset=" + CHARSET_UTF8);
 			StringBuilder builder = new StringBuilder();
 			// for request header passed earlier on
 			final String strParams = getParametersString(requestParameters);
@@ -392,7 +401,8 @@ public abstract class BaseCrowdmapHttpClient {
 		try {
 			URL url = new URL(apiUrl);
 			HttpURLConnection request = openConnection(url, "POST");
-
+			request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+					+ "; charset=" + CHARSET_UTF8);
 			PrintStream out = new PrintStream(new BufferedOutputStream(
 					request.getOutputStream()));
 
