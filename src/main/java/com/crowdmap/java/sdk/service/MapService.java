@@ -19,9 +19,12 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
+
 import java.util.List;
 
-import com.crowdmap.java.sdk.model.Map;
+import com.crowdmap.java.sdk.json.Maps;
+import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**
@@ -30,7 +33,7 @@ import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 public class MapService extends BaseService {
 
 	/**
-	 * Create map service
+	 * Create map service with default configured client
 	 */
 	public MapService() {
 		super();
@@ -50,8 +53,12 @@ public class MapService extends BaseService {
 	 * 
 	 * @return A list containing all the maps
 	 */
-	public List<Map> getMaps() {
-		return getMaps(0, 20);
+	public List<Maps> getMaps() {
+		StringBuilder url = new StringBuilder(apiUrl);
+		url.append('/').append(SEGMENT_MAPS);
+		MapsJson mapsJson = fromString(client.sendGetRequest(url.toString()),
+				MapsJson.class);
+		return mapsJson.maps;
 	}
 
 	/**
@@ -63,7 +70,7 @@ public class MapService extends BaseService {
 	 *            The limit number
 	 * @return A list containing all the maps
 	 */
-	public List<Map> getMaps(int offset, int limit) {
+	public List<Maps> getMaps(int offset, int limit) {
 		return null;
 	}
 
@@ -72,10 +79,8 @@ public class MapService extends BaseService {
 	 * 
 	 * @return A specific map
 	 */
-	public Map getMap() {
+	public Maps getMap() {
 		return null;
 	}
-	
-	
 
 }

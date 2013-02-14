@@ -19,17 +19,31 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_URL;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_VERSION;
+
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.crowdmap.java.sdk.json.Date;
+import com.crowdmap.java.sdk.json.DateDeserializer;
 
 /**
  * Base crowdmap service class
  */
 public class BaseService {
 
-	private static Gson gson;
+	public static Gson gson;
+
+	static {
+		GsonBuilder builder = new GsonBuilder();
+		builder.registerTypeAdapter(Date.class, new DateDeserializer());
+		gson = builder.create();
+	}
 
 	protected CrowdmapHttpClient client;
+
+	protected String apiUrl;
 
 	/**
 	 * Create a the task using the default {@link CrowdmapHttpClient}
@@ -42,6 +56,8 @@ public class BaseService {
 		if (client == null) {
 			throw new IllegalArgumentException("Client cannot be null");
 		}
+
+		apiUrl = API_URL + "/" + API_VERSION + "/";
 	}
 
 	/**

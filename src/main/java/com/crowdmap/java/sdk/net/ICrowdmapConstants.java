@@ -38,7 +38,7 @@ public interface ICrowdmapConstants {
 
 	public String PROTOCOL_HTTP = "http";
 
-	public String URL_API = PROTOCOL_HTTP + "://" + HOST_API;
+	public String API_URL = PROTOCOL_HTTP + "://" + HOST_API;
 	
 	public String USER_AGENT = "Crowdmap-Java/1.0.0";
 	
