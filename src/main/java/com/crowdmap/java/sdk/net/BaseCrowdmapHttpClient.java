@@ -19,6 +19,10 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.net;
 
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CHARSET_UTF8;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.REFERRER;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -59,20 +63,12 @@ import com.crowdmap.java.sdk.net.content.FileBody;
 public abstract class BaseCrowdmapHttpClient {
 	protected final Logger logger = Logger.getLogger(getClass()
 			.getCanonicalName());
-	/** The Constant GZIP_ENCODING. */
-	private static final String GZIP_ENCODING = "gzip";
-
-	/** The Constant REFERRER. */
-	private static final String REFERRER = "Referer";
 
 	/** The request headers. */
 	protected Map<String, String> requestHeaders = new HashMap<String, String>();
 
 	/** The request parameters. */
 	protected Map<String, String> requestParameters = new HashMap<String, String>();
-
-	/** The charset encoding type */
-	private static final String CHARSET_UTF8 = "UTF-8";
 
 	/** The default time to timeout both connection and socket reads */
 	private static final int TIMEOUT = 3000;
@@ -308,7 +304,7 @@ public abstract class BaseCrowdmapHttpClient {
 							+ getParametersString(requestParameters));
 				}
 			}
-			
+
 			HttpURLConnection request = openConnection(apiUrl, "GET");
 			request.connect();
 
@@ -316,11 +312,11 @@ public abstract class BaseCrowdmapHttpClient {
 				throw new CrowdmapException(
 						streamToString(getWrappedInputStream(
 								request.getErrorStream(),
-								GZIP_ENCODING.equalsIgnoreCase(request
+								GZIP_DEFLATE.equalsIgnoreCase(request
 										.getContentEncoding()))));
 			} else {
 				return getWrappedInputStream(request.getInputStream(),
-						GZIP_ENCODING.equalsIgnoreCase(request
+						GZIP_DEFLATE.equalsIgnoreCase(request
 								.getContentEncoding()));
 			}
 		} catch (IOException e) {
@@ -368,11 +364,11 @@ public abstract class BaseCrowdmapHttpClient {
 				throw new CrowdmapException(
 						streamToString(getWrappedInputStream(
 								request.getErrorStream(),
-								GZIP_ENCODING.equalsIgnoreCase(request
+								GZIP_DEFLATE.equalsIgnoreCase(request
 										.getContentEncoding()))));
 			} else {
 				return getWrappedInputStream(request.getInputStream(),
-						GZIP_ENCODING.equalsIgnoreCase(request
+						GZIP_DEFLATE.equalsIgnoreCase(request
 								.getContentEncoding()));
 			}
 		} catch (IOException e) {
@@ -410,11 +406,11 @@ public abstract class BaseCrowdmapHttpClient {
 				throw new CrowdmapException(
 						streamToString(getWrappedInputStream(
 								request.getErrorStream(),
-								GZIP_ENCODING.equalsIgnoreCase(request
+								GZIP_DEFLATE.equalsIgnoreCase(request
 										.getContentEncoding()))));
 			} else {
 				return getWrappedInputStream(request.getInputStream(),
-						GZIP_ENCODING.equalsIgnoreCase(request
+						GZIP_DEFLATE.equalsIgnoreCase(request
 								.getContentEncoding()));
 			}
 		} catch (IOException e) {
@@ -572,11 +568,11 @@ public abstract class BaseCrowdmapHttpClient {
 				throw new CrowdmapException(
 						streamToString(getWrappedInputStream(
 								request.getErrorStream(),
-								GZIP_ENCODING.equalsIgnoreCase(request
+								GZIP_DEFLATE.equalsIgnoreCase(request
 										.getContentEncoding()))));
 			} else {
 				return getWrappedInputStream(request.getInputStream(),
-						GZIP_ENCODING.equalsIgnoreCase(request
+						GZIP_DEFLATE.equalsIgnoreCase(request
 								.getContentEncoding()));
 			}
 		} catch (IOException e) {
@@ -616,11 +612,11 @@ public abstract class BaseCrowdmapHttpClient {
 				throw new CrowdmapException(
 						streamToString(getWrappedInputStream(
 								request.getErrorStream(),
-								GZIP_ENCODING.equalsIgnoreCase(request
+								GZIP_DEFLATE.equalsIgnoreCase(request
 										.getContentEncoding()))));
 			} else {
 				return getWrappedInputStream(request.getInputStream(),
-						GZIP_ENCODING.equalsIgnoreCase(request
+						GZIP_DEFLATE.equalsIgnoreCase(request
 								.getContentEncoding()));
 
 			}

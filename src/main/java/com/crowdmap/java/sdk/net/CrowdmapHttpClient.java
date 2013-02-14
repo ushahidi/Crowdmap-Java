@@ -19,6 +19,9 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.net;
 
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -33,14 +36,33 @@ import com.crowdmap.java.sdk.net.content.Body;
  */
 public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 
-	/** Default user agent request header value */
-	private static final String USER_AGENT = "Crowdmap-Java/1.0.0";
-
 	/** The user agent to use */
 	private String userAgent = null;
 
+	private static final String METHOD_GET = "GET";
+
+	/**
+	 * METHOD_PUT
+	 */
+	private static final String METHOD_PUT = "PUT";
+
+	/**
+	 * METHOD_POST
+	 */
+	private static final String METHOD_POST = "POST";
+
+	/**
+	 * METHOD_DELETE
+	 */
+	private static final String METHOD_DELETE = "DELETE";
+
+	/**
+	 * METHOD_MULTIPART. Not really a method. Calling it so maintain consistency
+	 */
+	private static final String METHOD_MULTIPART = "MULTIPART";
+
 	public CrowdmapHttpClient() {
-		requestHeaders.put("Accept-Encoding", "gzip, deflate");
+		requestHeaders.put("Accept-Encoding", GZIP_DEFLATE);
 	}
 
 	/**
@@ -70,21 +92,34 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 		return USER_AGENT;
 	}
 
-	/**
-	 * Sends a GET request to the supplied URL. Converts the input stream as
-	 * received from the server to string.
-	 * 
-	 * @param url
-	 *            The URL to send the GET request to.
-	 * 
-	 * @return The HTTP response string as returned from the server
-	 * @throws IOException
-	 */
-	public String sendGetRequest(String url) {
+	private String request(String url, String method, Body body) {
+		if (url == null || method.equals("")) {
+			throw new IllegalArgumentException("URL cannot be null or empty");
+		}
+
+		if (method == null || method.equals("")) {
+			throw new IllegalArgumentException("Method cannot be null or empty");
+		}
+
 		InputStream inputStream = null;
 		try {
 			addRequestHeader("User-Agent", getUserAgent());
-			inputStream = getRequest(url);
+
+			// Which HTTP request method is being executed
+			if (method.equals(METHOD_POST)) {
+				if (body != null) {
+					inputStream = postRequest(url, body);
+				} else {
+					inputStream = postRequest(url);
+				}
+
+			} else if (method.equals(METHOD_GET)) {
+				inputStream = getRequest(url);
+			} else if (method.equals(METHOD_MULTIPART)) {
+				if (body != null) {
+					inputStream = postMultipartRequest(url, body);
+				}
+			}
 
 			if (inputStream != null) {
 				return streamToString(inputStream);
@@ -97,6 +132,20 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 		} finally {
 			closeStream(inputStream);
 		}
+	}
+
+	/**
+	 * Sends a GET request to the supplied URL. Converts the input stream as
+	 * received from the server to string.
+	 * 
+	 * @param url
+	 *            The URL to send the GET request to.
+	 * 
+	 * @return The HTTP response string as returned from the server
+	 * @throws IOException
+	 */
+	public String sendGetRequest(String url) {
+		return request(url, METHOD_GET, null);
 
 	}
 
@@ -113,22 +162,7 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 	 * @throws IOException
 	 */
 	public String sendPostRequest(String url, Body body) {
-		InputStream inputStream = null;
-		try {
-			addRequestHeader("User-Agent", getUserAgent());
-			inputStream = postRequest(url, body);
-
-			if (inputStream != null) {
-				return streamToString(inputStream);
-			} else {
-				throw new CrowdmapException(
-						"Unknown content found in response.");
-			}
-		} catch (Exception e) {
-			throw new CrowdmapException(e);
-		} finally {
-			closeStream(inputStream);
-		}
+		return request(url, METHOD_POST, body);
 
 	}
 
@@ -143,23 +177,7 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 	 * @throws IOException
 	 */
 	public String sendPostRequest(String url) {
-		InputStream inputStream = null;
-		try {
-			addRequestHeader("User-Agent", getUserAgent());
-			inputStream = postRequest(url);
-
-			if (inputStream != null) {
-				return streamToString(inputStream);
-			} else {
-				throw new CrowdmapException(
-						"Unknown content found in response.");
-			}
-		} catch (Exception e) {
-			throw new CrowdmapException(e);
-		} finally {
-			closeStream(inputStream);
-		}
-
+		return request(url, METHOD_POST, null);
 	}
 
 	/**
@@ -175,23 +193,7 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 	 * @throws IOException
 	 */
 	public String sendMultipartPostRequest(String url, Body body) {
-		InputStream inputStream = null;
-		try {
-			addRequestHeader("User-Agent", getUserAgent());
-			addRequestHeader("Connection", "Keep-Alive");
-			inputStream = postMultipartRequest(url, body);
-
-			if (inputStream != null) {
-				return streamToString(inputStream);
-			} else {
-				throw new CrowdmapException(
-						"Unknown content found in response.");
-			}
-		} catch (Exception e) {
-			throw new CrowdmapException(e);
-		} finally {
-			closeStream(inputStream);
-		}
+		return request(url, METHOD_MULTIPART, body);
 
 	}
 
@@ -207,4 +209,3 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 		requestParameters.put(key, value);
 	}
 }
-
