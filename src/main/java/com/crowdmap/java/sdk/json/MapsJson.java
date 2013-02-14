@@ -22,15 +22,16 @@ package com.crowdmap.java.sdk.json;
 import java.io.Serializable;
 import java.util.List;
 
-import com.crowdmap.java.sdk.model.Media;
-import com.crowdmap.java.sdk.model.Person;
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Maps response model class
  */
 public class MapsJson implements Serializable {
 
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = 6835878593630432210L;
+	
 	public List<Maps> maps;
 
 	public String next;
@@ -42,10 +43,5 @@ public class MapsJson implements Serializable {
 	public boolean success;
 
 	public int status;
-
-	/**
-	 * Serial version UID
-	 */
-	private static final long serialVersionUID = 6835878593630432210L;
 
 }
