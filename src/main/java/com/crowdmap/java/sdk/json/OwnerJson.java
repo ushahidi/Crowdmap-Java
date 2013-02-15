@@ -19,22 +19,21 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.Map;
-import com.crowdmap.java.sdk.model.Media;
-import com.crowdmap.java.sdk.model.Person;
+import java.io.Serializable;
+
+import com.crowdmap.java.sdk.model.Owner;
+
 
 /**
  * 
  */
-public class Maps extends Map {
+public class OwnerJson extends ResponseJson implements Serializable {
 
 	/**
-	 * Serial version UID
+	 * Seria version UID
 	 */
-	private static final long serialVersionUID = -6780832084142641005L;
-
-	public Person users;
+	private static final long serialVersionUID = 9167104692680294175L;
 	
-	public Media media;
+	public Owner owner;
 
 }

@@ -24,6 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.crowdmap.java.sdk.json.MapsJson;
+import com.crowdmap.java.sdk.json.OwnerJson;
+import com.crowdmap.java.sdk.model.Owner;
 
 /**
  * 
@@ -55,6 +57,17 @@ public class MapServiceTest extends BaseServiceTest {
 	public void testGetMaps() {
 		MapsJson maps = mapService.getMaps();
 		assertNotNull("Maps cannot be null ", maps);
+	}
+	
+	@Test
+	public void testGetMap() {
+		MapsJson maps = mapService.getMap(String.valueOf(1));
+		assertNotNull("Maps cannot be null ", maps);
+	}
+	
+	public void testgetMapOwner() {
+		OwnerJson ownerJson = mapService.getMapOwner(String.valueOf(1));
+		assertNotNull("Maps cannot be null ", ownerJson);
 	}
 
 }

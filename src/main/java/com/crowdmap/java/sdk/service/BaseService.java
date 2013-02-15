@@ -38,6 +38,7 @@ public class BaseService {
 	static {
 		GsonBuilder builder = new GsonBuilder();
 		builder.registerTypeAdapter(Date.class, new DateDeserializer());
+		builder.serializeNulls();
 		gson = builder.create();
 	}
 
@@ -75,6 +76,20 @@ public class BaseService {
 	 */
 	public CrowdmapHttpClient getClient() {
 		return client;
+	}
+
+	/**
+	 * Check that id is not null and not empty
+	 * 
+	 * @param gistId
+	 * @return gist id
+	 */
+	protected String checkId(String id) {
+		if (id == null)
+			throw new IllegalArgumentException("Id cannot be null");
+		if (id.length() == 0)
+			throw new IllegalArgumentException("Id cannot be empty");
+		return id;
 	}
 
 	/**

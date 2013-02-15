@@ -20,11 +20,14 @@
 package com.crowdmap.java.sdk.service;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
 
 import java.util.List;
 
 import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.Maps;
+import com.crowdmap.java.sdk.json.OwnerJson;
+import com.crowdmap.java.sdk.model.Owner;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**
@@ -49,7 +52,7 @@ public class MapService extends BaseService {
 	}
 
 	/**
-	 * Get list of maps.
+	 * Get list of maps. GET /maps
 	 * 
 	 * @return A list containing all the maps
 	 */
@@ -57,13 +60,12 @@ public class MapService extends BaseService {
 		StringBuilder url = new StringBuilder(apiUrl);
 		url.append(SEGMENT_MAPS);
 		String response = client.sendGetRequest(url.toString());
-		MapsJson mapsJson = fromString(response,
-				MapsJson.class);
+		MapsJson mapsJson = fromString(response, MapsJson.class);
 		return mapsJson;
 	}
 
 	/**
-	 * Get Maps based on restricted set
+	 * Get Maps based on a restricted set
 	 * 
 	 * @param offset
 	 *            The offset number
@@ -76,12 +78,36 @@ public class MapService extends BaseService {
 	}
 
 	/**
-	 * Returns a specific map
+	 * Returns a specific map. GET /maps/:map_id
 	 * 
+	 * @param String
+	 *            id The ID of the map
 	 * @return A specific map
 	 */
-	public Maps getMap() {
-		return null;
+	public MapsJson getMap(String id) {
+
+		checkId(id);
+
+		StringBuilder url = new StringBuilder(apiUrl);
+		url.append(SEGMENT_MAPS);
+		url.append("/");
+		url.append(id);
+		System.out.println(url.toString());
+		return fromString(client.sendGetRequest(url.toString()), MapsJson.class);
+	}
+
+	/**
+	 * 
+	 */
+	public OwnerJson getMapOwner(String id) {
+		checkId(id);
+		StringBuilder url = new StringBuilder(apiUrl);
+		url.append(SEGMENT_MAPS);
+		url.append("/");
+		url.append(id);
+		url.append(SEGMENT_OWNER);
+		
+		return fromString(client.sendGetRequest(url.toString()), OwnerJson.class);
 	}
 
 }

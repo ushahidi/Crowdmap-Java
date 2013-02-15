@@ -49,6 +49,8 @@ public interface ICrowdmapConstants {
 	public String SEGMENT_MEDIA = "/media";
 
 	public String SEGMENT_MAPS = "/maps";
+	
+	public String SEGMENT_OWNER = "/owner";
 
 	public String SEGMENT_LOCATIONS = "/locations";
 
