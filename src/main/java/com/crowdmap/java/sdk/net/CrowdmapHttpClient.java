@@ -113,7 +113,10 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 				} else {
 					inputStream = postRequest(url);
 				}
-
+			} else if (method.equals(METHOD_PUT)) {
+				if (body != null) {
+					inputStream = putRequest(url, body);
+				}
 			} else if (method.equals(METHOD_GET)) {
 
 				inputStream = getRequest(url);
@@ -122,6 +125,8 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 				if (body != null) {
 					inputStream = postMultipartRequest(url, body);
 				}
+			} else if (method.equals(METHOD_DELETE)) {
+				inputStream = deleteRequest(url);
 			}
 
 			if (inputStream != null) {
@@ -153,6 +158,21 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 	}
 
 	/**
+	 * Sends a DELETE request to the supplied URL. Converts the input stream as
+	 * received from the server to string.
+	 * 
+	 * @param url
+	 *            The URL to send the DELETE request to.
+	 * 
+	 * @return The HTTP response string as returned from the server
+	 * @throws IOException
+	 */
+	public String sendDeleteRequest(String url) {
+		return request(url, METHOD_DELETE, null);
+
+	}
+
+	/**
 	 * Sends a POST request to the supplied URL. Converts the input stream as
 	 * received from the server to string.
 	 * 
@@ -166,6 +186,23 @@ public class CrowdmapHttpClient extends BaseCrowdmapHttpClient {
 	 */
 	public String sendPostRequest(String url, Body body) {
 		return request(url, METHOD_POST, body);
+
+	}
+
+	/**
+	 * Sends a PUT request to the supplied URL. Converts the input stream as
+	 * received from the server to string.
+	 * 
+	 * @param url
+	 *            The URL to send the PUT request to.
+	 * @param body
+	 *            The form fields to be sent
+	 * 
+	 * @return The HTTP response string as returned from the server
+	 * @throws IOException
+	 */
+	public String sendPutRequest(String url, Body body) {
+		return request(url, METHOD_PUT, body);
 
 	}
 

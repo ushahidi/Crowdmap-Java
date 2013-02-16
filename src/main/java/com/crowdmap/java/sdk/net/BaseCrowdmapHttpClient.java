@@ -256,6 +256,30 @@ public abstract class BaseCrowdmapHttpClient {
 	protected InputStream postRequest(String url, Body body) {
 		return postRequest(url, body, HttpURLConnection.HTTP_OK);
 	}
+	
+	/**
+	 * Make a PUT request
+	 * 
+	 * @param url
+	 *            The API URL
+	 * @param body
+	 *            The parameters to be passed to the URL
+	 * @return The input stream
+	 */
+	protected InputStream putRequest(String url, Body body) {
+		return putRequest(url, body, HttpURLConnection.HTTP_OK);
+	}
+	
+	/**
+	 * Make a DELETE request
+	 * 
+	 * @param url
+	 *            The API URL
+	 * @return The input stream
+	 */
+	protected InputStream deleteRequest(String url) {
+		return deleteRequest(url, HttpURLConnection.HTTP_OK);
+	}
 
 	/**
 	 * Make a POST request
@@ -295,7 +319,54 @@ public abstract class BaseCrowdmapHttpClient {
 	 */
 	protected InputStream getRequest(String url, int expected) {
 		try {
-			//System.out.println("okau"+url+"yes");
+			
+			URL apiUrl = new URL(url);
+			if (!requestParameters.isEmpty()) {
+				if (apiUrl.getQuery() == null) {
+					apiUrl = new URL(url + "?"
+							+ getParametersString(requestParameters));
+				} else {
+					apiUrl = new URL(url + "&"
+							+ getParametersString(requestParameters));
+				}
+			}
+			
+			HttpURLConnection request = openConnection(apiUrl, "GET");
+			request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+					+ "; charset=" + CHARSET_UTF8);
+			request.connect();
+
+			if (request.getResponseCode() != expected) {
+				throw new CrowdmapException(
+						streamToString(getWrappedInputStream(
+								request.getErrorStream(),
+								GZIP_DEFLATE.equalsIgnoreCase(request
+										.getContentEncoding()))));
+			} else {
+				return getWrappedInputStream(request.getInputStream(),
+						GZIP_DEFLATE.equalsIgnoreCase(request
+								.getContentEncoding()));
+			}
+		
+		} catch (IOException e) {
+			throw new CrowdmapException(e);
+		}
+		
+	}
+	
+	/**
+	 * Make a DELETE request.
+	 * 
+	 * @param url
+	 *            The API URL
+	 * @param expected
+	 *            The expected
+	 * 
+	 * @return The input stream
+	 */
+	protected InputStream deleteRequest(String url, int expected) {
+		try {
+			
 			URL apiUrl = new URL(url);
 			if (!requestParameters.isEmpty()) {
 				if (apiUrl.getQuery() == null) {
@@ -346,6 +417,61 @@ public abstract class BaseCrowdmapHttpClient {
 		try {
 			URL url = new URL(apiUrl);
 			HttpURLConnection request = openConnection(url, "POST");
+			request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+					+ "; charset=" + CHARSET_UTF8);
+			StringBuilder builder = new StringBuilder();
+			// for request header passed earlier on
+			final String strParams = getParametersString(requestParameters);
+			builder.append(strParams);
+			// for request passed via body object
+			// couldn't figure out a better way of doing this
+			if (strParams.length() > 0) {
+				builder.append("&");
+			}
+			builder.append(getBodyString(body));
+
+			PrintStream out = new PrintStream(new BufferedOutputStream(
+					request.getOutputStream()));
+
+			out.print(builder.toString());
+			out.flush();
+			out.close();
+
+			request.connect();
+
+			if (request.getResponseCode() != expected) {
+				throw new CrowdmapException(
+						streamToString(getWrappedInputStream(
+								request.getErrorStream(),
+								GZIP_DEFLATE.equalsIgnoreCase(request
+										.getContentEncoding()))));
+			} else {
+				return getWrappedInputStream(request.getInputStream(),
+						GZIP_DEFLATE.equalsIgnoreCase(request
+								.getContentEncoding()));
+			}
+		} catch (IOException e) {
+			throw new CrowdmapException(e);
+		} finally {
+		}
+	}
+	
+	/**
+	 * Make a PUT request.
+	 * 
+	 * @param apiUrl
+	 *            The API URL
+	 * @param body
+	 *            The parameters
+	 * @param expected
+	 *            The expected
+	 * 
+	 * @return The input stream
+	 */
+	protected InputStream putRequest(String apiUrl, Body body, int expected) {
+		try {
+			URL url = new URL(apiUrl);
+			HttpURLConnection request = openConnection(url, "PUT");
 			request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
 					+ "; charset=" + CHARSET_UTF8);
 			StringBuilder builder = new StringBuilder();
@@ -566,7 +692,7 @@ public abstract class BaseCrowdmapHttpClient {
 					}
 					output.write(newline);
 				}
-				output.write(("--" + boundary + "--\r\n").getBytes(CHARSET_UTF8)); //$NON-NLS-1$ //$NON-NLS-2$
+				output.write(("--" + boundary + "--\r\n").getBytes(CHARSET_UTF8)); 
 			} finally {
 				output.close();
 			}
