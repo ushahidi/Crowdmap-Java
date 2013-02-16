@@ -19,6 +19,7 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_URL;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_VERSION;
 
@@ -39,6 +40,7 @@ public class BaseService {
 		GsonBuilder builder = new GsonBuilder();
 		builder.registerTypeAdapter(Date.class, new DateDeserializer());
 		builder.serializeNulls();
+		builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
 		gson = builder.create();
 	}
 

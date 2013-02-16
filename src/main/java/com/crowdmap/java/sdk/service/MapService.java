@@ -22,9 +22,11 @@ package com.crowdmap.java.sdk.service;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COLLABORATORS;
 
 import java.util.List;
 
+import com.crowdmap.java.sdk.json.CollaboratorsJson;
 import com.crowdmap.java.sdk.json.FollowersJson;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.MapsJson;
@@ -135,6 +137,26 @@ public class MapService extends BaseService {
 
 		return fromString(client.sendGetRequest(url.toString()),
 				FollowersJson.class);
+	}
+	
+	/**
+	 * Get the collaborators on a map. GET /maps/:map_id/collaborators
+	 * 
+	 * @param String
+	 *            id The ID of the map
+	 * 
+	 * @return The followers of a map
+	 */
+	public CollaboratorsJson getCollaborators(String id) {
+		checkId(id);
+		StringBuilder url = new StringBuilder(apiUrl);
+		url.append(SEGMENT_MAPS);
+		url.append("/");
+		url.append(id);
+		url.append(SEGMENT_COLLABORATORS);
+
+		return fromString(client.sendGetRequest(url.toString()),
+				CollaboratorsJson.class);
 	}
 
 }

@@ -53,6 +53,8 @@ public interface ICrowdmapConstants {
 	public String SEGMENT_OWNER = "/owner";
 	
 	public String SEGMENT_FOLLOWERS = "/followers";
+	
+	public String SEGMENT_COLLABORATORS = "/collaborators";
 
 	public String SEGMENT_LOCATIONS = "/locations";
 

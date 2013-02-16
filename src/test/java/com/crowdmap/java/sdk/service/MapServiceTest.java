@@ -23,10 +23,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.crowdmap.java.sdk.json.CollaboratorsJson;
 import com.crowdmap.java.sdk.json.FollowersJson;
 import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.OwnerJson;
-import com.crowdmap.java.sdk.model.Owner;
 
 /**
  * 
@@ -59,24 +59,31 @@ public class MapServiceTest extends BaseServiceTest {
 		MapsJson maps = mapService.getMaps();
 		assertNotNull("Maps cannot be null ", maps);
 	}
-	
+
 	@Test
 	public void testGetMap() {
 		MapsJson maps = mapService.getMap(String.valueOf(1));
 		assertNotNull("Maps cannot be null ", maps);
 	}
-	
+
 	@Test
 	public void testgetMapOwner() {
 		OwnerJson ownerJson = mapService.getMapOwner(String.valueOf(1));
 		assertNotNull("Maps cannot be null ", ownerJson);
 	}
-	
+
 	@Test
 	public void testgetFollowers() {
-		FollowersJson followersJson = mapService.getFollowers(String.valueOf(1));
-		System.out.println(followersJson.status);
+		FollowersJson followersJson = mapService
+				.getFollowers(String.valueOf(1));
 		assertNotNull("Maps cannot be null ", followersJson);
+	}
+
+	@Test
+	public void testgetCollaborators() {
+		CollaboratorsJson collaboratorsJson = mapService
+				.getCollaborators(String.valueOf(1));
+		assertNotNull("Maps cannot be null ", collaboratorsJson);
 	}
 
 }
