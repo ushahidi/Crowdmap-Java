@@ -23,48 +23,46 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.crowdmap.java.sdk.json.MediaJson;
+import com.crowdmap.java.sdk.json.ExternalsJson;
 
 /**
  * 
  */
-public class MediaServiceTest extends BaseServiceTest {
+public class ExternalsServiceTest extends BaseServiceTest {
 
-	private MediaService mediaService;
+	private ExternalsService externalsService;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		mediaService = new MediaService(client);
+		externalsService = new ExternalsService(client);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		super.tearDown();
-		mediaService = null;
+		externalsService = null;
 	}
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.MediaService#getMedia()}.
+	 * {@link com.crowdmap.java.sdk.service.ExternalsService#getExternals()}.
 	 */
 	@Test
-	public void testGetMedia() {
-		MediaJson mediaJson = mediaService.getMedia();
-
-		assertNotNull("Media cannot be null ", mediaJson);
-
+	public void testGetExternals() {
+		ExternalsJson externalsJson = externalsService.getExternals();
+		assertNotNull("Media cannot be null ", externalsJson);
 	}
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.MediaService#getMedia(java.lang.String)}
+	 * {@link com.crowdmap.java.sdk.service.ExternalsService#getExternal(java.lang.String)}
 	 * .
 	 */
 	@Test
-	public void testGetMediaString() {
-		MediaJson mediaJson = mediaService.getMedia(String.valueOf(43));
-		assertNotNull("Media cannot be null ", mediaJson);
+	public void testGetExternal() {
+		ExternalsJson externalsJson = externalsService.getExternal(String.valueOf(1));
+		assertNotNull("Media cannot be null ", externalsJson);
 	}
 
 }

@@ -39,7 +39,7 @@ public class BaseService {
 	static {
 		GsonBuilder builder = new GsonBuilder();
 		builder.registerTypeAdapter(Date.class, new DateDeserializer());
-		builder.serializeNulls();
+		
 		builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
 		gson = builder.create();
 	}

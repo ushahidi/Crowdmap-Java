@@ -34,6 +34,6 @@ public class ExternalsJson extends ResponseJson implements Serializable {
 	 */
 	private static final long serialVersionUID = 3719058958496371506L;
 	
-	List<Externals> externals;
+	public List<Externals> externals;
 	
 }
