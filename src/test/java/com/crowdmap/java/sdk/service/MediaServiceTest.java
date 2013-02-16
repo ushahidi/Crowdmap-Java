@@ -17,25 +17,30 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.json;
+package com.crowdmap.java.sdk.service;
 
-import java.io.Serializable;
-import java.util.List;
 
-import com.crowdmap.java.sdk.model.Collaborators;
-import com.google.gson.annotations.SerializedName;
+import org.junit.Test;
 
 /**
  * 
  */
-public class CollaboratorsJson extends ResponseJson implements Serializable {
+public class MediaServiceTest extends BaseServiceTest {
 
 	/**
-	 * Serial version UID
+	 * Test method for {@link com.crowdmap.java.sdk.service.MediaService#getMedia()}.
 	 */
-	private static final long serialVersionUID = -663819341932877092L;
-	
-	@SerializedName("maps_collaborators")	
-	public List<Collaborators> mapsCollaborators;
+	@Test
+	public void testGetMedia() {
+		fail("Not yet implemented");
+	}
+
+	/**
+	 * Test method for {@link com.crowdmap.java.sdk.service.MediaService#getMedia(java.lang.String)}.
+	 */
+	@Test
+	public void testGetMediaString() {
+		fail("Not yet implemented");
+	}
 
 }
