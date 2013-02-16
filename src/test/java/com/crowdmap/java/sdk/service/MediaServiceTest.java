@@ -20,19 +20,39 @@
 package com.crowdmap.java.sdk.service;
 
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import com.crowdmap.java.sdk.json.MediaJson;
 
 /**
  * 
  */
 public class MediaServiceTest extends BaseServiceTest {
 
+	private MediaService mediaService;
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		mediaService = new MediaService(client);
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
+		mediaService = null;
+	}
+	
 	/**
 	 * Test method for {@link com.crowdmap.java.sdk.service.MediaService#getMedia()}.
 	 */
 	@Test
 	public void testGetMedia() {
-		fail("Not yet implemented");
+		MediaJson mediaJson = mediaService.getMedia();
+		System.out.println(mediaJson.status);
+		assertNotNull("Media cannot be null ", mediaJson);
+		
 	}
 
 	/**
@@ -40,7 +60,9 @@ public class MediaServiceTest extends BaseServiceTest {
 	 */
 	@Test
 	public void testGetMediaString() {
-		fail("Not yet implemented");
+		MediaJson mediaJson = mediaService.getMedia(String.valueOf(1));
+		System.out.println(mediaJson.status);
+		assertNotNull("Media cannot be null ", mediaJson);
 	}
 
 }
