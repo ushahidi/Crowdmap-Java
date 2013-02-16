@@ -29,7 +29,14 @@ package com.crowdmap.java.sdk.json;
  */
 public class ResponseJson {
 
-	protected boolean success;
-	protected int status;
+	public String next;
+
+	public String curr;
+
+	public String prev;
+
+	public boolean success;
+
+	public int status;
 
 }

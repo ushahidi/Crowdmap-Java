@@ -20,9 +20,9 @@
 package com.crowdmap.java.sdk.net;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CHARSET_UTF8;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.REFERRER;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CONTENT_TYPE_JSON;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.REFERRER;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -35,7 +35,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -73,7 +72,7 @@ public abstract class BaseCrowdmapHttpClient {
 	protected Map<String, String> requestParameters = new HashMap<String, String>();
 
 	/** The default time to timeout both connection and socket reads */
-	private static final int TIMEOUT = 3000;
+	private static final int TIMEOUT = 60000;
 
 	/**
 	 * The default connection timeout is 3 secs. You can override this value by

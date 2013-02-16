@@ -22,17 +22,20 @@ package com.crowdmap.java.sdk.json;
 import java.io.Serializable;
 import java.util.List;
 
+import com.crowdmap.java.sdk.model.Followers;
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Maps response model class
+ * 
  */
-public class MapsJson extends ResponseJson implements Serializable {
+public class FollowersJson extends ResponseJson implements Serializable {
 
 	/**
 	 * Serial version UID
 	 */
-	private static final long serialVersionUID = 6835878593630432210L;
+	private static final long serialVersionUID = -663819341932877092L;
 	
-	public List<Maps> maps;
-
+	@SerializedName("following_maps")	
+	public List<Followers> followingMaps;
 
 }

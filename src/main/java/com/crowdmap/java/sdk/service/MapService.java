@@ -21,13 +21,14 @@ package com.crowdmap.java.sdk.service;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 
 import java.util.List;
 
-import com.crowdmap.java.sdk.json.MapsJson;
+import com.crowdmap.java.sdk.json.FollowersJson;
 import com.crowdmap.java.sdk.json.Maps;
+import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.OwnerJson;
-import com.crowdmap.java.sdk.model.Owner;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**
@@ -92,12 +93,17 @@ public class MapService extends BaseService {
 		url.append(SEGMENT_MAPS);
 		url.append("/");
 		url.append(id);
-		System.out.println(url.toString());
 		return fromString(client.sendGetRequest(url.toString()), MapsJson.class);
 	}
 
 	/**
+	 * Get information about the owner of a particular map. GET
+	 * /maps/:map_id/owner
 	 * 
+	 * @param String
+	 *            id The ID of the map
+	 * 
+	 * @return The information about the owner of the map
 	 */
 	public OwnerJson getMapOwner(String id) {
 		checkId(id);
@@ -106,8 +112,29 @@ public class MapService extends BaseService {
 		url.append("/");
 		url.append(id);
 		url.append(SEGMENT_OWNER);
-		
-		return fromString(client.sendGetRequest(url.toString()), OwnerJson.class);
+
+		return fromString(client.sendGetRequest(url.toString()),
+				OwnerJson.class);
+	}
+
+	/**
+	 * Get the followers of a map. GET /maps/:map_id/followers
+	 * 
+	 * @param String
+	 *            id The ID of the map
+	 * 
+	 * @return The followers of a map
+	 */
+	public FollowersJson getFollowers(String id) {
+		checkId(id);
+		StringBuilder url = new StringBuilder(apiUrl);
+		url.append(SEGMENT_MAPS);
+		url.append("/");
+		url.append(id);
+		url.append(SEGMENT_FOLLOWERS);
+
+		return fromString(client.sendGetRequest(url.toString()),
+				FollowersJson.class);
 	}
 
 }
