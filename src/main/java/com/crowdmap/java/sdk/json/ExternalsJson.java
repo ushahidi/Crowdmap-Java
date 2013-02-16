@@ -22,16 +22,18 @@ package com.crowdmap.java.sdk.json;
 import java.io.Serializable;
 import java.util.List;
 
+import com.crowdmap.java.sdk.model.Externals;
+
 /**
- * Media Json response
+ * 
  */
-public class MediaJson extends ResponseJson implements Serializable {
+public class ExternalsJson extends ResponseJson implements Serializable {
 
 	/**
 	 * Serial version UID
 	 */
-	private static final long serialVersionUID = -1873524003111463167L;
+	private static final long serialVersionUID = 3719058958496371506L;
 	
-	public List<Media> media;
-
+	List<Externals> externals;
+	
 }

@@ -50,7 +50,7 @@ public class MediaServiceTest extends BaseServiceTest {
 	@Test
 	public void testGetMedia() {
 		MediaJson mediaJson = mediaService.getMedia();
-		System.out.println(mediaJson.status);
+		
 		assertNotNull("Media cannot be null ", mediaJson);
 		
 	}
@@ -60,8 +60,8 @@ public class MediaServiceTest extends BaseServiceTest {
 	 */
 	@Test
 	public void testGetMediaString() {
-		MediaJson mediaJson = mediaService.getMedia(String.valueOf(1));
-		System.out.println(mediaJson.status);
+		MediaJson mediaJson = mediaService.getMedia(String.valueOf(43));
+		System.out.println(mediaJson.media.get(0).getFilename());
 		assertNotNull("Media cannot be null ", mediaJson);
 	}
 

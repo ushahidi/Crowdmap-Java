@@ -27,7 +27,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * External model class
  */
-public class External implements Serializable {
+public class Externals implements Serializable {
 
 	/**
 	 * Serial version UID
