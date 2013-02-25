@@ -23,6 +23,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.crowdmap.java.sdk.json.CommentsJson;
+import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.PostsJson;
 
 /**
@@ -53,8 +55,28 @@ public class PostsServiceTest extends BaseServiceTest {
 
 		PostsJson postsJson = postsService.getPosts();
 
-		assertNotNull("Media cannot be null ", postsJson.posts);
+		assertNotNull("Post cannot be null ", postsJson.posts);
 
+	}
+
+	@Test
+	public void testGetPostMaps() {
+		MapsJson mapsJson = postsService.getPostMaps(String.valueOf(1));
+		assertNotNull("Maps cannot be null", mapsJson);
+	}
+
+	@Test
+	public void testGetPostComments() {
+		// TODO check for nulls
+		CommentsJson commentsJson = postsService.getPostComments(String
+				.valueOf(1));
+	}
+
+	@Test
+	public void getPostComments() {
+		// TODO check for nulls
+		CommentsJson commentsJson = postsService.getPostComments(
+				String.valueOf(1), String.valueOf(1));
 	}
 
 }

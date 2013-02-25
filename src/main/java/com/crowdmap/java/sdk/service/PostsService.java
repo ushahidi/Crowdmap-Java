@@ -132,11 +132,17 @@ public class PostsService extends BaseService {
 	}
 
 	/**
+	 * Get the comments on a post from the context of a map the post is featured
+	 * on. GET /posts/:post_id/comments/:map_id
 	 * 
 	 * @param id
-	 * @param mapId
+	 *            The Post ID
 	 * 
-	 * @return
+	 * @param mapId
+	 *            The map ID
+	 * 
+	 * @return The {@link com.crowdmap.java.sdk.json.CommentsJson} response of
+	 *         the specific post
 	 */
 	public CommentsJson getPostComments(String id, String mapId) {
 		checkId(id);
