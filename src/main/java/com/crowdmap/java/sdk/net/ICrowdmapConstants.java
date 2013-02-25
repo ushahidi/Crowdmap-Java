@@ -39,21 +39,23 @@ public interface ICrowdmapConstants {
 	public String PROTOCOL_HTTP = "http";
 
 	public String API_URL = PROTOCOL_HTTP + "://" + HOST_API;
-	
+
 	public String USER_AGENT = "Crowdmap-Java/1.0.0";
-	
+
 	public String GZIP_DEFLATE = "gzip";
-	
+
 	public String REFERRER = "Referer";
 
 	public String SEGMENT_MEDIA = "/media";
 
 	public String SEGMENT_MAPS = "/maps";
-	
+
+	public String SEGMENT_COMMENTS = "/comments";
+
 	public String SEGMENT_OWNER = "/owner";
-	
+
 	public String SEGMENT_FOLLOWERS = "/followers";
-	
+
 	public String SEGMENT_COLLABORATORS = "/collaborators";
 
 	public String SEGMENT_LOCATIONS = "/locations";
@@ -69,5 +71,7 @@ public interface ICrowdmapConstants {
 	public String SEGMENT_HEARTBEAT = "/heartbeat";
 
 	public String SEGMENT_PLACES_SEARCH = "/places/search";
+
+	public String SEGMENT_TAGS = "/tags";
 
 }

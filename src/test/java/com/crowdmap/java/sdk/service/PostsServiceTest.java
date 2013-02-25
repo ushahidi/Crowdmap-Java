@@ -46,10 +46,10 @@ public class PostsServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.MediaService#getMedia()}.
+	 * {@link com.crowdmap.java.sdk.service.PostsService#getPosts()}.
 	 */
 	@Test
-	public void testGetMedia() {
+	public void testGetPosts() {
 
 		PostsJson postsJson = postsService.getPosts();
 
