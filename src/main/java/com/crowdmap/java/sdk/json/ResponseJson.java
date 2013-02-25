@@ -21,10 +21,9 @@
 package com.crowdmap.java.sdk.json;
 
 /**
- * The class represents the Main response returned as a result of a Crowdmap 
- * api call.
+ * The class represents the Main response returned as a result of a Crowdmap api
+ * call.
  * 
- * @author eyedol
  * 
  */
 public class ResponseJson {
@@ -38,5 +37,9 @@ public class ResponseJson {
 	public boolean success;
 
 	public int status;
+
+	public String timestamp;
+
+	public int qcount;
 
 }
