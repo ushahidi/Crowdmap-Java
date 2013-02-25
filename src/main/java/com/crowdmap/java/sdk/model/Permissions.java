@@ -19,10 +19,17 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.model;
 
+import java.io.Serializable;
+
 /**
  * Permissions model classes
  */
-public class Permissions {
+public class Permissions implements Serializable {
+
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = 3524581235515348880L;
 
 	private boolean delete;
 

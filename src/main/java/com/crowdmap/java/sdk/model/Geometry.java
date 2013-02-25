@@ -19,11 +19,18 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.model;
 
+import java.io.Serializable;
+
 /**
  * Geometry model class
  */
-public class Geometry {
-	
+public class Geometry implements Serializable {
+
+	/**
+	 * Seria version UID
+	 */
+	private static final long serialVersionUID = -1670724915317453993L;
+
 	private String type;
 
 	/**
@@ -34,11 +41,11 @@ public class Geometry {
 	}
 
 	/**
-	 * @param type the type to set
+	 * @param type
+	 *            the type to set
 	 */
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
+
 }

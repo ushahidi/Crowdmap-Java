@@ -19,10 +19,17 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.model;
 
+import java.io.Serializable;
+
 /**
  * Contexts model class
  */
-public class Contexts {
+public class Contexts implements Serializable {
+
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = 1579356097608997292L;
 
 	private int postId;
 

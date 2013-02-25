@@ -19,10 +19,17 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.model;
 
+import java.io.Serializable;
+
 /**
  * Locations model class
  */
-public class Locations {
+public class Locations implements Serializable {
+
+	/**
+	 * Seria version UID
+	 */
+	private static final long serialVersionUID = -4499118399170068867L;
 
 	private int locationId;
 
