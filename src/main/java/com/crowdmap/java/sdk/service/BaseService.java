@@ -95,7 +95,7 @@ public class BaseService {
 	}
 
 	/**
-	 * Deserialise the JSON string into Java objects representing the various
+	 * Deserialize the JSON string into Java objects representing the various
 	 * Crowdmap models.
 	 * 
 	 * @param json
@@ -105,6 +105,18 @@ public class BaseService {
 	 * @return The Object related to the Crowdmap API model
 	 */
 	public static <T> T fromString(String json, Class<T> cls) {
+		
 		return gson.fromJson(json, cls);
+	}
+	
+	/**
+	 * Serialize an Object into JSON objects.
+	 * 
+	 * @param obj the object to be serialized
+	 * 
+	 *  @return the json string
+	 */
+	public static String toJson(final Object obj) {
+		return gson.toJson(obj);
 	}
 }
