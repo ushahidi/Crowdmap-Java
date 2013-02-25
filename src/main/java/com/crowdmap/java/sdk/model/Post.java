@@ -54,5 +54,8 @@ public class Post {
 	
 	private Users users;
 	
+	private Permissions permissions;
+	
+	
 	
 }
