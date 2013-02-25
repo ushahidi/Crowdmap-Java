@@ -19,40 +19,26 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.model;
 
-import java.util.List;
-
-import com.crowdmap.java.sdk.json.Date;
-import com.google.gson.annotations.SerializedName;
-
 /**
- * Post modle class
+ * Geometry model class
  */
-public class Post {
-
-	private Externals externals;
+public class Geometry {
 	
-	private Locations locations;
-	
-	private List<Media> media;
-	
-	private int postId;
+	private String type;
 
-	private int mediaId;
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
 
-	private int locationId;
-
-	private int externalId;
-
-	private String message;
-
-	private Date datePosted;
-
-	@SerializedName("public")
-	private int isPublic;
-
-	private String userIp;
-	
-	private Users users;
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	
 }

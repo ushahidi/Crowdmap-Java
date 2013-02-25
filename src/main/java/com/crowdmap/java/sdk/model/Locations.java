@@ -20,8 +20,93 @@
 package com.crowdmap.java.sdk.model;
 
 /**
- * Locations model class 
+ * Locations model class
  */
 public class Locations {
+
+	private int locationId;
+
+	private int fsqVenueId;
+
+	private Geometry geometry;
+
+	private String name;
+
+	private String region;
+
+	/**
+	 * @return the locationId
+	 */
+	public int getLocationId() {
+		return locationId;
+	}
+
+	/**
+	 * @param locationId
+	 *            the locationId to set
+	 */
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
+	}
+
+	/**
+	 * @return the fsqVenueId
+	 */
+	public int getFsqVenueId() {
+		return fsqVenueId;
+	}
+
+	/**
+	 * @param fsqVenueId
+	 *            the fsqVenueId to set
+	 */
+	public void setFsqVenueId(int fsqVenueId) {
+		this.fsqVenueId = fsqVenueId;
+	}
+
+	/**
+	 * @return the geometry
+	 */
+	public Geometry getGeometry() {
+		return geometry;
+	}
+
+	/**
+	 * @param geometry
+	 *            the geometry to set
+	 */
+	public void setGeometry(Geometry geometry) {
+		this.geometry = geometry;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the region
+	 */
+	public String getRegion() {
+		return region;
+	}
+
+	/**
+	 * @param region
+	 *            the region to set
+	 */
+	public void setRegion(String region) {
+		this.region = region;
+	}
 
 }

@@ -20,13 +20,14 @@
 package com.crowdmap.java.sdk.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * 
  */
-public class Person implements Serializable {
+public class Users implements Serializable {
 
 	/**
 	 * Serial version UID
@@ -39,11 +40,14 @@ public class Person implements Serializable {
 	@SerializedName("user_id")
 	private int id;
 
-	/**
-	 * The person's crowdmap ID
-	 */
-	@SerializedName("crowdmap_id")
 	private String crowdmapId;
+
+	/**
+	 * The person's crowdmap ID H
+	 */
+	private String crowdmapIdH;
+
+	private int plus;
 
 	/**
 	 * The person's username
@@ -64,18 +68,69 @@ public class Person implements Serializable {
 	 * The person's profile status. 1 for public and 0 for private.
 	 */
 	@SerializedName("public")
-	private int pub;
+	private int isPublic;
 
-	/**
-	 * The ID of the person's hero graphic
-	 */
-	@SerializedName("media_id_hero")
 	private int mediaIdHero;
 
 	/**
 	 * The path to the person's avatar
 	 */
 	private String avatar;
+
+	private List<Media> media;
+
+	/**
+	 * @return the media
+	 */
+	public List<Media> getMedia() {
+		return media;
+	}
+
+	/**
+	 * @param media
+	 *            the media to set
+	 */
+	public void setMedia(List<Media> media) {
+		this.media = media;
+	}
+
+	/**
+	 * @return the crowdmapIdH
+	 */
+	public String getCrowdmapIdH() {
+		return crowdmapIdH;
+	}
+
+	/**
+	 * @param crowdmapIdH
+	 *            the crowdmapIdH to set
+	 */
+	public void setCrowdmapIdH(String crowdmapIdH) {
+		this.crowdmapIdH = crowdmapIdH;
+	}
+
+	/**
+	 * @return the plus
+	 */
+	public int getPlus() {
+		return plus;
+	}
+
+	/**
+	 * @param plus
+	 *            the plus to set
+	 */
+	public void setPlus(int plus) {
+		this.plus = plus;
+	}
+
+	/**
+	 * @param avatar
+	 *            the avatar to set
+	 */
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 
 	/**
 	 * Set the person's ID
@@ -129,13 +184,13 @@ public class Person implements Serializable {
 	/**
 	 * Set the person's profile public status
 	 * 
-	 * @param pub
+	 * @param isPublic
 	 *            1 for public and 0 for private
 	 */
-	public void setPub(int pub) {
-		this.pub = pub;
+	public void setIsPublic(int isPublic) {
+		this.isPublic = isPublic;
 	}
-	
+
 	/**
 	 * Set the person's graphic hero ID
 	 * 
@@ -144,18 +199,19 @@ public class Person implements Serializable {
 	public void setMediaIdHero(int mediaIdHero) {
 		this.mediaIdHero = mediaIdHero;
 	}
-	
+
 	/**
 	 * Get the ID
 	 * 
-	 * @return int The ID 
+	 * @return int The ID
 	 */
 	public int getId() {
 		return this.id;
 	}
-	
+
 	/**
 	 * Get the persons crowdmap id
+	 * 
 	 * @return String The crowdmap ID
 	 */
 	public String getCrowdmapId() {
@@ -170,7 +226,7 @@ public class Person implements Serializable {
 	public String getUsername() {
 		return this.username;
 	}
-	
+
 	/**
 	 * Get the person's name
 	 * 
@@ -179,7 +235,7 @@ public class Person implements Serializable {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	/**
 	 * Get the person's bio
 	 * 
@@ -188,16 +244,16 @@ public class Person implements Serializable {
 	public String getBio() {
 		return this.bio;
 	}
-	
+
 	/**
 	 * Get the person's public profile status
 	 * 
 	 * @return int 1 for public and 0 for private
 	 */
-	public int getPub() {
-		return this.pub;
+	public int getIsPublic() {
+		return this.isPublic;
 	}
-	
+
 	/**
 	 * Get the Media ID Hero
 	 * 
@@ -206,7 +262,7 @@ public class Person implements Serializable {
 	public int getMediaIdHero() {
 		return this.mediaIdHero;
 	}
-	
+
 	/**
 	 * Get the path to the person's avatar
 	 * 

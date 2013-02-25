@@ -33,7 +33,7 @@ public class Followers implements Serializable {
 	 */
 	private static final long serialVersionUID = -6275336806371569376L;
 
-	private Person users;
+	private Users users;
 
 	/**
 	 * The person ID
@@ -50,7 +50,7 @@ public class Followers implements Serializable {
 	/**
 	 * @return the users
 	 */
-	public Person getUsers() {
+	public Users getUsers() {
 		return users;
 	}
 
@@ -58,7 +58,7 @@ public class Followers implements Serializable {
 	 * @param users
 	 *            the users to set
 	 */
-	public void setUsers(Person users) {
+	public void setUsers(Users users) {
 		this.users = users;
 	}
 

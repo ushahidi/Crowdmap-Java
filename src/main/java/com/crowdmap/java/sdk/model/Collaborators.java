@@ -33,7 +33,7 @@ public class Collaborators implements Serializable {
 	 */
 	private static final long serialVersionUID = -7737899846329046622L;
 	
-	private Person users;
+	private Users users;
 
 	/**
 	 * The person ID
@@ -50,7 +50,7 @@ public class Collaborators implements Serializable {
 	/**
 	 * @return the users
 	 */
-	public Person getUsers() {
+	public Users getUsers() {
 		return users;
 	}
 
@@ -58,7 +58,7 @@ public class Collaborators implements Serializable {
 	 * @param users
 	 *            the users to set
 	 */
-	public void setUsers(Person users) {
+	public void setUsers(Users users) {
 		this.users = users;
 	}
 

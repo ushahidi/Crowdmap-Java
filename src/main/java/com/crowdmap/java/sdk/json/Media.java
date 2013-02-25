@@ -19,7 +19,7 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.Person;
+import com.crowdmap.java.sdk.model.Users;
 
 
 /**
@@ -32,5 +32,5 @@ public class Media extends com.crowdmap.java.sdk.model.Media{
 	 */
 	private static final long serialVersionUID = 8498886833164100022L;
 	
-	Person users;
+	Users users;
 }
