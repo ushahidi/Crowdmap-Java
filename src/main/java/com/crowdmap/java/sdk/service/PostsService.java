@@ -23,6 +23,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
 
+import com.crowdmap.java.sdk.json.CommentsJson;
 import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.PostsJson;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
