@@ -28,7 +28,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Post modle class
  */
-public class Post implements Serializable {
+public class Posts implements Serializable {
 
 	/**
 	 * Seria version UID
