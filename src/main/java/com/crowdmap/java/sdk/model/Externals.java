@@ -22,7 +22,6 @@ package com.crowdmap.java.sdk.model;
 import java.io.Serializable;
 
 import com.crowdmap.java.sdk.json.Date;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * External model class
@@ -37,19 +36,75 @@ public class Externals implements Serializable {
 	/**
 	 * The external ID
 	 */
-	@SerializedName("external_id")
 	private int id;
 	
 	/**
 	 * The service ID
 	 */
-	@SerializedName("service_id")
 	private int serviceId;
 	
 	/**
 	 * The providier
 	 */
 	private String provider;
+	
+	/**
+	 * The type
+	 */
+	private String html;
+	
+	private String idOnService;
+	
+	/**
+	 * The data from the external service
+	 */
+	private String data;
+	
+	/**
+	 * The date and time
+	 */
+	private Date dateTime;
+	
+	
+	/**
+	 * The Image URL
+	 */
+	private String imageUrl;
+	
+	/**
+	 * The latitude
+	 */
+	private Double lat;
+
+	/**
+	 * The longitude
+	 */
+	private Double lon;
+	
+	/**
+	 * The URL
+	 */
+	private String url;
+	
+	/**
+	 * The title
+	 */
+	private String title;
+	
+	/**
+	 * The favicon URL
+	 */
+	private String faviconUrl;
+	
+	/**
+	 * The embed html
+	 */
+	private String embedHtml;
+	
+	/**
+	 * The embed html small
+	 */
+	private String embedHtmlSmall;
 	
 	/**
 	 * @return the id
@@ -110,14 +165,14 @@ public class Externals implements Serializable {
 	/**
 	 * @return the idOnService
 	 */
-	public int getIdOnService() {
+	public String getIdOnService() {
 		return idOnService;
 	}
 
 	/**
 	 * @param idOnService the idOnService to set
 	 */
-	public void setIdOnService(int idOnService) {
+	public void setIdOnService(String idOnService) {
 		this.idOnService = idOnService;
 	}
 
@@ -166,28 +221,28 @@ public class Externals implements Serializable {
 	/**
 	 * @return the lat
 	 */
-	public double getLat() {
+	public Double getLat() {
 		return lat;
 	}
 
 	/**
 	 * @param lat the lat to set
 	 */
-	public void setLat(double lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
 	/**
 	 * @return the lon
 	 */
-	public double getLon() {
+	public Double getLon() {
 		return lon;
 	}
 
 	/**
 	 * @param lon the lon to set
 	 */
-	public void setLon(double lon) {
+	public void setLon(Double lon) {
 		this.lon = lon;
 	}
 
@@ -260,68 +315,5 @@ public class Externals implements Serializable {
 	public void setEmbedHtmlSmall(String embedHtmlSmall) {
 		this.embedHtmlSmall = embedHtmlSmall;
 	}
-
-	/**
-	 * The type
-	 */
-	private String html;
-	
-	@SerializedName("id_on_service")
-	private int idOnService;
-	
-	/**
-	 * The data from the external service
-	 */
-	private String data;
-	
-	/**
-	 * The date and time
-	 */
-	private Date dateTime;
-	
-	
-	/**
-	 * The Image URL
-	 */
-	@SerializedName("image_url")
-	private String imageUrl;
-	
-	/**
-	 * The latitude
-	 */
-	private double lat;
-
-	/**
-	 * The longitude
-	 */
-	private double lon;
-	
-	/**
-	 * The URL
-	 */
-	private String url;
-	
-	/**
-	 * The title
-	 */
-	private String title;
-	
-	/**
-	 * The favicon URL
-	 */
-	@SerializedName("favicon_url")
-	private String faviconUrl;
-	
-	/**
-	 * The embed html
-	 */
-	@SerializedName("embed_html")
-	private String embedHtml;
-	
-	/**
-	 * The embed html small
-	 */
-	@SerializedName("embed_html_small")
-	private String embedHtmlSmall;
 	
 }
