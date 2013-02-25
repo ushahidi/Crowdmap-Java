@@ -30,11 +30,11 @@ import com.google.gson.annotations.SerializedName;
 public class Post {
 
 	private Externals externals;
-	
+
 	private Locations locations;
-	
+
 	private List<Media> media;
-	
+
 	private int postId;
 
 	private int mediaId;
@@ -51,11 +51,11 @@ public class Post {
 	private int isPublic;
 
 	private String userIp;
-	
+
 	private Users users;
-	
+
 	private Permissions permissions;
-	
-	
-	
+
+	private List<Contexts> contexts;
+
 }
