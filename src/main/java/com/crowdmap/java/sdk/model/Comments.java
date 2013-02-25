@@ -22,6 +22,7 @@ package com.crowdmap.java.sdk.model;
 import java.io.Serializable;
 
 import com.crowdmap.java.sdk.json.Date;
+import com.crowdmap.java.sdk.json.Maps;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -35,7 +36,7 @@ public class Comments implements Serializable {
 	private static final long serialVersionUID = -7021417619206532086L;
 
 	@SerializedName("comment_id")
-	private int commentId;
+	private int Id;
 
 	private int postId;
 
@@ -44,21 +45,72 @@ public class Comments implements Serializable {
 	private int userId;
 
 	private String comment;
-	
+
 	private Date datePosted;
+	
+	private Users users;
+	
+	private Permissions permissions;
+	
+	private Maps map;
+	
+	
+
+	/**
+	 * @return the users
+	 */
+	public Users getUsers() {
+		return users;
+	}
+
+	/**
+	 * @param users the users to set
+	 */
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	/**
+	 * @return the permissions
+	 */
+	public Permissions getPermissions() {
+		return permissions;
+	}
+
+	/**
+	 * @param permissions the permissions to set
+	 */
+	public void setPermissions(Permissions permissions) {
+		this.permissions = permissions;
+	}
+
+	/**
+	 * @return the map
+	 */
+	public Maps getMap() {
+		return map;
+	}
+
+	/**
+	 * @param map the map to set
+	 */
+	public void setMap(Maps map) {
+		this.map = map;
+	}
 
 	/**
 	 * @return the commentId
 	 */
-	public int getCommentId() {
-		return commentId;
+	public int getId() {
+		return Id;
 	}
 
 	/**
-	 * @param commentId the commentId to set
+	 * @param commentId
+	 *            the commentId to set
 	 */
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
+	public void setId(int commentId) {
+		this.Id = commentId;
 	}
 
 	/**
@@ -69,7 +121,8 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param postId the postId to set
+	 * @param postId
+	 *            the postId to set
 	 */
 	public void setPostId(int postId) {
 		this.postId = postId;
@@ -83,7 +136,8 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param mapId the mapId to set
+	 * @param mapId
+	 *            the mapId to set
 	 */
 	public void setMapId(int mapId) {
 		this.mapId = mapId;
@@ -97,7 +151,8 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -111,7 +166,8 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param comment the comment to set
+	 * @param comment
+	 *            the comment to set
 	 */
 	public void setComment(String comment) {
 		this.comment = comment;
@@ -125,11 +181,11 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param datePosted the datePosted to set
+	 * @param datePosted
+	 *            the datePosted to set
 	 */
 	public void setDatePosted(Date datePosted) {
 		this.datePosted = datePosted;
 	}
-	
 
 }
