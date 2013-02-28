@@ -28,20 +28,35 @@ package com.crowdmap.java.sdk.json;
  */
 public class ResponseJson {
 
-	public String next;
+	/**
+	 * The 
+	 */
+	protected String next;
 
-	public String curr;
+	protected String curr;
 
-	public String prev;
+	protected String prev;
 
-	public boolean success;
+	protected boolean success;
 
-	public String error;
+	/**
+	 * The error message returned as a result of an API call
+	 */
+	protected String error;
 
-	public int status;
+	/**
+	 * The status of the response
+	 */
+	protected int status;
 
-	public String timestamp;
+	/**
+	 * The timestamp received from the server as a result of an API call
+	 */
+	protected String timestamp;
 
-	public int qcount;
+	/**
+	 * The query count.
+	 */
+	protected int qcount;
 
 }
