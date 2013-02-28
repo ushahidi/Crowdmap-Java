@@ -1332,6 +1332,7 @@ public class Base64
      *         class that cannot be found by the JVM
      * @since 2.3.4
      */
+    
     public static Object decodeToObject( 
     String encodedObject, int options, final ClassLoader loader )
     throws java.io.IOException, java.lang.ClassNotFoundException {
@@ -1358,7 +1359,7 @@ public class Base64
                     @Override
                     public Class<?> resolveClass(java.io.ObjectStreamClass streamClass)
                     throws java.io.IOException, ClassNotFoundException {
-                        Class c = Class.forName(streamClass.getName(), false, loader);
+                        Class<?> c = Class.forName(streamClass.getName(), false, loader);
                         if( c == null ){
                             return super.resolveClass(streamClass);
                         } else {

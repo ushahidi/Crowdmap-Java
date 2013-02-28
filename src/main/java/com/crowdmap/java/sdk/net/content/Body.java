@@ -27,8 +27,6 @@ import java.util.List;
  * This class represents a form body that can be used as a part of multi-part
  * encoded entities for making a mulit-part HTTP request
  * 
- * @author eyedol
- * 
  */
 public class Body {
 
@@ -46,20 +44,21 @@ public class Body {
 	 * @param value
 	 *            The form field value
 	 */
+	@SuppressWarnings("unchecked")
 	public void addField(String name, Object value) {
-		if ( value == null){
+		if (value == null) {
 			return;
 		}
-		List<Object> list ;
-		if (!( value instanceof List)){
+		List<Object> list;
+		if (!(value instanceof List)) {
 			list = new ArrayList<Object>();
 			list.add(value);
-		}else{
+		} else {
 			list = (List<Object>) value;
 		}
 		for (Object o : list) {
-			if ( o instanceof File){
-				o = new FileBody((File)o);
+			if (o instanceof File) {
+				o = new FileBody((File) o);
 			}
 			Field field = new Field(name, o);
 			formField.add(field);
