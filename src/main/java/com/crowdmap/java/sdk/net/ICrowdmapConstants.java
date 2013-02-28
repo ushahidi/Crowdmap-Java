@@ -74,4 +74,8 @@ public interface ICrowdmapConstants {
 
 	public String SEGMENT_TAGS = "/tags";
 
+	public String SEGMENT_SESSION = "/session";
+
+	public String SEGMENT_LOGIN = "/login";
+
 }

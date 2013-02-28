@@ -17,31 +17,60 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
+package com.crowdmap.java.sdk.model;
 
-package com.crowdmap.java.sdk.json;
+import java.io.Serializable;
 
 /**
- * The class represents the Main response returned as a result of a Crowdmap api
- * call.
- * 
- * 
+ * Login model class
  */
-public class ResponseJson {
+public class Login implements Serializable {
 
-	public String next;
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = 2958878253182497240L;
+	
+	private String username;
+	
+	private String password;
 
-	public String curr;
+	/**
+	 * Get the user's username
+	 * 
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
 
-	public String prev;
+	/**
+	 * Set the user's username for login
+	 * 
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-	public boolean success;
+	/**
+	 * Get the user's password for login
+	 * 
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
 
-	public String error;
-
-	public int status;
-
-	public String timestamp;
-
-	public int qcount;
+	/**
+	 * Set the user's password for login
+	 * 
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 
 }

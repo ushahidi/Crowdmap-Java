@@ -17,31 +17,55 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
+package com.crowdmap.java.sdk.model;
 
-package com.crowdmap.java.sdk.json;
+import java.io.Serializable;
 
 /**
- * The class represents the Main response returned as a result of a Crowdmap api
- * call.
- * 
- * 
+ * Session model class
  */
-public class ResponseJson {
+public class Session implements Serializable {
 
-	public String next;
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = -7451001146475271263L;
 
-	public String curr;
+	private String userId;
 
-	public String prev;
+	private String sessionId;
 
-	public boolean success;
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
 
-	public String error;
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-	public int status;
+	/**
+	 * Get the login user's session ID
+	 * 
+	 * @return the sessionId
+	 */
+	public String getSessionId() {
+		return sessionId;
+	}
 
-	public String timestamp;
-
-	public int qcount;
+	/**
+	 * Set the login user's session ID
+	 * 
+	 * @param sessionId the sessionId to set
+	 */
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	
 
 }
