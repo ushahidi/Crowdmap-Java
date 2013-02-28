@@ -22,7 +22,6 @@ package com.crowdmap.java.sdk.model;
 import java.io.Serializable;
 
 import com.crowdmap.java.sdk.json.Date;
-import com.crowdmap.java.sdk.json.Maps;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -47,14 +46,12 @@ public class Comments implements Serializable {
 	private String comment;
 
 	private Date datePosted;
-	
+
 	private Users users;
-	
+
 	private Permissions permissions;
-	
+
 	private Maps map;
-	
-	
 
 	/**
 	 * @return the users
@@ -64,7 +61,8 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param users the users to set
+	 * @param users
+	 *            the users to set
 	 */
 	public void setUsers(Users users) {
 		this.users = users;
@@ -78,7 +76,8 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param permissions the permissions to set
+	 * @param permissions
+	 *            the permissions to set
 	 */
 	public void setPermissions(Permissions permissions) {
 		this.permissions = permissions;
@@ -92,7 +91,8 @@ public class Comments implements Serializable {
 	}
 
 	/**
-	 * @param map the map to set
+	 * @param map
+	 *            the map to set
 	 */
 	public void setMap(Maps map) {
 		this.map = map;

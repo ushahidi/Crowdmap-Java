@@ -27,7 +27,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Map Model class
  */
-public class Map implements Serializable{
+public class Maps implements Serializable {
 
 	/**
 	 * Seriala version UID
@@ -59,7 +59,6 @@ public class Map implements Serializable{
 	 */
 	private String name;
 
-	
 	@SerializedName("public")
 	private int pub;
 
@@ -77,6 +76,47 @@ public class Map implements Serializable{
 	 * The zoom level
 	 */
 	private int zoom;
+
+	private Users users;
+
+	private Media media;
+
+	/**
+	 * @return the users
+	 */
+	public Users getUsers() {
+		return users;
+	}
+
+	/**
+	 * @param users
+	 *            the users to set
+	 */
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	/**
+	 * @return the media
+	 */
+	public Media getMedia() {
+		return media;
+	}
+
+	/**
+	 * @param media
+	 *            the media to set
+	 */
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+
+	/**
+	 * @return the mediaIdHero
+	 */
+	public int getMediaIdHero() {
+		return mediaIdHero;
+	}
 
 	/**
 	 * The date the map was created
@@ -166,9 +206,10 @@ public class Map implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Map[id:" + id + ", user_id:" + userId + ", media_id_hero:"
+		return "Map [id:" + id + ", user_id:" + userId + ", media_id_hero:"
 				+ mediaIdHero + ", subdomain:" + subdomain + ", name:" + name
 				+ ", pub:" + pub + ", lat:" + lat + ", lon:" + lon + ", zoom:"
-				+ zoom + ", date_created:" + dateCreated + "]";
+				+ zoom + ", date_created:" + dateCreated + ", media: "
+				+ media.toString() + ", users: " + users.toString() + " ]";
 	}
 }

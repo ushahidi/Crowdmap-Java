@@ -28,9 +28,9 @@ import java.util.List;
 
 import com.crowdmap.java.sdk.json.CollaboratorsJson;
 import com.crowdmap.java.sdk.json.FollowersJson;
-import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.OwnerJson;
+import com.crowdmap.java.sdk.model.Maps;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**
@@ -138,7 +138,7 @@ public class MapService extends BaseService {
 		return fromString(client.sendGetRequest(url.toString()),
 				FollowersJson.class);
 	}
-	
+
 	/**
 	 * Get the collaborators on a map. GET /maps/:map_id/collaborators
 	 * 

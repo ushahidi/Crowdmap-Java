@@ -22,6 +22,8 @@ package com.crowdmap.java.sdk.json;
 import java.io.Serializable;
 import java.util.List;
 
+import com.crowdmap.java.sdk.model.Maps;
+
 /**
  * Maps response model class
  */
