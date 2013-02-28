@@ -71,7 +71,7 @@ public class LoginService extends BaseService {
 		body.addField("password", password);
 		
 		// Send a post request to login
-		return fromString(client.sendPostRequest(url.toString(), body),
+		return fromString(client.sendMultipartPostRequest(url.toString(), body),
 				SessionJson.class);
 	}
 }

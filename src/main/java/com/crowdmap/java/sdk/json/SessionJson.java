@@ -31,4 +31,50 @@ public class SessionJson extends ResponseJson implements Serializable {
 	 */
 	private static final long serialVersionUID = 4355738142694543892L;
 
+	private String userId;
+
+	private String sessionId;
+
+	/**
+	 * @return the userId
+	 */
+	public String getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId
+	 *            the userId to set
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * Get the login user's session ID
+	 * 
+	 * @return the sessionId
+	 */
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	/**
+	 * Set the login user's session ID
+	 * 
+	 * @param sessionId
+	 *            the sessionId to set
+	 */
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	@Override
+	public String toString() {
+
+		return "SessionJson [userId:" + userId + ", sessionId:" + sessionId
+				+ ", success:" + success + ", status:" + status + ", error:"
+				+ error + ", timestamp:" + timestamp + ", qcount:" + qcount
+				+ "]";
+	}
 }

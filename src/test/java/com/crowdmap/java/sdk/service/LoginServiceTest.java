@@ -17,60 +17,48 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.model;
+package com.crowdmap.java.sdk.service;
 
-import java.io.Serializable;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.crowdmap.java.sdk.json.SessionJson;
 
 /**
- * Login model class
+ * Test case for login service. 
  */
-public class Login implements Serializable {
+public class LoginServiceTest extends BaseServiceTest {
 
-	/**
-	 * Serial version UID
-	 */
-	private static final long serialVersionUID = 2958878253182497240L;
-	
-	private String username;
-	
-	private String password;
+	LoginService loginService;
 
-	/**
-	 * Get the user's username
-	 * 
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		loginService = new LoginService(client);
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		super.tearDown();
+		loginService = null;
 	}
 
 	/**
-	 * Set the user's username for login
-	 * 
-	 * @param username the username to set
+	 * Test method for
+	 * {@link com.crowdmap.java.sdk.service.LoginService#loginService()}.
 	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	@Test
+	public void testLogin() {
 
-	/**
-	 * Get the user's password for login
-	 * 
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+		// Provide correct credentials. Note: these ones are fake.
+		final String username = "demo@ushahidi.com";
 
-	/**
-	 * Set the user's password for login
-	 * 
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
+		final String password = "demo";
+
+		SessionJson sessionJson = loginService.login(username, password);
+		assertNotNull("Media cannot be null ", sessionJson.getUserId());
+
 	}
-	
-	
 
 }

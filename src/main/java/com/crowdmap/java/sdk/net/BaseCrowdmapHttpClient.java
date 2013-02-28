@@ -599,6 +599,7 @@ public abstract class BaseCrowdmapHttpClient {
 			if (iterator.hasNext()) {
 				builder.append("&");
 			}
+			
 		}
 
 		return builder.toString();

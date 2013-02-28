@@ -31,39 +31,38 @@ public class ResponseJson {
 	/**
 	 * URL to the next resource
 	 */
-	protected String next;
+	public String next;
 
 	/**
 	 * URL to the current resource
 	 */
-	protected String curr;
+	public String curr;
 
 	/**
 	 * URL to the previous resource
 	 */
-	protected String prev;
+	public String prev;
 
-	
-	protected boolean success;
+	public boolean success;
 
 	/**
 	 * The error message returned as a result of an API call
 	 */
-	protected String error;
+	public String error;
 
 	/**
 	 * The status of the response
 	 */
-	protected int status;
+	public int status;
 
 	/**
 	 * The timestamp received from the server as a result of an API call
 	 */
-	protected String timestamp;
+	public String timestamp;
 
 	/**
 	 * The query count.
 	 */
-	protected int qcount;
+	public int qcount;
 
 }
