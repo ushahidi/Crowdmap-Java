@@ -29,14 +29,21 @@ package com.crowdmap.java.sdk.json;
 public class ResponseJson {
 
 	/**
-	 * The 
+	 * URL to the next resource
 	 */
 	protected String next;
 
+	/**
+	 * URL to the current resource
+	 */
 	protected String curr;
 
+	/**
+	 * URL to the previous resource
+	 */
 	protected String prev;
 
+	
 	protected boolean success;
 
 	/**
