@@ -32,6 +32,7 @@ import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.OwnerJson;
 import com.crowdmap.java.sdk.model.Maps;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+import com.crowdmap.java.sdk.net.content.Body;
 
 /**
  * Service for interacting with various maps setup on crowdmap
@@ -159,4 +160,53 @@ public class MapService extends BaseService {
 				CollaboratorsJson.class);
 	}
 
+	/**
+	 * Create a new Map. Anonymous users are not allowed to create maps. POST
+	 * /maps
+	 * 
+	 * @param userId
+	 *            The login user's user ID
+	 * @param sessionId
+	 *            The login user's session ID.
+	 * @param subdomain
+	 *            The sudomain of the map
+	 * 
+	 * @return The newly created map
+	 */
+	public MapsJson createMap(String userId, String sessionId, String subdomain) {
+
+		// Validate all the required fields
+		if (userId == null)
+			throw new IllegalArgumentException("User ID cannot be null");
+
+		if (userId.length() == 0)
+			throw new IllegalArgumentException("user ID cannot be empty");
+
+		if (sessionId == null)
+			throw new IllegalArgumentException("Session ID cannot be null");
+
+		if (sessionId.length() == 0)
+			throw new IllegalArgumentException("Session ID cannot be empty ");
+
+		if (subdomain == null)
+			throw new IllegalArgumentException("Subdomain cannot be null");
+
+		if (subdomain.length() == 0)
+			throw new IllegalArgumentException("User ID cannot be empty");
+
+		// Build the endpoints URLs
+		StringBuilder url = new StringBuilder(apiUrl);
+		url.append(SEGMENT_MAPS);
+
+		// Pass the username and password to the login endpoint
+		final Body body = new Body();
+		body.addField("userid", userId);
+		body.addField("sessionid", sessionId);
+		body.addField("subdomain", subdomain);
+
+		return fromString(
+				client.sendMultipartPostRequest(url.toString(), body),
+				MapsJson.class);
+
+	}
 }
