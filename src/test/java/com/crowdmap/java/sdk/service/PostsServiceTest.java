@@ -59,24 +59,38 @@ public class PostsServiceTest extends BaseServiceTest {
 
 	}
 
+	/**
+	 * Test method for 
+	 * {@link com.crowdmap.java.sdk.service.PostsService#getPostMaps()}.
+	 */
 	@Test
 	public void testGetPostMaps() {
 		MapsJson mapsJson = postsService.getPostMaps(String.valueOf(1));
 		assertNotNull("Maps cannot be null", mapsJson);
 	}
 
+	/**
+	 * Test method for
+	 * {@link com.crowdmap.java.sdk.service.PostsService#getPostComments()}.
+	 */
 	@Test
 	public void testGetPostComments() {
-		// TODO check for nulls
+
 		CommentsJson commentsJson = postsService.getPostComments(String
 				.valueOf(1));
+		assertNotNull("Comments cannot be null", commentsJson);
 	}
 
+	/**
+	 * Test method for 
+	 * {@link com.crowdmap.java.sdk.service.PostsService#getPostComments()}.
+	 */
 	@Test
 	public void getPostComments() {
-		// TODO check for nulls
+
 		CommentsJson commentsJson = postsService.getPostComments(
 				String.valueOf(1), String.valueOf(1));
+		assertNotNull("Comments cannot be null", commentsJson);
 	}
 
 }
