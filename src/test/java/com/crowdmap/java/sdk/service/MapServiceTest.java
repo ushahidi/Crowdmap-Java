@@ -27,6 +27,7 @@ import com.crowdmap.java.sdk.json.CollaboratorsJson;
 import com.crowdmap.java.sdk.json.FollowersJson;
 import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.OwnerJson;
+import com.crowdmap.java.sdk.json.SessionJson;
 
 /**
  * 
@@ -84,6 +85,18 @@ public class MapServiceTest extends BaseServiceTest {
 		CollaboratorsJson collaboratorsJson = mapService
 				.getCollaborators(String.valueOf(1));
 		assertNotNull("Maps cannot be null ", collaboratorsJson);
+	}
+
+	@Test
+	public void testCreateMap() {
+		LoginService loginService = new LoginService(client);
+
+		SessionJson sessionJson = loginService.login("name@domain.com",
+				"password");
+
+		MapsJson maps = mapService.createMap(sessionJson.getUserId(),
+				sessionJson.getSessionId(), "eyedoldairy");
+		assertNotNull("Maps cannot be null ", maps);
 	}
 
 }

@@ -200,10 +200,11 @@ public class MapService extends BaseService {
 
 		// Pass the username and password to the login endpoint
 		final Body body = new Body();
-		body.addField("userid", userId);
-		body.addField("sessionid", sessionId);
+		body.addField("user_id", userId);
+		body.addField("session_id", sessionId);
 		body.addField("subdomain", subdomain);
-
+		System.out.println("userid: " + userId + " sessionID: " + sessionId
+				+ " subdomain: " + subdomain);
 		return fromString(
 				client.sendMultipartPostRequest(url.toString(), body),
 				MapsJson.class);

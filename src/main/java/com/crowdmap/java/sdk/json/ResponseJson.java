@@ -50,6 +50,8 @@ public class ResponseJson {
 	 */
 	public String error;
 
+	public String message;
+
 	/**
 	 * The status of the response
 	 */
