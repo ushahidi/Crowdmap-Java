@@ -78,15 +78,12 @@ public class MapResource extends CrowdmapResource {
     /**
      * Returns a specific map. GET /maps/:map_id
      *
-     * @param String id The ID of the map
+     * @param id The ID of the map
      * @return A specific map
      */
     public MapsJson getMap(String id) {
-
         checkId(id);
-
-        StringBuilder url = new StringBuilder(apiUrl);
-        url.append(SEGMENT_MAPS);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append("/");
         url.append(id);
         return fromString(client.get(url.toString()), MapsJson.class);
@@ -95,13 +92,12 @@ public class MapResource extends CrowdmapResource {
     /**
      * Get information about the owner of a particular map. GET /maps/:map_id/owner
      *
-     * @param String id The ID of the map
+     * @param id The ID of the map
      * @return The information about the owner of the map
      */
     public OwnerJson getMapOwner(String id) {
         checkId(id);
-        StringBuilder url = new StringBuilder(apiUrl);
-        url.append(SEGMENT_MAPS);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append("/");
         url.append(id);
         url.append(SEGMENT_OWNER);
@@ -113,13 +109,12 @@ public class MapResource extends CrowdmapResource {
     /**
      * Get the followers of a map. GET /maps/:map_id/followers
      *
-     * @param String id The ID of the map
+     * @param id The ID of the map
      * @return The followers of a map
      */
     public FollowersJson getFollowers(String id) {
         checkId(id);
-        StringBuilder url = new StringBuilder(apiUrl);
-        url.append(SEGMENT_MAPS);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append("/");
         url.append(id);
         url.append(SEGMENT_FOLLOWERS);
@@ -131,13 +126,12 @@ public class MapResource extends CrowdmapResource {
     /**
      * Get the collaborators on a map. GET /maps/:map_id/collaborators
      *
-     * @param String id The ID of the map
+     * @param id The ID of the map
      * @return The followers of a map
      */
     public CollaboratorsJson getCollaborators(String id) {
         checkId(id);
-        StringBuilder url = new StringBuilder(apiUrl);
-        url.append(SEGMENT_MAPS);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append("/");
         url.append(id);
         url.append(SEGMENT_COLLABORATORS);
@@ -181,19 +175,14 @@ public class MapResource extends CrowdmapResource {
             throw new IllegalArgumentException("User ID cannot be empty");
         }
 
-        // Build the endpoints URLs
-        StringBuilder url = new StringBuilder(apiUrl);
-        url.append(SEGMENT_MAPS);
-
         // Pass the username and password to the login endpoint
         final Body body = new Body();
         body.addField("user_id", userId);
         body.addField("session_id", sessionId);
         body.addField("subdomain", subdomain);
-        System.out.println("userid: " + userId + " sessionID: " + sessionId
-                + " subdomain: " + subdomain);
+
         return fromString(
-                client.multipartPost(url.toString(), body),
+                client.multipartPost(SEGMENT_MAPS, body),
                 MapsJson.class);
 
     }
