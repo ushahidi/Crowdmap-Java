@@ -25,7 +25,7 @@ import com.crowdmap.java.sdk.net.content.Body;
 import java.io.InputStream;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.HOST_API;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CROWDMAP_API;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.PROTOCOL_HTTP;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
 
@@ -64,7 +64,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
     private static final String METHOD_MULTIPART = "MULTIPART";
 
     public CrowdmapHttpClient() {
-        super(HOST_API,-1, PROTOCOL_HTTP);
+        super(CROWDMAP_API,-1, PROTOCOL_HTTP);
         requestHeaders.put("Accept-Encoding", GZIP_DEFLATE);
     }
 
@@ -150,7 +150,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param url The URL to send the GET request to.
      * @return The HTTP response string as returned from the server
      */
-    public String sendGetRequest(String url) {
+    public String get(String url) {
         return request(url, METHOD_GET, null);
 
     }
@@ -162,7 +162,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param url The URL to send the DELETE request to.
      * @return The HTTP response string as returned from the server
      */
-    public String sendDeleteRequest(String url) {
+    public String delete(String url) {
         return request(url, METHOD_DELETE, null);
 
     }
@@ -175,7 +175,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param body The form fields to be sent
      * @return The HTTP response string as returned from the server
      */
-    public String sendPostRequest(String url, Body body) {
+    public String post(String url, Body body) {
         return request(url, METHOD_POST, body);
 
     }
@@ -188,7 +188,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param body The form fields to be sent
      * @return The HTTP response string as returned from the server
      */
-    public String sendPutRequest(String url, Body body) {
+    public String put(String url, Body body) {
         return request(url, METHOD_PUT, body);
 
     }
@@ -200,7 +200,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param url The URL to send the POST request to.
      * @return The HTTP response string as returned from the server
      */
-    public String sendPostRequest(String url) {
+    public String post(String url) {
         return request(url, METHOD_POST, null);
     }
 
@@ -212,7 +212,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param body The parameters to
      * @return The HTTP response string as returned from the server
      */
-    public String sendMultipartPostRequest(String url, Body body) {
+    public String multipartPost(String url, Body body) {
         return request(url, METHOD_MULTIPART, body);
 
     }
@@ -235,5 +235,13 @@ public class CrowdmapHttpClient extends BaseHttpClient {
         if (password == null) {
             throw new IllegalArgumentException("Password cannot be null");
         }
+    }
+
+    /**
+     * Set the API key to be used for signing the various API request
+     * @param apiKey
+     */
+    public void setApiKey(String apiKey) {
+
     }
 }

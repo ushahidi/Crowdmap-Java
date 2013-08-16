@@ -19,58 +19,52 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.resource;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
-
 import com.crowdmap.java.sdk.json.MediaJson;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 
 /**
  * Service for interacting with crowdmap's media API
  */
 public class MediaResource extends CrowdmapResource {
 
-	/**
-	 * Create the media service with a default crowdmap HTTP client
-	 * 
-	 */
-	public MediaResource(){
-		super();
-	}
-	
-	/**
-	 * Create the media service with a configured crowdmap HTTP client
-	 * 
-	 * @param client
-	 */
-	public MediaResource(CrowdmapHttpClient client) {
-		super(client);
-	}
-	
-	/**
-	 * Get media in crowdmap. GET /media
-	 */
-	public MediaJson getMedia() {
-		StringBuilder url = new StringBuilder(apiUrl);
-		url.append(SEGMENT_MEDIA);
-		String response = client.sendGetRequest(url.toString());
-		MediaJson mediaJson = fromString(response, MediaJson.class);
-		return mediaJson;
-	}
-	
-	/**
-	 * Get a specific media
-	 * 
-	 * @param id The ID of the media
-	 * 
-	 * @return MediaJson Object
-	 */
-	public MediaJson getMedia(String id) {
-		StringBuilder url = new StringBuilder(apiUrl);
-		url.append(SEGMENT_MEDIA);
-		url.append("/");
-		url.append(id);
-		String response = client.sendGetRequest(url.toString());
-		MediaJson mediaJson = fromString(response, MediaJson.class);
-		return mediaJson;
-	}
+    /**
+     * Create the media service with a default crowdmap HTTP client
+     */
+    public MediaResource() {
+        super();
+    }
+
+    /**
+     * Create the media service with a configured crowdmap HTTP client
+     */
+    public MediaResource(CrowdmapHttpClient client) {
+        super(client);
+    }
+
+    /**
+     * Get media in crowdmap. GET /media
+     */
+    public MediaJson getMedia() {
+
+        String response = client.get(SEGMENT_MEDIA);
+        MediaJson mediaJson = fromString(response, MediaJson.class);
+        return mediaJson;
+    }
+
+    /**
+     * Get a specific media
+     *
+     * @param id The ID of the media
+     * @return MediaJson Object
+     */
+    public MediaJson getMedia(String id) {
+        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
+        url.append("/");
+        url.append(id);
+        String response = client.get(url.toString());
+        MediaJson mediaJson = fromString(response, MediaJson.class);
+        return mediaJson;
+    }
 }

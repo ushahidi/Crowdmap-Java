@@ -19,104 +19,94 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.resource;
 
-import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_URL;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_VERSION;
-
-import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.DateDeserializer;
+import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+
+import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
  * Base crowdmap service class
  */
 public class CrowdmapResource {
 
-	public static Gson gson;
+    public static Gson gson;
 
-	static {
-		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(Date.class, new DateDeserializer());
-		
-		builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
-		gson = builder.create();
-	}
+    static {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Date.class, new DateDeserializer());
 
-	protected CrowdmapHttpClient client;
+        builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
+        gson = builder.create();
+    }
 
-	protected String apiUrl;
+    protected CrowdmapHttpClient client;
 
-	/**
-	 * Create a the task using the default {@link CrowdmapHttpClient}
-	 * 
-	 * @param client
-	 *            The HttpClient
-	 */
-	public CrowdmapResource(CrowdmapHttpClient client) {
 
-		if (client == null) {
-			throw new IllegalArgumentException("Client cannot be null");
-		}
+    /**
+     * Create a the task using the default {@link CrowdmapHttpClient}
+     *
+     * @param client The HttpClient
+     */
+    public CrowdmapResource(CrowdmapHttpClient client) {
 
-		apiUrl = API_URL + "/" + API_VERSION;
-		this.client = client;
-	}
+        if (client == null) {
+            throw new IllegalArgumentException("Client cannot be null");
+        }
+        this.client = client;
+    }
 
-	/**
-	 * Create a service using a default {@link CrowdmapHttpClient}
-	 * 
-	 */
-	public CrowdmapResource() {
-		this(new CrowdmapHttpClient());
-	}
+    /**
+     * Create a service using a default {@link CrowdmapHttpClient}
+     */
+    public CrowdmapResource() {
+        this(new CrowdmapHttpClient());
+    }
 
-	/**
-	 * Get the configured HTTP client
-	 * 
-	 */
-	public CrowdmapHttpClient getClient() {
-		return client;
-	}
+    /**
+     * Get the configured HTTP client
+     */
+    public CrowdmapHttpClient getClient() {
+        return client;
+    }
 
-	/**
-	 * Check that id is not null and not empty
-	 * 
-	 * @param id
-	 * @return id
-	 */
-	protected String checkId(String id) {
-		if (id == null)
-			throw new IllegalArgumentException("Id cannot be null");
-		if (id.length() == 0)
-			throw new IllegalArgumentException("Id cannot be empty");
-		return id;
-	}
+    /**
+     * Check that id is not null and not empty
+     *
+     * @return id
+     */
+    protected String checkId(String id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+        if (id.length() == 0) {
+            throw new IllegalArgumentException("Id cannot be empty");
+        }
+        return id;
+    }
 
-	/**
-	 * Deserialize the JSON string into Java objects representing the various
-	 * Crowdmap models.
-	 * 
-	 * @param json
-	 *            the json string to be converted
-	 * @param cls
-	 *            the class for the model
-	 * @return The Object related to the Crowdmap API model
-	 */
-	public static <T> T fromString(String json, Class<T> cls) {
-		
-		return gson.fromJson(json, cls);
-	}
-	
-	/**
-	 * Serialize an Object into JSON objects.
-	 * 
-	 * @param obj the object to be serialized
-	 * 
-	 *  @return the json string
-	 */
-	public static String toJson(final Object obj) {
-		return gson.toJson(obj);
-	}
+    /**
+     * Deserialize the JSON string into Java objects representing the various Crowdmap models.
+     *
+     * @param json the json string to be converted
+     * @param cls  the class for the model
+     * @return The Object related to the Crowdmap API model
+     */
+    public static <T> T fromString(String json, Class<T> cls) {
+
+        return gson.fromJson(json, cls);
+    }
+
+    /**
+     * Serialize an Object into JSON objects.
+     *
+     * @param obj the object to be serialized
+     * @return the json string
+     */
+    public static String toJson(final Object obj) {
+        return gson.toJson(obj);
+    }
 }

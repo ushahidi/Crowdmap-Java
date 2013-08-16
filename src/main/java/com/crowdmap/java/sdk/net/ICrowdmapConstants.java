@@ -40,6 +40,8 @@ public interface ICrowdmapConstants {
 
     public String API_URL = PROTOCOL_HTTP + "://" + HOST_API;
 
+    public String CROWDMAP_API = API_URL + "/" + API_VERSION;
+
     public String USER_AGENT = "Crowdmap-Java/1.0.0";
 
     public String GZIP_DEFLATE = "gzip";

@@ -19,12 +19,12 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.resource;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;
-
 import com.crowdmap.java.sdk.json.SessionJson;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.crowdmap.java.sdk.net.content.Body;
+
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
 
 /**
  * Login service
@@ -32,40 +32,33 @@ import com.crowdmap.java.sdk.net.content.Body;
 public class SessionResource extends CrowdmapResource {
 
 
-	/**
-	 * Create login service with a configured HTTP client
-	 * 
-	 * @param client
-	 */
-	public SessionResource(CrowdmapHttpClient client) {
-		super(client);
-	}
+    /**
+     * Create login service with a configured HTTP client
+     */
+    public SessionResource(CrowdmapHttpClient client) {
+        super(client);
+    }
 
-	/**
-	 * Login a user. POST /session/login
-	 * 
-	 * @param username
-	 *            The user's username
-	 * 
-	 * @param password
-	 *            The user's password
-	 * 
-	 * @return {@link com.crowdmap.java.sdk.json.SessionJson}
-	 */
-	public SessionJson login(String username, String password) {
-		
-		// Build the URL for the login endpoint
-		StringBuilder url = new StringBuilder(apiUrl);
-		url.append(SEGMENT_SESSION);
-		url.append(SEGMENT_LOGIN);
-		
-		// Pass the username and password to the login endpoint
-		final Body body = new Body();
-		body.addField("username", username);
-		body.addField("password", password);
-		
-		// Send a post request to login
-		return fromString(client.sendMultipartPostRequest(url.toString(), body),
-				SessionJson.class);
-	}
+    /**
+     * Login a user. POST /session/login
+     *
+     * @param username The user's username
+     * @param password The user's password
+     * @return {@link com.crowdmap.java.sdk.json.SessionJson}
+     */
+    public SessionJson login(String username, String password) {
+
+        // Build the URL for the login endpoint
+        StringBuilder url = new StringBuilder(SEGMENT_SESSION);
+        url.append(SEGMENT_LOGIN);
+
+        // Pass the username and password to the login endpoint
+        final Body body = new Body();
+        body.addField("username", username);
+        body.addField("password", password);
+
+        // Send a post request to login
+        return fromString(client.multipartPost(url.toString(), body),
+                SessionJson.class);
+    }
 }

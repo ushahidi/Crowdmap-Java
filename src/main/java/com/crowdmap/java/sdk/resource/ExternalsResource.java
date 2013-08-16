@@ -19,10 +19,10 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.resource;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
-
 import com.crowdmap.java.sdk.json.ExternalsJson;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 
 /**
  * Externals service
@@ -32,34 +32,25 @@ public class ExternalsResource extends CrowdmapResource {
     public ExternalsResource(CrowdmapHttpClient client) {
         super(client);
     }
-	/**
-	 * Get all externals. GET /externals
-	 * 
-	 * @return 
-	 */
-	public ExternalsJson getExternals() {
 
-		StringBuilder url = new StringBuilder(apiUrl);
-		url.append(SEGMENT_EXTERNALS);
+    /**
+     * Get all externals. GET /externals
+     */
+    public ExternalsJson getExternals() {
+        return fromString(client.get(SEGMENT_EXTERNALS),
+                ExternalsJson.class);
+    }
 
-		return fromString(client.sendGetRequest(url.toString()),
-				ExternalsJson.class);
-	}
+    /**
+     * Get specific external. GET /externals/:external_id
+     */
+    public ExternalsJson getExternal(String id) {
+        StringBuilder url = new StringBuilder(SEGMENT_EXTERNALS);
+        url.append("/");
+        url.append(id);
 
-	/**
-	 * Get specific external. GET /externals/:external_id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public ExternalsJson getExternal(String id) {
-		StringBuilder url = new StringBuilder(apiUrl);
-		url.append(SEGMENT_EXTERNALS);
-		url.append("/");
-		url.append(id);
+        return fromString(client.get(url.toString()),
+                ExternalsJson.class);
 
-		return fromString(client.sendGetRequest(url.toString()),
-				ExternalsJson.class);
-
-	}
+    }
 }
