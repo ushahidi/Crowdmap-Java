@@ -22,29 +22,44 @@ package com.crowdmap.java.sdk.model;
 import java.io.Serializable;
 
 /**
- * Geometry model class
+ * Permission model classes
  */
-public class Geometry implements Serializable {
+public class Permission implements Serializable {
 
     /**
-     * Seria version UID
+     * Serial version UID
      */
-    private static final long serialVersionUID = -1670724915317453993L;
+    private static final long serialVersionUID = 3524581235515348880L;
 
-    private String type;
+    private boolean delete;
+
+    private boolean edit;
 
     /**
-     * @return the type
+     * @return the delete
      */
-    public String getType() {
-        return type;
+    public boolean isDelete() {
+        return delete;
     }
 
     /**
-     * @param type the type to set
+     * @param delete the delete to set
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setDelete(boolean delete) {
+        this.delete = delete;
     }
 
+    /**
+     * @return the edit
+     */
+    public boolean isEdit() {
+        return edit;
+    }
+
+    /**
+     * @param edit the edit to set
+     */
+    public void setEdit(boolean edit) {
+        this.edit = edit;
+    }
 }

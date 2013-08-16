@@ -19,32 +19,74 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
- * Geometry model class
+ * Followiing Map model calls
  */
-public class Geometry implements Serializable {
+public class Follower implements Serializable {
 
     /**
      * Seria version UID
      */
-    private static final long serialVersionUID = -1670724915317453993L;
+    private static final long serialVersionUID = -6275336806371569376L;
 
-    private String type;
+    private User users;
 
     /**
-     * @return the type
+     * The person ID
      */
-    public String getType() {
-        return type;
+    @SerializedName("user_id")
+    private int id;
+
+    /**
+     * The ID of the map.
+     */
+    @SerializedName("map_id")
+    private int mapId;
+
+    /**
+     * @return the users
+     */
+    public User getUsers() {
+        return users;
     }
 
     /**
-     * @param type the type to set
+     * @param users the users to set
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setUsers(User users) {
+        this.users = users;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the mapId
+     */
+    public int getMapId() {
+        return mapId;
+    }
+
+    /**
+     * @param mapId the mapId to set
+     */
+    public void setMapId(int mapId) {
+        this.mapId = mapId;
     }
 
 }

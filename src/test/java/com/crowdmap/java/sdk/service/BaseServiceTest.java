@@ -26,8 +26,7 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 
-import com.crowdmap.java.sdk.net.Authentication;
-import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+import com.crowdmap.java.sdk.Crowdmap;
 
 /**
  * The base class for testing all the task supported by the Ushahidi API
@@ -35,17 +34,15 @@ import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
  * @author eyedol
  * 
  */
-public class BaseServiceTest extends TestCase {
+public abstract class BaseServiceTest extends TestCase {
 
-	/** The Authentication class */
-	protected Authentication authentication;
-
-	protected CrowdmapHttpClient client;
+	protected Crowdmap crowdmap;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		client = new CrowdmapHttpClient();
+		crowdmap = new Crowdmap();
+        crowdmap.setApiKey("AmcoSiLOiRUXiiAPv3b4b8791b3830446466464495c74cd1e1f0ed083");
 
 	}
 
@@ -53,7 +50,7 @@ public class BaseServiceTest extends TestCase {
 	public void tearDown() throws Exception {
 		super.tearDown();
 		// null the factory object
-		client = null;
+		crowdmap = null;
 	}
 
 	/**

@@ -19,11 +19,24 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-public class Date extends java.util.Date {
+import com.google.gson.annotations.SerializedName;
 
-    private static final long serialVersionUID = -2667623647943795029L;
+import com.crowdmap.java.sdk.model.Follower;
 
-    public Date(java.util.Date date) {
-        super(date.getTime());
-    }
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ *
+ */
+public class Followers extends Response implements Serializable {
+
+    /**
+     * Serial version UID
+     */
+    private static final long serialVersionUID = -663819341932877092L;
+
+    @SerializedName("following_maps")
+    public List<Follower> followingMaps;
+
 }

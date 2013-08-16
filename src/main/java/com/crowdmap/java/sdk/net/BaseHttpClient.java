@@ -210,7 +210,8 @@ public abstract class BaseHttpClient {
      * @return uri
      */
     protected String createUri(String uri) {
-        return baseUri + uri;
+        String url = baseUri + uri;
+        return url;
     }
 
     /**
@@ -325,10 +326,10 @@ public abstract class BaseHttpClient {
             URL apiUrl = initUrl(url);
             if (!requestParameters.isEmpty()) {
                 if (apiUrl.getQuery() == null) {
-                    apiUrl = new URL(url + "?"
+                    apiUrl = initUrl(url + "?"
                             + getParametersString(requestParameters));
                 } else {
-                    apiUrl = new URL(url + "&"
+                    apiUrl = initUrl(url + "&"
                             + getParametersString(requestParameters));
                 }
             }
@@ -369,10 +370,10 @@ public abstract class BaseHttpClient {
             URL apiUrl = initUrl(url);
             if (!requestParameters.isEmpty()) {
                 if (apiUrl.getQuery() == null) {
-                    apiUrl = new URL(url + "?"
+                    apiUrl = initUrl(url + "?"
                             + getParametersString(requestParameters));
                 } else {
-                    apiUrl = new URL(url + "&"
+                    apiUrl = initUrl(url + "&"
                             + getParametersString(requestParameters));
                 }
             }
@@ -427,7 +428,7 @@ public abstract class BaseHttpClient {
 
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
-
+            System.out.println("FUll URL: "+builder.toString());
             out.print(builder.toString());
             out.flush();
             out.close();
@@ -605,7 +606,7 @@ public abstract class BaseHttpClient {
             int expected) {
         try {
 
-            URL url = new URL(apiUrl);
+            URL url = initUrl(apiUrl);
             HttpURLConnection request = openConnection(url, "POST");
             String boundary = "00content0boundary00";
 
@@ -713,7 +714,7 @@ public abstract class BaseHttpClient {
     protected InputStream requestMethod(String apiUrl, String contentType,
             String method, int expected) {
         try {
-            URL url = new URL(apiUrl);
+            URL url = initUrl(apiUrl);
             HttpURLConnection request = openConnection(url, method);
 
             if (contentType != null) {
@@ -736,20 +737,6 @@ public abstract class BaseHttpClient {
             }
         } catch (IOException e) {
             throw new CrowdmapException(e);
-        }
-    }
-
-    /**
-     * Sets the authentication.
-     *
-     * @param authentication the new authentication
-     */
-    public void setAuthentication(Authentication authentication) {
-        if (authentication != null) {
-            if (authentication instanceof HeaderAuthentication) {
-                requestHeaders.putAll(((HeaderAuthentication) authentication)
-                        .getHeaders());
-            }
         }
     }
 

@@ -17,13 +17,35 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.json;
+package com.crowdmap.java.sdk.service;
 
-public class Date extends java.util.Date {
+import com.crowdmap.java.sdk.json.Externals;
 
-    private static final long serialVersionUID = -2667623647943795029L;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 
-    public Date(java.util.Date date) {
-        super(date.getTime());
+/**
+ * External service
+ */
+public class ExternalService extends CrowdmapService {
+
+    /**
+     * Get all externals. GET /externals
+     */
+    public Externals getExternals() {
+        return fromString(client.get(SEGMENT_EXTERNALS),
+                Externals.class);
+    }
+
+    /**
+     * Get specific external. GET /externals/:external_id
+     */
+    public Externals getExternal(String id) {
+        StringBuilder url = new StringBuilder(SEGMENT_EXTERNALS);
+        url.append("/");
+        url.append(id);
+
+        return fromString(client.get(url.toString()),
+                Externals.class);
+
     }
 }

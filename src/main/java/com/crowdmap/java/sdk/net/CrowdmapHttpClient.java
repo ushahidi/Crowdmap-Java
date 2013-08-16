@@ -28,6 +28,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CROWDMAP_API;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.PROTOCOL_HTTP;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_KEY_PARAM;
 
 /**
  * The main HTTP Client to interact with the Ushahidi API
@@ -94,6 +95,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
     }
 
     private String request(String url, String method, Body body) {
+
         if (url == null || method.equals("")) {
             throw new IllegalArgumentException("URL cannot be null or empty");
         }
@@ -201,6 +203,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @return The HTTP response string as returned from the server
      */
     public String post(String url) {
+
         return request(url, METHOD_POST, null);
     }
 
@@ -227,21 +230,11 @@ public class CrowdmapHttpClient extends BaseHttpClient {
         requestParameters.put(key, value);
     }
 
-    public void setAuthentication(String username, String password) {
-        if (username == null) {
-            throw new IllegalArgumentException("Username cannot be null");
-        }
-
-        if (password == null) {
-            throw new IllegalArgumentException("Password cannot be null");
-        }
-    }
-
     /**
      * Set the API key to be used for signing the various API request
      * @param apiKey
      */
     public void setApiKey(String apiKey) {
-
+        setRequestParameters(API_KEY_PARAM, apiKey);
     }
 }

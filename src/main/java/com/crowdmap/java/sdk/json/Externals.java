@@ -19,11 +19,21 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-public class Date extends java.util.Date {
+import com.crowdmap.java.sdk.model.External;
 
-    private static final long serialVersionUID = -2667623647943795029L;
+import java.io.Serializable;
+import java.util.List;
 
-    public Date(java.util.Date date) {
-        super(date.getTime());
-    }
+/**
+ *
+ */
+public class Externals extends Response implements Serializable {
+
+    /**
+     * Serial version UID
+     */
+    private static final long serialVersionUID = 3719058958496371506L;
+
+    public List<External> externals;
+
 }

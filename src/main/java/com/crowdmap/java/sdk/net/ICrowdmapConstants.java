@@ -38,9 +38,11 @@ public interface ICrowdmapConstants {
 
     public String PROTOCOL_HTTP = "http";
 
+    public String API_KEY_PARAM = "apikey";
+
     public String API_URL = PROTOCOL_HTTP + "://" + HOST_API;
 
-    public String CROWDMAP_API = API_URL + "/" + API_VERSION;
+    public String CROWDMAP_API = HOST_API + "/" + API_VERSION;
 
     public String USER_AGENT = "Crowdmap-Java/1.0.0";
 

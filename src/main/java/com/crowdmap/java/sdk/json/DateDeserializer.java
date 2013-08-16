@@ -19,32 +19,33 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.DATE_FORMAT;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
+import com.crowdmap.java.sdk.CrowdmapException;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.crowdmap.java.sdk.CrowdmapException;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.DATE_FORMAT;
 
 public class DateDeserializer implements JsonDeserializer<Date> {
 
-	private static final SimpleDateFormat PARSER = new SimpleDateFormat(
-			DATE_FORMAT, Locale.US);
+    private static final SimpleDateFormat PARSER = new SimpleDateFormat(
+            DATE_FORMAT, Locale.US);
 
-	@Override
-	public Date deserialize(JsonElement arg0, Type arg1,
-			JsonDeserializationContext arg2) throws JsonParseException {
-		try {
-			return new Date(PARSER.parse(arg0.getAsString()));
-		} catch (ParseException e) {
-			throw new CrowdmapException(e);
-		}
-	}
+    @Override
+    public Date deserialize(JsonElement arg0, Type arg1,
+            JsonDeserializationContext arg2) throws JsonParseException {
+        try {
+            return new Date(PARSER.parse(arg0.getAsString()));
+        } catch (ParseException e) {
+            throw new CrowdmapException(e);
+        }
+    }
 
 }

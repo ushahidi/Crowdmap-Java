@@ -1,5 +1,5 @@
-/*****************************************************************************
- ** Copyright (c) 2010 - 2012 Ushahidi Inc
+/*******************************************************************************
+ ** Copyright (c) 2010 - 2013 Ushahidi Inc
  ** All rights reserved
  ** Contact: team@ushahidi.com
  ** Website: http://www.ushahidi.com
@@ -16,142 +16,152 @@
  ** If you have questions regarding the use of this file, please contact
  ** Ushahidi developers at team@ushahidi.com.
  **
- *****************************************************************************/
+ ******************************************************************************/
 package com.crowdmap.java.sdk.model;
+
+import com.google.gson.annotations.SerializedName;
+
+import com.crowdmap.java.sdk.json.Response;
 
 import java.io.Serializable;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Owner model class
  */
-public class Owner implements Serializable {
+public class Owner extends Response implements Serializable {
 
-	/**
-	 * Serial version UID
-	 */
-	private static final long serialVersionUID = 2287672209635012925L;
+    /**
+     * Serial version UID
+     */
+    private static final long serialVersionUID = 2287672209635012925L;
 
-	public List<Media> media;
-	
-	/**
-	 * The person ID
-	 */
-	@SerializedName("user_id")
-	private int id;
+    private List<Image> media;
 
-	/**
-	 * The person's crowdmap ID
-	 */
-	@SerializedName("crowdmap_id")
-	private String crowdmapId;
+    /**
+     * The person ID
+     */
+    @SerializedName("user_id")
+    private int id;
 
-	/**
-	 * The person's username
-	 */
-	private String username;
+    /**
+     * The person's crowdmap ID
+     */
+    @SerializedName("crowdmap_id")
+    private String crowdmapId;
 
-	/**
-	 * The person's name
-	 */
-	private String name;
+    /**
+     * The person's username
+     */
+    private String username;
 
-	/**
-	 * The person's profile status. 1 for public and 0 for private.
-	 */
-	@SerializedName("public")
-	private int pub;
+    /**
+     * The person's name
+     */
+    private String name;
 
-	/**
-	 * The ID of the person's hero graphic
-	 */
-	@SerializedName("media_id_hero")
-	private int mediaIdHero;
+    /**
+     * The person's profile status. 1 for public and 0 for private.
+     */
+    @SerializedName("public")
+    private int pub;
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+    /**
+     * The ID of the person's hero graphic
+     */
+    @SerializedName("media_id_hero")
+    private int mediaIdHero;
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * @return the crowdmapId
-	 */
-	public String getCrowdmapId() {
-		return crowdmapId;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param crowdmapId the crowdmapId to set
-	 */
-	public void setCrowdmapId(String crowdmapId) {
-		this.crowdmapId = crowdmapId;
-	}
+    /**
+     * @return the crowdmapId
+     */
+    public String getCrowdmapId() {
+        return crowdmapId;
+    }
 
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
+    /**
+     * @param crowdmapId the crowdmapId to set
+     */
+    public void setCrowdmapId(String crowdmapId) {
+        this.crowdmapId = crowdmapId;
+    }
 
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @return the pub
-	 */
-	public int getPub() {
-		return pub;
-	}
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @param pub the pub to set
-	 */
-	public void setPub(int pub) {
-		this.pub = pub;
-	}
+    /**
+     * @return the pub
+     */
+    public int getPub() {
+        return pub;
+    }
 
-	/**
-	 * @return the mediaIdHero
-	 */
-	public int getMediaIdHero() {
-		return mediaIdHero;
-	}
+    /**
+     * @param pub the pub to set
+     */
+    public void setPub(int pub) {
+        this.pub = pub;
+    }
 
-	/**
-	 * @param mediaIdHero the mediaIdHero to set
-	 */
-	public void setMediaIdHero(int mediaIdHero) {
-		this.mediaIdHero = mediaIdHero;
-	}
+    /**
+     * @return the mediaIdHero
+     */
+    public int getMediaIdHero() {
+        return mediaIdHero;
+    }
 
+    /**
+     * @param mediaIdHero the mediaIdHero to set
+     */
+    public void setMediaIdHero(int mediaIdHero) {
+        this.mediaIdHero = mediaIdHero;
+    }
+
+    /**
+     * Image items
+     *
+     * @return List of {@link Image}
+     */
+    public List<Image> getMedia() {
+        return this.media;
+    }
 }

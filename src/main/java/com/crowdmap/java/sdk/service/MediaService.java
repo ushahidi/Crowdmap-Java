@@ -17,27 +17,39 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.json;
+package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.model.Image;
-import com.crowdmap.java.sdk.model.User;
+import com.crowdmap.java.sdk.json.Media;
 
-import java.io.Serializable;
-import java.util.List;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 
 /**
- * Image Json response
+ * Service for interacting with crowdmap's media API
  */
-public class Media extends Response implements Serializable {
+public class MediaService extends CrowdmapService {
 
     /**
-     * Serial version UID
+     * Get media in crowdmap. GET /media
      */
-    private static final long serialVersionUID = 8498886833164100022L;
+    public Media getMedia() {
 
-    User users;
+        String response = client.get(SEGMENT_MEDIA);
+        Media mediaJson = fromString(response, Media.class);
+        return mediaJson;
+    }
 
-    public List<Image> media;
-
-
+    /**
+     * Get a specific media
+     *
+     * @param id The ID of the media
+     * @return Media Object
+     */
+    public Media getMedia(String id) {
+        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
+        url.append("/");
+        url.append(id);
+        String response = client.get(url.toString());
+        Media mediaJson = fromString(response, Media.class);
+        return mediaJson;
+    }
 }

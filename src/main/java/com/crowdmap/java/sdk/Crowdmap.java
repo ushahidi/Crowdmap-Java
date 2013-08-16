@@ -19,21 +19,17 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk;
 
-import com.crowdmap.java.sdk.resource.CrowdmapResource;
-import com.crowdmap.java.sdk.resource.MediaResource;
+import com.crowdmap.java.sdk.service.CrowdmapService;
+import com.crowdmap.java.sdk.service.MediaService;
+import com.crowdmap.java.sdk.service.SessionService;
 
 /**
  * Creates the various Crowdmap API resources
  */
 public class Crowdmap {
+
     /** private app key value **/
     private String apiKey;
-
-    /** User password. */
-    private String password;
-
-    /** Username **/
-    private String username;
 
     /** Connection timeout (in milliseconds). */
 
@@ -50,21 +46,8 @@ public class Crowdmap {
      * @param value API key value.
      * @return Current instance for builder pattern.
      */
-    public Crowdmap setAppKey(String value) {
+    public Crowdmap setApiKey(String value) {
         this.apiKey = value;
-        return this;
-    }
-
-    /**
-     * Set default authentication credentials.
-     *
-     * @param email User email.
-     * @param password User password.
-     * @return Current instance.
-     */
-    public Crowdmap setAuthentication(String email, String password) {
-        this.username = email;
-        this.password = password;
         return this;
     }
 
@@ -90,7 +73,7 @@ public class Crowdmap {
         return this;
     }
 
-    private void setupResource(CrowdmapResource resource) {
+    private void setupResource(CrowdmapService resource) {
 
         if(this.connectionTimeout != null) {
             resource.getClient().setConnectionTimeout(this.connectionTimeout);
@@ -100,28 +83,41 @@ public class Crowdmap {
             resource.getClient().setSocketTimeout(this.socketTimeout);
         }
 
-        if((this.username != null) && (this.password != null) ) {
-            resource.getClient().setAuthentication(this.username, this.password);
+        if((this.apiKey != null)) {
+            resource.getClient().setApiKey(this.apiKey);
         }
 
     }
 
     /**
-     * Create a new media resource instance
+     * Create a new media service instance
      *
      */
-    public static final MediaResource newMediaResource() {
-        return new MediaResource();
+    public static final MediaService newMediaService() {
+        return new MediaService();
     }
 
     /**
-     * Get media resource
-     *
-     * @return Media Resource
+     * Create a new session service instance
      */
-    public MediaResource mediaResource() {
-        MediaResource resource = Crowdmap.newMediaResource();
-        return resource;
+    public static final SessionService newSessionService() {
+        return new SessionService();
     }
 
+    /**
+     * Get media service
+     *
+     * @return Image Resource
+     */
+    public MediaService mediaService() {
+        MediaService service = Crowdmap.newMediaService();
+        this.setupResource(service);
+        return service;
+    }
+
+    public SessionService sessionService() {
+        SessionService service = Crowdmap.newSessionService();
+        this.setupResource(service);
+        return service;
+    }
 }
