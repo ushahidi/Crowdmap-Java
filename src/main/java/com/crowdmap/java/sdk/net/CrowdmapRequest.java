@@ -20,7 +20,7 @@
 package com.crowdmap.java.sdk.net;
 
 /**
- * 
+ *
  */
 public class CrowdmapRequest {
 

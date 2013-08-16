@@ -17,7 +17,7 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.service;
+package com.crowdmap.java.sdk.resource;
 
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_URL;
@@ -32,7 +32,7 @@ import com.crowdmap.java.sdk.json.DateDeserializer;
 /**
  * Base crowdmap service class
  */
-public class BaseService {
+public class CrowdmapResource {
 
 	public static Gson gson;
 
@@ -54,7 +54,7 @@ public class BaseService {
 	 * @param client
 	 *            The HttpClient
 	 */
-	public BaseService(CrowdmapHttpClient client) {
+	public CrowdmapResource(CrowdmapHttpClient client) {
 
 		if (client == null) {
 			throw new IllegalArgumentException("Client cannot be null");
@@ -68,7 +68,7 @@ public class BaseService {
 	 * Create a service using a default {@link CrowdmapHttpClient}
 	 * 
 	 */
-	public BaseService() {
+	public CrowdmapResource() {
 		this(new CrowdmapHttpClient());
 	}
 
@@ -83,8 +83,8 @@ public class BaseService {
 	/**
 	 * Check that id is not null and not empty
 	 * 
-	 * @param gistId
-	 * @return gist id
+	 * @param id
+	 * @return id
 	 */
 	protected String checkId(String id) {
 		if (id == null)

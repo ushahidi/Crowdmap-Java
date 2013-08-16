@@ -23,17 +23,16 @@ import java.util.Map;
 
 /**
  * The interface to be implemented for header based authentication
- * 
+ *
  * @author eyedol
- * 
  */
 public interface HeaderAuthentication extends Authentication {
 
-	/**
-	 * Gets the headers.
-	 * 
-	 * @return the headers
-	 */
-	public Map<String, String> getHeaders();
+    /**
+     * Gets the headers.
+     *
+     * @return the headers
+     */
+    public Map<String, String> getHeaders();
 
 }

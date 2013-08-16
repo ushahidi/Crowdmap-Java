@@ -17,7 +17,7 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.service;
+package com.crowdmap.java.sdk.resource;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
@@ -31,9 +31,9 @@ import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 /**
  * Service for interacting with crowdmap's Posts API
  */
-public class PostsService extends BaseService {
+public class PostResource extends CrowdmapResource {
 
-	public PostsService() {
+	public PostResource() {
 		super();
 	}
 
@@ -42,7 +42,7 @@ public class PostsService extends BaseService {
 	 * 
 	 * @param client
 	 */
-	public PostsService(CrowdmapHttpClient client) {
+	public PostResource(CrowdmapHttpClient client) {
 		super(client);
 	}
 

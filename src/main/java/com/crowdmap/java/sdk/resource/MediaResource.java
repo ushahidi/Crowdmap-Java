@@ -17,62 +17,60 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.service;
+package com.crowdmap.java.sdk.resource;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 
-import com.crowdmap.java.sdk.json.ExternalsJson;
+import com.crowdmap.java.sdk.json.MediaJson;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**
- * Externals service
+ * Service for interacting with crowdmap's media API
  */
-public class ExternalsService extends BaseService {
+public class MediaResource extends CrowdmapResource {
 
 	/**
-	 * Create a new external service with the default crowdmap HTTP client
+	 * Create the media service with a default crowdmap HTTP client
+	 * 
 	 */
-	public ExternalsService() {
+	public MediaResource(){
 		super();
 	}
-
+	
 	/**
-	 * Create a new externals service with a configured crowdmap HTTP client
+	 * Create the media service with a configured crowdmap HTTP client
 	 * 
 	 * @param client
 	 */
-	public ExternalsService(CrowdmapHttpClient client) {
+	public MediaResource(CrowdmapHttpClient client) {
 		super(client);
 	}
-
+	
 	/**
-	 * Get all externals. GET /externals
-	 * 
-	 * @return 
+	 * Get media in crowdmap. GET /media
 	 */
-	public ExternalsJson getExternals() {
-
+	public MediaJson getMedia() {
 		StringBuilder url = new StringBuilder(apiUrl);
-		url.append(SEGMENT_EXTERNALS);
-
-		return fromString(client.sendGetRequest(url.toString()),
-				ExternalsJson.class);
+		url.append(SEGMENT_MEDIA);
+		String response = client.sendGetRequest(url.toString());
+		MediaJson mediaJson = fromString(response, MediaJson.class);
+		return mediaJson;
 	}
-
+	
 	/**
-	 * Get specific external. GET /externals/:external_id
+	 * Get a specific media
 	 * 
-	 * @param id
-	 * @return
+	 * @param id The ID of the media
+	 * 
+	 * @return MediaJson Object
 	 */
-	public ExternalsJson getExternal(String id) {
+	public MediaJson getMedia(String id) {
 		StringBuilder url = new StringBuilder(apiUrl);
-		url.append(SEGMENT_EXTERNALS);
+		url.append(SEGMENT_MEDIA);
 		url.append("/");
 		url.append(id);
-
-		return fromString(client.sendGetRequest(url.toString()),
-				ExternalsJson.class);
-
+		String response = client.sendGetRequest(url.toString());
+		MediaJson mediaJson = fromString(response, MediaJson.class);
+		return mediaJson;
 	}
 }

@@ -17,7 +17,7 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.service;
+package com.crowdmap.java.sdk.resource;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;
@@ -29,21 +29,15 @@ import com.crowdmap.java.sdk.net.content.Body;
 /**
  * Login service
  */
-public class LoginService extends BaseService {
+public class SessionResource extends CrowdmapResource {
 
-	/**
-	 * Create default login service
-	 */
-	public LoginService() {
-		super();
-	}
 
 	/**
 	 * Create login service with a configured HTTP client
 	 * 
 	 * @param client
 	 */
-	public LoginService(CrowdmapHttpClient client) {
+	public SessionResource(CrowdmapHttpClient client) {
 		super(client);
 	}
 

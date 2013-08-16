@@ -24,18 +24,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.crowdmap.java.sdk.json.MediaJson;
+import com.crowdmap.java.sdk.resource.MediaResource;
 
 /**
  * 
  */
 public class MediaServiceTest extends BaseServiceTest {
 
-	private MediaService mediaService;
+	private MediaResource mediaService;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		mediaService = new MediaService(client);
+		mediaService = new MediaResource(client);
 	}
 
 	@After
@@ -46,7 +47,7 @@ public class MediaServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.MediaService#getMedia()}.
+	 * {@link com.crowdmap.java.sdk.resource.MediaResource#getMedia()}.
 	 */
 	@Test
 	public void testGetMedia() {
@@ -58,7 +59,7 @@ public class MediaServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.MediaService#getMedia(java.lang.String)}
+	 * {@link com.crowdmap.java.sdk.resource.MediaResource#getMedia(java.lang.String)}
 	 * .
 	 */
 	@Test

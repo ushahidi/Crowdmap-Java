@@ -17,7 +17,7 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  *****************************************************************************/
-package com.crowdmap.java.sdk.service;
+package com.crowdmap.java.sdk.resource;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
@@ -37,12 +37,12 @@ import com.crowdmap.java.sdk.net.content.Body;
 /**
  * Service for interacting with various maps setup on crowdmap
  */
-public class MapService extends BaseService {
+public class MapResource extends CrowdmapResource {
 
 	/**
 	 * Create map service with default configured client
 	 */
-	public MapService() {
+	public MapResource() {
 		super();
 	}
 
@@ -51,7 +51,7 @@ public class MapService extends BaseService {
 	 * 
 	 * @param client
 	 */
-	public MapService(CrowdmapHttpClient client) {
+	public MapResource(CrowdmapHttpClient client) {
 		super(client);
 	}
 

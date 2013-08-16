@@ -21,9 +21,8 @@ package com.crowdmap.java.sdk.net;
 
 /**
  * The Authentication Interface
- * 
- * @author eyedol
  *
+ * @author eyedol
  */
 public interface Authentication {
 

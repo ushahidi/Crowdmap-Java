@@ -21,52 +21,55 @@ package com.crowdmap.java.sdk.net.content;
 
 /**
  * This class represents form fields.
- * 
+ *
  * @author eyedol
- * 
  */
 public class Field {
 
-	/** The name of the form field */
-	private String name;
+    /**
+     * The name of the form field
+     */
+    private String name;
 
-	/** The value of the form field. Note the use of object */
-	private Object value;
+    /**
+     * The value of the form field. Note the use of object
+     */
+    private Object value;
 
-	public Field(String name, Object value) {
+    public Field(String name, Object value) {
 
-		if (name == null) {
-			throw new IllegalArgumentException("Name may not be null");
-		}
+        if (name == null) {
+            throw new IllegalArgumentException("Name may not be null");
+        }
 
-		this.name = name;
-		this.value = value;
-	}
+        this.name = name;
+        this.value = value;
+    }
 
-	/**
-	 * Get the form field name
-	 * 
-	 * @return the field name
-	 */
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * Get the form field name
+     *
+     * @return the field name
+     */
+    public String getName() {
+        return this.name;
+    }
 
-	/**
-	 * Get the form field value
-	 * 
-	 * @return the field value
-	 */
-	public Object getValue() {
-		return this.value;
-	}
+    /**
+     * Get the form field value
+     *
+     * @return the field value
+     */
+    public Object getValue() {
+        return this.value;
+    }
 
-	@Override
-	public String toString() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append(this.name);
-		buffer.append(": ");
-		buffer.append(this.value.toString());
-		return buffer.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(this.name);
+        buffer.append(": ");
+        buffer.append(this.value.toString());
+        return buffer.toString();
+    }
 }

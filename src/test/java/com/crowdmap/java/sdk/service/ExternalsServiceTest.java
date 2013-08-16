@@ -24,18 +24,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.crowdmap.java.sdk.json.ExternalsJson;
+import com.crowdmap.java.sdk.resource.ExternalsResource;
 
 /**
  * 
  */
 public class ExternalsServiceTest extends BaseServiceTest {
 
-	private ExternalsService externalsService;
+	private ExternalsResource externalsService;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		externalsService = new ExternalsService(client);
+		externalsService = new ExternalsResource(client);
 	}
 
 	@After
@@ -46,7 +47,7 @@ public class ExternalsServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.ExternalsService#getExternals()}.
+	 * {@link com.crowdmap.java.sdk.resource.ExternalsResource#getExternals()}.
 	 */
 	@Test
 	public void testGetExternals() {
@@ -56,7 +57,7 @@ public class ExternalsServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.ExternalsService#getExternal(java.lang.String)}
+	 * {@link com.crowdmap.java.sdk.resource.ExternalsResource#getExternal(java.lang.String)}
 	 * .
 	 */
 	@Test

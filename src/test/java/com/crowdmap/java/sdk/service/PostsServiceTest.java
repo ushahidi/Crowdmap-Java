@@ -26,18 +26,19 @@ import org.junit.Test;
 import com.crowdmap.java.sdk.json.CommentsJson;
 import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.PostsJson;
+import com.crowdmap.java.sdk.resource.PostResource;
 
 /**
  * Posts Service Test case
  */
 public class PostsServiceTest extends BaseServiceTest {
 
-	private PostsService postsService;
+	private PostResource postsService;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		postsService = new PostsService(client);
+		postsService = new PostResource(client);
 	}
 
 	@After
@@ -48,7 +49,7 @@ public class PostsServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.PostsService#getPosts()}.
+	 * {@link com.crowdmap.java.sdk.resource.PostResource#getPosts()}.
 	 */
 	@Test
 	public void testGetPosts() {
@@ -61,7 +62,7 @@ public class PostsServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for 
-	 * {@link com.crowdmap.java.sdk.service.PostsService#getPostMaps()}.
+	 * {@link com.crowdmap.java.sdk.resource.PostResource#getPostMaps()}.
 	 */
 	@Test
 	public void testGetPostMaps() {
@@ -71,7 +72,7 @@ public class PostsServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.PostsService#getPostComments()}.
+	 * {@link com.crowdmap.java.sdk.resource.PostResource#getPostComments()}.
 	 */
 	@Test
 	public void testGetPostComments() {
@@ -83,7 +84,7 @@ public class PostsServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for 
-	 * {@link com.crowdmap.java.sdk.service.PostsService#getPostComments()}.
+	 * {@link com.crowdmap.java.sdk.resource.PostResource#getPostComments()}.
 	 */
 	@Test
 	public void getPostComments() {

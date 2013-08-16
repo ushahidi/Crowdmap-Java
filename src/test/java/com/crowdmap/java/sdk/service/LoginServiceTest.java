@@ -24,18 +24,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.crowdmap.java.sdk.json.SessionJson;
+import com.crowdmap.java.sdk.resource.SessionResource;
 
 /**
  * Test case for login service. 
  */
 public class LoginServiceTest extends BaseServiceTest {
 
-	LoginService loginService;
+	SessionResource loginService;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		loginService = new LoginService(client);
+		loginService = new SessionResource(client);
 	}
 
 	@After
@@ -46,7 +47,7 @@ public class LoginServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.LoginService#loginService()}.
+	 * {@link com.crowdmap.java.sdk.resource.SessionResource#loginService()}.
 	 */
 	@Test
 	public void testLogin() {

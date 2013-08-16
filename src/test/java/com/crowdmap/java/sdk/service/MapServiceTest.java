@@ -28,6 +28,8 @@ import com.crowdmap.java.sdk.json.FollowersJson;
 import com.crowdmap.java.sdk.json.MapsJson;
 import com.crowdmap.java.sdk.json.OwnerJson;
 import com.crowdmap.java.sdk.json.SessionJson;
+import com.crowdmap.java.sdk.resource.MapResource;
+import com.crowdmap.java.sdk.resource.SessionResource;
 
 /**
  * 
@@ -35,12 +37,12 @@ import com.crowdmap.java.sdk.json.SessionJson;
 public class MapServiceTest extends BaseServiceTest {
 
 	/** Maps Service */
-	private MapService mapService;
+	private MapResource mapService;
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
-		mapService = new MapService(client);
+		mapService = new MapResource(client);
 	}
 
 	@After
@@ -52,7 +54,7 @@ public class MapServiceTest extends BaseServiceTest {
 	/**
 	 * Test method for fetching all public maps
 	 * 
-	 * {@link com.crowdmap.java.sdk.service.MapService }
+	 * {@link com.crowdmap.java.sdk.resource.MapResource }
 	 */
 
 	@Test
@@ -89,7 +91,7 @@ public class MapServiceTest extends BaseServiceTest {
 
 	@Test
 	public void testCreateMap() {
-		LoginService loginService = new LoginService(client);
+		SessionResource loginService = new SessionResource(client);
 
 		SessionJson sessionJson = loginService.login("name@domain.com",
 				"password");
