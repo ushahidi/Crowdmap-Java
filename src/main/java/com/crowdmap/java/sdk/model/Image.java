@@ -448,4 +448,30 @@ public class Image implements Serializable {
         this.mime = mime;
     }
 
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", source='" + source + '\'' +
+                ", fileDatetime=" + fileDatetime +
+                ", uploadDatetime=" + uploadDatetime +
+                ", fileLocation='" + fileLocation + '\'' +
+                ", filename='" + filename + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                ", filenameLarge='" + filenameLarge + '\'' +
+                ", largeWidth='" + largeWidth + '\'' +
+                ", largeHeight='" + largeHeight + '\'' +
+                ", filenameSmall='" + filenameSmall + '\'' +
+                ", smallWidth=" + smallWidth +
+                ", smallHeight=" + smallHeight +
+                ", filenameThumbnail='" + filenameThumbnail + '\'' +
+                ", thumbnailWidth='" + thumbnailWidth + '\'' +
+                ", thumbnailHeight='" + thumbnailHeight + '\'' +
+                ", mime='" + mime + '\'' +
+                '}';
+    }
 }

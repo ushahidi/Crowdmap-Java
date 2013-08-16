@@ -261,4 +261,23 @@ public class Post implements Serializable {
         this.contexts = contexts;
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "externals=" + externals +
+                ", locations=" + locations +
+                ", media=" + media +
+                ", postId=" + postId +
+                ", mediaId=" + mediaId +
+                ", locationId=" + locationId +
+                ", externalId=" + externalId +
+                ", message='" + message + '\'' +
+                ", datePosted=" + datePosted +
+                ", isPublic=" + isPublic +
+                ", userIp='" + userIp + '\'' +
+                ", users=" + users +
+                ", permissions=" + permissions +
+                ", contexts=" + contexts +
+                '}';
+    }
 }

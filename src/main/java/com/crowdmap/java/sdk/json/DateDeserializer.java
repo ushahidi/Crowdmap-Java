@@ -41,11 +41,7 @@ public class DateDeserializer implements JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonElement arg0, Type arg1,
             JsonDeserializationContext arg2) throws JsonParseException {
-        try {
-            return new Date(PARSER.parse(arg0.getAsString()));
-        } catch (ParseException e) {
-            throw new CrowdmapException(e);
-        }
+        return new Date(arg0.getAsLong() * 1000);
     }
 
 }

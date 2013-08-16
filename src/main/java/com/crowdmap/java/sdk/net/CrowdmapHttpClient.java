@@ -1,5 +1,5 @@
-/*****************************************************************************
- ** Copyright (c) 2010 - 2012 Ushahidi Inc
+/*******************************************************************************
+ ** Copyright (c) 2010 - 2013 Ushahidi Inc
  ** All rights reserved
  ** Contact: team@ushahidi.com
  ** Website: http://www.ushahidi.com
@@ -16,19 +16,20 @@
  ** If you have questions regarding the use of this file, please contact
  ** Ushahidi developers at team@ushahidi.com.
  **
- *****************************************************************************/
+ ******************************************************************************/
 package com.crowdmap.java.sdk.net;
 
 import com.crowdmap.java.sdk.CrowdmapException;
 import com.crowdmap.java.sdk.net.content.Body;
 
 import java.io.InputStream;
+import java.util.Map;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CROWDMAP_API;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.PROTOCOL_HTTP;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_KEY_PARAM;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CROWDMAP_API;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.PROTOCOL_HTTPS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
 
 /**
  * The main HTTP Client to interact with the Ushahidi API
@@ -65,7 +66,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
     private static final String METHOD_MULTIPART = "MULTIPART";
 
     public CrowdmapHttpClient() {
-        super(CROWDMAP_API,-1, PROTOCOL_HTTP);
+        super(CROWDMAP_API, -1, PROTOCOL_HTTPS);
         requestHeaders.put("Accept-Encoding", GZIP_DEFLATE);
     }
 
@@ -230,9 +231,12 @@ public class CrowdmapHttpClient extends BaseHttpClient {
         requestParameters.put(key, value);
     }
 
+    public Map<String, String> getRequestParameters() {
+        return this.requestParameters;
+    }
+
     /**
      * Set the API key to be used for signing the various API request
-     * @param apiKey
      */
     public void setApiKey(String apiKey) {
         setRequestParameters(API_KEY_PARAM, apiKey);

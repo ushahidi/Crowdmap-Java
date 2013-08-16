@@ -29,5 +29,9 @@ import java.util.List;
  */
 public class Users extends Response implements Serializable {
 
-    public List<User> users;
+    private List<User> users;
+
+    public List<User> getUsers;
+
+
 }

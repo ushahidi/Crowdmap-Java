@@ -62,4 +62,12 @@ public class Permission implements Serializable {
     public void setEdit(boolean edit) {
         this.edit = edit;
     }
+
+    @Override
+    public String toString() {
+        return "Permission{" +
+                "delete=" + delete +
+                ", edit=" + edit +
+                '}';
+    }
 }

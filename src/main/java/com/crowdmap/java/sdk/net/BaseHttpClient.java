@@ -1,5 +1,5 @@
-/*****************************************************************************
- ** Copyright (c) 2010 - 2012 Ushahidi Inc
+/*******************************************************************************
+ ** Copyright (c) 2010 - 2013 Ushahidi Inc
  ** All rights reserved
  ** Contact: team@ushahidi.com
  ** Website: http://www.ushahidi.com
@@ -16,7 +16,7 @@
  ** If you have questions regarding the use of this file, please contact
  ** Ushahidi developers at team@ushahidi.com.
  **
- *****************************************************************************/
+ ******************************************************************************/
 package com.crowdmap.java.sdk.net;
 
 import com.crowdmap.java.sdk.CrowdmapException;
@@ -98,11 +98,12 @@ public abstract class BaseHttpClient {
      * Create default HTTP client
      */
     public BaseHttpClient(final String hostname, final int port, final String scheme) {
-        final StringBuilder uri =  new StringBuilder(scheme);
+        final StringBuilder uri = new StringBuilder(scheme);
         uri.append("://");
         uri.append(hostname);
-        if (port > 0)
+        if (port > 0) {
             uri.append(':').append(port);
+        }
         baseUri = uri.toString();
     }
 
@@ -222,7 +223,7 @@ public abstract class BaseHttpClient {
      */
     protected String streamToString(InputStream is) {
         /*
-		 * To convert the InputStream to String we use the
+         * To convert the InputStream to String we use the
 		 * BufferedReader.readLine() method. We iterate until the BufferedReader
 		 * return null which means there's no more data to read. Each line will
 		 * appended to a StringBuilder and returned as String.
@@ -333,7 +334,7 @@ public abstract class BaseHttpClient {
                             + getParametersString(requestParameters));
                 }
             }
-
+            System.out.print("url: "+apiUrl);
             HttpURLConnection request = openConnection(apiUrl, "GET");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
@@ -428,7 +429,7 @@ public abstract class BaseHttpClient {
 
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
-            System.out.println("FUll URL: "+builder.toString());
+            System.out.println("FUll URL: " + builder.toString());
             out.print(builder.toString());
             out.flush();
             out.close();
@@ -504,7 +505,7 @@ public abstract class BaseHttpClient {
     }
 
 
-    private URL initUrl(String uri) throws MalformedURLException{
+    private URL initUrl(String uri) throws MalformedURLException {
         return new URL(createUri(uri));
     }
 

@@ -317,4 +317,24 @@ public class External implements Serializable {
         this.embedHtmlSmall = embedHtmlSmall;
     }
 
+    @Override
+    public String toString() {
+        return "External{" +
+                "id=" + id +
+                ", serviceId=" + serviceId +
+                ", provider='" + provider + '\'' +
+                ", html='" + html + '\'' +
+                ", idOnService='" + idOnService + '\'' +
+                ", data='" + data + '\'' +
+                ", dateTime=" + dateTime +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", faviconUrl='" + faviconUrl + '\'' +
+                ", embedHtml='" + embedHtml + '\'' +
+                ", embedHtmlSmall='" + embedHtmlSmall + '\'' +
+                '}';
+    }
 }

@@ -45,7 +45,6 @@ public class CrowdmapService {
 
     protected CrowdmapHttpClient client;
 
-
     /**
      * Create a the task using the default {@link com.crowdmap.java.sdk.net.CrowdmapHttpClient}
      *
@@ -109,5 +108,21 @@ public class CrowdmapService {
     public static String toJson(final Object obj) {
 
         return gson.toJson(obj);
+    }
+
+    public CrowdmapService limit(int limit) {
+        if(limit > 0)
+            getClient().setRequestParameters("limit", String.valueOf(limit));
+        return this;
+    }
+
+    public CrowdmapService offset(int offset) {
+
+        if(getClient().getRequestParameters().containsKey("limit")) {
+            throw new IllegalArgumentException("Requires that a limit be set.");
+        }
+
+        getClient().setRequestParameters("offset", String.valueOf(offset));
+        return this;
     }
 }

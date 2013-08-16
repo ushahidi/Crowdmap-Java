@@ -1,5 +1,5 @@
-/*****************************************************************************
- ** Copyright (c) 2010 - 2012 Ushahidi Inc
+/*******************************************************************************
+ ** Copyright (c) 2010 - 2013 Ushahidi Inc
  ** All rights reserved
  ** Contact: team@ushahidi.com
  ** Website: http://www.ushahidi.com
@@ -16,7 +16,7 @@
  ** If you have questions regarding the use of this file, please contact
  ** Ushahidi developers at team@ushahidi.com.
  **
- *****************************************************************************/
+ ******************************************************************************/
 package com.crowdmap.java.sdk.net;
 
 /**
@@ -30,7 +30,7 @@ public interface ICrowdmapConstants {
 
     public String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    public String HOST_API = "api.crdmp3.com";
+    public String HOST_API = "api.crowdmap.com";
 
     public String API_VERSION = "v1";
 
@@ -50,36 +50,38 @@ public interface ICrowdmapConstants {
 
     public String REFERRER = "Referer";
 
-    public String SEGMENT_MEDIA = "/media";
+    public String SEGMENT_MEDIA = "/media/";
 
-    public String SEGMENT_MAPS = "/maps";
+    public String SEGMENT_MAPS = "/maps/";
 
-    public String SEGMENT_COMMENTS = "/comments";
+    public String SEGMENT_COMMENTS = "/comments/";
 
-    public String SEGMENT_OWNER = "/owner";
+    public String SEGMENT_OWNER = "/owner/";
 
-    public String SEGMENT_FOLLOWERS = "/followers";
+    public String SEGMENT_FOLLOWERS = "/followers/";
 
-    public String SEGMENT_COLLABORATORS = "/collaborators";
+    public String SEGMENT_COLLABORATORS = "/collaborators/";
 
-    public String SEGMENT_LOCATIONS = "/locations";
+    public String SEGMENT_LOCATIONS = "/locations/";
 
-    public String SEGMENT_POSTS = "/posts";
+    public String SEGMENT_POSTS = "/posts/";
 
-    public String SEGMENT_PEOPLE = "/people";
+    public String SEGMENT_PEOPLE = "/people/";
 
-    public String SEGMENT_EXTERNALS = "/externals";
+    public String SEGMENT_EXTERNALS = "/externals/";
 
-    public String SEGMENT_ABOUT = "/about";
+    public String SEGMENT_ABOUT = "/about/";
 
-    public String SEGMENT_HEARTBEAT = "/heartbeat";
+    public String SEGMENT_HEARTBEAT = "/heartbeat/";
 
-    public String SEGMENT_PLACES_SEARCH = "/places/search";
+    public String SEGMENT_PLACES_SEARCH = "/places/search/";
 
-    public String SEGMENT_TAGS = "/tags";
+    public String SEGMENT_TAGS = "/tags/";
 
     public String SEGMENT_SESSION = "/session";
 
-    public String SEGMENT_LOGIN = "/login";
+    public String SEGMENT_LOGIN = "/login/";
+
+    public String SEGMENT_USERS = "/users/";
 
 }

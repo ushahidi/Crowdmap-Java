@@ -89,4 +89,12 @@ public class Follower implements Serializable {
         this.mapId = mapId;
     }
 
+    @Override
+    public String toString() {
+        return "Follower{" +
+                "users=" + users +
+                ", id=" + id +
+                ", mapId=" + mapId +
+                '}';
+    }
 }

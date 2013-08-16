@@ -22,6 +22,7 @@ package com.crowdmap.java.sdk;
 import com.crowdmap.java.sdk.service.CrowdmapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.SessionService;
+import com.crowdmap.java.sdk.service.UserService;
 
 /**
  * Creates the various Crowdmap API resources
@@ -104,6 +105,10 @@ public class Crowdmap {
         return new SessionService();
     }
 
+    public static final UserService newUserService() {
+        return new UserService();
+    }
+
     /**
      * Get media service
      *
@@ -115,8 +120,19 @@ public class Crowdmap {
         return service;
     }
 
+    /**
+     * Get the Session service
+     *
+     * @return Session service instance
+     */
     public SessionService sessionService() {
         SessionService service = Crowdmap.newSessionService();
+        this.setupResource(service);
+        return service;
+    }
+
+    public UserService userService() {
+        UserService service = Crowdmap.newUserService();
         this.setupResource(service);
         return service;
     }

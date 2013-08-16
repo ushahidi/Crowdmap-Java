@@ -181,4 +181,18 @@ public class Comment implements Serializable {
         this.datePosted = datePosted;
     }
 
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "Id=" + Id +
+                ", postId=" + postId +
+                ", mapId=" + mapId +
+                ", userId=" + userId +
+                ", comment='" + comment + '\'' +
+                ", datePosted=" + datePosted +
+                ", users=" + users +
+                ", permissions=" + permissions +
+                ", map=" + map +
+                '}';
+    }
 }

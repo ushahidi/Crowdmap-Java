@@ -164,4 +164,17 @@ public class Owner extends Response implements Serializable {
     public List<Image> getMedia() {
         return this.media;
     }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "media=" + media +
+                ", id=" + id +
+                ", crowdmapId='" + crowdmapId + '\'' +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", pub=" + pub +
+                ", mediaIdHero=" + mediaIdHero +
+                '}';
+    }
 }

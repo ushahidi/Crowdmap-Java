@@ -24,6 +24,7 @@ import com.google.gson.annotations.SerializedName;
 import com.crowdmap.java.sdk.json.Date;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -105,6 +106,22 @@ public class User implements Serializable {
      * The path to the person's avatar
      */
     private String avatar;
+
+    private List<Badge> badges;
+
+    public List<Badge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(List<Badge> badges) {
+        this.badges = badges;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
 
     public long getId() {
         return id;
@@ -216,5 +233,27 @@ public class User implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", crowdmapId='" + crowdmapId + '\'' +
+                ", crowdmapIdH='" + crowdmapIdH + '\'' +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", bio='" + bio + '\'' +
+                ", plus=" + plus +
+                ", baselayer='" + baselayer + '\'' +
+                ", instagramAutoPost=" + instagramAutoPost +
+                ", twitterAutoPost=" + twitterAutoPost +
+                ", twitterAutoPostRetweets=" + twitterAutoPostRetweets +
+                ", dateRegistered=" + dateRegistered +
+                ", banned=" + banned +
+                ", avatar='" + avatar + '\'' +
+                ", badges=" + badges +
+                '}';
     }
 }

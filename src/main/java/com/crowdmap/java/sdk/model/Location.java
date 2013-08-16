@@ -111,4 +111,14 @@ public class Location implements Serializable {
         this.region = region;
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "locationId=" + locationId +
+                ", fsqVenueId=" + fsqVenueId +
+                ", geometry=" + geometry +
+                ", name='" + name + '\'' +
+                ", region='" + region + '\'' +
+                '}';
+    }
 }

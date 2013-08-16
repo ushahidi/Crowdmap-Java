@@ -90,4 +90,12 @@ public class Collaborator implements Serializable {
         this.mapId = mapId;
     }
 
+    @Override
+    public String toString() {
+        return "Collaborator{" +
+                "users=" + users +
+                ", id=" + id +
+                ", mapId=" + mapId +
+                '}';
+    }
 }

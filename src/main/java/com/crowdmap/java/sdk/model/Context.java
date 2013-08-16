@@ -112,4 +112,14 @@ public class Context implements Serializable {
         this.approved = approved;
     }
 
+    @Override
+    public String toString() {
+        return "Context{" +
+                "postId=" + postId +
+                ", madId=" + madId +
+                ", iconId='" + iconId + '\'' +
+                ", context='" + context + '\'' +
+                ", approved=" + approved +
+                '}';
+    }
 }

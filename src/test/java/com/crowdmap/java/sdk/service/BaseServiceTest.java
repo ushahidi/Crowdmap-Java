@@ -42,7 +42,7 @@ public abstract class BaseServiceTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		crowdmap = new Crowdmap();
-        crowdmap.setApiKey("AmcoSiLOiRUXiiAPv3b4b8791b3830446466464495c74cd1e1f0ed083");
+        crowdmap.setApiKey("AmcoSiLOiRUXiiAPv6905911ab69fa32e68f4f5dbf62098148ea26ddb");
 
 	}
 

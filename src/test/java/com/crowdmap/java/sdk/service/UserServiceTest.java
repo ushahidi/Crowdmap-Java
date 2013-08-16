@@ -17,40 +17,41 @@
  ** Ushahidi developers at team@ushahidi.com.
  **
  ******************************************************************************/
-package com.crowdmap.java.sdk.model;
 
-import java.io.Serializable;
+package com.crowdmap.java.sdk.service;
+
+import com.crowdmap.java.sdk.json.Users;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Geometry model class
+ * Created by eyedol on 8/17/13.
  */
-public class Geometry implements Serializable {
+public class UserServiceTest extends BaseServiceTest {
 
-    /**
-     * Seria version UID
-     */
-    private static final long serialVersionUID = -1670724915317453993L;
+    UserService userService;
 
-    private String type;
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        userService = crowdmap.userService();
     }
 
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
+    @After
+    public void tearDown() throws Exception {
+        super.tearDown();
+        userService = null;
     }
 
-    @Override
-    public String toString() {
-        return "Geometry{" +
-                "type='" + type + '\'' +
-                '}';
+    @Test
+    public void testGetUsers() throws Exception{
+        Users user = userService.getUsers();
+        System.out.print("size = "+user.getUsers.size());
+        assertNotNull(user);
     }
+
+
+
 }

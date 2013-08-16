@@ -1,5 +1,5 @@
-/*****************************************************************************
- ** Copyright (c) 2010 - 2012 Ushahidi Inc
+/*******************************************************************************
+ ** Copyright (c) 2010 - 2013 Ushahidi Inc
  ** All rights reserved
  ** Contact: team@ushahidi.com
  ** Website: http://www.ushahidi.com
@@ -16,14 +16,15 @@
  ** If you have questions regarding the use of this file, please contact
  ** Ushahidi developers at team@ushahidi.com.
  **
- *****************************************************************************/
-package com.crowdmap.java.sdk.json;
+ ******************************************************************************/
 
-public class Date extends java.util.Date {
+package com.crowdmap.java.sdk.model;
 
-    private static final long serialVersionUID = -2667623647943795029L;
+import java.io.Serializable;
 
-    public Date(long timestamp) {
-        super(timestamp);
-    }
+/**
+ *
+ */
+public class Badge implements Serializable {
+
 }
