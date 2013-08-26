@@ -43,22 +43,22 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      */
     private String userAgent = null;
 
-    private static final String METHOD_GET = "GET";
+    public static final String METHOD_GET = "GET";
 
     /**
      * METHOD_PUT
      */
-    private static final String METHOD_PUT = "PUT";
+    public static final String METHOD_PUT = "PUT";
 
     /**
      * METHOD_POST
      */
-    private static final String METHOD_POST = "POST";
+    public static final String METHOD_POST = "POST";
 
     /**
      * METHOD_DELETE
      */
-    private static final String METHOD_DELETE = "DELETE";
+    public static final String METHOD_DELETE = "DELETE";
 
     /**
      * METHOD_MULTIPART. Not really a method. Calling it so to maintain consistency

@@ -20,6 +20,7 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Media;
+import com.crowdmap.java.sdk.util.Util;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 
@@ -32,7 +33,14 @@ public class MediaService extends CrowdmapService {
      * Get media in crowdmap. GET /media
      */
     public Media getMedia() {
+        //Crowdmap requires a new api signature every 2 minutes
+        // so before a request is made, generate a new key
+        //generate the api key
+        final String apiKey = Util
+                .generateSignature("GET", SEGMENT_MEDIA, getPublicKey(), getPrivateKey());
 
+        // set the apikey for the request
+        client.setApiKey(apiKey);
         String response = client.get(SEGMENT_MEDIA);
         Media mediaJson = fromString(response, Media.class);
         return mediaJson;

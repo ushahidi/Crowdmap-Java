@@ -30,7 +30,10 @@ import com.crowdmap.java.sdk.service.UserService;
 public class Crowdmap {
 
     /** private app key value **/
-    private String apiKey;
+    private String privateKey;
+
+    /** public app key value **/
+    private String publicKey;
 
     /** Connection timeout (in milliseconds). */
 
@@ -41,14 +44,19 @@ public class Crowdmap {
 
     public Crowdmap() {}
 
+    public Crowdmap setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+        return this;
+    }
+
     /**
-     * Set default API key.
+     * Set private API key.
      *
      * @param value API key value.
      * @return Current instance for builder pattern.
      */
-    public Crowdmap setApiKey(String value) {
-        this.apiKey = value;
+    public Crowdmap setPrivateKey(String value) {
+        this.privateKey = value;
         return this;
     }
 
@@ -84,8 +92,12 @@ public class Crowdmap {
             resource.getClient().setSocketTimeout(this.socketTimeout);
         }
 
-        if((this.apiKey != null)) {
-            resource.getClient().setApiKey(this.apiKey);
+        if((this.privateKey != null)) {
+            resource.setPrivateKey(this.privateKey);
+        }
+
+        if((this.publicKey != null)) {
+            resource.setPublicKey(this.publicKey);
         }
 
     }
@@ -94,18 +106,18 @@ public class Crowdmap {
      * Create a new media service instance
      *
      */
-    public static final MediaService newMediaService() {
+    private static final MediaService newMediaService() {
         return new MediaService();
     }
 
     /**
      * Create a new session service instance
      */
-    public static final SessionService newSessionService() {
+    private static final SessionService newSessionService() {
         return new SessionService();
     }
 
-    public static final UserService newUserService() {
+    private static final UserService newUserService() {
         return new UserService();
     }
 

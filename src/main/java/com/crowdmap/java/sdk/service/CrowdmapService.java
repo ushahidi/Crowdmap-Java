@@ -25,7 +25,9 @@ import com.google.gson.GsonBuilder;
 import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+import com.crowdmap.java.sdk.util.Util;
 
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
@@ -44,6 +46,16 @@ public class CrowdmapService {
     }
 
     protected CrowdmapHttpClient client;
+
+    /**
+     * private app key value *
+     */
+    private String privateKey;
+
+    /**
+     * public app key value *
+     */
+    private String publicKey;
 
     /**
      * Create a the task using the default {@link com.crowdmap.java.sdk.net.CrowdmapHttpClient}
@@ -111,18 +123,50 @@ public class CrowdmapService {
     }
 
     public CrowdmapService limit(int limit) {
-        if(limit > 0)
+        if (limit > 0) {
             getClient().setRequestParameters("limit", String.valueOf(limit));
+        }
         return this;
     }
 
     public CrowdmapService offset(int offset) {
 
-        if(getClient().getRequestParameters().containsKey("limit")) {
+        if (getClient().getRequestParameters().containsKey("limit")) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }
 
         getClient().setRequestParameters("offset", String.valueOf(offset));
         return this;
+    }
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    /**
+     * Set the application signature key for every request.
+     *
+     * @param method
+     * @param uri
+     */
+    protected void setApiKey(String method, String uri) {
+        //generate the api key
+        final String apiKey = Util
+                .generateSignature(method, uri, getPublicKey(), getPrivateKey());
+
+        // set the apikey for the request
+        client.setApiKey(apiKey);
     }
 }

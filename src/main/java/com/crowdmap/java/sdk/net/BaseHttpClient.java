@@ -334,7 +334,7 @@ public abstract class BaseHttpClient {
                             + getParametersString(requestParameters));
                 }
             }
-            System.out.print("url: "+apiUrl);
+
             HttpURLConnection request = openConnection(apiUrl, "GET");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
@@ -429,7 +429,6 @@ public abstract class BaseHttpClient {
 
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
-            System.out.println("FUll URL: " + builder.toString());
             out.print(builder.toString());
             out.flush();
             out.close();

@@ -31,7 +31,9 @@ public class Users extends Response implements Serializable {
 
     private List<User> users;
 
-    public List<User> getUsers;
+    public List<User> getUsers(){
+        return users;
+    }
 
 
 }

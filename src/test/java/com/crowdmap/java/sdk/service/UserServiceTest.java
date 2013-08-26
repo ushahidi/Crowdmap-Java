@@ -48,8 +48,8 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void testGetUsers() throws Exception{
         Users user = userService.getUsers();
-        System.out.print("size = "+user.getUsers.size());
         assertNotNull(user);
+        assertNotNullOrEmpty("Shouldn't be empty", user.getUsers());
     }
 
 

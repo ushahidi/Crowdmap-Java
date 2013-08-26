@@ -25,6 +25,9 @@ import com.crowdmap.java.sdk.json.Users;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.content.Body;
 
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
 
@@ -36,8 +39,9 @@ public class UserService extends CrowdmapService {
     public Users getUsers() {
 
         // Send a post request to login
+        setApiKey(METHOD_GET, SEGMENT_USERS);
         String json = client.get(SEGMENT_USERS);
-        System.out.print("string URL: "+ json);
+        System.out.println("JSON: "+json);
         return fromString(json,
                 Users.class);
     }
@@ -46,6 +50,7 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_POSTS);
+        setApiKey(METHOD_GET, SEGMENT_USERS);
         return fromString(client.get(url.toString()), Posts.class);
     }
 
@@ -55,6 +60,7 @@ public class UserService extends CrowdmapService {
 
         // Do body content
         Body body = new Body();
+        setApiKey(METHOD_PUT, SEGMENT_USERS);
         return fromString(client.put(url.toString(), body), User.class);
     }
 }

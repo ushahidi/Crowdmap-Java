@@ -25,13 +25,16 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Owners;
 import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.net.content.Body;
+import com.crowdmap.java.sdk.util.Util;
 
 import java.util.List;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COLLABORATORS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 
 /**
  * Service for interacting with various maps setup on crowdmap
@@ -50,6 +53,10 @@ public class MapService extends CrowdmapService {
      * @return A list containing all the maps
      */
     public Maps getMaps() {
+        //Crowdmap requires a new api signature every 2 minutes
+        // so before a request is made, generate a new key
+        //generate the api key
+        setApiKey(METHOD_GET, SEGMENT_MAPS);
         String response = client.get(SEGMENT_MAPS);
         Maps mapsJson = fromString(response, Maps.class);
         return mapsJson;
@@ -77,6 +84,7 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append("/");
         url.append(id);
+        setApiKey(METHOD_GET, SEGMENT_MAPS);
         return fromString(client.get(url.toString()), Maps.class);
     }
 
@@ -92,7 +100,7 @@ public class MapService extends CrowdmapService {
         url.append("/");
         url.append(id);
         url.append(SEGMENT_OWNER);
-
+        setApiKey(METHOD_GET, SEGMENT_MAPS);
         return fromString(client.get(url.toString()),
                 Owners.class);
     }
@@ -109,7 +117,7 @@ public class MapService extends CrowdmapService {
         url.append("/");
         url.append(id);
         url.append(SEGMENT_FOLLOWERS);
-
+        setApiKey(METHOD_GET, SEGMENT_MAPS);
         return fromString(client.get(url.toString()),
                 Followers.class);
     }
