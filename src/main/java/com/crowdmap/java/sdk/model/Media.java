@@ -26,9 +26,9 @@ import com.crowdmap.java.sdk.json.Date;
 import java.io.Serializable;
 
 /**
- * Image model class
+ * Media model class
  */
-public class Image implements Serializable {
+public class Media implements Serializable {
 
     /**
      * Serial version UID
@@ -50,12 +50,12 @@ public class Image implements Serializable {
     /**
      * The latitude
      */
-    private double lat;
+    private Double lat;
 
     /**
      * The longitude
      */
-    private double lon;
+    private Double lon;
 
     /**
      * The source of the media
@@ -450,7 +450,7 @@ public class Image implements Serializable {
 
     @Override
     public String toString() {
-        return "Image{" +
+        return "Media{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", lat=" + lat +

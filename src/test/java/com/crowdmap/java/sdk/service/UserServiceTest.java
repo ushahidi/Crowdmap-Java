@@ -20,6 +20,7 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Users;
 
 import org.junit.After;
@@ -52,6 +53,12 @@ public class UserServiceTest extends BaseServiceTest {
         assertNotNullOrEmpty("Shouldn't be empty", user.getUsers());
     }
 
-
+    @Test
+    public void testGetUsersPosts() throws Exception {
+        Posts posts = userService.getUsersPosts(3);
+        assertNotNull(posts);
+        System.out.println("Posts: "+posts.getPosts().size());
+        assertNotNullOrEmpty("Post is empty", posts.getPosts());
+    }
 
 }

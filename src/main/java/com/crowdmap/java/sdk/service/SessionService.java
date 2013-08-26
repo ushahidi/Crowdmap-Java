@@ -20,6 +20,7 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Session;
+import com.crowdmap.java.sdk.model.LoginForm;
 import com.crowdmap.java.sdk.net.content.Body;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
@@ -38,24 +39,18 @@ public class SessionService extends CrowdmapService {
     /**
      * Login a user. POST /session/login
      *
-     * @param username The user's username. The username field is typically the email address.
-     * @param password The user's password
+     * @param form The login form.
      * @return {@link com.crowdmap.java.sdk.json.Session}
      */
-    public Session login(String username, String password) {
+    public Session login(LoginForm form) {
 
         // Build the URL for the login endpoint
         StringBuilder url = new StringBuilder(SEGMENT_SESSION);
         url.append(SEGMENT_LOGIN);
 
-        // Pass the username and password to the login endpoint
-        final Body body = new Body();
-        body.addField("username", username);
-        body.addField("password", password);
-
-        setApiKey(METHOD_POST, SEGMENT_SESSION);
+        setApiKey(METHOD_POST, url.toString());
         // Send a post request to login
-        return fromString(client.post(url.toString(), body),
+        return fromString(client.post(url.toString(), form.getParameters()),
                 Session.class);
     }
 }

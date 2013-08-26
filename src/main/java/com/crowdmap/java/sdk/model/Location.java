@@ -33,7 +33,7 @@ public class Location implements Serializable {
 
     private int locationId;
 
-    private int fsqVenueId;
+    private String fsqVenueId;
 
     private Geometry geometry;
 
@@ -58,14 +58,14 @@ public class Location implements Serializable {
     /**
      * @return the fsqVenueId
      */
-    public int getFsqVenueId() {
+    public String getFsqVenueId() {
         return fsqVenueId;
     }
 
     /**
      * @param fsqVenueId the fsqVenueId to set
      */
-    public void setFsqVenueId(int fsqVenueId) {
+    public void setFsqVenueId(String fsqVenueId) {
         this.fsqVenueId = fsqVenueId;
     }
 

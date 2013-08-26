@@ -37,6 +37,9 @@ public final class Posts extends Response implements Serializable {
     /**
      * List of maps
      */
-    public List<Post> posts;
+    private List<Post> posts;
 
+    public List<Post> getPosts() {
+        return this.posts;
+    }
 }

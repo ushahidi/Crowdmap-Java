@@ -179,6 +179,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @return The HTTP response string as returned from the server
      */
     public String post(String url, Body body) {
+
         return request(url, METHOD_POST, body);
 
     }
@@ -204,7 +205,6 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @return The HTTP response string as returned from the server
      */
     public String post(String url) {
-
         return request(url, METHOD_POST, null);
     }
 

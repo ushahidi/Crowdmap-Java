@@ -1,5 +1,5 @@
 /*****************************************************************************
- ** Copyright (c) 2010 - 2012 Ushahidi Inc
+ ** Copyright (c) 2010 - 2013 Ushahidi Inc
  ** All rights reserved
  ** Contact: team@ushahidi.com
  ** Website: http://www.ushahidi.com
@@ -124,7 +124,7 @@ public class Crowdmap {
     /**
      * Get media service
      *
-     * @return Image Resource
+     * @return Media Resource
      */
     public MediaService mediaService() {
         MediaService service = Crowdmap.newMediaService();

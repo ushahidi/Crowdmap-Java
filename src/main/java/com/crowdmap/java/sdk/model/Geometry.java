@@ -20,6 +20,7 @@
 package com.crowdmap.java.sdk.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Geometry model class
@@ -32,6 +33,8 @@ public class Geometry implements Serializable {
     private static final long serialVersionUID = -1670724915317453993L;
 
     private String type;
+
+    private Double [] coordinates;
 
     /**
      * @return the type
@@ -53,4 +56,5 @@ public class Geometry implements Serializable {
                 "type='" + type + '\'' +
                 '}';
     }
+
 }

@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.crowdmap.java.sdk.json.Session;
+import com.crowdmap.java.sdk.model.LoginForm;
 
 /**
  * Test case for login service. 
@@ -53,12 +54,12 @@ public class SessionServiceTest extends BaseServiceTest {
 
 		// Provide correct credentials. Note: these ones are fake.
 		final String username = "henry@ushahidi.com";
-
 		final String password = "godles123";
 
-		Session session = loginService.login(username, password);
+        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
+		Session session = loginService.login(form);
         System.out.println("session: "+session.toString());
-		assertNotNull("Image cannot be null ", session);
+		assertNotNull("Media cannot be null ", session);
 
 	}
 

@@ -336,7 +336,7 @@ public abstract class BaseHttpClient {
                             + getParametersString(requestParameters));
                 }
             }
-            System.out.print("Url: "+url);
+
             request = openConnection(apiUrl, "GET");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
@@ -404,7 +404,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         }finally {
-            closeConnection(request);
+            //closeConnection(request);
         }
 
     }
@@ -457,7 +457,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
-            closeConnection(request);
+            //closeConnection(request);
         }
     }
 
@@ -510,7 +510,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
-            closeConnection(request);
+            //closeConnection(request);
         }
     }
 
@@ -556,7 +556,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
-            closeConnection(request);
+            //closeConnection(request);
         }
     }
 
@@ -713,7 +713,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
-            closeConnection(request);
+            //closeConnection(request);
         }
     }
 
@@ -754,7 +754,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         }finally {
-            closeConnection(request);
+            //closeConnection(request);
         }
     }
 

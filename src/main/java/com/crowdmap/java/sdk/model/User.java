@@ -45,8 +45,8 @@ public class User implements Serializable {
     private String crowdmapId;
 
     /**
-     * The ID used to identify each Crowdmap user in Ushahidi's global authentication system
-     * called CrowdmapID
+     * The ID used to identify each Crowdmap user in Ushahidi's global authentication system called
+     * CrowdmapID
      */
     private String crowdmapIdH;
 
@@ -72,8 +72,8 @@ public class User implements Serializable {
     private boolean plus;
 
     /**
-     * This is the users default baselayer that they use around Crowdmap when baselayers
-     * aren't otherwise defined by maps and other users.
+     * This is the users default baselayer that they use around Crowdmap when baselayers aren't
+     * otherwise defined by maps and other users.
      */
     private String baselayer;
 
@@ -120,7 +120,6 @@ public class User implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
 
 
     public long getId() {

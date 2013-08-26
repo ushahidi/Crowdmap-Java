@@ -22,6 +22,7 @@ package com.crowdmap.java.sdk.model;
 import com.google.gson.annotations.SerializedName;
 
 import com.crowdmap.java.sdk.json.Date;
+import com.crowdmap.java.sdk.json.Externals;
 
 import java.io.Serializable;
 import java.util.List;
@@ -36,229 +37,187 @@ public class Post implements Serializable {
      */
     private static final long serialVersionUID = -396616833938909039L;
 
-    private External externals;
+    private List<Externals> externals;
 
-    private Location locations;
+    private List<Location> locations;
 
-    private List<Image> media;
+    private List<Media> media;
 
-    private int postId;
+    private List<Map> maps;
 
-    private int mediaId;
+    private long postId;
 
-    private int locationId;
+    private List<User> users;
 
-    private int externalId;
+    private long mediaId;
+
+    private long locationId;
+
+    private long externalId;
+
+    private long externalsImagesId;
 
     private String message;
 
     private Date datePosted;
 
     @SerializedName("public")
-    private int isPublic;
+    private boolean isPublic;
 
     private String userIp;
 
-    private User users;
-
     private Permission permissions;
 
-    private List<Context> contexts;
+    private String stub;
 
-    /**
-     * @return the externals
-     */
-    public External getExternals() {
+    private List<Tag> tags;
+
+    private List<Comment> comments;
+
+    //TODO:: add likes field
+
+    public List<Externals> getExternals() {
         return externals;
     }
 
-    /**
-     * @param externals the externals to set
-     */
-    public void setExternals(External externals) {
+    public void setExternals(List<Externals> externals) {
         this.externals = externals;
     }
 
-    /**
-     * @return the locations
-     */
-    public Location getLocations() {
+    public List<Location> getLocations() {
         return locations;
     }
 
-    /**
-     * @param locations the locations to set
-     */
-    public void setLocations(Location locations) {
+    public void setLocations(List<Location> locations) {
         this.locations = locations;
     }
 
-    /**
-     * @return the media
-     */
-    public List<Image> getMedia() {
+    public List<Media> getMedia() {
         return media;
     }
 
-    /**
-     * @param media the media to set
-     */
-    public void setMedia(List<Image> media) {
+    public void setMedia(List<Media> media) {
         this.media = media;
     }
 
-    /**
-     * @return the postId
-     */
-    public int getPostId() {
+    public List<Map> getMaps() {
+        return maps;
+    }
+
+    public void setMaps(List<Map> maps) {
+        this.maps = maps;
+    }
+
+    public long getPostId() {
         return postId;
     }
 
-    /**
-     * @param postId the postId to set
-     */
-    public void setPostId(int postId) {
+    public void setPostId(long postId) {
         this.postId = postId;
     }
 
-    /**
-     * @return the mediaId
-     */
-    public int getMediaId() {
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public long getMediaId() {
         return mediaId;
     }
 
-    /**
-     * @param mediaId the mediaId to set
-     */
-    public void setMediaId(int mediaId) {
+    public void setMediaId(long mediaId) {
         this.mediaId = mediaId;
     }
 
-    /**
-     * @return the locationId
-     */
-    public int getLocationId() {
+    public long getLocationId() {
         return locationId;
     }
 
-    /**
-     * @param locationId the locationId to set
-     */
-    public void setLocationId(int locationId) {
+    public void setLocationId(long locationId) {
         this.locationId = locationId;
     }
 
-    /**
-     * @return the externalId
-     */
-    public int getExternalId() {
+    public long getExternalId() {
         return externalId;
     }
 
-    /**
-     * @param externalId the externalId to set
-     */
-    public void setExternalId(int externalId) {
+    public void setExternalId(long externalId) {
         this.externalId = externalId;
     }
 
-    /**
-     * @return the message
-     */
+    public long getExternalsImagesId() {
+        return externalsImagesId;
+    }
+
+    public void setExternalsImagesId(long externalsImagesId) {
+        this.externalsImagesId = externalsImagesId;
+    }
+
     public String getMessage() {
         return message;
     }
 
-    /**
-     * @param message the message to set
-     */
     public void setMessage(String message) {
         this.message = message;
     }
 
-    /**
-     * @return the datePosted
-     */
     public Date getDatePosted() {
         return datePosted;
     }
 
-    /**
-     * @param datePosted the datePosted to set
-     */
     public void setDatePosted(Date datePosted) {
         this.datePosted = datePosted;
     }
 
-    /**
-     * @return the isPublic
-     */
-    public int getIsPublic() {
+    public boolean isPublic() {
         return isPublic;
     }
 
-    /**
-     * @param isPublic the isPublic to set
-     */
-    public void setIsPublic(int isPublic) {
-        this.isPublic = isPublic;
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
-    /**
-     * @return the userIp
-     */
     public String getUserIp() {
         return userIp;
     }
 
-    /**
-     * @param userIp the userIp to set
-     */
     public void setUserIp(String userIp) {
         this.userIp = userIp;
     }
 
-    /**
-     * @return the users
-     */
-    public User getUsers() {
-        return users;
-    }
-
-    /**
-     * @param users the users to set
-     */
-    public void setUsers(User users) {
-        this.users = users;
-    }
-
-    /**
-     * @return the permissions
-     */
     public Permission getPermissions() {
         return permissions;
     }
 
-    /**
-     * @param permissions the permissions to set
-     */
     public void setPermissions(Permission permissions) {
         this.permissions = permissions;
     }
 
-    /**
-     * @return the contexts
-     */
-    public List<Context> getContexts() {
-        return contexts;
+    public String getStub() {
+        return stub;
     }
 
-    /**
-     * @param contexts the contexts to set
-     */
-    public void setContexts(List<Context> contexts) {
-        this.contexts = contexts;
+    public void setStub(String stub) {
+        this.stub = stub;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -267,17 +226,21 @@ public class Post implements Serializable {
                 "externals=" + externals +
                 ", locations=" + locations +
                 ", media=" + media +
+                ", maps=" + maps +
                 ", postId=" + postId +
+                ", users=" + users +
                 ", mediaId=" + mediaId +
                 ", locationId=" + locationId +
                 ", externalId=" + externalId +
+                ", externalsImagesId=" + externalsImagesId +
                 ", message='" + message + '\'' +
                 ", datePosted=" + datePosted +
                 ", isPublic=" + isPublic +
                 ", userIp='" + userIp + '\'' +
-                ", users=" + users +
                 ", permissions=" + permissions +
-                ", contexts=" + contexts +
+                ", stub='" + stub + '\'' +
+                ", tags=" + tags +
+                ", comments=" + comments +
                 '}';
     }
 }

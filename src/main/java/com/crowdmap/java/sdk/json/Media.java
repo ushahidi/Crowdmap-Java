@@ -19,14 +19,13 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.Image;
 import com.crowdmap.java.sdk.model.User;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * Image Json response
+ * Media Json response
  */
 public class Media extends Response implements Serializable {
 
@@ -37,7 +36,7 @@ public class Media extends Response implements Serializable {
 
     User users;
 
-    public List<Image> media;
+    public List<com.crowdmap.java.sdk.model.Media> media;
 
 
 }

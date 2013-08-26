@@ -35,6 +35,8 @@ public class Map implements Serializable {
      */
     private static final long serialVersionUID = 5567922863749709665L;
 
+    private Boolean approve;
+
     /**
      * The ID of the map.
      */
@@ -47,75 +49,24 @@ public class Map implements Serializable {
     @SerializedName("user_id")
     private int userId;
 
-    @SerializedName("media_id_hero")
-    private int mediaIdHero;
-
-    /**
-     * The subdomain of crowdmap
-     */
-    private String subdomain;
-
-    /**
-     * The name of the map
-     */
-    private String name;
-
-    @SerializedName("public")
-    private int pub;
-
-    /**
-     * The latitude
-     */
-    private double lat;
-
-    /**
-     * The longitude
-     */
-    private double lon;
-
-    /**
-     * The zoom level
-     */
-    private int zoom;
-
     private User users;
 
-    private Image media;
+    private String subdomain;
 
-    /**
-     * @return the users
-     */
-    public User getUsers() {
-        return users;
-    }
+    private String name;
 
-    /**
-     * @param users the users to set
-     */
-    public void setUsers(User users) {
-        this.users = users;
-    }
+    private String description;
 
-    /**
-     * @return the media
-     */
-    public Image getMedia() {
-        return media;
-    }
+    private String banner;
 
-    /**
-     * @param media the media to set
-     */
-    public void setMedia(Image media) {
-        this.media = media;
-    }
+    private String avatar;
 
-    /**
-     * @return the mediaIdHero
-     */
-    public int getMediaIdHero() {
-        return mediaIdHero;
-    }
+    @SerializedName("public")
+    private Boolean isPublic;
+
+    private String moderation;
+
+    private Boolean marker;
 
     /**
      * The date the map was created
@@ -123,92 +74,6 @@ public class Map implements Serializable {
     @SerializedName("date_created")
     private Date dateCreated;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    private Geometry center;
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setMediaIdHero(int mediaIdHero) {
-        this.mediaIdHero = mediaIdHero;
-    }
-
-    public void setSubdomain(String subdomain) {
-        this.subdomain = subdomain;
-    }
-
-    public void setPub(int pub) {
-        this.pub = pub;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
-
-    public void setZoom(int zoom) {
-        this.zoom = zoom;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public int mediaIdHero() {
-        return mediaIdHero;
-    }
-
-    public String getSubdomain() {
-        return subdomain;
-    }
-
-    public int getPub() {
-        return pub;
-    }
-
-    public double getLat() {
-        return lat;
-    }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public int getZoom() {
-        return zoom;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return "Map [id:" + id + ", user_id:" + userId + ", media_id_hero:"
-                + mediaIdHero + ", subdomain:" + subdomain + ", name:" + name
-                + ", pub:" + pub + ", lat:" + lat + ", lon:" + lon + ", zoom:"
-                + zoom + ", date_created:" + dateCreated + ", media: "
-                + media.toString() + ", users: " + users.toString() + " ]";
-    }
 }

@@ -36,7 +36,7 @@ public class Owner extends Response implements Serializable {
      */
     private static final long serialVersionUID = 2287672209635012925L;
 
-    private List<Image> media;
+    private List<Media> media;
 
     /**
      * The person ID
@@ -157,11 +157,11 @@ public class Owner extends Response implements Serializable {
     }
 
     /**
-     * Image items
+     * Media items
      *
-     * @return List of {@link Image}
+     * @return List of {@link Media}
      */
-    public List<Image> getMedia() {
+    public List<Media> getMedia() {
         return this.media;
     }
 

@@ -41,7 +41,11 @@ public class DateDeserializer implements JsonDeserializer<Date> {
     @Override
     public Date deserialize(JsonElement arg0, Type arg1,
             JsonDeserializationContext arg2) throws JsonParseException {
+        try{
         return new Date(arg0.getAsLong() * 1000);
+        }catch(NumberFormatException e){
+            return null;
+        }
     }
 
 }

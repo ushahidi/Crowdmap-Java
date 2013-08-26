@@ -68,7 +68,7 @@ public class External implements Serializable {
 
 
     /**
-     * The Image URL
+     * The Media URL
      */
     private String imageUrl;
 
