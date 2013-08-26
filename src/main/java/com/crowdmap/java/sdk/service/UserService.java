@@ -41,7 +41,6 @@ public class UserService extends CrowdmapService {
         // Send a post request to login
         setApiKey(METHOD_GET, SEGMENT_USERS);
         String json = client.get(SEGMENT_USERS);
-        System.out.println("JSON: "+json);
         return fromString(json,
                 Users.class);
     }
