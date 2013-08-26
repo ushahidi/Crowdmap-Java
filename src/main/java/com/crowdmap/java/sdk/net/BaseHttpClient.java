@@ -411,9 +411,10 @@ public abstract class BaseHttpClient {
      * @return The input stream
      */
     protected InputStream postRequest(String apiUrl, Body body, int expected) {
+        HttpURLConnection request = null;
         try {
             URL url = initUrl(apiUrl);
-            HttpURLConnection request = openConnection(url, "POST");
+             request = openConnection(url, "POST");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
             StringBuilder builder = new StringBuilder();
@@ -426,7 +427,7 @@ public abstract class BaseHttpClient {
                 builder.append("&");
             }
             builder.append(getBodyString(body));
-
+            System.out.println("api params "+apiUrl+builder.toString());
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
             out.print(builder.toString());
@@ -449,6 +450,8 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
+            if(request != null)
+                request.disconnect();
         }
     }
 

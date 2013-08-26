@@ -165,7 +165,7 @@ public class CrowdmapService {
         //generate the api key
         final String apiKey = Util
                 .generateSignature(method, uri, getPublicKey(), getPrivateKey());
-
+        System.out.println("APIKey: "+apiKey);
         // set the apikey for the request
         client.setApiKey(apiKey);
     }
