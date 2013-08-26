@@ -322,6 +322,8 @@ public abstract class BaseHttpClient {
      * @return The input stream
      */
     protected InputStream getRequest(String url, int expected) {
+        HttpURLConnection request = null;
+
         try {
 
             URL apiUrl = initUrl(url);
@@ -334,8 +336,8 @@ public abstract class BaseHttpClient {
                             + getParametersString(requestParameters));
                 }
             }
-
-            HttpURLConnection request = openConnection(apiUrl, "GET");
+            System.out.print("Url: "+url);
+            request = openConnection(apiUrl, "GET");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
             request.connect();
@@ -354,6 +356,8 @@ public abstract class BaseHttpClient {
 
         } catch (IOException e) {
             throw new CrowdmapException(e);
+        } finally {
+            //closeConnection(request);
         }
 
     }
@@ -366,6 +370,7 @@ public abstract class BaseHttpClient {
      * @return The input stream
      */
     protected InputStream deleteRequest(String url, int expected) {
+        HttpURLConnection request = null;
         try {
 
             URL apiUrl = initUrl(url);
@@ -379,7 +384,7 @@ public abstract class BaseHttpClient {
                 }
             }
 
-            HttpURLConnection request = openConnection(apiUrl, "GET");
+            request = openConnection(apiUrl, "DELETE");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
             request.connect();
@@ -398,6 +403,8 @@ public abstract class BaseHttpClient {
 
         } catch (IOException e) {
             throw new CrowdmapException(e);
+        }finally {
+            closeConnection(request);
         }
 
     }
@@ -414,7 +421,7 @@ public abstract class BaseHttpClient {
         HttpURLConnection request = null;
         try {
             URL url = initUrl(apiUrl);
-             request = openConnection(url, "POST");
+            request = openConnection(url, "POST");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
             StringBuilder builder = new StringBuilder();
@@ -427,7 +434,7 @@ public abstract class BaseHttpClient {
                 builder.append("&");
             }
             builder.append(getBodyString(body));
-            System.out.println("api params "+apiUrl+builder.toString());
+            System.out.println("API params " + apiUrl + builder.toString());
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
             out.print(builder.toString());
@@ -450,8 +457,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
-            if(request != null)
-                request.disconnect();
+            closeConnection(request);
         }
     }
 
@@ -464,9 +470,10 @@ public abstract class BaseHttpClient {
      * @return The input stream
      */
     protected InputStream putRequest(String apiUrl, Body body, int expected) {
+        HttpURLConnection request = null;
         try {
             URL url = initUrl(apiUrl);
-            HttpURLConnection request = openConnection(url, "PUT");
+            request = openConnection(url, "PUT");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
             StringBuilder builder = new StringBuilder();
@@ -503,6 +510,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
+            closeConnection(request);
         }
     }
 
@@ -519,9 +527,10 @@ public abstract class BaseHttpClient {
      * @return The input stream
      */
     protected InputStream postRequest(String apiUrl, int expected) {
+        HttpURLConnection request = null;
         try {
             URL url = initUrl(apiUrl);
-            HttpURLConnection request = openConnection(url, "POST");
+             request = openConnection(url, "POST");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
             PrintStream out = new PrintStream(new BufferedOutputStream(
@@ -547,6 +556,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
+            closeConnection(request);
         }
     }
 
@@ -607,10 +617,11 @@ public abstract class BaseHttpClient {
      */
     protected InputStream postMultipartRequest(String apiUrl, Body body,
             int expected) {
+        HttpURLConnection request = null;
         try {
 
             URL url = initUrl(apiUrl);
-            HttpURLConnection request = openConnection(url, "POST");
+            request = openConnection(url, "POST");
             String boundary = "00content0boundary00";
 
             request.setRequestProperty("Content-Type",
@@ -702,6 +713,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         } finally {
+            closeConnection(request);
         }
     }
 
@@ -716,9 +728,10 @@ public abstract class BaseHttpClient {
      */
     protected InputStream requestMethod(String apiUrl, String contentType,
             String method, int expected) {
+        HttpURLConnection request = null;
         try {
             URL url = initUrl(apiUrl);
-            HttpURLConnection request = openConnection(url, method);
+             request = openConnection(url, method);
 
             if (contentType != null) {
                 request.setRequestProperty("Content-Type", contentType);
@@ -740,6 +753,8 @@ public abstract class BaseHttpClient {
             }
         } catch (IOException e) {
             throw new CrowdmapException(e);
+        }finally {
+            closeConnection(request);
         }
     }
 
