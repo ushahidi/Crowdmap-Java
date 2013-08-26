@@ -60,7 +60,7 @@ public interface ICrowdmapConstants {
 
     public String SEGMENT_FOLLOWERS = "/followers/";
 
-    public String SEGMENT_COLLABORATORS = "/collaborators/";
+    public String SEGMENT_MAPS_FOLLOWING = SEGMENT_MAPS+"following/";
 
     public String SEGMENT_LOCATIONS = "/locations/";
 
@@ -83,5 +83,19 @@ public interface ICrowdmapConstants {
     public String SEGMENT_LOGIN = "/login/";
 
     public String SEGMENT_USERS = "/users/";
+
+    public String SEGMENT_AVATAR = "/avatar/";
+
+    public String SEGMENT_FOLLOWS = "/follows/";
+
+    public String SEGMENT_MAPS_COLLABORATING = SEGMENT_MAPS + "collaborating/";
+
+    public String SEGMENT_MAPS_OWNS = SEGMENT_MAPS + "owns/";
+
+    public String SEGMENT_MAPS_ASSOCIATED = SEGMENT_MAPS + "associated/";
+
+    public String SEGMENT_NOTIFICATIONS = "/notifications/";
+
+    public String SEGMENT_COLLABORATORS = "/collaborators/";
 
 }

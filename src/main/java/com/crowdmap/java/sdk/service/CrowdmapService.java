@@ -27,7 +27,6 @@ import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.crowdmap.java.sdk.util.Util;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
@@ -157,9 +156,6 @@ public class CrowdmapService {
 
     /**
      * Set the application signature key for every request.
-     *
-     * @param method
-     * @param uri
      */
     protected void setApiKey(String method, String uri) {
         //generate the api key

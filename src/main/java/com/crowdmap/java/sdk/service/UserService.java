@@ -20,17 +20,26 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Users;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.model.UserForm;
-import com.crowdmap.java.sdk.net.content.Body;
 
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_NOTIFICATIONS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_FOLLOWING;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_COLLABORATING;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_OWNS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_ASSOCIATED;
 
 /**
  * User service
@@ -55,13 +64,13 @@ public class UserService extends CrowdmapService {
      * Get Posts a particular user has created
      *
      * @param userId The user's ID
-     *
      * @return Posts the user has created
      */
     public Posts getUsersPosts(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_POSTS);
+
         setApiKey(METHOD_GET, url.toString());
         return fromString(client.get(url.toString()), Posts.class);
     }
@@ -69,15 +78,206 @@ public class UserService extends CrowdmapService {
     /**
      * Update details of a particular user
      *
-     * @param userId The user's ID
+     * @param userId   The user's ID
      * @param userFrom User fields;
-     * @return
      */
-    public User updateUser(int userId, UserForm userFrom) {
+    public User updateUser(long userId, UserForm userFrom) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
 
         setApiKey(METHOD_PUT, url.toString());
         return fromString(client.put(url.toString(), userFrom.getParameters()), User.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Users getUser(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        setApiKey(METHOD_GET, url.toString());
+        String json = client.get(url.toString());
+        return fromString(json, Users.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public User updateUserAvatar(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_AVATAR);
+        setApiKey(METHOD_PUT, url.toString());
+        //TODO: lookup the form fields
+        return null;
+
+    }
+
+    /**
+     * Delete a user's avatar
+     *
+     * @param userId The user's ID
+     */
+    public User deleteUserAvatar(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_AVATAR);
+        setApiKey(METHOD_DELETE, url.toString());
+        //TODO: lookup the form fields for avatar
+        return fromString(client.delete(url.toString()), User.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Users getUsersFollowedBy(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_FOLLOWS);
+        setApiKey(METHOD_GET, url.toString());
+
+        return fromString(client.get(url.toString()), Users.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @param followerId
+     * @return
+     */
+    public Users verifyUsersFollowing(long userId, long followerId) {
+
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_FOLLOWS);
+        url.append(followerId);
+        url.append("/");
+        setApiKey(METHOD_GET, url.toString());
+
+        return fromString(client.get(url.toString()), Users.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Users getUsersFollowers(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_FOLLOWERS);
+        setApiKey(METHOD_GET, url.toString());
+
+        return fromString(client.get(url.toString()), Users.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Users followUser(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_FOLLOWERS);
+        setApiKey(METHOD_POST, url.toString());
+        return fromString(client.post(url.toString()), Users.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Users stopFollowingUser(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_FOLLOWERS);
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.post(url.toString()), Users.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Maps getUserFollowedMap(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_MAPS_FOLLOWING);
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(client.get(url.toString()), Maps.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Maps getMapsUserCollaboratesOn(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_MAPS_COLLABORATING);
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(client.get(url.toString()), Maps.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Maps getUsersMaps(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_MAPS_OWNS);
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(client.get(url.toString()), Maps.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Maps getUsersAssociatedMaps(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_MAPS_ASSOCIATED);
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(client.get(url.toString()), Maps.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Maps getNotifications(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_NOTIFICATIONS);
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(client.get(url.toString()), Maps.class);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public Maps markNotificationAsRead(long userId) {
+        StringBuilder url = new StringBuilder(SEGMENT_USERS);
+        url.append(userId);
+        url.append(SEGMENT_NOTIFICATIONS);
+        setApiKey(METHOD_PUT, url.toString());
+        return fromString(client.get(url.toString()), Maps.class);
     }
 }

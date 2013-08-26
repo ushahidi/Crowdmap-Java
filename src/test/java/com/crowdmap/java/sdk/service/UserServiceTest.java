@@ -22,6 +22,8 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Users;
+import com.crowdmap.java.sdk.model.User;
+import com.crowdmap.java.sdk.model.UserForm;
 
 import org.junit.After;
 import org.junit.Before;
@@ -57,8 +59,17 @@ public class UserServiceTest extends BaseServiceTest {
     public void testGetUsersPosts() throws Exception {
         Posts posts = userService.getUsersPosts(3);
         assertNotNull(posts);
-        System.out.println("Posts: "+posts.getPosts().size());
         assertNotNullOrEmpty("Post is empty", posts.getPosts());
     }
 
+    @Test
+    public void testUpdateUser() throws Exception {
+        //TODO: write test code for updating existing user
+    }
+
+    @Test
+    public void testGetUser() throws Exception {
+        Users user = userService.getUser(3688);
+        assertNotNullOrEmpty("User details is empty", user.getUsers().get(0).toString());
+    }
 }

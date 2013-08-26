@@ -25,16 +25,14 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Owners;
 import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.net.content.Body;
-import com.crowdmap.java.sdk.util.Util;
 
 import java.util.List;
 
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COLLABORATORS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 
 /**
  * Service for interacting with various maps setup on crowdmap

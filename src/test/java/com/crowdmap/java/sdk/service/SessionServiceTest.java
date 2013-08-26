@@ -47,20 +47,38 @@ public class SessionServiceTest extends BaseServiceTest {
 
 	/**
 	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.SessionService#login(String, String)}.
+	 * {@link com.crowdmap.java.sdk.service.SessionService#login(LoginForm)}.
 	 */
 	@Test
-	public void testLogin() {
+	public void testLogin() throws Exception{
 
 		// Provide correct credentials. Note: these ones are fake.
 		final String username = "henry@ushahidi.com";
 		final String password = "godles123";
 
-        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
+        LoginForm form = new LoginForm(username,password);
 		Session session = loginService.login(form);
-        System.out.println("session: "+session.toString());
 		assertNotNull("Media cannot be null ", session);
+        assertNull(session.error);
 
 	}
+
+    /**
+     * Test that when provided with wrong credentials Session.error
+     * won't be null
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testWrongCredentialsLogin()throws Exception{
+        // Provide correct credentials. Note: these ones are fake.
+        final String username = "email@itdoesntexist.com";
+        final String password = "ohgosh";
+
+        LoginForm form = new LoginForm(username,password);
+        Session session = loginService.login(form);
+        assertNotNull("Media cannot be null ", session);
+        assertNotNull(session.error);
+    }
 
 }

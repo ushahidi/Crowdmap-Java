@@ -424,9 +424,11 @@ public abstract class BaseHttpClient {
             request = openConnection(url, "POST");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
                     + "; charset=" + CHARSET_UTF8);
+
             StringBuilder builder = new StringBuilder();
             // for request header passed earlier on
             final String strParams = getParametersString(requestParameters);
+            builder.append("?");
             builder.append(strParams);
             // for request passed via body object
             // couldn't figure out a better way of doing this

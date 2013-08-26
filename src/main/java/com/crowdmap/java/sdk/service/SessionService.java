@@ -21,12 +21,10 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.LoginForm;
-import com.crowdmap.java.sdk.net.content.Body;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
 
 /**
  * Login service
@@ -50,7 +48,7 @@ public class SessionService extends CrowdmapService {
 
         setApiKey(METHOD_POST, url.toString());
         // Send a post request to login
-        return fromString(client.post(url.toString(), form.getParameters()),
+        return fromString(client.multipartPost(url.toString(), form.getParameters()),
                 Session.class);
     }
 }
