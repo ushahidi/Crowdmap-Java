@@ -66,7 +66,7 @@ public class SessionServiceTest extends BaseServiceTest {
     /**
      * Test that when provided with wrong credentials Session.error
      * won't be null
-     * 
+     *
      * @throws Exception
      */
     @Test

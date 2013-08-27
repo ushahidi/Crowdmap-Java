@@ -19,6 +19,8 @@
  *****************************************************************************/
 package com.crowdmap.java.sdk;
 
+import com.crowdmap.java.sdk.json.Session;
+import com.crowdmap.java.sdk.model.LoginForm;
 import com.crowdmap.java.sdk.service.CrowdmapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.SessionService;
@@ -41,6 +43,12 @@ public class Crowdmap {
 
     /** Socket timeout (in milliseconds). */
     private Integer socketTimeout;
+
+    /** Username. Mostly email address. */
+    private String username;
+
+    /** User password. */
+    private String password;
 
     public Crowdmap() {}
 
@@ -66,7 +74,7 @@ public class Crowdmap {
      * @param  connectionTimeout The timeout in milliseconds.
      * @return Current instance.
      */
-    public Crowdmap setConnectionTimeout(int connectionTimeout) {
+    public Crowdmap setConnectionTimeout(Integer connectionTimeout) {
         this.connectionTimeout = connectionTimeout;
         return this;
     }
@@ -77,11 +85,24 @@ public class Crowdmap {
      * @param socketTimeout The read timeout in milliseconds
      * @return Current instance.
      */
-    public Crowdmap setSocketTimeout(int socketTimeout) {
+    public Crowdmap setSocketTimeout(Integer socketTimeout) {
         this.socketTimeout = socketTimeout;
         return this;
     }
 
+    public Crowdmap login(String username, String password) {
+
+        if((username == null) || (username.length() == 0)) {
+            throw new IllegalArgumentException("Username cannot be null");
+        }
+
+        if((password == null)||(password.length() == 0)) {
+            throw new IllegalArgumentException("Password cannot be null");
+        }
+        this.username = username;
+        this.password = password;
+        return this;
+    }
     private void setupResource(CrowdmapService resource) {
 
         if(this.connectionTimeout != null) {
@@ -98,6 +119,13 @@ public class Crowdmap {
 
         if((this.publicKey != null)) {
             resource.setPublicKey(this.publicKey);
+        }
+
+        if((this.password != null) && (this.username != null)) {
+            SessionService service = Crowdmap.newSessionService();
+            LoginForm form = new LoginForm(username, password);
+            Session session = service.login(form);
+            resource.setSession(session.getSessionId());
         }
 
     }

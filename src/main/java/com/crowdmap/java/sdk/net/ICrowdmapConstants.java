@@ -28,6 +28,8 @@ public interface ICrowdmapConstants {
 
     public String CONTENT_TYPE_JSON = "application/json";
 
+    public String CONTENT_TYPE_FORM_URLENCODED = "application/x-www-form-urlencoded";
+
     public String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public String HOST_API = "api.crowdmap.com";
@@ -39,6 +41,12 @@ public interface ICrowdmapConstants {
     public String PROTOCOL_HTTP = "http";
 
     public String API_KEY_PARAM = "apikey";
+
+    public String SESSION = "session";
+
+    public String LIMIT = "limit";
+
+    public String OFFSET = "offset";
 
     public String API_URL = PROTOCOL_HTTP + "://" + HOST_API;
 

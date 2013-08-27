@@ -28,18 +28,18 @@ import com.crowdmap.java.sdk.model.UserForm;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_ASSOCIATED;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_COLLABORATING;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_FOLLOWING;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_OWNS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_NOTIFICATIONS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_FOLLOWING;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_COLLABORATING;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_OWNS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_ASSOCIATED;
 
 /**
  * User service
@@ -146,10 +146,7 @@ public class UserService extends CrowdmapService {
     }
 
     /**
-     *
-     * @param userId
-     * @param followerId
-     * @return
+     * Verify that a user follows the provided user ID
      */
     public Users verifyUsersFollowing(long userId, long followerId) {
 
@@ -178,15 +175,17 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Follow a user.
      *
-     * @param userId
-     * @return
+     * This requires authentication
      */
     public Users followUser(long userId) {
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
         setApiKey(METHOD_POST, url.toString());
+        setSession(getSession());
         return fromString(client.post(url.toString()), Users.class);
     }
 

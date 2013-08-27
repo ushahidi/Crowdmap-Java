@@ -47,6 +47,7 @@ import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CHARSET_UTF8;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CONTENT_TYPE_FORM_URLENCODED;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CONTENT_TYPE_JSON;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.REFERRER;
@@ -385,7 +386,7 @@ public abstract class BaseHttpClient {
             }
 
             request = openConnection(apiUrl, "DELETE");
-            request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+            request.setRequestProperty("Content-Type", CONTENT_TYPE_FORM_URLENCODED
                     + "; charset=" + CHARSET_UTF8);
             request.connect();
 
@@ -422,13 +423,12 @@ public abstract class BaseHttpClient {
         try {
             URL url = initUrl(apiUrl);
             request = openConnection(url, "POST");
-            request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+            request.setRequestProperty("Content-Type", CONTENT_TYPE_FORM_URLENCODED
                     + "; charset=" + CHARSET_UTF8);
 
             StringBuilder builder = new StringBuilder();
             // for request header passed earlier on
             final String strParams = getParametersString(requestParameters);
-            builder.append("?");
             builder.append(strParams);
             // for request passed via body object
             // couldn't figure out a better way of doing this
@@ -436,7 +436,6 @@ public abstract class BaseHttpClient {
                 builder.append("&");
             }
             builder.append(getBodyString(body));
-            System.out.println("API params " + apiUrl + builder.toString());
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
             out.print(builder.toString());
@@ -476,7 +475,7 @@ public abstract class BaseHttpClient {
         try {
             URL url = initUrl(apiUrl);
             request = openConnection(url, "PUT");
-            request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+            request.setRequestProperty("Content-Type", CONTENT_TYPE_FORM_URLENCODED
                     + "; charset=" + CHARSET_UTF8);
             StringBuilder builder = new StringBuilder();
             // for request header passed earlier on
@@ -533,11 +532,11 @@ public abstract class BaseHttpClient {
         try {
             URL url = initUrl(apiUrl);
              request = openConnection(url, "POST");
-            request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
+            request.setRequestProperty("Content-Type", CONTENT_TYPE_FORM_URLENCODED
                     + "; charset=" + CHARSET_UTF8);
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
-
+            System.out.println("Post: "+getParametersString(requestParameters));
             out.print(getParametersString(requestParameters));
             out.flush();
             out.close();
@@ -756,7 +755,7 @@ public abstract class BaseHttpClient {
         } catch (IOException e) {
             throw new CrowdmapException(e);
         }finally {
-            //closeConnection(request);
+
         }
     }
 
@@ -859,7 +858,7 @@ public abstract class BaseHttpClient {
     }
 
     /**
-     * Convinient method for openConnection(u, method, true)
+     * Convenient method for openConnection(u, method, true)
      */
     private HttpURLConnection openConnection(URL u, String method)
             throws IOException {

@@ -21,7 +21,9 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Posts;
+import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.json.Users;
+import com.crowdmap.java.sdk.model.LoginForm;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.model.UserForm;
 
@@ -69,7 +71,40 @@ public class UserServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetUser() throws Exception {
-        Users user = userService.getUser(3688);
-        assertNotNullOrEmpty("User details is empty", user.getUsers().get(0).toString());
+        Users user = userService.getUser(23);
+        assertNotNull(user);
+        assertNotNullOrEmpty("User details is empty", user.getUsers());
+    }
+
+    @Test
+    public void testGetUsersFollowedBy() throws  Exception {
+        Users users = userService.getUsersFollowedBy(23);
+        assertNotNull(users);
+        assertNotNullOrEmpty("No followers",users.getUsers());
+    }
+
+    @Test
+    public void testVerifyUsersFollowing() throws Exception {
+        Users users = userService.verifyUsersFollowing(23, 2);
+        assertNotNull(users);
+        assertNotNullOrEmpty("Not following",users.getUsers());
+    }
+
+    @Test
+    public void testGetUsersFollowers() throws Exception {
+        Users users = userService.getUsersFollowers(23);
+        assertNotNull(users);
+        assertNotNullOrEmpty("No users to follow", users.getUsers());
+    }
+
+    @Test
+    public void testFollowUser() throws Exception {
+        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
+        SessionService loginService = crowdmap.sessionService();
+        Session session = loginService.login(form);
+        System.out.println(session.getSessionId());
+        userService.setSession(session.getSessionId());
+        Users users = userService.followUser(2);
+        assertNotNull(users);
     }
 }

@@ -29,6 +29,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.API_KEY_PARAM;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CROWDMAP_API;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.PROTOCOL_HTTPS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SESSION;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
 
 /**
@@ -205,6 +206,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @return The HTTP response string as returned from the server
      */
     public String post(String url) {
+
         return request(url, METHOD_POST, null);
     }
 
@@ -240,5 +242,9 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      */
     public void setApiKey(String apiKey) {
         setRequestParameters(API_KEY_PARAM, apiKey);
+    }
+
+    public void setSessionKey(String session){
+        setRequestParameters(SESSION, session);
     }
 }

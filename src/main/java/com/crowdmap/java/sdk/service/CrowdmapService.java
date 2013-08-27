@@ -27,12 +27,14 @@ import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.crowdmap.java.sdk.util.Util;
 
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
  * Base crowdmap service class
  */
-public class CrowdmapService {
+public abstract class CrowdmapService {
 
     public static Gson gson;
 
@@ -55,6 +57,8 @@ public class CrowdmapService {
      * public app key value *
      */
     private String publicKey;
+
+    private String session;
 
     /**
      * Create a the task using the default {@link com.crowdmap.java.sdk.net.CrowdmapHttpClient}
@@ -123,19 +127,27 @@ public class CrowdmapService {
 
     public CrowdmapService limit(int limit) {
         if (limit > 0) {
-            getClient().setRequestParameters("limit", String.valueOf(limit));
+            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
     public CrowdmapService offset(int offset) {
 
-        if (getClient().getRequestParameters().containsKey("limit")) {
+        if (getClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }
 
-        getClient().setRequestParameters("offset", String.valueOf(offset));
+        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
         return this;
+    }
+
+    public void setSession(String session) {
+        if ((session == null) || (session.length() == 0)) {
+            throw new IllegalArgumentException("Session cannot be null or empty");
+        }
+        this.session = session;
+        getClient().setSessionKey(session);
     }
 
     public String getPublicKey() {
@@ -163,5 +175,17 @@ public class CrowdmapService {
                 .generateSignature(method, uri, getPublicKey(), getPrivateKey());
         // set the apikey for the request
         client.setApiKey(apiKey);
+    }
+
+    protected void validateSession() {
+        if ((session == null) || (session.length() == 0)) {
+            throw new IllegalArgumentException(
+                    "This action requires a valid session. You will have to login then provide the "
+                            + "session id returned");
+        }
+    }
+
+    public String getSession() {
+        return session;
     }
 }
