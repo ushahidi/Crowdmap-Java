@@ -20,6 +20,7 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.json.Users;
@@ -102,9 +103,31 @@ public class UserServiceTest extends BaseServiceTest {
         LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
         SessionService loginService = crowdmap.sessionService();
         Session session = loginService.login(form);
-        System.out.println(session.getSessionId());
         userService.setSession(session.getSessionId());
         Users users = userService.followUser(2);
         assertNotNull(users);
+    }
+
+    @Test
+    public void testGetNotification() throws Exception {
+
+        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
+        SessionService loginService = crowdmap.sessionService();
+        Session session = loginService.login(form);
+        userService.setSession(session.getSessionId());
+
+        //Maps maps = userService.getNotifications(23);
+        //assertNotNull(maps);
+    }
+
+    @Test
+    public void testGetUsersAssociatedMaps() throws Exception {
+        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
+        SessionService loginService = crowdmap.sessionService();
+        Session session = loginService.login(form);
+        userService.setSession(session.getSessionId());
+
+        Maps maps = userService.getUsersAssociatedMaps(23);
+        assertNotNull(maps);
     }
 }

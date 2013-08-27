@@ -44,12 +44,6 @@ public class Crowdmap {
     /** Socket timeout (in milliseconds). */
     private Integer socketTimeout;
 
-    /** Username. Mostly email address. */
-    private String username;
-
-    /** User password. */
-    private String password;
-
     public Crowdmap() {}
 
     public Crowdmap setPublicKey(String publicKey) {
@@ -99,8 +93,7 @@ public class Crowdmap {
         if((password == null)||(password.length() == 0)) {
             throw new IllegalArgumentException("Password cannot be null");
         }
-        this.username = username;
-        this.password = password;
+
         return this;
     }
     private void setupResource(CrowdmapService resource) {
@@ -119,13 +112,6 @@ public class Crowdmap {
 
         if((this.publicKey != null)) {
             resource.setPublicKey(this.publicKey);
-        }
-
-        if((this.password != null) && (this.username != null)) {
-            SessionService service = Crowdmap.newSessionService();
-            LoginForm form = new LoginForm(username, password);
-            Session session = service.login(form);
-            resource.setSession(session.getSessionId());
         }
 
     }

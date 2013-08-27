@@ -536,7 +536,6 @@ public abstract class BaseHttpClient {
                     + "; charset=" + CHARSET_UTF8);
             PrintStream out = new PrintStream(new BufferedOutputStream(
                     request.getOutputStream()));
-            System.out.println("Post: "+getParametersString(requestParameters));
             out.print(getParametersString(requestParameters));
             out.flush();
             out.close();

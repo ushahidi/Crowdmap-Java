@@ -24,6 +24,7 @@ import com.google.gson.annotations.SerializedName;
 import com.crowdmap.java.sdk.json.Date;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Map Model class
@@ -49,7 +50,7 @@ public class Map implements Serializable {
     @SerializedName("user_id")
     private int userId;
 
-    private User users;
+    private List<User> users;
 
     private String subdomain;
 
@@ -67,6 +68,13 @@ public class Map implements Serializable {
     private String moderation;
 
     private Boolean marker;
+
+    private String [] association;
+
+    private int followers;
+
+    private int posts;
+
 
     /**
      * The date the map was created
