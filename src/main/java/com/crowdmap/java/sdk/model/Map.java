@@ -69,7 +69,7 @@ public class Map implements Serializable {
 
     private Boolean marker;
 
-    private String [] association;
+    private String[] association;
 
     private int followers;
 
@@ -84,4 +84,139 @@ public class Map implements Serializable {
 
     private Geometry center;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Boolean getApprove() {
+        return approve;
+    }
+
+    public void setApprove(Boolean approve) {
+        this.approve = approve;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public String getSubdomain() {
+        return subdomain;
+    }
+
+    public void setSubdomain(String subdomain) {
+        this.subdomain = subdomain;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBanner() {
+        return banner;
+    }
+
+    public void setBanner(String banner) {
+        this.banner = banner;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Boolean getPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(Boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public String getModeration() {
+        return moderation;
+    }
+
+    public void setModeration(String moderation) {
+        this.moderation = moderation;
+    }
+
+    public Boolean getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Boolean marker) {
+        this.marker = marker;
+    }
+
+    public String[] getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(String[] association) {
+        this.association = association;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public int getPosts() {
+        return posts;
+    }
+
+    public void setPosts(int posts) {
+        this.posts = posts;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Geometry getCenter() {
+        return center;
+    }
+
+    public void setCenter(Geometry center) {
+        this.center = center;
+    }
 }

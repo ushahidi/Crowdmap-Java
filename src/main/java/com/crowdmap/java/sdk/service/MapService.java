@@ -21,18 +21,27 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Collaborators;
 import com.crowdmap.java.sdk.json.Followers;
+import com.crowdmap.java.sdk.json.MapSettings;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Owners;
 import com.crowdmap.java.sdk.model.Map;
+import com.crowdmap.java.sdk.model.MapForm;
 import com.crowdmap.java.sdk.net.content.Body;
+import com.crowdmap.java.sdk.net.content.FileBody;
 
-import java.util.List;
+import java.io.File;
 
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_BANNER;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COLLABORATORS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SETTINGS;
 
 /**
  * Service for interacting with various maps setup on crowdmap
@@ -46,45 +55,62 @@ public class MapService extends CrowdmapService {
     }
 
     /**
-     * Get list of maps. GET /maps
+     * Get list of maps as anonymous user
      *
-     * @return A list containing all the maps
+     * @return Maps as
      */
     public Maps getMaps() {
         //Crowdmap requires a new api signature every 2 minutes
         // so before a request is made, generate a new key
-        //generate the api key
         setApiKey(METHOD_GET, SEGMENT_MAPS);
-        String response = client.get(SEGMENT_MAPS);
-        Maps mapsJson = fromString(response, Maps.class);
-        return mapsJson;
+        return fromString(client.get(SEGMENT_MAPS), Maps.class);
     }
 
+
     /**
-     * Get Map based on a restricted set
+     * Get Map as an authenticated user.
      *
-     * @param offset The offset number
-     * @param limit  The limit number
-     * @return A list containing all the maps
+     * This requires that you set a session token by loging in.
+     *
+     * @return A list containing all the maps as an authenticated user
      */
-    public List<Map> getMaps(int offset, int limit) {
-        return null;
+    public Maps getMapsAsAuthenicatedUser() {
+        // Set session token
+        initSession();
+        return fromString(client.get(SEGMENT_MAPS), Maps.class);
     }
 
     /**
      * Returns a specific map. GET /maps/:map_id
      *
-     * @param id The ID of the map
+     * @param mapId The ID of the map
      * @return A specific map
      */
-    public Maps getMap(String id) {
-        checkId(id);
+    public Maps getMap(long mapId) {
+        checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
         url.append("/");
-        url.append(id);
         setApiKey(METHOD_GET, SEGMENT_MAPS);
         return fromString(client.get(url.toString()), Maps.class);
     }
+
+    /**
+     * Returns a specific map. GET /maps/:map_id
+     *
+     * @param mapId The ID of the map
+     * @return A specific map
+     */
+    public Maps getMapAsAuthenicatedUser(long mapId) {
+        checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append("/");
+        setApiKey(METHOD_GET, SEGMENT_MAPS);
+        return fromString(client.get(url.toString()), Maps.class);
+    }
+
+    // Users associations with maps
 
     /**
      * Get information about the owner of a particular map. GET /maps/:map_id/owner
@@ -92,10 +118,10 @@ public class MapService extends CrowdmapService {
      * @param id The ID of the map
      * @return The information about the owner of the map
      */
-    public Owners getMapOwner(String id) {
+    public Owners getMapOwner(long id) {
         checkId(id);
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append("/");
         url.append(id);
         url.append(SEGMENT_OWNER);
         setApiKey(METHOD_GET, SEGMENT_MAPS);
@@ -104,33 +130,33 @@ public class MapService extends CrowdmapService {
     }
 
     /**
-     * Get the followers of a map. GET /maps/:map_id/followers
+     * Get information about the owner of a particular map. GET /maps/:map_id/owner
      *
-     * @param id The ID of the map
-     * @return The followers of a map
+     * @param mapId The ID of the map
+     * @return The information about the owner of the map
      */
-    public Followers getFollowers(String id) {
-        checkId(id);
+    public Owners updateOwner(long mapId) {
+        checkId(mapId);
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append("/");
-        url.append(id);
-        url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_GET, SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_OWNER);
+        setApiKey(METHOD_PUT, SEGMENT_MAPS);
         return fromString(client.get(url.toString()),
-                Followers.class);
+                Owners.class);
     }
+
 
     /**
      * Get the collaborators on a map. GET /maps/:map_id/collaborators
      *
-     * @param id The ID of the map
+     * @param mapId The ID of the map
      * @return The followers of a map
      */
-    public Collaborators getCollaborators(String id) {
-        checkId(id);
+    public Collaborators getCollaborators(long mapId) {
+        checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append("/");
-        url.append(id);
+        url.append(mapId);
         url.append(SEGMENT_COLLABORATORS);
 
         return fromString(client.get(url.toString()),
@@ -138,49 +164,286 @@ public class MapService extends CrowdmapService {
     }
 
     /**
-     * Create a new Map. Anonymous users are not allowed to create maps. POST /maps
+     * Add a collaborator to the a map
+     */
+    public Collaborators addCollaborators(long mapId) {
+        //TODO:: ask Brian about collaborators fields
+        checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_COLLABORATORS);
+        return fromString(client.post(url.toString()),
+                Collaborators.class);
+    }
+
+    /**
+     * Remove a collaborator from the map
+     */
+    public Collaborators removeCollaborator(long mapId, long collaboratorId) {
+        //TODO:: ask Brian what response is returned when a collaborator is deleted
+        checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_COLLABORATORS);
+        url.append(collaboratorId);
+        url.append("/");
+        return fromString(client.post(url.toString()),
+                Collaborators.class);
+    }
+
+    /**
+     * Get the followers of a map. GET /maps/:map_id/followers
      *
-     * @param userId    The login user's user ID
-     * @param sessionId The login user's session ID.
-     * @param subdomain The sudomain of the map
+     * @param mapId The ID of the map
+     * @return The followers of a map
+     */
+    public Followers getFollowers(long mapId) {
+        checkId(mapId);
+        //TODO:: confirm with Brian if this requires authentication
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_FOLLOWERS);
+        setApiKey(METHOD_GET, SEGMENT_MAPS);
+        return fromString(client.get(url.toString()),
+                Followers.class);
+    }
+
+    public Followers followMap(long mapId) {
+        //TODO:: ask brian what fields are pass for following a map
+        checkId(mapId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_FOLLOWERS);
+        setApiKey(METHOD_POST, SEGMENT_MAPS);
+        return fromString(client.get(url.toString()),
+                Followers.class);
+    }
+
+    /**
+     * Stop following a particular map
+     *
+     * @param mapId The ID of the map to stop following
+     *
+     * @return
+     */
+    public Followers stopFollowingMap(long mapId) {
+        //TODO:: ask Brian what response is returned when following a map
+        checkId(mapId);
+        initSession();checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_FOLLOWERS);
+        setApiKey(METHOD_DELETE, SEGMENT_MAPS);
+        return fromString(client.get(url.toString()),
+                Followers.class);
+    }
+
+    // Tagging Maps
+    /*public Tags getTags() {
+        //TODO:: ask Brian about tags fields
+        return null;
+    }
+
+
+    public Tags getTags(long mapId) {
+        checkId(mapId);
+        return null;
+    }
+
+    public Tag addTag(long mapId) {
+        return null;
+    }
+
+    public Tags deleteTag(long mapId) {
+        return null;
+    }*/
+
+    /**
+     * Create a new Map.
+     *
+     * <p><strong>Note:</strong> Requires authentication</p>
+     *
+     * @param form The MapForm holding the map field values
      * @return The newly created map
      */
-    public Maps createMap(String userId, String sessionId, String subdomain) {
+    public Maps createMap(MapForm form) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
 
-        // Validate all the required fields
-        if (userId == null) {
-            throw new IllegalArgumentException("User ID cannot be null");
-        }
-
-        if (userId.length() == 0) {
-            throw new IllegalArgumentException("user ID cannot be empty");
-        }
-
-        if (sessionId == null) {
-            throw new IllegalArgumentException("Session ID cannot be null");
-        }
-
-        if (sessionId.length() == 0) {
-            throw new IllegalArgumentException("Session ID cannot be empty ");
-        }
-
-        if (subdomain == null) {
-            throw new IllegalArgumentException("Subdomain cannot be null");
-        }
-
-        if (subdomain.length() == 0) {
-            throw new IllegalArgumentException("User ID cannot be empty");
-        }
-
-        // Pass the username and password to the login endpoint
-        final Body body = new Body();
-        body.addField("user_id", userId);
-        body.addField("session_id", sessionId);
-        body.addField("subdomain", subdomain);
-
-        return fromString(
-                client.multipartPost(SEGMENT_MAPS, body),
+        Maps maps = fromString(
+                client.multipartPost(url.toString(), form.getParameters()),
                 Maps.class);
 
+        // Check if upload banner is set, then upload the files
+        if (form.getUploadBanner() != null) {
+            for (Map map : maps.getMaps()) {
+                createBanner(map.getId(), form.getUploadBanner());
+            }
+        }
+
+        // Check if upload avatar is set, then upload the files
+        if (form.getUploadAvatar() != null) {
+            for (Map map : maps.getMaps()) {
+                createAvatar(map.getId(), form.getUploadAvatar());
+            }
+        }
+
+        return maps;
+    }
+
+    /**
+     * Create a new banner
+     *
+     * @param mapId  The ID of the map to attach the image to be uploaded to.
+     * @param banner The image file
+     */
+    public Maps createBanner(long mapId, File banner) {
+        return uploadImage(mapId, banner, SEGMENT_BANNER);
+    }
+
+    /**
+     * Create an avatar for an existing map.
+     *
+     * @param mapId  The ID of the map to attach the image to be uploaded to.
+     * @param avatar The image file
+     * @return The updated map
+     */
+    public Maps createAvatar(long mapId, File avatar) {
+        return uploadImage(mapId, avatar, SEGMENT_AVATAR);
+    }
+
+    /**
+     * Update an exisiting map.
+     *
+     * @param mapId The ID of the map to be updated.
+     * @param form  The fields to be updated.
+     * @return The updated map.
+     */
+    public Maps updateMap(long mapId, MapForm form) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+
+        // if a mapId is set
+        url.append(mapId);
+        url.append("/");
+
+        Maps maps = fromString(
+                client.put(url.toString(), form.getParameters()),
+                Maps.class);
+
+        // Check if upload banner is set, then upload the files
+        if (form.getUploadBanner() != null) {
+            for (Map map : maps.getMaps()) {
+                createBanner(map.getId(), form.getUploadBanner());
+            }
+        }
+
+        // Check if upload avatar is set, then upload the files
+        if (form.getUploadAvatar() != null) {
+            for (Map map : maps.getMaps()) {
+                createAvatar(map.getId(), form.getUploadAvatar());
+            }
+        }
+
+        return maps;
+
+    }
+
+    /**
+     * Delete an existing map
+     */
+    public Maps deleteMap(long mapId) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        // if a mapId is set
+        url.append(mapId);
+        url.append("/");
+        return fromString(client.delete(url.toString()), Maps.class);
+    }
+
+    /**
+     * Get map settings.
+     *
+     * @param mapId        The map to get it's settings.
+     * @param settingsName The map settings name.
+     * @return The map settings
+     */
+    public MapSettings getMapSettings(long mapId, String settingsName) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        // if a mapId is set
+        checkId(mapId);
+        url.append(mapId);
+        url.append(SEGMENT_SETTINGS);
+        url.append(settingsName);
+        url.append("/");
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(
+                client.get(url.toString()),
+                MapSettings.class);
+    }
+
+    /**
+     * Get map settings.
+     *
+     * @param mapId        The map to get it's settings.
+     * @param settingsName The map settings name.
+     * @return The map settings
+     */
+    public MapSettings createOrUpdateMapSettings(long mapId, String settingsName,
+            String settingsValue) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        // if a mapId is set
+        checkId(mapId);
+        url.append(mapId);
+        url.append(SEGMENT_SETTINGS);
+        url.append(settingsName);
+        url.append("/");
+        Body body = new Body();
+        body.addField("settings", settingsName);
+        body.addField("value", settingsValue);
+        setApiKey(METHOD_POST, url.toString());
+        return fromString(
+                client.get(url.toString()),
+                MapSettings.class);
+    }
+
+    public MapSettings deleteMapSettings(long mapId, String settingsName) {
+        checkId(mapId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_SETTINGS);
+        url.append(settingsName);
+        url.append("/");
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(
+                client.get(url.toString()),
+                MapSettings.class);
+    }
+
+    /**
+     * Upload image to the specified endpoint.
+     *
+     * @param mapId The ID of the map to attach the image to be uploaded to.
+     * @param image The image file.
+     * @param uri   The endpoint uri segement
+     * @return The updated map.
+     */
+    private Maps uploadImage(long mapId, File image, String uri) {
+        initSession();
+        FileBody fileBody = new FileBody(image);
+        Body body = new Body();
+        body.addField("file", fileBody);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(uri);
+
+        return fromString(
+                client.multipartPost(url.toString(), body),
+                Maps.class);
     }
 }

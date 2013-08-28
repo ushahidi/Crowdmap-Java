@@ -24,86 +24,86 @@ package com.crowdmap.java.sdk.net;
  */
 public interface ICrowdmapConstants {
 
-    public String CHARSET_UTF8 = "UTF-8";
+    public static final String CHARSET_UTF8 = "UTF-8";
 
-    public String CONTENT_TYPE_JSON = "application/json";
+    public static final String CONTENT_TYPE_JSON = "application/json";
 
-    public String CONTENT_TYPE_FORM_URLENCODED = "application/x-www-form-urlencoded";
+    public static final String CONTENT_TYPE_FORM_URLENCODED = "application/x-www-form-urlencoded";
 
-    public String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    public String HOST_API = "api.crowdmap.com";
+    public static final String HOST_API = "api.crowdmap.com";
 
-    public String API_VERSION = "v1";
+    public static final String API_VERSION = "v1";
 
-    public String PROTOCOL_HTTPS = "https";
+    public static final String PROTOCOL_HTTPS = "https";
 
-    public String PROTOCOL_HTTP = "http";
+    public static final String API_KEY_PARAM = "apikey";
 
-    public String API_KEY_PARAM = "apikey";
+    public static final String SESSION = "session";
 
-    public String SESSION = "session";
+    public static final String LIMIT = "limit";
 
-    public String LIMIT = "limit";
+    public static final String OFFSET = "offset";
 
-    public String OFFSET = "offset";
+    public static final String CROWDMAP_API = HOST_API + "/" + API_VERSION;
 
-    public String API_URL = PROTOCOL_HTTP + "://" + HOST_API;
+    public static final String USER_AGENT = "Crowdmap-Java/1.0.0";
 
-    public String CROWDMAP_API = HOST_API + "/" + API_VERSION;
+    public static final String GZIP_DEFLATE = "gzip";
 
-    public String USER_AGENT = "Crowdmap-Java/1.0.0";
+    public static final String REFERRER = "Referer";
 
-    public String GZIP_DEFLATE = "gzip";
+    public static final String SEGMENT_MEDIA = "/media/";
 
-    public String REFERRER = "Referer";
+    public static final String SEGMENT_MAPS = "/maps/";
 
-    public String SEGMENT_MEDIA = "/media/";
+    public static final String SEGMENT_COMMENTS = "/comments/";
 
-    public String SEGMENT_MAPS = "/maps/";
+    public static final String SEGMENT_OWNER = "/owner/";
 
-    public String SEGMENT_COMMENTS = "/comments/";
+    public static final String SEGMENT_FOLLOWERS = "/followers/";
 
-    public String SEGMENT_OWNER = "/owner/";
+    public static final String SEGMENT_MAPS_FOLLOWING = SEGMENT_MAPS+"following/";
 
-    public String SEGMENT_FOLLOWERS = "/followers/";
+    public static final String SEGMENT_LOCATIONS = "/locations/";
 
-    public String SEGMENT_MAPS_FOLLOWING = SEGMENT_MAPS+"following/";
+    public static final String SEGMENT_POSTS = "/posts/";
 
-    public String SEGMENT_LOCATIONS = "/locations/";
+    public static final String SEGMENT_PEOPLE = "/people/";
 
-    public String SEGMENT_POSTS = "/posts/";
+    public static final String SEGMENT_EXTERNALS = "/externals/";
 
-    public String SEGMENT_PEOPLE = "/people/";
+    public static final String SEGMENT_ABOUT = "/about/";
 
-    public String SEGMENT_EXTERNALS = "/externals/";
+    public static final String SEGMENT_HEARTBEAT = "/heartbeat/";
 
-    public String SEGMENT_ABOUT = "/about/";
+    public static final String SEGMENT_PLACES_SEARCH = "/places/search/";
 
-    public String SEGMENT_HEARTBEAT = "/heartbeat/";
+    public static final String SEGMENT_TAGS = "/tags/";
 
-    public String SEGMENT_PLACES_SEARCH = "/places/search/";
+    public static final String SEGMENT_SESSION = "/session";
 
-    public String SEGMENT_TAGS = "/tags/";
+    public static final String SEGMENT_LOGIN = "/login/";
 
-    public String SEGMENT_SESSION = "/session";
+    public static final String SEGMENT_USERS = "/users/";
 
-    public String SEGMENT_LOGIN = "/login/";
+    public static final String SEGMENT_AVATAR = "/avatar/";
 
-    public String SEGMENT_USERS = "/users/";
+    public static final String SEGMENT_FOLLOWS = "/follows/";
 
-    public String SEGMENT_AVATAR = "/avatar/";
+    public static final String SEGMENT_MAPS_COLLABORATING = SEGMENT_MAPS + "collaborating/";
 
-    public String SEGMENT_FOLLOWS = "/follows/";
+    public static final String SEGMENT_MAPS_OWNS = SEGMENT_MAPS + "owns/";
 
-    public String SEGMENT_MAPS_COLLABORATING = SEGMENT_MAPS + "collaborating/";
+    public static final String SEGMENT_MAPS_ASSOCIATED = SEGMENT_MAPS + "associated/";
 
-    public String SEGMENT_MAPS_OWNS = SEGMENT_MAPS + "owns/";
+    public static final String SEGMENT_NOTIFICATIONS = "/notifications/";
 
-    public String SEGMENT_MAPS_ASSOCIATED = SEGMENT_MAPS + "associated/";
+    public static final String SEGMENT_COLLABORATORS = "/collaborators/";
 
-    public String SEGMENT_NOTIFICATIONS = "/notifications/";
+    public static final String SEGMENT_BANNER = "/banner/";
 
-    public String SEGMENT_COLLABORATORS = "/collaborators/";
+    public static final String SEGMENT_SETTINGS = "/settings/";
 
 }

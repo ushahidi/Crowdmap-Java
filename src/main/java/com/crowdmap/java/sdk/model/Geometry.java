@@ -20,7 +20,6 @@
 package com.crowdmap.java.sdk.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Geometry model class
@@ -34,7 +33,7 @@ public class Geometry implements Serializable {
 
     private String type;
 
-    private Double [] coordinates;
+    private Double[] coordinates;
 
     /**
      * @return the type

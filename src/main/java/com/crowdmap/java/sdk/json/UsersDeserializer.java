@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Deserialize users based on what's returned
+ * Deserialize users based on what's returned.
  */
 public class UsersDeserializer implements JsonDeserializer<List<User>>{
 

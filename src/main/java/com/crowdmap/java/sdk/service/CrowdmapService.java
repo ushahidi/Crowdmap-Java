@@ -24,12 +24,11 @@ import com.google.gson.GsonBuilder;
 
 import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.DateDeserializer;
-import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.Map;
-import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.crowdmap.java.sdk.util.Util;
+import com.crowdmap.java.sdk.util.ValidateUtil;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
@@ -62,7 +61,7 @@ public abstract class CrowdmapService {
      */
     private String publicKey;
 
-    private String session;
+    private String sessionToken;
 
     /**
      * Create a the task using the default {@link com.crowdmap.java.sdk.net.CrowdmapHttpClient}
@@ -96,14 +95,10 @@ public abstract class CrowdmapService {
      *
      * @return id
      */
-    protected String checkId(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
+    protected void checkId(long id) {
+        if (id == 0) {
+            throw new IllegalArgumentException("Id cannot be zero");
         }
-        if (id.length() == 0) {
-            throw new IllegalArgumentException("Id cannot be empty");
-        }
-        return id;
     }
 
     /**
@@ -125,7 +120,6 @@ public abstract class CrowdmapService {
      * @return the json string
      */
     public static String toJson(final Object obj) {
-
         return gson.toJson(obj);
     }
 
@@ -146,12 +140,11 @@ public abstract class CrowdmapService {
         return this;
     }
 
-    public void setSession(String session) {
-        if ((session == null) || (session.length() == 0)) {
-            throw new IllegalArgumentException("Session cannot be null or empty");
+    public void setSessionToken(String sessionToken) {
+        if ((sessionToken == null) || (sessionToken.length() == 0)) {
+            throw new IllegalArgumentException("Session token cannot be null or empty");
         }
-        this.session = session;
-        getClient().setSessionKey(session);
+        this.sessionToken = sessionToken;
     }
 
     public String getPublicKey() {
@@ -181,15 +174,16 @@ public abstract class CrowdmapService {
         client.setApiKey(apiKey);
     }
 
-    protected void validateSession() {
-        if ((session == null) || (session.length() == 0)) {
+    protected void initSession() {
+        if (ValidateUtil.empty(sessionToken)) {
             throw new IllegalArgumentException(
-                    "This action requires a valid session. You will have to login then provide the "
-                            + "session id returned");
+                    "This action requires a valid sessionToken. You will have to login then provide the "
+                            + "sessionToken id returned");
         }
+        client.setSessionKey(this.sessionToken);
     }
 
-    public String getSession() {
-        return session;
+    public String getSessionToken() {
+        return sessionToken;
     }
 }

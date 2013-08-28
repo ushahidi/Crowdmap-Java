@@ -25,15 +25,13 @@ import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.json.Users;
 import com.crowdmap.java.sdk.model.LoginForm;
-import com.crowdmap.java.sdk.model.User;
-import com.crowdmap.java.sdk.model.UserForm;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by eyedol on 8/17/13.
+ * UserService test cases
  */
 public class UserServiceTest extends BaseServiceTest {
 
@@ -100,10 +98,8 @@ public class UserServiceTest extends BaseServiceTest {
 
     @Test
     public void testFollowUser() throws Exception {
-        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
-        SessionService loginService = crowdmap.sessionService();
-        Session session = loginService.login(form);
-        userService.setSession(session.getSessionId());
+        session = loginService.login(loginForm);
+        userService.setSessionToken(session.getSessionToken());
         Users users = userService.followUser(2);
         assertNotNull(users);
     }
@@ -111,10 +107,8 @@ public class UserServiceTest extends BaseServiceTest {
     @Test
     public void testGetNotification() throws Exception {
 
-        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
-        SessionService loginService = crowdmap.sessionService();
-        Session session = loginService.login(form);
-        userService.setSession(session.getSessionId());
+        session = loginService.login(loginForm);
+        userService.setSessionToken(session.getSessionToken());
 
         //Maps maps = userService.getNotifications(23);
         //assertNotNull(maps);
@@ -122,10 +116,8 @@ public class UserServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetUsersAssociatedMaps() throws Exception {
-        LoginForm form = new LoginForm("henry@ushahidi.com","godles123");
-        SessionService loginService = crowdmap.sessionService();
-        Session session = loginService.login(form);
-        userService.setSession(session.getSessionId());
+        session = loginService.login(loginForm);
+        userService.setSessionToken(session.getSessionToken());
 
         Maps maps = userService.getUsersAssociatedMaps(23);
         assertNotNull(maps);

@@ -34,7 +34,13 @@ public class Maps extends Response implements Serializable {
      */
     private static final long serialVersionUID = 6835878593630432210L;
 
-    public List<Map> maps;
+    private List<Map> maps;
 
+    public List<Map> getMaps() {
+        return maps;
+    }
 
+    public void setMaps(List<Map> maps) {
+        this.maps = maps;
+    }
 }

@@ -22,6 +22,7 @@ package com.crowdmap.java.sdk;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.LoginForm;
 import com.crowdmap.java.sdk.service.CrowdmapService;
+import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
@@ -135,6 +136,10 @@ public class Crowdmap {
         return new UserService();
     }
 
+    private static final MapService newMapService() {
+        return new MapService();
+    }
+
     /**
      * Get media service
      *
@@ -159,6 +164,12 @@ public class Crowdmap {
 
     public UserService userService() {
         UserService service = Crowdmap.newUserService();
+        this.setupResource(service);
+        return service;
+    }
+
+    public MapService mapService() {
+        MapService service = Crowdmap.newMapService();
         this.setupResource(service);
         return service;
     }

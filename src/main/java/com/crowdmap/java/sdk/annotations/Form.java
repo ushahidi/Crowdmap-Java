@@ -51,6 +51,7 @@ public abstract class Form {
                             field.setAccessible(true);
                         }
                         // add the form fields
+
                         body.addField(formField.name(), field.get(this));
                     }
                 }

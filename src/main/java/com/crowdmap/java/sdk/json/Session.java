@@ -39,7 +39,7 @@ public class Session extends Response implements Serializable {
     private String userId;
 
     /**
-     * The session ID
+     * The session token
      */
     private String session;
 
@@ -64,11 +64,11 @@ public class Session extends Response implements Serializable {
     }
 
     /**
-     * Get the login user's session ID
+     * Get the login user's session token
      *
      * @return the sessionId
      */
-    public String getSessionId() {
+    public String getSessionToken() {
         return session;
     }
 
@@ -77,7 +77,7 @@ public class Session extends Response implements Serializable {
      *
      * @param session the sessionId to set
      */
-    public void setSession(String session) {
+    public void setSessionToken(String session) {
         this.session = session;
     }
 

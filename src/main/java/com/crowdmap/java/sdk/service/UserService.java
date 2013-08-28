@@ -28,7 +28,6 @@ import com.crowdmap.java.sdk.model.UserForm;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
@@ -53,8 +52,10 @@ public class UserService extends CrowdmapService {
      */
     public Users getUsers() {
 
-        //Send a post request to login
+        //Set the api signature key
         setApiKey(METHOD_GET, SEGMENT_USERS);
+
+        //Send a get request to fetch registered users
         String json = client.get(SEGMENT_USERS);
         return fromString(json,
                 Users.class);
@@ -180,7 +181,7 @@ public class UserService extends CrowdmapService {
      * This requires authentication
      */
     public Users followUser(long userId) {
-        validateSession();
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
@@ -193,7 +194,7 @@ public class UserService extends CrowdmapService {
      * @return
      */
     public Users stopFollowingUser(long userId) {
-        validateSession();
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
@@ -207,11 +208,12 @@ public class UserService extends CrowdmapService {
      * @return
      */
     public Maps getUserFollowedMap(long userId) {
-        validateSession();
+        // Set session token
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_FOLLOWING);
-        setApiKey(METHOD_GET, url.toString());
+
         return fromString(client.get(url.toString()), Maps.class);
     }
 
@@ -221,11 +223,10 @@ public class UserService extends CrowdmapService {
      * @return
      */
     public Maps getMapsUserCollaboratesOn(long userId) {
-        validateSession();
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_COLLABORATING);
-        setApiKey(METHOD_GET, url.toString());
         return fromString(client.get(url.toString()), Maps.class);
     }
 
@@ -252,9 +253,7 @@ public class UserService extends CrowdmapService {
         url.append(userId);
         url.append(SEGMENT_MAPS_ASSOCIATED);
         setApiKey(METHOD_GET, url.toString());
-        String json = client.get(url.toString());
-        System.out.println(json);
-        return fromString(json, Maps.class);
+        return fromString(client.get(url.toString()), Maps.class);
     }
 
     /**
@@ -264,7 +263,7 @@ public class UserService extends CrowdmapService {
      */
     public Maps getNotifications(long userId) {
         //TODO:: ask Brian the fields for notifications
-        validateSession();
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
@@ -279,7 +278,7 @@ public class UserService extends CrowdmapService {
      */
     public Maps markNotificationAsRead(long userId) {
         //TODO ask Brian the fields for making a notification as read
-        validateSession();
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
