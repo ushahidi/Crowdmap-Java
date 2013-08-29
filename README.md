@@ -2,7 +2,7 @@
 
 A Java wrapper for the Crowdmap API. It wraps the raw HTTP calls to the Crowdmap APIs. 
 The goal of this SDK is to ease Crowdmap API integration into your Java applications. 
-For more information on the Crowdmap API, see;  http://api.crdmp3.com/developers/v1.html
+For more information on the Crowdmap API, see;  http://api.crdmp3.com/developers/v1.type
 
 ## Building
 The Crowdmap Java SDK is built using [Apache Ant](https://ant.apache.org/)

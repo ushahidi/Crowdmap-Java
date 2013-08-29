@@ -25,6 +25,7 @@ import com.crowdmap.java.sdk.json.MapSettings;
 import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Owners;
+import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.model.MapForm;
 import com.crowdmap.java.sdk.net.content.Body;
@@ -42,6 +43,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COLLABORATORS
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SETTINGS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
 
@@ -227,13 +229,12 @@ public class MapService extends CrowdmapService {
      * Stop following a particular map
      *
      * @param mapId The ID of the map to stop following
-     *
-     * @return
      */
     public Followers stopFollowingMap(long mapId) {
         //TODO:: ask Brian what response is returned when stopped to follow a map
         checkId(mapId);
-        initSession();checkId(mapId);
+        initSession();
+        checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_FOLLOWERS);
@@ -252,18 +253,47 @@ public class MapService extends CrowdmapService {
     }
 
 
+    /**
+     * Get a specific map's tag
+     */
     public MapTags getTags(long mapId, String tag) {
         checkId(mapId);
-        return null;
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(tag);
+        url.append(SEGMENT_TAGS);
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(client.get(url.toString()), MapTags.class);
+
     }
 
     public MapTags addTag(long mapId) {
+        //TODO:: get tags of a map
         return null;
     }
 
-    public MapTags deleteTag(long mapId) {
-        return null;
-    }*/
+    public MapTags deleteTag(long mapId, String tag) {
+        checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(tag);
+        url.append(SEGMENT_TAGS);
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.delete(url.toString()), MapTags.class);
+    }
+
+    //post on a map
+    public Posts getPostMap(long mapId) {
+        checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_POSTS);
+        setApiKey(METHOD_GET, url.toString());
+        String json = client.get(url.toString());
+        System.out.println(json);
+        return fromString(json, Posts.class);
+    }
+
 
     /**
      * Create a new Map.

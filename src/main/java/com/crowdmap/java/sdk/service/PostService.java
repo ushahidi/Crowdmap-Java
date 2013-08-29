@@ -44,7 +44,7 @@ public class PostService extends CrowdmapService {
     /**
      * Get posts based on the post ID and a segment of the URL passed to it
      *
-     * @param postId      The ID of the post
+     * @param postId  The ID of the post
      * @param segment The URL segment
      * @return The Object related to the JSON response
      */

@@ -10,7 +10,7 @@
  ** Foundation and appearing in the file LICENSE.LGPL included in the
  ** packaging of this file. Please review the following information to
  ** ensure the GNU Lesser General Public License version 3 requirements
- ** will be met: http://www.gnu.org/licenses/lgpl.html.
+ ** will be met: http://www.gnu.org/licenses/lgpl.type.
  **
  **
  ** If you have questions regarding the use of this file, please contact
@@ -23,6 +23,7 @@ package com.crowdmap.java.sdk.model;
 import com.crowdmap.java.sdk.json.Date;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * External model class
@@ -52,14 +53,14 @@ public class External implements Serializable {
     /**
      * The type
      */
-    private String html;
+    private String type;
 
     private String idOnService;
 
     /**
-     * The data from the external service
+     * The content from the external service
      */
-    private String data;
+    private String content;
 
     /**
      * The date and time
@@ -70,7 +71,7 @@ public class External implements Serializable {
     /**
      * The Media URL
      */
-    private String imageUrl;
+    private List<Image> images;
 
     /**
      * The latitude
@@ -98,14 +99,9 @@ public class External implements Serializable {
     private String faviconUrl;
 
     /**
-     * The embed html
+     * The embed type
      */
     private String embedHtml;
-
-    /**
-     * The embed html small
-     */
-    private String embedHtmlSmall;
 
     /**
      * @return the id
@@ -150,17 +146,17 @@ public class External implements Serializable {
     }
 
     /**
-     * @return the html
+     * @return the type
      */
-    public String getHtml() {
-        return html;
+    public String getType() {
+        return type;
     }
 
     /**
-     * @param html the html to set
+     * @param type the type to set
      */
-    public void setHtml(String html) {
-        this.html = html;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -178,17 +174,17 @@ public class External implements Serializable {
     }
 
     /**
-     * @return the data
+     * @return the content
      */
-    public String getData() {
-        return data;
+    public String getContent() {
+        return content;
     }
 
     /**
-     * @param data the data to set
+     * @param content the content to set
      */
-    public void setData(String data) {
-        this.data = data;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     /**
@@ -203,20 +199,6 @@ public class External implements Serializable {
      */
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
-    }
-
-    /**
-     * @return the imageUrl
-     */
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    /**
-     * @param imageUrl the imageUrl to set
-     */
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     /**
@@ -303,38 +285,67 @@ public class External implements Serializable {
         this.embedHtml = embedHtml;
     }
 
-    /**
-     * @return the embedHtmlSmall
-     */
-    public String getEmbedHtmlSmall() {
-        return embedHtmlSmall;
-    }
-
-    /**
-     * @param embedHtmlSmall the embedHtmlSmall to set
-     */
-    public void setEmbedHtmlSmall(String embedHtmlSmall) {
-        this.embedHtmlSmall = embedHtmlSmall;
-    }
-
     @Override
     public String toString() {
         return "External{" +
                 "id=" + id +
                 ", serviceId=" + serviceId +
                 ", provider='" + provider + '\'' +
-                ", html='" + html + '\'' +
+                ", type='" + type + '\'' +
                 ", idOnService='" + idOnService + '\'' +
-                ", data='" + data + '\'' +
+                ", content='" + content + '\'' +
                 ", dateTime=" + dateTime +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", images='" + images + '\'' +
                 ", lat=" + lat +
                 ", lon=" + lon +
                 ", url='" + url + '\'' +
                 ", title='" + title + '\'' +
                 ", faviconUrl='" + faviconUrl + '\'' +
                 ", embedHtml='" + embedHtml + '\'' +
-                ", embedHtmlSmall='" + embedHtmlSmall + '\'' +
                 '}';
+    }
+
+    public static final class Image implements Serializable {
+
+        private static final long serialVersionUID = -5764178939360495066L;
+
+        private long externalsImagesId;
+
+        private long externalId;
+
+        private String url;
+
+        public long getExternalsImagesId() {
+            return externalsImagesId;
+        }
+
+        public void setExternalsImagesId(long externalsImagesId) {
+            this.externalsImagesId = externalsImagesId;
+        }
+
+        public long getExternalId() {
+            return externalId;
+        }
+
+        public void setExternalId(long externalId) {
+            this.externalId = externalId;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        @Override
+        public String toString() {
+            return "Image{" +
+                    "externalsImagesId=" + externalsImagesId +
+                    ", externalId=" + externalId +
+                    ", url='" + url + '\'' +
+                    '}';
+        }
     }
 }

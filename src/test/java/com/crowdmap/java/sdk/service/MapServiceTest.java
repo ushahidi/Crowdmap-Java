@@ -2,6 +2,7 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
+import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.MapForm;
 
@@ -84,5 +85,13 @@ public class MapServiceTest extends BaseServiceTest {
         MapTags mapTags = mapService.getTags("book");
         assertNotNull(mapTags);
         assertNotNullOrEmpty("No maps tags", mapTags.getMapsTags());
+    }
+
+    @Test
+    public void testGetPostMap() throws Exception {
+        Posts posts = mapService.getPostMap(2006);
+        System.out.print(posts.getPosts().get(0).toString());
+        assertNotNull(posts);
+        assertNotNullOrEmpty("Post is empty", posts.getPosts());
     }
 }
