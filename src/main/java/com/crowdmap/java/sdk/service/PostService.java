@@ -44,17 +44,17 @@ public class PostService extends CrowdmapService {
     /**
      * Get posts based on the post ID and a segment of the URL passed to it
      *
-     * @param id      The ID of the post
+     * @param postId      The ID of the post
      * @param segment The URL segment
      * @return The Object related to the JSON response
      */
-    private <T> T get(String id, String segment, Class<T> cls) {
+    private <T> T get(long postId, String segment, Class<T> cls) {
 
-        checkId(id);
+        checkId(postId);
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append("/");
-        url.append(id);
-
+        url.append(postId);
+        url.append("/");
         // Add the segment
         if (segment != null && segment.length() > 0) {
             url.append(segment);
@@ -66,23 +66,23 @@ public class PostService extends CrowdmapService {
     /**
      * Get a specific post. GET /posts/:post_id
      *
-     * @param id The post ID
+     * @param postId The post ID
      * @return The {@link com.crowdmap.java.sdk.json.Posts} response of the specific post
      */
-    public Posts getPosts(String id) {
+    public Posts getPosts(long postId) {
 
-        return get(id, null, Posts.class);
+        return get(postId, null, Posts.class);
     }
 
     /**
      * Get all of the maps a specific post is featured on. GET /posts/:post_id/maps
      *
-     * @param id The post ID
+     * @param postId The post ID
      * @return The {@link com.crowdmap.java.sdk.json.Maps} response for the specific post
      */
-    public Maps getPostMaps(String id) {
+    public Maps getPostMaps(long postId) {
 
-        return get(id, SEGMENT_MAPS, Maps.class);
+        return get(postId, SEGMENT_MAPS, Maps.class);
     }
 
     /**
@@ -90,11 +90,11 @@ public class PostService extends CrowdmapService {
      *
      * GET /posts/:post_id/comments/
      *
-     * @param id The post ID
+     * @param postId The post ID
      * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
      */
-    public Comments getPostComments(String id) {
-        return get(id, SEGMENT_COMMENTS, Comments.class);
+    public Comments getPostComments(long postId) {
+        return get(postId, SEGMENT_COMMENTS, Comments.class);
     }
 
     /**
@@ -105,7 +105,7 @@ public class PostService extends CrowdmapService {
      * @param mapId The map ID
      * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
      */
-    public Comments getPostComments(String id, String mapId) {
+    public Comments getPostComments(long id, String mapId) {
         checkId(id);
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append("/");

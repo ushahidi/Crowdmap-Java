@@ -72,6 +72,8 @@ public class Post implements Serializable {
 
     private List<Tag> tags;
 
+    private List<Map> postsMaps;
+
     private List<Comment> comments;
 
     //TODO:: add likes field

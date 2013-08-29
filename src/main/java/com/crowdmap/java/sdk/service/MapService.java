@@ -22,6 +22,7 @@ package com.crowdmap.java.sdk.service;
 import com.crowdmap.java.sdk.json.Collaborators;
 import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.MapSettings;
+import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Owners;
 import com.crowdmap.java.sdk.model.Map;
@@ -42,6 +43,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SETTINGS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
 
 /**
  * Service for interacting with various maps setup on crowdmap
@@ -229,7 +231,7 @@ public class MapService extends CrowdmapService {
      * @return
      */
     public Followers stopFollowingMap(long mapId) {
-        //TODO:: ask Brian what response is returned when following a map
+        //TODO:: ask Brian what response is returned when stopped to follow a map
         checkId(mapId);
         initSession();checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
@@ -241,22 +243,25 @@ public class MapService extends CrowdmapService {
     }
 
     // Tagging Maps
-    /*public Tags getTags() {
-        //TODO:: ask Brian about tags fields
-        return null;
+    public MapTags getTags(String tag) {
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(tag);
+        url.append(SEGMENT_TAGS);
+        setApiKey(METHOD_GET, url.toString());
+        return fromString(client.get(url.toString()), MapTags.class);
     }
 
 
-    public Tags getTags(long mapId) {
+    public MapTags getTags(long mapId, String tag) {
         checkId(mapId);
         return null;
     }
 
-    public Tag addTag(long mapId) {
+    public MapTags addTag(long mapId) {
         return null;
     }
 
-    public Tags deleteTag(long mapId) {
+    public MapTags deleteTag(long mapId) {
         return null;
     }*/
 

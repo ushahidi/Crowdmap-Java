@@ -1,5 +1,6 @@
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.MapForm;
@@ -63,7 +64,7 @@ public class MapServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testCreateMapWithBannerUrlAndAvatarUrlSet() throws Exception {
+    public void CreateMapWithBannerUrlAndAvatarUrlSet() throws Exception {
         MapForm form = new MapForm();
         session = loginService.login(loginForm);
         form.setName("Crowdmap Java SDK Map");
@@ -74,7 +75,14 @@ public class MapServiceTest extends BaseServiceTest {
         form.setPublic(true);
         form.setModeration(MapForm.Moderation.Auto);
         mapService.setSessionToken(session.getSessionToken());
-        Maps maps = mapService.createMap(form);
-        assertNotNull(maps);
+        //Maps maps = mapService.createMap(form);
+        //assertNotNull(maps);
+    }
+
+    @Test
+    public void testGetTags() throws Exception {
+        MapTags mapTags = mapService.getTags("book");
+        assertNotNull(mapTags);
+        assertNotNullOrEmpty("No maps tags", mapTags.getMapsTags());
     }
 }
