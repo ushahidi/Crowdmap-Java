@@ -68,16 +68,15 @@ uploadArchives {
 
 [compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:all']
 
+/* fix this when some examples codes are added
 def example(name, mainClass, arguments) {
     task(name, dependsOn: ['compileJava', 'compileExamplesJava']) << {
         javaexec {
             main = 'com.crowdmap.java.sdk.examples.'+mainClass
             classpath = sourceSets.main.runtimeClasspath + sourceSets.examples.output
-            if (logger.debugEnabled) systemProperties ext.httpDebug
-            args arguments.call()
         }
     }
-}
+}*/
 
 task doc(type: Javadoc) {
     source = sourceSets.main.allJava
@@ -89,6 +88,12 @@ task doc(type: Javadoc) {
             "https://api.crowdmap.com/developers/v1",
             "http://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/index.html"
     ]
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Crowdmap API Java SDK', 'Implementation-Version': version
+    }
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
