@@ -76,6 +76,7 @@ def example(name, mainClass, arguments) {
     }
 }
 
+// for the maven users
 task makePom << {
     uploadArchives.repositories.mavenDeployer().getPom().writeTo("pom.xml")
 }
@@ -111,15 +112,3 @@ def getAuth(repo_id) {
     [:]
 }
 
-task printDebug << {
-    println ext.httpDebug.collect { "-D"+it.key+"="+it.value }.join(' ')
-}
-
-/*sourceSets {
-    main {
-        runtimeClasspath = files(output.resourcesDir) + runtimeClasspath
-    }
-    test {
-        runtimeClasspath = files(output.resourcesDir) + runtimeClasspath
-    }
-}*/
