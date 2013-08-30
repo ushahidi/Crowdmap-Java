@@ -27,4 +27,5 @@ import java.io.Serializable;
  */
 public class Badge implements Serializable {
 
+    private static final long serialVersionUID = -423403764150353937L;
 }
