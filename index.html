@@ -32,36 +32,57 @@
 
         <section id="main_content">
           <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>A Java wrapper for the Crowdmap API. It wraps the raw HTTP calls to the Crowdmap APIs. The goal of
+this SDK is to ease Crowdmap API integration into your Java applications. For more information on the
+Crowdmap API, Go to <a href="https://api.crowdmap.com/developers/v1/">https://api.crowdmap.com/developers/v1/</a></p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h3>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<p>Create a Crowdmap instance. You will use this to access the various services.</p>
+
+<div class="highlight"><pre><span class="n">Crowdmap</span> <span class="n">crowdmap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Crowdmap</span><span class="o">(</span><span class="s">"publicKey"</span><span class="o">,</span> <span class="s">"privateKey"</span><span class="o">);</span>
+</pre></div>
+
+<h3>
+<a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h3>
+
+<p>The project is built with gradle</p>
+
+<pre><code>$ git clone git://github.com/soundcloud/java-api-wrapper.git
+$ cd Crowdmap-Java
+$ ./gradlew jar  # build jar file (build/libs/Crowdmap-Java-1.x.x.jar)
+$ ./gradlew test # run tests
+
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h3>
+
+<p>Javadocs available at <a href="http://ushahidi.github.io/Crowdmap-Java/javadoc/1.0.0-SNAPSHOT/">http://ushahidi.github.io/Crowdmap-Java/javadoc/1.0.0-SNAPSHOT/</a></p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="download" class="anchor" href="#download"><span class="octicon octicon-link"></span></a>Download</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>All of the source code for the project resides at <a href="https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE">github.com</a></p>
+
+<h4>
+<a name="maven" class="anchor" href="#maven"><span class="octicon octicon-link"></span></a>Maven</h4>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.crowdmap&lt;/groupId&gt;
+  &lt;artifactId&gt;java-sdk&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>This project is released under the <code>GNU AFFERO GENERAL PUBLIC LICENSE Version 3</code>
+See the <a href="https://github.com/ushahidi/Crowdmap-Java/">license</a> file for more details.</p>
         </section>
 
         <footer>
