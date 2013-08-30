@@ -19,7 +19,6 @@ $ git clone git://github.com/soundcloud/java-api-wrapper.git
 $ cd Crowdmap-Java
 $ ./gradlew jar  # build jar file (build/libs/Crowdmap-Java-1.x.x.jar)
 $ ./gradlew test # run tests
-$ ./gradlew allJar
 
 ```
 ### Documentation
