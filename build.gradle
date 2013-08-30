@@ -50,7 +50,7 @@ uploadArchives {
                     licenses {
                         license {
                             name         'GNU AFFERO GENERAL PUBLIC LICENSE'
-                            url          'https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE.txt'
+                            url          'https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE'
                             distribution 'repo'
                         }
                     }
