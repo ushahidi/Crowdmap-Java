@@ -2,12 +2,12 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.6
-group = 'com.crowdmap.java'
+group = 'com.crowdmap'
 description =""" Crowdmap API's Java SDK """
 version = '1.0.0-SNAPSHOT'
-
 
 repositories {
     mavenCentral()
@@ -27,20 +27,25 @@ dependencies {
 uploadArchives {
     repositories {
         mavenDeployer {
-            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots',
-                    id:  'sonatype-nexus-snapshots') {
-                authentication(getAuth('sonatype-nexus-snapshots'))
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
+                authentication(getAuth())
             }
-            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/',
-                    id:  'sonatype-nexus-staging') {
-                authentication(getAuth('sonatype-nexus-staging'))
+            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2') {
+                authentication(getAuth())
             }
             pom {
                 project {
                     name        'Crowdmap Java SDK'
                     description 'A Java SDK for accessing Crowdmap API. This works on Android as well'
+                    packaging 'jar'
                     url 'https://github.com/ushahidi/Crowdmap-Java#readme'
                     inceptionYear '2013'
+                    scm {
+                        url 'https://github.com/ushahidi/Crowdmap-Java'
+                        connection 'scm:git:git://github.com/ushahidi/Crowdmap-Java.git'
+                        developerConnection 'scm:git:git@github.com:ushahidi/Crowdmap-Java.git'
+                    }
                     licenses {
                         license {
                             name         'GNU AFFERO GENERAL PUBLIC LICENSE'
@@ -48,9 +53,13 @@ uploadArchives {
                             distribution 'repo'
                         }
                     }
-                }
-                withXml { xml ->
-                    new XmlParser().parse(new File("pom-include.xml")).children().each { kid -> xml.asNode().append(kid) }
+                    developers {
+                        developer {
+                            id 'eyedol'
+                            name 'Henry Addo'
+                            email 'henry@ushahidi.com'
+                        }
+                    }
                 }
             }
         }
@@ -70,11 +79,6 @@ def example(name, mainClass, arguments) {
     }
 }
 
-// for the maven users
-task makePom << {
-    uploadArchives.repositories.mavenDeployer().getPom().writeTo("pom.xml")
-}
-
 task doc(type: Javadoc) {
     source = sourceSets.main.allJava
     title = "Crowdmap Java SDK API Doc $version"
@@ -87,6 +91,21 @@ task doc(type: Javadoc) {
     ]
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc/'+version
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+
+}
+
+signing {
+    sign configurations.archives
+}
+
 task jarAll(type: Jar) {
     description = "Build a jar file with all dependencies"
     dependsOn configurations.runtime, sourceSets.main.output, sourceSets.examples.output
@@ -96,12 +115,16 @@ task jarAll(type: Jar) {
     }
 }
 
-def getAuth(repo_id) {
-    def m2_settings = new File("${System.getProperty('user.home')}/.m2/settings.xml")
-    if (m2_settings.exists()) {
-        def settings = new XmlSlurper().parse(m2_settings)
-        def repo = settings.servers.server.find { it.id.text() == repo_id }
-        if (repo != null) return [userName: repo.username.text(), password: repo.password.text()]
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+def getAuth() {
+    if (project.hasProperty('sonatypeUsername') &&
+            project.hasProperty('sonatypePassword')) {
+        return [userName: sonatypeUsername, password: sonatypePassword]
     }
     [:]
 }
