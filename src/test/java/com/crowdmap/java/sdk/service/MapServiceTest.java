@@ -88,9 +88,15 @@ public class MapServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testGetPostMap() throws Exception {
-        Posts posts = mapService.getPostMap(2006);
-        System.out.print(posts.getPosts().get(0).toString());
+    public void testGetPostOnMap() throws Exception {
+        Posts posts = mapService.getPostOnMap(2006);
+        assertNotNull(posts);
+        assertNotNullOrEmpty("Post is empty", posts.getPosts());
+    }
+
+    @Test
+    public void testGetPostOnMapByTag() throws Exception {
+        Posts posts = mapService.getPostOnMapByTag(2006, "book");
         assertNotNull(posts);
         assertNotNullOrEmpty("Post is empty", posts.getPosts());
     }

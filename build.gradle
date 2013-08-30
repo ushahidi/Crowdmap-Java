@@ -1,26 +1,27 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 apply plugin: 'java'
-apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-
-group = 'com.crowdmap.java.sdk'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.6
-targetCompatibility = 1.6
-
+group = 'com.crowdmap.java.sdk'
 description =""" Crowdmap API's Java SDK """
-
 version = '1.0.0-SNAPSHOT'
 
 
 repositories {
     mavenCentral()
+}
+
+sourceSets {
+    examples {
+        compileClasspath = sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.2.+'
+    testCompile 'junit:junit:4.+'
 }
 
 jar {
@@ -29,17 +30,96 @@ jar {
     }
 }
 
-
-dependencies {
-    compile 'com.google.code.gson:gson:2.2.+'
-    testCompile 'junit:junit:4.+'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots',
+                    id:  'sonatype-nexus-snapshots') {
+                authentication(getAuth('sonatype-nexus-snapshots'))
+            }
+            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/',
+                    id:  'sonatype-nexus-staging') {
+                authentication(getAuth('sonatype-nexus-staging'))
+            }
+            pom {
+                project {
+                    name        'Crowdmap Java SDK'
+                    description 'A Java SDK for accessing Crowdmap API. This works on Android as well'
+                    url 'https://github.com/ushahidi/Crowdmap-Java#readme'
+                    inceptionYear '2013'
+                    licenses {
+                        license {
+                            name         'GNU AFFERO GENERAL PUBLIC LICENSE'
+                            url          'https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE.txt'
+                            distribution 'repo'
+                        }
+                    }
+                }
+                withXml { xml ->
+                    new XmlParser().parse(new File("pom-include.xml")).children().each { kid -> xml.asNode().append(kid) }
+                }
+            }
+        }
+    }
 }
 
-sourceSets {
+[compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:all']
+
+def example(name, mainClass, arguments) {
+    task(name, dependsOn: ['compileJava', 'compileExamplesJava']) << {
+        javaexec {
+            main = 'com.crowdmap.java.sdk.examples.'+mainClass
+            classpath = sourceSets.main.runtimeClasspath + sourceSets.examples.output
+            if (logger.debugEnabled) systemProperties ext.httpDebug
+            args arguments.call()
+        }
+    }
+}
+
+task writePom << {
+    uploadArchives.repositories.mavenDeployer().getPom().writeTo("pom.xml")
+}
+
+task doc(type: Javadoc) {
+    source = sourceSets.main.allJava
+    title = "Crowdmap Java SDK API Doc $version"
+    classpath = sourceSets.main.compileClasspath
+    destinationDir = new File(new File(buildDir, 'javadoc'), version)
+    options.version = true
+    options.links = [
+            "https://api.crowdmap.com/developers/v1/index.php",
+            "http://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/index.html"
+    ]
+}
+
+task jarAll(type: Jar) {
+    description = "Build a jar file with all dependencies"
+    dependsOn configurations.runtime, sourceSets.main.output, sourceSets.examples.output
+    archiveName = project.name + "-" + version +"-all.jar"
+    from { (configurations.runtime + sourceSets.main.output + sourceSets.examples.output ).collect {
+        it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+def getAuth(repo_id) {
+    def m2_settings = new File("${System.getProperty('user.home')}/.m2/settings.xml")
+    if (m2_settings.exists()) {
+        def settings = new XmlSlurper().parse(m2_settings)
+        def repo = settings.servers.server.find { it.id.text() == repo_id }
+        if (repo != null) return [userName: repo.username.text(), password: repo.password.text()]
+    }
+    [:]
+}
+
+task printDebug << {
+    println ext.httpDebug.collect { "-D"+it.key+"="+it.value }.join(' ')
+}
+
+/*sourceSets {
     main {
         runtimeClasspath = files(output.resourcesDir) + runtimeClasspath
     }
     test {
         runtimeClasspath = files(output.resourcesDir) + runtimeClasspath
     }
-}
+}*/

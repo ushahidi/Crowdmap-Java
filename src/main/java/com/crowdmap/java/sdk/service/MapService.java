@@ -283,17 +283,55 @@ public class MapService extends CrowdmapService {
     }
 
     //post on a map
-    public Posts getPostMap(long mapId) {
+    public Posts getPostOnMap(long mapId) {
         checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_POSTS);
         setApiKey(METHOD_GET, url.toString());
         String json = client.get(url.toString());
-        System.out.println(json);
         return fromString(json, Posts.class);
     }
 
+    //post on a map
+    public Posts getPostOnMapByTag(long mapId, String tag) {
+        checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_POSTS);
+        url.append(tag);
+        url.append("/");
+        setApiKey(METHOD_GET, url.toString());
+        String json = client.get(url.toString());
+        return fromString(json, Posts.class);
+    }
+
+    public Posts approveOrDenyPostOnMap(long mapId, long postId) {
+        //Double check the fields involve
+        checkId(mapId);
+        checkId(postId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_POSTS);
+        url.append(postId);
+        url.append("/");
+        setApiKey(METHOD_PUT, url.toString());
+        return fromString(client.put(url.toString(), null), Posts.class);
+    }
+
+    public Posts removePostFromMap(long mapId, long postId) {
+        checkId(mapId);
+        checkId(postId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_POSTS);
+        url.append(postId);
+        url.append("/");
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.put(url.toString(), null), Posts.class);
+    }
 
     /**
      * Create a new Map.
