@@ -32,9 +32,9 @@ All of the source code for the project resides at [github.com][1]
 #### Maven
 ```
 <dependency>
-  <groupId>com.crowdmap.java</groupId>
-  <artifactId>Crowdmap-Java</artifactId>
-  <version>1.2.0</version>
+  <groupId>com.crowdmap</groupId>
+  <artifactId>java-sdk</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
 </dependency>
 
 ```

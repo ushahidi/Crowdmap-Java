@@ -39,23 +39,11 @@ public class Crowdmap {
     /** Socket timeout (in milliseconds). */
     private Integer socketTimeout;
 
-    public Crowdmap() {}
-
-    public Crowdmap setPublicKey(String publicKey) {
+    public Crowdmap(String publicKey, String privateKey) {
         this.publicKey = publicKey;
-        return this;
+        this.privateKey = privateKey;
     }
 
-    /**
-     * Set private API key.
-     *
-     * @param value API key value.
-     * @return Current instance for builder pattern.
-     */
-    public Crowdmap setPrivateKey(String value) {
-        this.privateKey = value;
-        return this;
-    }
 
     /**
      * Set default  connection timeout.

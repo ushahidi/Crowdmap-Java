@@ -47,8 +47,7 @@ public abstract class BaseServiceTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
         httpClient = new CrowdmapHttpClient();
-		crowdmap = new Crowdmap();
-        crowdmap.setPublicKey("mcoSiLOiRUXiiAPv").setPrivateKey("jodJljijJNiBSLLW");
+		crowdmap = new Crowdmap("mcoSiLOiRUXiiAPv","jodJljijJNiBSLLW");
         loginForm = new LoginForm("henry@ushahidi.com","dontchangeme");
         loginService = crowdmap.sessionService();
 	}
