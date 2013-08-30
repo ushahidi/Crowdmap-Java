@@ -54,7 +54,7 @@ public class SessionServiceTest extends BaseServiceTest {
 
 		// Provide correct credentials. Note: these ones are fake.
 		final String username = "henry@ushahidi.com";
-		final String password = "godles123";
+		final String password = "dontchangeme";
 
         LoginForm form = new LoginForm(username,password);
 		Session session = loginService.login(form);
