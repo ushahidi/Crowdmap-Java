@@ -29,6 +29,8 @@ import java.util.List;
  */
 public class Users extends Response implements Serializable {
 
+    private static final long serialVersionUID = 8172708394083993131L;
+
     private List<User> users;
 
     public List<User> getUsers(){
