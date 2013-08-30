@@ -24,12 +24,6 @@ dependencies {
     testCompile 'junit:junit:4.+'
 }
 
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Crowdmap API Java SDK', 'Implementation-Version': version
-    }
-}
-
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -107,6 +101,7 @@ def getAuth(repo_id) {
     if (m2_settings.exists()) {
         def settings = new XmlSlurper().parse(m2_settings)
         def repo = settings.servers.server.find { it.id.text() == repo_id }
+        print repo.username.text()+ " == "+
         if (repo != null) return [userName: repo.username.text(), password: repo.password.text()]
     }
     [:]
