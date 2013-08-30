@@ -76,7 +76,7 @@ def example(name, mainClass, arguments) {
     }
 }
 
-task writePom << {
+task makePom << {
     uploadArchives.repositories.mavenDeployer().getPom().writeTo("pom.xml")
 }
 
@@ -87,7 +87,7 @@ task doc(type: Javadoc) {
     destinationDir = new File(new File(buildDir, 'javadoc'), version)
     options.version = true
     options.links = [
-            "https://api.crowdmap.com/developers/v1/index.php",
+            "https://api.crowdmap.com/developers/v1",
             "http://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/index.html"
     ]
 }
