@@ -4,7 +4,7 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 
 sourceCompatibility = 1.6
-group = 'com.crowdmap.java.sdk'
+group = 'com.crowdmap.java'
 description =""" Crowdmap API's Java SDK """
 version = '1.0.0-SNAPSHOT'
 
@@ -101,7 +101,6 @@ def getAuth(repo_id) {
     if (m2_settings.exists()) {
         def settings = new XmlSlurper().parse(m2_settings)
         def repo = settings.servers.server.find { it.id.text() == repo_id }
-        print repo.username.text()+ " == "+
         if (repo != null) return [userName: repo.username.text(), password: repo.password.text()]
     }
     [:]
