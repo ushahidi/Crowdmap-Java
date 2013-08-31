@@ -23,10 +23,11 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 public class ExternalService extends CrowdmapService {
 
     /**
-     * Get all externals. GET /externals
+     * Create a new external
      */
-    public Externals getExternals() {
-        return fromString(client.get(SEGMENT_EXTERNALS),
+    public Externals createExternal() {
+        //TODO:: ask for external fields.
+        return fromString(client.post(SEGMENT_EXTERNALS),
                 Externals.class);
     }
 

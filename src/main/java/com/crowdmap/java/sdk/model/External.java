@@ -14,6 +14,8 @@
 
 package com.crowdmap.java.sdk.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import com.crowdmap.java.sdk.json.Date;
 
 import java.io.Serializable;
@@ -32,6 +34,7 @@ public class External implements Serializable {
     /**
      * The external ID
      */
+    @SerializedName("external_id")
     private int id;
 
     /**
@@ -40,19 +43,22 @@ public class External implements Serializable {
     private int serviceId;
 
     /**
-     * The providier
+     * The provider. The name of the site the content came from
      */
     private String provider;
 
     /**
-     * The type
+     * The type. The type of content. Generally html or url to an image.
      */
     private String type;
 
+    /**
+     * The ID of the content on a given service.
+     */
     private String idOnService;
 
     /**
-     * The content from the external service
+     * The content from the external service.
      */
     private String content;
 
