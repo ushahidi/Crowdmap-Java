@@ -14,25 +14,29 @@
 
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.Tag;
-
-import java.util.List;
+import java.io.Serializable;
 
 /**
- * MapTags
+ * Registered map resource. Check if a subdomain for a map has already been registered on Crowdmap.
  */
-public class MapTags extends Response {
+public class RegisteredMap implements Serializable {
 
-    private List<Tag> mapsTags;
+    private static final long serialVersionUID = 2177384105800482410L;
 
-    public List<Tag> getMapsTags() {
-        return mapsTags;
+    private boolean registered;
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
     }
 
     @Override
     public String toString() {
-        return "MapTags{" +
-                "mapsTags=" + mapsTags +
+        return "RegisteredMap{" +
+                "registered=" + registered +
                 '}';
     }
 }

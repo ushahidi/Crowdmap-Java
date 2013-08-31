@@ -12,27 +12,44 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.json;
+package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.model.Tag;
-
-import java.util.List;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * MapTags
+ * Test the Utility service
  */
-public class MapTags extends Response {
+public class UtilityServiceTest extends BaseServiceTest {
 
-    private List<Tag> mapsTags;
+    @Before
+    public void setUp() throws Exception {
 
-    public List<Tag> getMapsTags() {
-        return mapsTags;
     }
 
-    @Override
-    public String toString() {
-        return "MapTags{" +
-                "mapsTags=" + mapsTags +
-                '}';
+    @After
+    public void tearDown() throws Exception {
+
+    }
+
+    @Test
+    public void testHearbeat() throws Exception {
+
+    }
+
+    @Test
+    public void testAbout() throws Exception {
+
+    }
+
+    @Test
+    public void testOEmbed() throws Exception {
+
+    }
+
+    @Test
+    public void testRegisteredMap() throws Exception {
+
     }
 }

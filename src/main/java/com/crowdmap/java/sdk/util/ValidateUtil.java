@@ -37,35 +37,34 @@ public class ValidateUtil {
     /**
      * Validate an empty field/string. Return true if the string is empty
      *
-     * @param field
-     *            The string to validate
+     * @param field The string to validate
      * @return true if is empty otherwise false
      */
     public static boolean empty(String field) {
-        if ((field == null) || (field.toString() == null) || field.length() == 0)
+        if ((field == null) || (field.toString() == null) || field.length() == 0) {
             return true;
+        }
         return false;
     }
 
     /**
      * Validate how long a field can be
      *
-     * @param field
-     *            The field
-     * @param start
-     *            Range starts
-     * @param end
-     *            Range ends
+     * @param field The field
+     * @param start Range starts
+     * @param end   Range ends
      * @return True if the field is within range
      */
     public static boolean range(String field, int start, int end) {
-        if (field == null)
+        if (field == null) {
             return false;
+        }
 
         int length = field.length();
 
-        if (end >= length)
+        if (end >= length) {
             end = length - 1;
+        }
 
         return (start >= 0) && (end >= 0) && (start <= end) && (length > 0);
     }
@@ -73,9 +72,7 @@ public class ValidateUtil {
     /**
      * Validate a URL
      *
-     * @param url
-     *            The URL to be validated
-     *
+     * @param url The URL to be validated
      * @return True if the field is within range
      */
     public static boolean url(String url) {
@@ -86,9 +83,6 @@ public class ValidateUtil {
 
     /**
      * Remove trailing slashes
-     *
-     * @param url
-     * @return
      */
     public static String removeTrailingSlashes(String url) {
         if (url.endsWith("/")) {

@@ -398,7 +398,7 @@ public abstract class BaseHttpClient {
 
         } catch (IOException e) {
             throw new CrowdmapException(e);
-        }finally {
+        } finally {
             //closeConnection(request);
         }
 
@@ -525,7 +525,7 @@ public abstract class BaseHttpClient {
         HttpURLConnection request = null;
         try {
             URL url = initUrl(apiUrl);
-             request = openConnection(url, "POST");
+            request = openConnection(url, "POST");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_FORM_URLENCODED
                     + "; charset=" + CHARSET_UTF8);
             PrintStream out = new PrintStream(new BufferedOutputStream(
@@ -725,7 +725,7 @@ public abstract class BaseHttpClient {
         HttpURLConnection request = null;
         try {
             URL url = initUrl(apiUrl);
-             request = openConnection(url, method);
+            request = openConnection(url, method);
 
             if (contentType != null) {
                 request.setRequestProperty("Content-Type", contentType);
@@ -747,7 +747,7 @@ public abstract class BaseHttpClient {
             }
         } catch (IOException e) {
             throw new CrowdmapException(e);
-        }finally {
+        } finally {
 
         }
     }

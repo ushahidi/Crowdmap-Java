@@ -238,7 +238,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
         setRequestParameters(API_KEY_PARAM, apiKey);
     }
 
-    public void setSessionKey(String session){
+    public void setSessionKey(String session) {
         setRequestParameters(SESSION, session);
     }
 }

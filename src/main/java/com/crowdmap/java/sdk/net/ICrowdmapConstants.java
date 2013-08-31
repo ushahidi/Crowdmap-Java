@@ -17,7 +17,9 @@ package com.crowdmap.java.sdk.net;
  * Crowdmap constants for http related activities
  */
 public interface ICrowdmapConstants {
+
     public static final String VERSION = "1.0.0";
+
     public static final String CHARSET_UTF8 = "UTF-8";
 
     public static final String CONTENT_TYPE_JSON = "application/json";
@@ -42,7 +44,7 @@ public interface ICrowdmapConstants {
 
     public static final String CROWDMAP_API = HOST_API + "/" + API_VERSION;
 
-    public static final String USER_AGENT = "Crowdmap-Java-SDK/"+VERSION;
+    public static final String USER_AGENT = "Crowdmap-Java-SDK/" + VERSION;
 
     public static final String GZIP_DEFLATE = "gzip";
 
@@ -58,7 +60,7 @@ public interface ICrowdmapConstants {
 
     public static final String SEGMENT_FOLLOWERS = "/followers/";
 
-    public static final String SEGMENT_MAPS_FOLLOWING = SEGMENT_MAPS+"following/";
+    public static final String SEGMENT_MAPS_FOLLOWING = SEGMENT_MAPS + "following/";
 
     public static final String SEGMENT_LOCATIONS = "/locations/";
 
@@ -100,4 +102,7 @@ public interface ICrowdmapConstants {
 
     public static final String SEGMENT_SETTINGS = "/settings/";
 
+    public static final String SEGMENT_OEMBED = "/oembed/";
+
+    public static final String SEGMENT_REGISTEREDMAP = "/registeredmap/";
 }

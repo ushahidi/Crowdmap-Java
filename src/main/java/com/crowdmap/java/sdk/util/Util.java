@@ -14,7 +14,6 @@
 
 package com.crowdmap.java.sdk.util;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
@@ -35,13 +34,13 @@ public class Util {
     /**
      * Generate Crowdmap's api key signature. This is required by all request to the Crowdmap API
      *
-     * @param method The HTTP method being executed
-     * @param uri The uri segement of the crowdmap API
-     * @param publicKey The application public key
+     * @param method     The HTTP method being executed
+     * @param uri        The uri segement of the crowdmap API
+     * @param publicKey  The application public key
      * @param privateKey The application private key used as the HMAC's encryption cipher
-     * @return
      */
-    public static String generateSignature(String method, String uri, String publicKey, String privateKey) {
+    public static String generateSignature(String method, String uri, String publicKey,
+            String privateKey) {
 
         long timestamp = Math.round(new Date().getTime() / 1000);
         String requestMethod = method.toUpperCase();
@@ -57,7 +56,7 @@ public class Util {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
             e.printStackTrace();
-        }catch (GeneralSecurityException e) {
+        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
 
@@ -68,8 +67,9 @@ public class Util {
         byte[] digest = mac.doFinal(text);
         BigInteger hash = new BigInteger(1, digest);
         String hashed = hash.toString(16);
-        if(hashed.length() % 2 != 0)
+        if (hashed.length() % 2 != 0) {
             hashed = "0" + hashed;
+        }
         builder.append(hashed);
 
         return builder.toString();

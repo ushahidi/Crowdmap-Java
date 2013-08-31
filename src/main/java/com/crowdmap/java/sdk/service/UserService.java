@@ -256,7 +256,6 @@ public class UserService extends CrowdmapService {
      * Get users notifications
      *
      * @param userId The user's ID to be used for fetching the notification details
-     *
      * @return The list of notifications
      */
     public Notifications getNotifications(long userId) {
@@ -274,7 +273,6 @@ public class UserService extends CrowdmapService {
      * @return
      */
     public Response markNotificationAsRead(long userId) {
-        //TODO ask Brian the fields for making a notification as read
         initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);

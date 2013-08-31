@@ -14,25 +14,30 @@
 
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.Tag;
-
-import java.util.List;
+import java.io.Serializable;
 
 /**
- * MapTags
+ * About gives version information about the Crowdmap API
  */
-public class MapTags extends Response {
+public class About extends Response implements Serializable {
 
-    private List<Tag> mapsTags;
 
-    public List<Tag> getMapsTags() {
-        return mapsTags;
+    private static final long serialVersionUID = 7863215499465107853L;
+
+    private int version;
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     @Override
     public String toString() {
-        return "MapTags{" +
-                "mapsTags=" + mapsTags +
+        return "About{" +
+                "version=" + version +
                 '}';
     }
 }

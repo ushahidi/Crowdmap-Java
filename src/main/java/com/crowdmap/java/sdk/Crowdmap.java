@@ -13,30 +13,37 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk;
 
-import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.LoginForm;
 import com.crowdmap.java.sdk.service.CrowdmapService;
 import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
+import com.crowdmap.java.sdk.service.UtilityService;
 
 /**
  * Creates the various Crowdmap API resources
  */
 public class Crowdmap {
 
-    /** private app key value **/
+    /**
+     * private app key value *
+     */
     private String privateKey;
 
-    /** public app key value **/
+    /**
+     * public app key value *
+     */
     private String publicKey;
 
-    /** Connection timeout (in milliseconds). */
+    /**
+     * Connection timeout (in milliseconds).
+     */
 
     private Integer connectionTimeout;
 
-    /** Socket timeout (in milliseconds). */
+    /**
+     * Socket timeout (in milliseconds).
+     */
     private Integer socketTimeout;
 
     public Crowdmap(String publicKey, String privateKey) {
@@ -48,7 +55,7 @@ public class Crowdmap {
     /**
      * Set default  connection timeout.
      *
-     * @param  connectionTimeout The timeout in milliseconds.
+     * @param connectionTimeout The timeout in milliseconds.
      * @return Current instance.
      */
     public Crowdmap setConnectionTimeout(Integer connectionTimeout) {
@@ -69,31 +76,32 @@ public class Crowdmap {
 
     public Crowdmap login(String username, String password) {
 
-        if((username == null) || (username.length() == 0)) {
+        if ((username == null) || (username.length() == 0)) {
             throw new IllegalArgumentException("Username cannot be null");
         }
 
-        if((password == null)||(password.length() == 0)) {
+        if ((password == null) || (password.length() == 0)) {
             throw new IllegalArgumentException("Password cannot be null");
         }
 
         return this;
     }
+
     private void setupResource(CrowdmapService resource) {
 
-        if(this.connectionTimeout != null) {
+        if (this.connectionTimeout != null) {
             resource.getClient().setConnectionTimeout(this.connectionTimeout);
         }
 
-        if(this.socketTimeout != null) {
+        if (this.socketTimeout != null) {
             resource.getClient().setSocketTimeout(this.socketTimeout);
         }
 
-        if((this.privateKey != null)) {
+        if ((this.privateKey != null)) {
             resource.setPrivateKey(this.privateKey);
         }
 
-        if((this.publicKey != null)) {
+        if ((this.publicKey != null)) {
             resource.setPublicKey(this.publicKey);
         }
 
@@ -101,7 +109,6 @@ public class Crowdmap {
 
     /**
      * Create a new media service instance
-     *
      */
     private static final MediaService newMediaService() {
         return new MediaService();
@@ -120,6 +127,10 @@ public class Crowdmap {
 
     private static final MapService newMapService() {
         return new MapService();
+    }
+
+    private static final UtilityService newUtilitySerivce() {
+        return new UtilityService();
     }
 
     /**
@@ -144,14 +155,35 @@ public class Crowdmap {
         return service;
     }
 
+    /**
+     * Get the User service
+     *
+     * @return User service instance
+     */
     public UserService userService() {
         UserService service = Crowdmap.newUserService();
         this.setupResource(service);
         return service;
     }
 
+    /**
+     * Get the Map service
+     *
+     * @return Map service instance
+     */
     public MapService mapService() {
         MapService service = Crowdmap.newMapService();
+        this.setupResource(service);
+        return service;
+    }
+
+    /**
+     * Get the Utility service
+     *
+     * @return Utility service instance
+     */
+    public UtilityService utilityService() {
+        UtilityService service = Crowdmap.newUtilitySerivce();
         this.setupResource(service);
         return service;
     }

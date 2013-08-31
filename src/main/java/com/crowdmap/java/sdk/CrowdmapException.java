@@ -18,44 +18,38 @@ package com.crowdmap.java.sdk;
  */
 public class CrowdmapException extends RuntimeException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6639204130451563983L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6639204130451563983L;
 
-	/**
-	 * Instantiates a new Crowdmap exception.
-	 */
-	public CrowdmapException() {
-	}
+    /**
+     * Instantiates a new Crowdmap exception.
+     */
+    public CrowdmapException() {
+    }
 
-	/**
-	 * Instantiates a new Crowdmap exception.
-	 * 
-	 * @param cause
-	 *            the cause
-	 */
-	public CrowdmapException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * Instantiates a new Crowdmap exception.
+     *
+     * @param cause the cause
+     */
+    public CrowdmapException(Throwable cause) {
+        super(cause);
+    }
 
-	/**
-	 * 
-	 * @param message
-	 *            The message be shown
-	 */
-	public CrowdmapException(String message) {
-		super(message);
-	}
+    /**
+     * @param message The message be shown
+     */
+    public CrowdmapException(String message) {
+        super(message);
+    }
 
-	/**
-	 * 
-	 * @param message
-	 *            The message to be shown.
-	 * @param cause
-	 *            The cause of the exception.
-	 */
-	public CrowdmapException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * @param message The message to be shown.
+     * @param cause   The cause of the exception.
+     */
+    public CrowdmapException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

@@ -14,63 +14,178 @@
 
 package com.crowdmap.java.sdk.json;
 
+import java.io.Serializable;
+
 /**
  * The class represents the Main response returned as a result of a Crowdmap api call.
  */
-public class Response {
+public class Response implements Serializable {
 
     /**
      * URL to the next service
      */
-    public String next;
+    private String next;
 
     /**
      * URL to the current service
      */
-    public String curr;
+    private String curr;
 
     /**
      * URL to the previous service
      */
-    public String prev;
+    private String prev;
 
-    public boolean success;
+    private boolean success;
 
     /**
      * The error message returned as a result of an API call
      */
-    public String error;
+    private String error;
 
     public String message;
 
     /**
      * The status of the response
      */
-    public int status;
+    private int status;
 
     /**
      * The timestamp received from the server as a result of an API call
      */
-    public long timestamp;
+    private long timestamp;
 
     /**
      * The query count.
      */
-    public int qcount;
+    private int qcount;
 
     /**
      * The time it took the request to load
      */
-    public String elapsed;
+    private String elapsed;
 
     /**
      * Minimum rate limit
      */
-    public int limitMin;
+    private int limitMin;
 
     /**
      * Maximum rate limit
      */
-    public int limitMax;
+    private int limitMax;
 
+    public String getNext() {
+        return next;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
+    }
+
+    public String getCurr() {
+        return curr;
+    }
+
+    public void setCurr(String curr) {
+        this.curr = curr;
+    }
+
+    public String getPrev() {
+        return prev;
+    }
+
+    public void setPrev(String prev) {
+        this.prev = prev;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getQcount() {
+        return qcount;
+    }
+
+    public void setQcount(int qcount) {
+        this.qcount = qcount;
+    }
+
+    public String getElapsed() {
+        return elapsed;
+    }
+
+    public void setElapsed(String elapsed) {
+        this.elapsed = elapsed;
+    }
+
+    public int getLimitMin() {
+        return limitMin;
+    }
+
+    public void setLimitMin(int limitMin) {
+        this.limitMin = limitMin;
+    }
+
+    public int getLimitMax() {
+        return limitMax;
+    }
+
+    public void setLimitMax(int limitMax) {
+        this.limitMax = limitMax;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "next='" + next + '\'' +
+                ", curr='" + curr + '\'' +
+                ", prev='" + prev + '\'' +
+                ", success=" + success +
+                ", error='" + error + '\'' +
+                ", message='" + message + '\'' +
+                ", status=" + status +
+                ", timestamp=" + timestamp +
+                ", qcount=" + qcount +
+                ", elapsed='" + elapsed + '\'' +
+                ", limitMin=" + limitMin +
+                ", limitMax=" + limitMax +
+                '}';
+    }
 }
