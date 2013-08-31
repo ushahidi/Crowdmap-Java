@@ -14,6 +14,7 @@
 package com.crowdmap.java.sdk;
 
 import com.crowdmap.java.sdk.service.CrowdmapService;
+import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.ModerationService;
@@ -88,7 +89,7 @@ public class Crowdmap {
         return this;
     }
 
-    private void setupResource(CrowdmapService resource) {
+    private void setupService(CrowdmapService resource) {
 
         if (this.connectionTimeout != null) {
             resource.getClient().setConnectionTimeout(this.connectionTimeout);
@@ -138,6 +139,10 @@ public class Crowdmap {
         return new ModerationService();
     }
 
+    private static final ExternalService newExternalService() {
+        return new ExternalService();
+    }
+
     /**
      * Get media service
      *
@@ -145,7 +150,7 @@ public class Crowdmap {
      */
     public MediaService mediaService() {
         MediaService service = Crowdmap.newMediaService();
-        this.setupResource(service);
+        this.setupService(service);
         return service;
     }
 
@@ -156,7 +161,7 @@ public class Crowdmap {
      */
     public SessionService sessionService() {
         SessionService service = Crowdmap.newSessionService();
-        this.setupResource(service);
+        this.setupService(service);
         return service;
     }
 
@@ -167,7 +172,7 @@ public class Crowdmap {
      */
     public UserService userService() {
         UserService service = Crowdmap.newUserService();
-        this.setupResource(service);
+        this.setupService(service);
         return service;
     }
 
@@ -178,7 +183,7 @@ public class Crowdmap {
      */
     public MapService mapService() {
         MapService service = Crowdmap.newMapService();
-        this.setupResource(service);
+        this.setupService(service);
         return service;
     }
 
@@ -189,7 +194,7 @@ public class Crowdmap {
      */
     public UtilityService utilityService() {
         UtilityService service = Crowdmap.newUtilitySerivce();
-        this.setupResource(service);
+        this.setupService(service);
         return service;
     }
 
@@ -200,7 +205,13 @@ public class Crowdmap {
      */
     public ModerationService moderationService() {
         ModerationService service = Crowdmap.newModerationSerivce();
-        this.setupResource(service);
+        this.setupService(service);
+        return service;
+    }
+
+    public ExternalService externalService() {
+        ExternalService service = Crowdmap.newExternalService();
+        setupService(service);
         return service;
     }
 }

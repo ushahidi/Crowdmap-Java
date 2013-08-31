@@ -35,8 +35,8 @@ public class ExternalService extends CrowdmapService {
      */
     public Externals getExternal(String id) {
         StringBuilder url = new StringBuilder(SEGMENT_EXTERNALS);
-        url.append("/");
         url.append(id);
+        url.append("/");
 
         return fromString(client.get(url.toString()),
                 Externals.class);
