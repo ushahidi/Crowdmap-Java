@@ -16,6 +16,7 @@ package com.crowdmap.java.sdk;
 import com.crowdmap.java.sdk.service.CrowdmapService;
 import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
+import com.crowdmap.java.sdk.service.ModerationService;
 import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
@@ -133,6 +134,10 @@ public class Crowdmap {
         return new UtilityService();
     }
 
+    private static final ModerationService newModerationSerivce() {
+        return new ModerationService();
+    }
+
     /**
      * Get media service
      *
@@ -184,6 +189,17 @@ public class Crowdmap {
      */
     public UtilityService utilityService() {
         UtilityService service = Crowdmap.newUtilitySerivce();
+        this.setupResource(service);
+        return service;
+    }
+
+    /**
+     * Get the Moderation service
+     *
+     * @return Moderation service instance
+     */
+    public ModerationService moderationService() {
+        ModerationService service = Crowdmap.newModerationSerivce();
         this.setupResource(service);
         return service;
     }

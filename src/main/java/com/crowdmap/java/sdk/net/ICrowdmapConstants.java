@@ -53,7 +53,7 @@ public interface ICrowdmapConstants {
     public static final String SEGMENT_MEDIA = "/media/";
 
     public static final String SEGMENT_MAPS = "/maps/";
-
+    public static final String SEGMENT_MAP = "/map/";
     public static final String SEGMENT_COMMENTS = "/comments/";
 
     public static final String SEGMENT_OWNER = "/owner/";
@@ -65,6 +65,8 @@ public interface ICrowdmapConstants {
     public static final String SEGMENT_LOCATIONS = "/locations/";
 
     public static final String SEGMENT_POSTS = "/posts/";
+
+    public static final String SEGMENT_POST = "/post/";
 
     public static final String SEGMENT_PEOPLE = "/people/";
 
@@ -83,7 +85,7 @@ public interface ICrowdmapConstants {
     public static final String SEGMENT_LOGIN = "/login/";
 
     public static final String SEGMENT_USERS = "/users/";
-
+    public static final String SEGMENT_USER = "/user/";
     public static final String SEGMENT_AVATAR = "/avatar/";
 
     public static final String SEGMENT_FOLLOWS = "/follows/";
@@ -105,4 +107,8 @@ public interface ICrowdmapConstants {
     public static final String SEGMENT_OEMBED = "/oembed/";
 
     public static final String SEGMENT_REGISTEREDMAP = "/registeredmap/";
+
+    public static final String SEGMENT_MODERATE = "/moderate/";
+
+    public static final String SEGMENT_COMMENT = "/comment/";
 }
