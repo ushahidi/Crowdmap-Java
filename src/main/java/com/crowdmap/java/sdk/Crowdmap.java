@@ -15,6 +15,7 @@ package com.crowdmap.java.sdk;
 
 import com.crowdmap.java.sdk.service.CrowdmapService;
 import com.crowdmap.java.sdk.service.ExternalService;
+import com.crowdmap.java.sdk.service.LocationService;
 import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.ModerationService;
@@ -143,6 +144,10 @@ public class Crowdmap {
         return new ExternalService();
     }
 
+    private static final LocationService newLocationService() {
+        return new LocationService();
+    }
+
     /**
      * Get media service
      *
@@ -211,6 +216,12 @@ public class Crowdmap {
 
     public ExternalService externalService() {
         ExternalService service = Crowdmap.newExternalService();
+        setupService(service);
+        return service;
+    }
+
+    public LocationService locationService() {
+        LocationService service = Crowdmap.newLocationService();
         setupService(service);
         return service;
     }
