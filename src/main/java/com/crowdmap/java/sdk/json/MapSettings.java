@@ -21,5 +21,7 @@ import java.util.List;
  */
 public class MapSettings extends Response {
 
+    private static final long serialVersionUID = -7626806384034959085L;
+
     List<MapSettings> mapsSettings;
 }

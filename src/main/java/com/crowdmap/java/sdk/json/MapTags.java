@@ -23,6 +23,9 @@ import java.util.List;
  */
 public class MapTags extends Response {
 
+
+    private static final long serialVersionUID = -8969393550146585895L;
+
     private List<Tag> mapsTags;
 
     public List<Tag> getMapsTags() {

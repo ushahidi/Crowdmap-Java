@@ -14,13 +14,10 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.json.Locations;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
 
 /**
  * The location service. Locations are the points or geometries that are attached to posts.

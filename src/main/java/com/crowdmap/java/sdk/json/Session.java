@@ -85,10 +85,10 @@ public class Session extends Response implements Serializable {
 
     @Override
     public String toString() {
-
-        return "Session [userId:" + userId + ", session:" + session + ", cmid:" + cmId
-                + ", success:" + success + ", status:" + status + ", error:"
-                + error + ", timestamp:" + timestamp + ", qcount:" + qcount
-                + "]";
+        return "Session{" +
+                "userId='" + userId + '\'' +
+                ", session='" + session + '\'' +
+                ", cmId=" + cmId +
+                '}';
     }
 }

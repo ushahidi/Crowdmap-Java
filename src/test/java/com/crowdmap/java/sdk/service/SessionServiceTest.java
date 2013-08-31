@@ -53,7 +53,7 @@ public class SessionServiceTest extends BaseServiceTest {
         LoginForm form = new LoginForm(username,password);
 		Session session = loginService.login(form);
 		assertNotNull("Media cannot be null ", session);
-        assertNull(session.error);
+        assertNull(session.getError());
 
 	}
 
@@ -72,7 +72,7 @@ public class SessionServiceTest extends BaseServiceTest {
         LoginForm form = new LoginForm(username,password);
         Session session = loginService.login(form);
         assertNotNull("Media cannot be null ", session);
-        assertNotNull(session.error);
+        assertNotNull(session.getError());
     }
 
 }

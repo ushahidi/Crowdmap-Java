@@ -27,6 +27,7 @@ public class ExternalService extends CrowdmapService {
      */
     public Externals createExternal() {
         //TODO:: ask for external fields.
+        initSession();
         return fromString(client.post(SEGMENT_EXTERNALS),
                 Externals.class);
     }

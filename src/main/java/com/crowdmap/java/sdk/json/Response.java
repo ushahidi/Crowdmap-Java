@@ -21,6 +21,8 @@ import java.io.Serializable;
  */
 public class Response implements Serializable {
 
+    private static final long serialVersionUID = 5923710369064540315L;
+
     /**
      * URL to the next service
      */
@@ -174,18 +176,18 @@ public class Response implements Serializable {
     @Override
     public String toString() {
         return "Response{" +
-                "next='" + next + '\'' +
-                ", curr='" + curr + '\'' +
-                ", prev='" + prev + '\'' +
-                ", success=" + success +
-                ", error='" + error + '\'' +
-                ", message='" + message + '\'' +
-                ", status=" + status +
-                ", timestamp=" + timestamp +
-                ", qcount=" + qcount +
-                ", elapsed='" + elapsed + '\'' +
-                ", limitMin=" + limitMin +
-                ", limitMax=" + limitMax +
+                "next='" + getNext() + '\'' +
+                ", curr='" + getCurr() + '\'' +
+                ", prev='" + getPrev() + '\'' +
+                ", success=" + isSuccess() +
+                ", error='" + getError() + '\'' +
+                ", message='" + getMessage() + '\'' +
+                ", status=" + getStatus() +
+                ", timestamp=" + getTimestamp() +
+                ", qcount=" + getQcount() +
+                ", elapsed='" + getElapsed() + '\'' +
+                ", limitMin=" + getLimitMin() +
+                ", limitMax=" + getLimitMax() +
                 '}';
     }
 }
