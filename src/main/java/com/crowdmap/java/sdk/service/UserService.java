@@ -15,7 +15,9 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Maps;
+import com.crowdmap.java.sdk.json.Notifications;
 import com.crowdmap.java.sdk.json.Posts;
+import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.Users;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.model.UserForm;
@@ -251,18 +253,19 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Get users notifications
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID to be used for fetching the notification details
+     *
+     * @return The list of notifications
      */
-    public Maps getNotifications(long userId) {
-        //TODO:: ask Brian the fields for notifications
+    public Notifications getNotifications(long userId) {
         initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
         setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Maps.class);
+        return fromString(client.get(url.toString()), Notifications.class);
     }
 
     /**
@@ -270,13 +273,13 @@ public class UserService extends CrowdmapService {
      * @param userId
      * @return
      */
-    public Maps markNotificationAsRead(long userId) {
+    public Response markNotificationAsRead(long userId) {
         //TODO ask Brian the fields for making a notification as read
         initSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
         setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.get(url.toString()), Maps.class);
+        return fromString(client.get(url.toString()), Response.class);
     }
 }
