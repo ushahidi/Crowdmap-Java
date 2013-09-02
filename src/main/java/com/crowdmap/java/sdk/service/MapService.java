@@ -22,6 +22,7 @@ import com.crowdmap.java.sdk.json.Owners;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.model.form.MapForm;
+import com.crowdmap.java.sdk.model.form.TagForm;
 import com.crowdmap.java.sdk.net.content.Body;
 
 import java.io.File;
@@ -260,9 +261,13 @@ public class MapService extends CrowdmapService {
 
     }
 
-    public MapTags addTag(long mapId) {
-        //TODO:: get tags of a map
-        return null;
+    public MapTags addTag(long mapId, TagForm form) {
+        checkId(mapId);
+        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
+        url.append(mapId);
+        url.append(SEGMENT_TAGS);
+        setApiKey(METHOD_POST, url.toString());
+        return fromString(client.post(url.toString(), form.getParameters()), MapTags.class);
     }
 
     public MapTags deleteTag(long mapId, String tag) {
