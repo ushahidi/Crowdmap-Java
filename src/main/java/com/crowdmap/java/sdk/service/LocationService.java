@@ -15,6 +15,7 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Locations;
+import com.crowdmap.java.sdk.model.form.LocationForm;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
@@ -25,20 +26,24 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
 public class LocationService extends CrowdmapService {
 
     /**
-     * Create a new external
+     * Create a new location.
+     *
+     * @param form The location to be added to Crowdmap
+     * @return The list of locations including the newly created location.
      */
-    public Locations createLocation() {
-        //TODO:: ask for location fields.
+    public Locations createLocation(LocationForm form) {
         initSession();
-        return fromString(client.post(SEGMENT_LOCATIONS),
+        return fromString(client.post(SEGMENT_LOCATIONS, form.getParameters()),
                 Locations.class);
     }
 
     /**
-     * Get specific external
+     * Get locations.
+     *
+     * @return Get location.
      */
     public Locations getLocation() {
-        StringBuilder url = new StringBuilder(SEGMENT_LOCATIONS);
+
         setApiKey(METHOD_GET, SEGMENT_LOCATIONS);
         return fromString(client.get(SEGMENT_LOCATIONS),
                 Locations.class);

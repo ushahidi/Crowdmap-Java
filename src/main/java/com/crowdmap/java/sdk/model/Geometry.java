@@ -14,9 +14,10 @@
 package com.crowdmap.java.sdk.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
- * Geometry model class
+ * Geometry model class. This should adhere to the <a href="">GeoJson spec</a>
  */
 public class Geometry implements Serializable {
 
@@ -47,7 +48,9 @@ public class Geometry implements Serializable {
     public String toString() {
         return "Geometry{" +
                 "type='" + type + '\'' +
+                ", coordinates=" + Arrays.toString(coordinates) +
                 '}';
     }
+
 
 }
