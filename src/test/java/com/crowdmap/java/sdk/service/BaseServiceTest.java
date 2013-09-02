@@ -22,7 +22,7 @@ import org.junit.Before;
 
 import com.crowdmap.java.sdk.Crowdmap;
 import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.LoginForm;
+import com.crowdmap.java.sdk.model.form.LoginForm;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 /**

@@ -12,7 +12,7 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.model;
+package com.crowdmap.java.sdk.model.form;
 
 import com.crowdmap.java.sdk.CrowdmapException;
 import com.crowdmap.java.sdk.annotations.Form;
@@ -258,7 +258,7 @@ public class MapForm extends Form {
     /**
      * Set moderation status.
      *
-     * @param moderation The moderation staus. See {@link com.crowdmap.java.sdk.model.MapForm.Moderation}
+     * @param moderation The moderation staus. See {@link MapForm.Moderation}
      */
     public void setModeration(Moderation moderation) {
 

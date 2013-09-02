@@ -14,7 +14,7 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.LoginForm;
+import com.crowdmap.java.sdk.model.form.LoginForm;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;

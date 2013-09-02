@@ -21,7 +21,7 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Owners;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.model.Map;
-import com.crowdmap.java.sdk.model.MapForm;
+import com.crowdmap.java.sdk.model.form.MapForm;
 import com.crowdmap.java.sdk.net.content.Body;
 import com.crowdmap.java.sdk.net.content.FileBody;
 

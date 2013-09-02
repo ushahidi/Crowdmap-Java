@@ -15,10 +15,8 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.MapTags;
-import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Posts;
-import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.MapForm;
+import com.crowdmap.java.sdk.model.form.MapForm;
 
 import org.junit.After;
 import org.junit.Before;

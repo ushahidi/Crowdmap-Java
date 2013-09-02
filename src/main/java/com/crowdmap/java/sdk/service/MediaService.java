@@ -14,9 +14,12 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Media;
+import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.util.Util;
 
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 
 /**
  * Service for interacting with crowdmap's media API
@@ -48,10 +51,25 @@ public class MediaService extends CrowdmapService {
      */
     public Media getMedia(String id) {
         StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        url.append("/");
         url.append(id);
         String response = client.get(url.toString());
         Media mediaJson = fromString(response, Media.class);
         return mediaJson;
+    }
+
+    public Media createMedia() {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
+        setApiKey(METHOD_POST, url.toString());
+        return fromString(client.multipartPost(url.toString(), null), Media.class);
+    }
+
+    public Response deleteMedia(long mediaId) {
+        checkId(mediaId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
+        url.append(mediaId);
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.delete(url.toString()), Response.class);
     }
 }

@@ -20,7 +20,7 @@ import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.Users;
 import com.crowdmap.java.sdk.model.User;
-import com.crowdmap.java.sdk.model.UserForm;
+import com.crowdmap.java.sdk.model.form.UserForm;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;

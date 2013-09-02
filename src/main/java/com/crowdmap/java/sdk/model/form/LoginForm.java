@@ -12,7 +12,7 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.model;
+package com.crowdmap.java.sdk.model.form;
 
 import com.crowdmap.java.sdk.annotations.Form;
 import com.crowdmap.java.sdk.annotations.FormField;
