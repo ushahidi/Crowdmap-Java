@@ -11,25 +11,26 @@ import java.util.List;
  */
 public class TagForm extends Form {
 
-    @FormField(name="tag")
+    @FormField(name = "tag")
     private String tags;
 
     /**
-     * Set a single tag for submission
+     * Set a single tag for submission.
      *
-     * @param tag
+     * @param tag The tag to be submitted
      */
     public void setTags(String tag) {
-        this.tags = ValidateUtil.empty(tag) ? tag : tags +","+tag;
+        this.tags = ValidateUtil.empty(tag) ? tag : tags + "," + tag;
     }
 
     /**
-     * Set mutliple tags for submission
+     * Set multiple tags for submission.
      *
-     * @param tags
+     *
+     * @param tags The tags to be submitted
      */
     public void setTags(List<String> tags) {
-        for(String tag : tags) {
+        for (String tag : tags) {
             setTags(tag);
         }
     }
