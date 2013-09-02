@@ -14,7 +14,7 @@
 
 /**
  * Provides a JAVA SDK for the
- * <a href="api.crowdmap.com/developers/v1/">Crowdmap API</a>.
+ * <a href="https://api.crowdmap.com/developers/v1/">Crowdmap API</a>.
  *
  * See the project <a href="https://github.com/ushahidi/Crowdmap-Java/#readme">README</a> for more
  * information.

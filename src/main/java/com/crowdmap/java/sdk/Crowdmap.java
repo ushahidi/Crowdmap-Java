@@ -24,7 +24,8 @@ import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
 
 /**
- * Creates the various Crowdmap API resources
+ * Creates the various Crowdmap API resources. Create an object of this class to get to the various
+ * services supported by the Crowdmap API.
  */
 public class Crowdmap {
 
