@@ -15,11 +15,12 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Response;
+import com.crowdmap.java.sdk.model.form.MediaForm;
 import com.crowdmap.java.sdk.util.Util;
 
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 
 /**
  * Service for interacting with crowdmap's media API
@@ -57,11 +58,11 @@ public class MediaService extends CrowdmapService {
         return mediaJson;
     }
 
-    public Media createMedia() {
+    public Media createMedia(MediaForm form) {
         initSession();
         StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
         setApiKey(METHOD_POST, url.toString());
-        return fromString(client.multipartPost(url.toString(), null), Media.class);
+        return fromString(client.multipartPost(url.toString(), form.getParameters()), Media.class);
     }
 
     public Response deleteMedia(long mediaId) {

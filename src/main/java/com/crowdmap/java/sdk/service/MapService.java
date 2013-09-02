@@ -23,7 +23,6 @@ import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.model.form.MapForm;
 import com.crowdmap.java.sdk.net.content.Body;
-import com.crowdmap.java.sdk.net.content.FileBody;
 
 import java.io.File;
 
@@ -502,9 +501,8 @@ public class MapService extends CrowdmapService {
      */
     private Maps uploadImage(long mapId, File image, String uri) {
         initSession();
-        FileBody fileBody = new FileBody(image);
         Body body = new Body();
-        body.addField("file", fileBody);
+        body.addField("file", image);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(uri);

@@ -21,8 +21,8 @@ import com.crowdmap.java.sdk.model.User;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAP;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USER;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MODERATE;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USER;
 
 /**
  * Moderation service. Use for flagging content on Crowdmap for moderation by the Crowdmap team.
