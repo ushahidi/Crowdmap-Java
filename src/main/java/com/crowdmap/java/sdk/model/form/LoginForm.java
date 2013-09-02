@@ -32,8 +32,24 @@ public class LoginForm extends Form {
     private String password;
 
     public LoginForm(String username, String password) {
+
+        if ((username == null) || (username.length() == 0)) {
+            throw new IllegalArgumentException("Username cannot be null");
+        }
+
+        if ((password == null) || (password.length() == 0)) {
+            throw new IllegalArgumentException("Password cannot be null");
+        }
+
         this.username = username;
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "LoginForm{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

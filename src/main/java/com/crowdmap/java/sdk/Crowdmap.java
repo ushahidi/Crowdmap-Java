@@ -13,6 +13,8 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk;
 
+import com.crowdmap.java.sdk.json.Session;
+import com.crowdmap.java.sdk.model.form.LoginForm;
 import com.crowdmap.java.sdk.service.CrowdmapService;
 import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.LocationService;
@@ -78,35 +80,29 @@ public class Crowdmap {
         return this;
     }
 
-    public Crowdmap login(String username, String password) {
+    public Session login(String username, String password) {
 
-        if ((username == null) || (username.length() == 0)) {
-            throw new IllegalArgumentException("Username cannot be null");
-        }
+        LoginForm form = new LoginForm(username, password);
+        return sessionService().login(form);
 
-        if ((password == null) || (password.length() == 0)) {
-            throw new IllegalArgumentException("Password cannot be null");
-        }
-
-        return this;
     }
 
-    private void setupService(CrowdmapService resource) {
+    private void setupService(CrowdmapService service) {
 
         if (this.connectionTimeout != null) {
-            resource.getClient().setConnectionTimeout(this.connectionTimeout);
+            service.getClient().setConnectionTimeout(this.connectionTimeout);
         }
 
         if (this.socketTimeout != null) {
-            resource.getClient().setSocketTimeout(this.socketTimeout);
+            service.getClient().setSocketTimeout(this.socketTimeout);
         }
 
         if ((this.privateKey != null)) {
-            resource.setPrivateKey(this.privateKey);
+            service.setPrivateKey(this.privateKey);
         }
 
         if ((this.publicKey != null)) {
-            resource.setPublicKey(this.publicKey);
+            service.setPublicKey(this.publicKey);
         }
 
     }

@@ -26,7 +26,6 @@ public class TagForm extends Form {
     /**
      * Set multiple tags for submission.
      *
-     *
      * @param tags The tags to be submitted
      */
     public void setTags(List<String> tags) {

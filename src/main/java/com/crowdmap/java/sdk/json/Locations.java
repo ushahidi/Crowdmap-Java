@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Location resource
  */
-public class Locations extends Response implements Serializable{
+public class Locations extends Response implements Serializable {
 
     private static final long serialVersionUID = -4915937124515578046L;
 
