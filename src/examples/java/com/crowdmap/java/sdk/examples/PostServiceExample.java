@@ -15,6 +15,7 @@
 package com.crowdmap.java.sdk.examples;
 
 import com.crowdmap.java.sdk.Crowdmap;
+import com.crowdmap.java.sdk.model.form.PostForm;
 import com.crowdmap.java.sdk.service.PostService;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.model.Post;
@@ -52,11 +53,39 @@ public class PostServiceExample {
         return crowdmap.login(username, password);
     }
 
+
+    /**
+     * Get recent posts as anonymous user
+     */
     public void getPosts() {
         mPostService = crowdmap.postService();
         Posts posts = mPostService.getPosts();
         System.out.println(posts.toString());
 
+        // Print the details of the post
+        for(Post post : posts.getPosts()) {
+            System.out.print(post.toString());
+        }
+    }
+
+    public void createPost() {
+        mPostService = crowdmap.postService();
+
+        // Set post fields for submission
+        PostForm form = new PostForm();
+        form.setMessage("Let's communication easy");
+        form.setPublic(true);
+
+        // Login to obtain the session token
+        Session session = login();
+
+        // Sass the session token for authenticated requests
+        mPostService.setSessionToken(session.getSessionToken());
+
+        // Create a new post
+        Posts posts = mPostService.createPost(form);
+
+        // Print the details of the post
         for(Post post : posts.getPosts()) {
             System.out.print(post.toString());
         }
