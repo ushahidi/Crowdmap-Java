@@ -21,9 +21,11 @@ import com.crowdmap.java.sdk.service.LocationService;
 import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.ModerationService;
+import com.crowdmap.java.sdk.service.PostService;
 import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
+import com.crowdmap.java.sdk.util.ValidateUtil;
 
 /**
  * Creates the various Crowdmap API resources. Create an object of this class to get to the various
@@ -53,7 +55,18 @@ public class Crowdmap {
     private Integer socketTimeout;
 
     public Crowdmap(String publicKey, String privateKey) {
+        if (ValidateUtil.empty(publicKey)) {
+            throw new IllegalArgumentException(
+                    "Public key cannot be null or empty. Please provide a valid public key");
+        }
+
+        if (ValidateUtil.empty(privateKey)) {
+            throw new IllegalArgumentException(
+                    "Private key cannot be null or empty. Please provide a valid private key");
+        }
+
         this.publicKey = publicKey;
+
         this.privateKey = privateKey;
     }
 
@@ -145,6 +158,10 @@ public class Crowdmap {
         return new LocationService();
     }
 
+    private static final PostService newPostService() {
+        return new PostService();
+    }
+
     /**
      * Get media service
      *
@@ -219,6 +236,12 @@ public class Crowdmap {
 
     public LocationService locationService() {
         LocationService service = Crowdmap.newLocationService();
+        setupService(service);
+        return service;
+    }
+
+    public PostService postService() {
+        PostService service = Crowdmap.newPostService();
         setupService(service);
         return service;
     }

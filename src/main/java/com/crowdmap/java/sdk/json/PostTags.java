@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Post tags
  */
-public class PostTags extends  Response{
+public class PostTags extends Response {
 
     private static final long serialVersionUID = 36455760364885900L;
 

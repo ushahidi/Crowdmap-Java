@@ -17,7 +17,9 @@ sourceSets {
     examples {
         compileClasspath = sourceSets.main.output + sourceSets.main.runtimeClasspath
     }
+
 }
+
 
 dependencies {
     compile 'com.google.code.gson:gson:2.2.+'
@@ -67,16 +69,6 @@ uploadArchives {
 }
 
 [compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:all']
-
-/* fix this when some examples codes are added
-def example(name, mainClass, arguments) {
-    task(name, dependsOn: ['compileJava', 'compileExamplesJava']) << {
-        javaexec {
-            main = 'com.crowdmap.java.sdk.examples.'+mainClass
-            classpath = sourceSets.main.runtimeClasspath + sourceSets.examples.output
-        }
-    }
-}*/
 
 task doc(type: Javadoc) {
     source = sourceSets.main.allJava
@@ -134,3 +126,14 @@ def getAuth() {
     [:]
 }
 
+def example(name, mainClass, arguments) {
+    task(name, dependsOn: ['compileJava', 'compileExamplesJava']) << {
+        javaexec {
+            main = 'com.crowdmap.java.sdk.examples.'+mainClass
+            classpath = sourceSets.main.runtimeClasspath + sourceSets.examples.output
+            args arguments.call()
+        }
+    }
+}
+
+example('postServiceExample', 'PostServiceExample', {[pubKey, privKey]})

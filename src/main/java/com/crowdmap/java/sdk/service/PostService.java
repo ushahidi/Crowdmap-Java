@@ -27,7 +27,6 @@ import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LIKE;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAP;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
@@ -41,7 +40,7 @@ public class PostService extends CrowdmapService {
      * Get all posts across crowdmap - GET /posts
      */
     public Posts getPosts() {
-        setApiKey(METHOD_GET,SEGMENT_POSTS );
+        setApiKey(METHOD_GET, SEGMENT_POSTS);
         return fromString(client.get(SEGMENT_POSTS),
                 Posts.class);
     }
@@ -118,14 +117,14 @@ public class PostService extends CrowdmapService {
         url.append(postId);
         url.append("/");
         setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()),Response.class);
+        return fromString(client.delete(url.toString()), Response.class);
     }
 
     /**
      * Update an existing post
      *
      * @param postId The ID of the post to be updated
-     * @param form The post fields
+     * @param form   The post fields
      * @return The post updated
      */
     public Posts updatePost(long postId, PostForm form) {
@@ -133,14 +132,14 @@ public class PostService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
-        setApiKey(METHOD_PUT,url.toString() );
-        return fromString(client.put(url.toString(), form.getParameters()),Posts.class);
+        setApiKey(METHOD_PUT, url.toString());
+        return fromString(client.put(url.toString(), form.getParameters()), Posts.class);
     }
 
     /**
      * Get tags attached to a post
-     * @param tag The name of the tag. This can be CSV
      *
+     * @param tag The name of the tag. This can be CSV
      * @return The tags attached to a post
      */
     public PostTags getPostTag(String tag) {
@@ -148,8 +147,8 @@ public class PostService extends CrowdmapService {
         url.append(SEGMENT_TAGS);
         url.append(tag);
         url.append("/");
-        setApiKey(METHOD_PUT,url.toString() );
-        return fromString(client.get(url.toString()),PostTags.class);
+        setApiKey(METHOD_PUT, url.toString());
+        return fromString(client.get(url.toString()), PostTags.class);
     }
 
     /**
@@ -164,13 +163,13 @@ public class PostService extends CrowdmapService {
         url.append(postId);
         url.append(SEGMENT_LIKE);
         setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()),Posts.class);
+        return fromString(client.post(url.toString()), Posts.class);
     }
 
     /**
      * Un-like a particular post
-     * @param postId The post to un-like
      *
+     * @param postId The post to un-like
      * @return The un-liked posts
      */
     public Posts unLikePost(long postId) {
@@ -179,15 +178,15 @@ public class PostService extends CrowdmapService {
         url.append(postId);
         url.append(SEGMENT_LIKE);
         setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()),Posts.class);
+        return fromString(client.delete(url.toString()), Posts.class);
     }
 
     /**
      * Get the comments on a post from the context of a map the post is featured on. GET
      * /posts/:post_id/comments/:map_id
      *
-     * @param postId    The Post ID
-     * @param mapId The map ID
+     * @param postId The Post ID
+     * @param mapId  The map ID
      * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
      */
     public Comments getPostComments(long postId, long mapId) {
@@ -206,9 +205,8 @@ public class PostService extends CrowdmapService {
      * Add a comment on a post.
      *
      * @param postId The ID of the post to add the comment to.
-     * @param mapId The map ID
-     * @param form The comment form
-     *
+     * @param mapId  The map ID
+     * @param form   The comment form
      * @return The posted comment
      */
     public Comments postComment(long postId, long mapId, CommentForm form) {
@@ -242,7 +240,6 @@ public class PostService extends CrowdmapService {
      * Delete a post from a map
      *
      * @param postId The ID of the post to be deleted.
-     *
      * @return Post minus the deleted post
      */
     public Posts deletePostFromMap(long postId) {

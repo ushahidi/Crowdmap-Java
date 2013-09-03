@@ -28,7 +28,6 @@ public class ExternalService extends CrowdmapService {
      * Create a new external
      *
      * @param form The external form
-     *
      * @return The external
      */
     public Externals createExternal(ExternalForm form) {
