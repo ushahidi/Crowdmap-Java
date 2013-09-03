@@ -47,6 +47,7 @@ public class PostServiceExample {
     public Session login() {
         System.out.println("Enter your crowdmap username. Its mostly your username:");
         Scanner scanIn = new Scanner(System.in);
+
         final String username = scanIn.nextLine();
         System.out.println("Enter your crowdmap password:");
         final String password = scanIn.nextLine();

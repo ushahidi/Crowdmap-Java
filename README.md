@@ -8,11 +8,18 @@ Crowdmap API, Go to https://api.crowdmap.com/developers/v1/
 Create a Crowdmap instance. You will use this to access the various services.
 
 ```java
+// Instantiate the Crowdmap API.
 Crowdmap crowdmap = new Crowdmap("publicKey", "privateKey");
+
+// Call the Utitlity Service and retrieve Crowdmap API's about information.
+final String about = crowdmap.utilityService().about().toString();
+
+// Print the about information to the console.
+System.out.println(about);
 ```
 
 ### Building
-The project is built with gradle
+The project is built with Gradle
 
 ```
 $ git clone git://github.com/soundcloud/java-api-wrapper.git
@@ -30,12 +37,11 @@ All of the source code for the project resides at [github.com][1]
 
 For Daily SNAPSHOTS, Add the repository
 
-``
+`https://oss.sonatype.org/content/repositories/snapshots`
 
 #### Gradle
 ```
-'com.crowdmap:java-sdk:1.0.+'
-
+'com.crowdmap:java-sdk:1.0.SNAPSHOT'
 ```
 
 #### Maven
