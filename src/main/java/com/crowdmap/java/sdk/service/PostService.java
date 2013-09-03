@@ -16,13 +16,18 @@ package com.crowdmap.java.sdk.service;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Posts;
+import com.crowdmap.java.sdk.json.Response;
+import com.crowdmap.java.sdk.model.form.PostForm;
 
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
-
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
 /**
- * Service for interacting with crowdmap's Post API
+ * Service for interacting with Crowdmap post API
  */
 public class PostService extends CrowdmapService {
 
@@ -30,7 +35,7 @@ public class PostService extends CrowdmapService {
      * Get all posts across crowdmap - GET /posts
      */
     public Posts getPosts() {
-
+        setApiKey(METHOD_GET,SEGMENT_POSTS );
         return fromString(client.get(SEGMENT_POSTS),
                 Posts.class);
     }
@@ -92,6 +97,43 @@ public class PostService extends CrowdmapService {
     }
 
     /**
+     * Create a new post as an authenticated user.
+     *
+     * @param form The post fields to submitted.
+     * @return The post created
+     */
+    public Posts createPost(PostForm form) {
+        initSession();
+        setApiKey(METHOD_POST, SEGMENT_POSTS);
+        return fromString(client.post(SEGMENT_POSTS, form.getParameters()),Posts.class);
+    }
+
+    public Response deletePost(long postId) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append("/");
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.delete(url.toString()),Response.class);
+    }
+
+    /**
+     * Update an existing post
+     *
+     * @param postId The ID of the post to be updated
+     * @param form The post fields
+     * @return The post updated
+     */
+    public Posts updatePost(long postId, PostForm form) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append("/");
+        setApiKey(METHOD_PUT,url.toString() );
+        return fromString(client.put(url.toString(), form.getParameters()),Posts.class);
+    }
+
+    /**
      * Get the comments on a post from the context of a map the post is featured on. GET
      * /posts/:post_id/comments/:map_id
      *
@@ -102,10 +144,8 @@ public class PostService extends CrowdmapService {
     public Comments getPostComments(long id, String mapId) {
         checkId(id);
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append("/");
         url.append(id);
         url.append(SEGMENT_COMMENTS);
-        url.append("/");
         url.append(mapId);
 
         return fromString(client.get(url.toString()),

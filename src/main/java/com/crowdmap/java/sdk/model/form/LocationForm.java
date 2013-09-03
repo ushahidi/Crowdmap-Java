@@ -53,8 +53,9 @@ public class LocationForm extends Form {
      * @param fsqVenueId the fsqVenueId to set
      */
     public void setFsqVenueId(String fsqVenueId) {
-        if(!ValidateUtil.empty(geometry)) {
-            throw new CrowdmapException("You cannot set four square venue ID if Geomerty has been set.");
+        if (!ValidateUtil.empty(geometry)) {
+            throw new CrowdmapException(
+                    "You cannot set four square venue ID if Geomerty has been set.");
         }
         this.fsqVenueId = fsqVenueId;
     }

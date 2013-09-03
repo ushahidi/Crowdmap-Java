@@ -22,12 +22,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Post modle class
+ * Post model class
  */
 public class Post implements Serializable {
 
     /**
-     * Seria version UID
+     * Serial version UID
      */
     private static final long serialVersionUID = -396616833938909039L;
 
@@ -42,6 +42,8 @@ public class Post implements Serializable {
     private long postId;
 
     private List<User> users;
+
+    private long ownerMapId;
 
     private long mediaId;
 
@@ -78,6 +80,22 @@ public class Post implements Serializable {
 
     public void setExternals(List<Externals> externals) {
         this.externals = externals;
+    }
+
+    public long getOwnerMapId() {
+        return ownerMapId;
+    }
+
+    public void setOwnerMapId(long ownerMapId) {
+        this.ownerMapId = ownerMapId;
+    }
+
+    public List<Map> getPostsMaps() {
+        return postsMaps;
+    }
+
+    public void setPostsMaps(List<Map> postsMaps) {
+        this.postsMaps = postsMaps;
     }
 
     public List<Location> getLocations() {
