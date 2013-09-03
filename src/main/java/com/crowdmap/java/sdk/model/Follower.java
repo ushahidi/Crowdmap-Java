@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 /**
- * Followiing Map model calls
+ * Following Map model calls
  */
 public class Follower implements Serializable {
 
