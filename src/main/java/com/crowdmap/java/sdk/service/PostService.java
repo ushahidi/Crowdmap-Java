@@ -27,6 +27,7 @@ import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LIKE;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAP;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
@@ -218,21 +219,56 @@ public class PostService extends CrowdmapService {
         url.append(postId);
         url.append(SEGMENT_COMMENTS);
         url.append(mapId);
+        url.append("/");
         setApiKey(METHOD_POST, url.toString());
         return fromString(client.post(url.toString()), Comments.class);
     }
 
     public Comments deletePostComments(long postId, long commentId) {
         checkId(postId);
-        checkId(postId);
+        checkId(commentId);
         initSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_COMMENTS);
         url.append(commentId);
+        url.append("/");
         setApiKey(METHOD_DELETE, url.toString());
         return fromString(client.delete(url.toString()),
                 Comments.class);
     }
 
+    /**
+     * Delete a post from a map
+     *
+     * @param postId The ID of the post to be deleted.
+     *
+     * @return Post minus the deleted post
+     */
+    public Posts deletePostFromMap(long postId) {
+        checkId(postId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append(SEGMENT_MAPS);
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.delete(url.toString()),
+                Posts.class);
+    }
+
+    /**
+     * Add an existing post to a map
+     *
+     * @return Post
+     */
+    public Posts createPostMap(long postId) {
+        checkId(postId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append(SEGMENT_MAPS);
+        setApiKey(METHOD_POST, url.toString());
+        return fromString(client.post(url.toString()),
+                Posts.class);
+    }
 }
