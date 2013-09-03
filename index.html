@@ -43,19 +43,26 @@ Crowdmap API, Go to <a href="https://api.crowdmap.com/developers/v1/">https://ap
 
 <p>Create a Crowdmap instance. You will use this to access the various services.</p>
 
-<div class="highlight"><pre><span class="n">Crowdmap</span> <span class="n">crowdmap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Crowdmap</span><span class="o">(</span><span class="s">"publicKey"</span><span class="o">,</span> <span class="s">"privateKey"</span><span class="o">);</span>
+<div class="highlight"><pre><span class="c1">// Instantiate the Crowdmap API.</span>
+<span class="n">Crowdmap</span> <span class="n">crowdmap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Crowdmap</span><span class="o">(</span><span class="s">"publicKey"</span><span class="o">,</span> <span class="s">"privateKey"</span><span class="o">);</span>
+
+<span class="c1">// Call the Utitlity Service and retrieve Crowdmap API's about information.</span>
+<span class="kd">final</span> <span class="n">String</span> <span class="n">about</span> <span class="o">=</span> <span class="n">crowdmap</span><span class="o">.</span><span class="na">utilityService</span><span class="o">().</span><span class="na">about</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+
+<span class="c1">// Print the about information to the console.</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">about</span><span class="o">);</span>
 </pre></div>
 
 <h3>
 <a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h3>
 
-<p>The project is built with gradle</p>
+<p>The project is built with Gradle</p>
 
 <pre><code>$ git clone git://github.com/soundcloud/java-api-wrapper.git
 $ cd Crowdmap-Java
-$ ./gradlew jar  # build jar file (build/libs/Crowdmap-Java-1.x.x.jar)
-$ ./gradlew test # run tests
-
+$ ./gradlew jar  # Build jar file (build/libs/Crowdmap-Java-1.x.x.jar)
+$ ./gradlew test # Run tests
+$ ./gradlew postServiceExamples # Build and run PostServiceExample
 </code></pre>
 
 <h3>
@@ -68,6 +75,16 @@ $ ./gradlew test # run tests
 
 <p>All of the source code for the project resides at <a href="https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE">github.com</a></p>
 
+<p>For Daily SNAPSHOTS, Add the repository</p>
+
+<p><code>https://oss.sonatype.org/content/repositories/snapshots</code></p>
+
+<h4>
+<a name="gradle" class="anchor" href="#gradle"><span class="octicon octicon-link"></span></a>Gradle</h4>
+
+<pre><code>'com.crowdmap:java-sdk:1.0.SNAPSHOT'
+</code></pre>
+
 <h4>
 <a name="maven" class="anchor" href="#maven"><span class="octicon octicon-link"></span></a>Maven</h4>
 
@@ -76,6 +93,7 @@ $ ./gradlew test # run tests
   &lt;artifactId&gt;java-sdk&lt;/artifactId&gt;
   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;
+
 </code></pre>
 
 <h3>
