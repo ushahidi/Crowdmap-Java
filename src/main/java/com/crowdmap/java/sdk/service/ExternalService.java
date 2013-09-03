@@ -16,8 +16,8 @@ package com.crowdmap.java.sdk.service;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.model.form.ExternalForm;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 
 /**
  * External service

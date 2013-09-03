@@ -111,4 +111,6 @@ public interface ICrowdmapConstants {
     public static final String SEGMENT_MODERATE = "/moderate/";
 
     public static final String SEGMENT_COMMENT = "/comment/";
+
+    public static final String SEGMENT_LIKE = "/like/";
 }

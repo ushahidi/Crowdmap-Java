@@ -15,17 +15,22 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
+import com.crowdmap.java.sdk.json.PostTags;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
+import com.crowdmap.java.sdk.model.form.CommentForm;
 import com.crowdmap.java.sdk.model.form.PostForm;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LIKE;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
+
 /**
  * Service for interacting with Crowdmap post API
  */
@@ -51,14 +56,12 @@ public class PostService extends CrowdmapService {
 
         checkId(postId);
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append("/");
         url.append(postId);
-        url.append("/");
         // Add the segment
         if (segment != null && segment.length() > 0) {
             url.append(segment);
         }
-
+        setApiKey(METHOD_GET, url.toString());
         return fromString(client.get(url.toString()), cls);
     }
 
@@ -105,7 +108,7 @@ public class PostService extends CrowdmapService {
     public Posts createPost(PostForm form) {
         initSession();
         setApiKey(METHOD_POST, SEGMENT_POSTS);
-        return fromString(client.post(SEGMENT_POSTS, form.getParameters()),Posts.class);
+        return fromString(client.post(SEGMENT_POSTS, form.getParameters()), Posts.class);
     }
 
     public Response deletePost(long postId) {
@@ -134,21 +137,101 @@ public class PostService extends CrowdmapService {
     }
 
     /**
+     * Get tags attached to a post
+     * @param tag The name of the tag. This can be CSV
+     *
+     * @return The tags attached to a post
+     */
+    public PostTags getPostTag(String tag) {
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(SEGMENT_TAGS);
+        url.append(tag);
+        url.append("/");
+        setApiKey(METHOD_PUT,url.toString() );
+        return fromString(client.get(url.toString()),PostTags.class);
+    }
+
+    /**
+     * Like a particular post
+     *
+     * @param postId The post to like
+     * @return The liked posts.
+     */
+    public Posts likePost(long postId) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append(SEGMENT_LIKE);
+        setApiKey(METHOD_POST, url.toString());
+        return fromString(client.post(url.toString()),Posts.class);
+    }
+
+    /**
+     * Un-like a particular post
+     * @param postId The post to un-like
+     *
+     * @return The un-liked posts
+     */
+    public Posts unLikePost(long postId) {
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append(SEGMENT_LIKE);
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.delete(url.toString()),Posts.class);
+    }
+
+    /**
      * Get the comments on a post from the context of a map the post is featured on. GET
      * /posts/:post_id/comments/:map_id
      *
-     * @param id    The Post ID
+     * @param postId    The Post ID
      * @param mapId The map ID
      * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
      */
-    public Comments getPostComments(long id, String mapId) {
-        checkId(id);
+    public Comments getPostComments(long postId, long mapId) {
+        checkId(postId);
+        checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(id);
+        url.append(postId);
         url.append(SEGMENT_COMMENTS);
         url.append(mapId);
 
         return fromString(client.get(url.toString()),
+                Comments.class);
+    }
+
+    /**
+     * Add a comment on a post.
+     *
+     * @param postId The ID of the post to add the comment to.
+     * @param mapId The map ID
+     * @param form The comment form
+     *
+     * @return The posted comment
+     */
+    public Comments postComment(long postId, long mapId, CommentForm form) {
+        checkId(postId);
+        checkId(mapId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append(SEGMENT_COMMENTS);
+        url.append(mapId);
+        setApiKey(METHOD_POST, url.toString());
+        return fromString(client.post(url.toString()), Comments.class);
+    }
+
+    public Comments deletePostComments(long postId, long commentId) {
+        checkId(postId);
+        checkId(postId);
+        initSession();
+        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
+        url.append(postId);
+        url.append(SEGMENT_COMMENTS);
+        url.append(commentId);
+        setApiKey(METHOD_DELETE, url.toString());
+        return fromString(client.delete(url.toString()),
                 Comments.class);
     }
 
