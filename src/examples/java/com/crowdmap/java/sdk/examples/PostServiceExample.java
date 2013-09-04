@@ -35,8 +35,14 @@ public class PostServiceExample {
 
     private PostService mPostService;
 
-    public PostServiceExample(String pubKey, String privKey) {
+    private String mUserName;
+
+    private String mPassword;
+
+    public PostServiceExample(String pubKey, String privKey, String userName, String password) {
         crowdmap  = new Crowdmap(pubKey, privKey);
+        this.mUserName = userName;
+        this.mPassword = password;
     }
 
     /**
@@ -45,13 +51,7 @@ public class PostServiceExample {
      * @return Session
      */
     public Session login() {
-        System.out.println("Enter your crowdmap username. Its mostly your username:");
-        Scanner scanIn = new Scanner(System.in);
-
-        final String username = scanIn.nextLine();
-        System.out.println("Enter your crowdmap password:");
-        final String password = scanIn.nextLine();
-        return crowdmap.login(username, password);
+        return crowdmap.login(mUserName, mPassword);
     }
 
 
@@ -65,7 +65,7 @@ public class PostServiceExample {
 
         // Print the details of the post
         for(Post post : posts.getPosts()) {
-            System.out.print(post.toString());
+            System.out.println(post.toString());
         }
     }
 
@@ -80,15 +80,17 @@ public class PostServiceExample {
         // Login to obtain the session token
         Session session = login();
 
-        // Sass the session token for authenticated requests
-        mPostService.setSessionToken(session.getSessionToken());
+        // Pass the session token for authenticated requests
+        if(session != null) {
+            mPostService.setSessionToken(session.getSessionToken());
 
-        // Create a new post
-        Posts posts = mPostService.createPost(form);
+            // Create a new post
+            Posts posts = mPostService.createPost(form);
 
-        // Print the details of the post
-        for(Post post : posts.getPosts()) {
-            System.out.print(post.toString());
+            // Print the details of the post
+            for(Post post : posts.getPosts()) {
+                System.out.print(post.toString());
+            }
         }
     }
 
@@ -97,8 +99,9 @@ public class PostServiceExample {
 
             System.out.println("Please provide your apps public key and private key respectively.");
         } else {
-            PostServiceExample example  = new PostServiceExample(args[0], args[1]);
+            PostServiceExample example  = new PostServiceExample(args[0], args[1], args[2], args[3]);
             example.getPosts();
+            example.createPost();
         }
     }
 }

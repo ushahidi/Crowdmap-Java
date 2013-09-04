@@ -136,4 +136,5 @@ def example(name, mainClass, arguments) {
     }
 }
 
-example('postServiceExample', 'PostServiceExample', {[pubKey, privKey]})
+example('postServiceExample', 'PostServiceExample', {[pubKey, privKey, crowdmapUsername, crowdmapPassword]})
+example('utilityServiceExample', 'UtilityServiceExample', {[pubKey, privKey]})
