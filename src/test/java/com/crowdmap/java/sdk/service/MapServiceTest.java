@@ -15,7 +15,9 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.MapTags;
+import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Posts;
+import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.model.form.MapForm;
 
 import org.junit.After;
@@ -43,12 +45,21 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetMaps() throws Exception {
-
+        Maps  map = mapService.getMaps();
+        assertNotNull(map);
+        assertNotNullOrEmpty("No maps", map.getMaps());
+        assertNotNull(map.getMaps().get(0).getId());
     }
 
     @Test
     public void testGetMapsAsAuthenicatedUser() throws Exception {
 
+        session = loginService.login(loginForm);
+        mapService.setSessionToken(session.getSessionToken());
+        Maps  map = mapService.getMaps();
+        assertNotNull(map);
+        assertNotNullOrEmpty("No maps", map.getMaps());
+        assertNotNull(map.getMaps().get(0).getId());
     }
 
     @Test
@@ -77,7 +88,7 @@ public class MapServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void CreateMapWithBannerUrlAndAvatarUrlSet() throws Exception {
+    public void testCreateMapWithBannerUrlAndAvatarUrlSet() throws Exception {
         MapForm form = new MapForm();
         session = loginService.login(loginForm);
         form.setName("Crowdmap Java SDK Map");
@@ -88,8 +99,8 @@ public class MapServiceTest extends BaseServiceTest {
         form.setPublic(true);
         form.setModeration(MapForm.Moderation.Auto);
         mapService.setSessionToken(session.getSessionToken());
-        //Maps maps = mapService.createMap(form);
-        //assertNotNull(maps);
+        Maps maps = mapService.createMap(form);
+        assertNotNull(maps);
     }
 
     @Test
@@ -101,14 +112,15 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetPostOnMap() throws Exception {
-        Posts posts = mapService.getPostOnMap(2006);
+        Posts posts = mapService.getPostOnMap(30);
         assertNotNull(posts);
+        System.out.println(posts.toString());
         assertNotNullOrEmpty("Post is empty", posts.getPosts());
     }
 
     @Test
     public void testGetPostOnMapByTag() throws Exception {
-        Posts posts = mapService.getPostOnMapByTag(2006, "book");
+        Posts posts = mapService.getPostOnMapByTag(30, "book");
         assertNotNull(posts);
         assertNotNullOrEmpty("Post is empty", posts.getPosts());
     }

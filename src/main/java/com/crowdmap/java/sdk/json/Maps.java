@@ -37,4 +37,11 @@ public class Maps extends Response implements Serializable {
     public void setMaps(List<Map> maps) {
         this.maps = maps;
     }
+
+    @Override
+    public String toString() {
+        return "Maps{" +
+                "maps=" + maps.toString() +
+                '}';
+    }
 }

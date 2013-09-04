@@ -18,6 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.crowdmap.java.sdk.json.Date;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -212,5 +213,28 @@ public class Map implements Serializable {
 
     public void setCenter(Geometry center) {
         this.center = center;
+    }
+
+    @Override
+    public String toString() {
+        return "Map{" +
+                "approve=" + approve +
+                ", id=" + id +
+                ", userId=" + userId +
+                ", users=" + users +
+                ", subdomain='" + subdomain + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", banner='" + banner + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", isPublic=" + isPublic +
+                ", moderation='" + moderation + '\'' +
+                ", marker=" + marker +
+                ", association=" + Arrays.toString(association) +
+                ", followers=" + followers +
+                ", posts=" + posts +
+                ", dateCreated=" + dateCreated +
+                ", center=" + center +
+                '}';
     }
 }
