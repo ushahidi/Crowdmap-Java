@@ -19,6 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import com.crowdmap.java.sdk.json.Date;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Comment model class
@@ -43,7 +44,7 @@ public class Comment implements Serializable {
 
     private Date datePosted;
 
-    private User users;
+    private List<User> users;
 
     private Permission permissions;
 
@@ -52,14 +53,14 @@ public class Comment implements Serializable {
     /**
      * @return the users
      */
-    public User getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(User users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
@@ -189,4 +190,6 @@ public class Comment implements Serializable {
                 ", map=" + map +
                 '}';
     }
+
+
 }

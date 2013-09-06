@@ -86,7 +86,7 @@ public class CrowdmapServiceTest extends BaseServiceTest {
 
     @Test
     public void testCommentDeserialization() throws Exception {
-        String json = "";
+        String json = " {\"comments\":[{\"comment_id\":678,\"users\":[{\"user_id\":4,\"crowdmap_id\":\"K8HoFEFIN5JRp4a8K6XRxGjomLVH1snBBQXHw3hkW00v9xmQZmNNLi52P3Nq19daGpUcQ9O4JF0nZtnlGj3cZQ7L06E00LEiO31MnhCHNI82biiZ2eKyQkQ0NQAU6jT5\",\"crowdmap_id_h\":\"e4c4c42febb92a6264a4e9d80473884c\",\"username\":\"whiteafrican\",\"name\":\"Erik Hersman\",\"bio\":\"The @WhiteAfrican. Co-founder of Ushahidi and the iHub in Nairobi.\",\"plus\":true,\"baselayer\":\"crowdmap_cucumber\",\"instagram_auto_post\":true,\"twitter_auto_post\":false,\"twitter_auto_post_retweets\":false,\"date_registered\":1363603003,\"banned\":false,\"avatar\":\"\\/\\/www.gravatar.com\\/avatar\\/dd7a1c066790ac8dcab4ca43bb2ba9d9?r=PG&s=200&d=404\",\"badges\":[]}],\"post_id\":17097,\"map_id\":0,\"user_id\":4,\"comment\":\"<p>Ugh!<\\/p>\",\"date_posted\":1377838894,\"permissions\":{\"edit\":false,\"delete\":false},\"map\":null}],\"next\":false,\"curr\":\"https:\\/\\/api.crowdmap.com\\/v1\\/posts\\/17097\\/comments\\/?apikey=AmcoSiLOiRUXiiAPv4109d2a099ee87ba73f69b8d2e590d4f44c8df1a\",\"prev\":false,\"success\":true,\"status\":200,\"timestamp\":1378470104,\"qcount\":6,\"elapsed\":\"0.0506s\"} ";
         Comments comments = CrowdmapService.fromString(json, Comments.class);
         assertNotNull(comments);
     }
@@ -101,7 +101,7 @@ public class CrowdmapServiceTest extends BaseServiceTest {
         assertEquals(21077, post.getPosts().get(0).getLocations().get(0).getLocationId());
         assertEquals("Point", post.getPosts().get(0).getLocations().get(0).getGeometry().getType());
         assertEquals(-122.40641784668, post.getPosts().get(0).getLocations().get(0).getGeometry().getCoordinates()[0]);
-        assertEquals(37.785835266113, post.getPosts().get(0).getLocations().get(0).getGeometry().getCoordinates()[0]);
+        assertEquals(37.785835266113, post.getPosts().get(0).getLocations().get(0).getGeometry().getCoordinates()[1]);
         assertEquals("evansims",post.getPosts().get(0).getUsers().get(0).getUsername());
     }
 }

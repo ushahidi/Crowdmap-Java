@@ -42,7 +42,6 @@ public class PostService extends CrowdmapService {
     public Posts getPosts() {
         setApiKey(METHOD_GET, SEGMENT_POSTS);
         String json = client.get(SEGMENT_POSTS);
-        System.out.println(json);
         return fromString(json,Posts.class);
     }
 
@@ -63,7 +62,8 @@ public class PostService extends CrowdmapService {
             url.append(segment);
         }
         setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), cls);
+        final String json = client.get(url.toString());
+        return fromString(json, cls);
     }
 
     /**
