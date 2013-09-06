@@ -25,6 +25,8 @@ import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LIKE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
@@ -268,5 +270,22 @@ public class PostService extends CrowdmapService {
         setApiKey(METHOD_POST, url.toString());
         return fromString(client.post(url.toString()),
                 Posts.class);
+    }
+
+    public PostService limit(int limit) {
+        if (limit > 0) {
+            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
+        }
+        return this;
+    }
+
+    public PostService offset(int offset) {
+
+        if (getClient().getRequestParameters().containsKey(LIMIT)) {
+            throw new IllegalArgumentException("Requires that a limit be set.");
+        }
+
+        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
     }
 }

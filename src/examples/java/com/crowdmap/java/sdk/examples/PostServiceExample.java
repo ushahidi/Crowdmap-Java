@@ -72,7 +72,16 @@ public class PostServiceExample {
     }
 
     /**
-     * Get a particular post
+     * Example on how to make paginated queries
+     */
+    public void getTwoPosts() {
+        mPostService = crowdmap.postService();
+        Posts posts = mPostService.offset(0).limit(2).getPosts();
+        System.out.println("Size "+posts.getPosts().size());
+    }
+
+    /**
+     * Get comments on a post
      */
     public void getPost() {
         mPostService = crowdmap.postService();
@@ -116,6 +125,7 @@ public class PostServiceExample {
             example.getPosts();
             example.createPost();
             example.getPost();
+            example.getTwoPosts();
         }
     }
 }

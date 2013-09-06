@@ -128,23 +128,6 @@ public abstract class CrowdmapService {
         return gson.toJson(obj);
     }
 
-    public CrowdmapService limit(int limit) {
-        if (limit > 0) {
-            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public CrowdmapService offset(int offset) {
-
-        if (getClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
     public void setSessionToken(String sessionToken) {
         if ((sessionToken == null) || (sessionToken.length() == 0)) {
             throw new IllegalArgumentException("Session token cannot be null or empty");
