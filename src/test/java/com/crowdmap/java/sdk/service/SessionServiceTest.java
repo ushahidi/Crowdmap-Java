@@ -13,58 +13,54 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.json.Session;
+import com.crowdmap.java.sdk.model.form.LoginForm;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.form.LoginForm;
-
 /**
- * Test case for login service. 
+ * Test case for login service.
  */
 public class SessionServiceTest extends BaseServiceTest {
 
-	SessionService loginService;
+    SessionService loginService;
 
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		loginService = crowdmap.sessionService();
-	}
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        loginService = crowdmap.sessionService();
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		super.tearDown();
-		loginService = null;
-	}
-
-	/**
-	 * Test method for
-	 * {@link com.crowdmap.java.sdk.service.SessionService#login(LoginForm)}.
-	 */
-	@Test
-	public void testLogin() throws Exception{
-        LoginForm form = new LoginForm(username,password);
-		Session session = loginService.login(form);
-		assertNotNull("Media cannot be null ", session);
-        assertNull(session.getError());
-
-	}
+    @After
+    public void tearDown() throws Exception {
+        super.tearDown();
+        loginService = null;
+    }
 
     /**
-     * Test that when provided with wrong credentials Session.error
-     * won't be null
-     *
-     * @throws Exception
+     * Test method for {@link com.crowdmap.java.sdk.service.SessionService#login(LoginForm)}.
      */
     @Test
-    public void testWrongCredentialsLogin()throws Exception{
+    public void testLogin() throws Exception {
+        LoginForm form = new LoginForm(username, password);
+        Session session = loginService.login(form);
+        assertNotNull("Media cannot be null ", session);
+        assertNull(session.getError());
+
+    }
+
+    /**
+     * Test that when provided with wrong credentials Session.error won't be null
+     */
+    @Test
+    public void testWrongCredentialsLogin() throws Exception {
         // Provide correct credentials. Note: these ones are fake.
         final String username = "email@itdoesntexist.com";
         final String password = "ohgosh";
 
-        LoginForm form = new LoginForm(username,password);
+        LoginForm form = new LoginForm(username, password);
         Session session = loginService.login(form);
         assertNotNull("Media cannot be null ", session);
         assertNotNull(session.getError());

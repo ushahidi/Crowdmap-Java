@@ -42,7 +42,7 @@ public class UserServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testGetUsers() throws Exception{
+    public void testGetUsers() throws Exception {
         Users user = userService.getUsers();
         assertNotNull(user);
         assertNotNullOrEmpty("Shouldn't be empty", user.getUsers());
@@ -68,17 +68,17 @@ public class UserServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testGetUsersFollowedBy() throws  Exception {
+    public void testGetUsersFollowedBy() throws Exception {
         Users users = userService.getUsersFollowedBy(23);
         assertNotNull(users);
-        assertNotNullOrEmpty("No followers",users.getUsers());
+        assertNotNullOrEmpty("No followers", users.getUsers());
     }
 
     @Test
     public void testVerifyUsersFollowing() throws Exception {
         Users users = userService.verifyUsersFollowing(23, 2);
         assertNotNull(users);
-        assertNotNullOrEmpty("Not following",users.getUsers());
+        assertNotNullOrEmpty("Not following", users.getUsers());
     }
 
     @Test

@@ -26,8 +26,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.annotation.Resource;
-
 /**
  * Test Map service
  */
@@ -36,6 +34,7 @@ public class MapServiceTest extends BaseServiceTest {
     MapService mapService;
 
     long mapId;
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -52,7 +51,7 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetMaps() throws Exception {
-        Maps  map = mapService.getMaps();
+        Maps map = mapService.getMaps();
         assertNotNull(map);
         assertNotNullOrEmpty("No maps", map.getMaps());
         assertNotNull(map.getMaps().get(0).getId());
@@ -61,7 +60,7 @@ public class MapServiceTest extends BaseServiceTest {
     @Test
     public void testGetMapsAsAuthenicatedUser() throws Exception {
         mapService.setSessionToken(session.getSessionToken());
-        Maps  map = mapService.getMapsAsAuthenicatedUser();
+        Maps map = mapService.getMapsAsAuthenicatedUser();
         assertNotNull(map);
         assertNotNullOrEmpty("No maps", map.getMaps());
         assertNotNull(map.getMaps().get(0).getId());
@@ -69,7 +68,7 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetMapByID() throws Exception {
-        Maps  map = mapService.getMap(mapId);
+        Maps map = mapService.getMap(mapId);
         assertNotNull(map);
         assertNotNullOrEmpty("No maps", map.getMaps());
         assertNotNull(map.getMaps().get(0).getId());
@@ -78,7 +77,7 @@ public class MapServiceTest extends BaseServiceTest {
     @Test
     public void testGetMapAsAuthenicatedUser() throws Exception {
         mapService.setSessionToken(session.getSessionToken());
-        Maps  map = mapService.getMapAsAuthenicatedUser(mapId);
+        Maps map = mapService.getMapAsAuthenicatedUser(mapId);
         assertNotNull(map);
         assertNotNullOrEmpty("No maps", map.getMaps());
         assertNotNull(map.getMaps().get(0).getId());
@@ -93,14 +92,14 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetFollowers() throws Exception {
-        Followers followers =  mapService.getFollowers(mapId);
+        Followers followers = mapService.getFollowers(mapId);
         assertNotNull(followers);
         assertNotNullOrEmpty("", followers.getFollowers());
     }
 
     @Test
     public void testGetCollaborators() throws Exception {
-       Collaborators collaborators =  mapService.getCollaborators(mapId);
+        Collaborators collaborators = mapService.getCollaborators(mapId);
         assertNotNull(collaborators);
     }
 
@@ -144,7 +143,7 @@ public class MapServiceTest extends BaseServiceTest {
     @Test
     public void testUpdateMapOwner() throws Exception {
         mapService.setSessionToken(session.getSessionToken());
-        Owner owner = mapService.updateOwner(mapId,24);
+        Owner owner = mapService.updateOwner(mapId, 24);
         assertNotNull(owner);
     }
 
@@ -180,7 +179,7 @@ public class MapServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testAddTagToAMap() throws  Exception {
+    public void testAddTagToAMap() throws Exception {
 
     }
 

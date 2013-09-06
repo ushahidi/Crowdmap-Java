@@ -13,29 +13,26 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import java.util.Collection;
+import com.crowdmap.java.sdk.Crowdmap;
+import com.crowdmap.java.sdk.json.Session;
+import com.crowdmap.java.sdk.model.form.LoginForm;
+import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.Before;
 
-import org.mockito.MockitoAnnotations;
-
-import com.crowdmap.java.sdk.Crowdmap;
-import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.form.LoginForm;
-import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+import java.util.Collection;
 
 /**
  * The base class for testing all the task supported by the Ushahidi API
- * 
+ *
  * @author eyedol
- * 
  */
 public abstract class BaseServiceTest extends TestCase {
 
-	protected Crowdmap crowdmap;
+    protected Crowdmap crowdmap;
 
     protected LoginForm loginForm;
 
@@ -46,60 +43,57 @@ public abstract class BaseServiceTest extends TestCase {
     private CrowdmapHttpClient httpClient;
 
     protected String username;
+
     protected String password;
 
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
         httpClient = new CrowdmapHttpClient();
-		crowdmap = new Crowdmap("mcoSiLOiRUXiiAPv","jodJljijJNiBSLLW");
+        crowdmap = new Crowdmap("mcoSiLOiRUXiiAPv", "jodJljijJNiBSLLW");
 
         username = "henry@ushahidi.com";
         password = "dontchangeme";
 
-        loginForm = new LoginForm(username,password);
+        loginForm = new LoginForm(username, password);
         loginService = crowdmap.sessionService();
-	}
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		super.tearDown();
-		// null the factory object
-		crowdmap = null;
+    @After
+    public void tearDown() throws Exception {
+        super.tearDown();
+        // null the factory object
+        crowdmap = null;
         loginForm = null;
         loginService = null;
         session = null;
-	}
+    }
 
-	/**
-	 * Assert not null or empty.
-	 * 
-	 * @param message
-	 *            the message
-	 * @param value
-	 *            the value
-	 */
-	protected static void assertNotNullOrEmpty(String message, String value) {
-		assertNotNull(message, value);
-		assertFalse(message, "".equals(value));
-	}
+    /**
+     * Assert not null or empty.
+     *
+     * @param message the message
+     * @param value   the value
+     */
+    protected static void assertNotNullOrEmpty(String message, String value) {
+        assertNotNull(message, value);
+        assertFalse(message, "".equals(value));
+    }
 
-	/**
-	 * Assert not null or empty.
-	 * 
-	 * @param message
-	 *            the message
-	 * @param value
-	 *            the value
-	 */
-	protected static void assertNotNullOrEmpty(String message,
-			Collection<?> value) {
-		assertNotNull(message, value);
-		assertFalse(message, value.isEmpty());
-	}
+    /**
+     * Assert not null or empty.
+     *
+     * @param message the message
+     * @param value   the value
+     */
+    protected static void assertNotNullOrEmpty(String message,
+            Collection<?> value) {
+        assertNotNull(message, value);
+        assertFalse(message, value.isEmpty());
+    }
 
-	protected static void assetNotNullOrZero(String message, int value) {
-		assertNotNull(message, value);
-		assertEquals(message, 0, value);
-	}
+    protected static void assetNotNullOrZero(String message, int value) {
+        assertNotNull(message, value);
+        assertEquals(message, 0, value);
+    }
 }

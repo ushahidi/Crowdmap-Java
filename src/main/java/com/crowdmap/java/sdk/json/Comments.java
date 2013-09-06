@@ -28,6 +28,20 @@ public class Comments implements Serializable {
      */
     private static final long serialVersionUID = -5951994819555886051L;
 
-    public List<Comment> comments;
+    private List<Comment> comments;
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Comments{" +
+                "comments=" + comments +
+                '}';
+    }
 }

@@ -41,8 +41,9 @@ public class PostService extends CrowdmapService {
      */
     public Posts getPosts() {
         setApiKey(METHOD_GET, SEGMENT_POSTS);
-        return fromString(client.get(SEGMENT_POSTS),
-                Posts.class);
+        String json = client.get(SEGMENT_POSTS);
+        System.out.println(json);
+        return fromString(json,Posts.class);
     }
 
     /**

@@ -15,6 +15,7 @@
 package com.crowdmap.java.sdk.examples;
 
 import com.crowdmap.java.sdk.Crowdmap;
+import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.model.form.PostForm;
 import com.crowdmap.java.sdk.service.PostService;
 import com.crowdmap.java.sdk.json.Posts;
@@ -69,6 +70,17 @@ public class PostServiceExample {
         }
     }
 
+    /**
+     * Get a particular post
+     */
+    public void getPost() {
+        mPostService = crowdmap.postService();
+        Comments comments = mPostService.getPostComments(17097);
+        for(Comment comment : comments.getComments()) {
+            System.out.println(comment.toString());
+        }
+    }
+
     public void createPost() {
         mPostService = crowdmap.postService();
 
@@ -102,6 +114,7 @@ public class PostServiceExample {
             PostServiceExample example  = new PostServiceExample(args[0], args[1], args[2], args[3]);
             example.getPosts();
             example.createPost();
+            example.getPost();
         }
     }
 }

@@ -28,6 +28,14 @@ public class Geometry implements Serializable {
 
     private String type;
 
+    public Double[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Double[] coordinates) {
+        this.coordinates = coordinates;
+    }
+
     private Double[] coordinates;
 
     /**
