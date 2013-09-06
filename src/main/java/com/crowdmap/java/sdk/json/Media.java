@@ -28,9 +28,22 @@ public class Media extends Response implements Serializable {
      */
     private static final long serialVersionUID = 8498886833164100022L;
 
-    User users;
-
-    public List<com.crowdmap.java.sdk.model.Media> media;
 
 
+    private List<com.crowdmap.java.sdk.model.Media> media;
+
+    public List<com.crowdmap.java.sdk.model.Media> getMedia() {
+        return media;
+    }
+
+    public void setMedia(List<com.crowdmap.java.sdk.model.Media> media) {
+        this.media = media;
+    }
+
+    @Override
+    public String toString() {
+        return "Media{" +
+                ", media=" + media +
+                '}';
+    }
 }

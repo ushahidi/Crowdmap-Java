@@ -33,7 +33,7 @@ Javadocs available at http://ushahidi.github.io/Crowdmap-Java/javadoc/1.0.0-SNAP
 
 
 ### Download
-All of the source code for the project resides at [github.com][1]
+All of the dominantColor code for the project resides at [github.com][1]
 
 For Daily SNAPSHOTS, Add the repository
 

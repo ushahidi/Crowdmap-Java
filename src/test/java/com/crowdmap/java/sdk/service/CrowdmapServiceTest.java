@@ -17,6 +17,7 @@ package com.crowdmap.java.sdk.service;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.Collaborators;
 import com.crowdmap.java.sdk.json.Comments;
+import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Posts;
 
 import org.junit.After;
@@ -89,6 +90,7 @@ public class CrowdmapServiceTest extends BaseServiceTest {
         String json = " {\"comments\":[{\"comment_id\":678,\"users\":[{\"user_id\":4,\"crowdmap_id\":\"K8HoFEFIN5JRp4a8K6XRxGjomLVH1snBBQXHw3hkW00v9xmQZmNNLi52P3Nq19daGpUcQ9O4JF0nZtnlGj3cZQ7L06E00LEiO31MnhCHNI82biiZ2eKyQkQ0NQAU6jT5\",\"crowdmap_id_h\":\"e4c4c42febb92a6264a4e9d80473884c\",\"username\":\"whiteafrican\",\"name\":\"Erik Hersman\",\"bio\":\"The @WhiteAfrican. Co-founder of Ushahidi and the iHub in Nairobi.\",\"plus\":true,\"baselayer\":\"crowdmap_cucumber\",\"instagram_auto_post\":true,\"twitter_auto_post\":false,\"twitter_auto_post_retweets\":false,\"date_registered\":1363603003,\"banned\":false,\"avatar\":\"\\/\\/www.gravatar.com\\/avatar\\/dd7a1c066790ac8dcab4ca43bb2ba9d9?r=PG&s=200&d=404\",\"badges\":[]}],\"post_id\":17097,\"map_id\":0,\"user_id\":4,\"comment\":\"<p>Ugh!<\\/p>\",\"date_posted\":1377838894,\"permissions\":{\"edit\":false,\"delete\":false},\"map\":null}],\"next\":false,\"curr\":\"https:\\/\\/api.crowdmap.com\\/v1\\/posts\\/17097\\/comments\\/?apikey=AmcoSiLOiRUXiiAPv4109d2a099ee87ba73f69b8d2e590d4f44c8df1a\",\"prev\":false,\"success\":true,\"status\":200,\"timestamp\":1378470104,\"qcount\":6,\"elapsed\":\"0.0506s\"} ";
         Comments comments = CrowdmapService.fromString(json, Comments.class);
         assertNotNull(comments);
+        
     }
 
     @Test
@@ -108,5 +110,21 @@ public class CrowdmapServiceTest extends BaseServiceTest {
     @Test
     public void testExternalsDeserialization() throws Exception {
 
+    }
+
+    @Test
+    public void testMediaDeserialization() throws Exception {
+        String json = "{\"media\":[{\"media_id\":644,\"users\":[{\"user_id\":1,\"crowdmap_id\":\"\",\"crowdmap_id_h\":\"d41d8cd98f00b204e9800998ecf8427e\",\"username\":\"anonymous\",\"name\":\"Anonymous\",\"bio\":\"\",\"plus\":false,\"baselayer\":\"crowdmap_satellite\",\"instagram_auto_post\":false,\"twitter_auto_post\":false,\"twitter_auto_post_retweets\":false,\"date_registered\":1363602996,\"banned\":\"0\"}],\"user_id\":1,\"lat\":null,\"lon\":null,\"file_datetime\":null,\"upload_datetime\":1377027689,\"file_location\":\"https:\\/\\/b25c7ada827abcbc0630-5454a9e6f7100566866dd221e5013c79.ssl.cf2.rackcdn.com\\/\",\"filename\":\"5213c65f1682f7.87923465_o.jpg\",\"width\":\"779\",\"height\":\"580\",\"filename_l\":\"5213c65f1682f7.87923465_o.jpg\",\"l_width\":\"779\",\"l_height\":\"580\",\"filename_s\":\"5213c65f1682f7.87923465_o.jpg\",\"s_width\":\"779\",\"s_height\":\"580\",\"filename_t\":\"5213c668d19c9624944926.jpg\",\"t_width\":\"134\",\"t_height\":\"100\",\"mime\":\"image\\/png\",\"dominant_color\":\"203010\",\"webp\":false}]}";
+        Media media = CrowdmapService.fromString(json, Media.class);
+        assertNotNull(media);
+        assertEquals(644, media.getMedia().get(0).getId());
+        assertEquals(1, media.getMedia().get(0).getUsers().get(0).getId());
+        assertEquals("d41d8cd98f00b204e9800998ecf8427e", media.getMedia().get(0).getUsers().get(0).getCrowdmapIdH());
+        assertEquals("",media.getMedia().get(0).getUsers().get(0).getCrowdmapId());
+        assertEquals("anonymous", media.getMedia().get(0).getUsers().get(0).getUsername());
+        assertEquals("5213c65f1682f7.87923465_o.jpg", media.getMedia().get(0).getFilename());
+        assertEquals("580", media.getMedia().get(0).getLargeHeight());
+        assertEquals("779", media.getMedia().get(0).getLargeWidth());
+        assertEquals("203010", media.getMedia().get(0).getDominantColor());
     }
 }

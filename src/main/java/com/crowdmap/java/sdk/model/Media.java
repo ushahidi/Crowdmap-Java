@@ -18,6 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.crowdmap.java.sdk.json.Date;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Media model class
@@ -28,6 +29,8 @@ public class Media implements Serializable {
      * Serial version UID
      */
     private static final long serialVersionUID = 6598496611618930055L;
+
+    private List<User> users;
 
     /**
      * The media ID
@@ -52,9 +55,9 @@ public class Media implements Serializable {
     private Double lon;
 
     /**
-     * The source of the media
+     * The dominantColor of the media
      */
-    private String source;
+    private String dominantColor;
 
     /**
      * The date and time of the file
@@ -148,6 +151,14 @@ public class Media implements Serializable {
      */
     private String mime;
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
     /**
      * @return the id
      */
@@ -205,17 +216,17 @@ public class Media implements Serializable {
     }
 
     /**
-     * @return the source
+     * @return the dominantColor
      */
-    public String getSource() {
-        return source;
+    public String getDominantColor() {
+        return dominantColor;
     }
 
     /**
-     * @param source the source to set
+     * @param dominantColor the dominantColor to set
      */
-    public void setSource(String source) {
-        this.source = source;
+    public void setDominantColor(String dominantColor) {
+        this.dominantColor = dominantColor;
     }
 
     /**
@@ -449,7 +460,7 @@ public class Media implements Serializable {
                 ", userId=" + userId +
                 ", lat=" + lat +
                 ", lon=" + lon +
-                ", source='" + source + '\'' +
+                ", dominantColor='" + dominantColor + '\'' +
                 ", fileDatetime=" + fileDatetime +
                 ", uploadDatetime=" + uploadDatetime +
                 ", fileLocation='" + fileLocation + '\'' +
