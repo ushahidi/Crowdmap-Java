@@ -23,6 +23,20 @@ public class Response implements Serializable {
 
     private static final long serialVersionUID = 5923710369064540315L;
 
+    private String message;
+
+    /**
+     * The status of the response
+     */
+    private int status;
+
+    private boolean success;
+
+    /**
+     * The timestamp received from the server as a result of an API call
+     */
+    private Date timestamp;
+
     /**
      * URL to the next service
      */
@@ -38,24 +52,10 @@ public class Response implements Serializable {
      */
     private String prev;
 
-    private boolean success;
-
     /**
      * The error message returned as a result of an API call
      */
     private String error;
-
-    public String message;
-
-    /**
-     * The status of the response
-     */
-    private int status;
-
-    /**
-     * The timestamp received from the server as a result of an API call
-     */
-    private long timestamp;
 
     /**
      * The query count.
@@ -133,11 +133,11 @@ public class Response implements Serializable {
         this.status = status;
     }
 
-    public long getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 

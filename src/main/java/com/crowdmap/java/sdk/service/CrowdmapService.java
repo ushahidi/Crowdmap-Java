@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 
 import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.DateDeserializer;
+import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
@@ -42,9 +43,13 @@ public abstract class CrowdmapService {
     static {
         Type userListType = new TypeToken<List<User>>() {
         }.getType();
+        Type type = new TypeToken<Response>() {
+
+        }.getType();
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Date.class, new DateDeserializer());
         builder.registerTypeAdapter(userListType, new UsersDeserializer());
+        //builder.registerTypeAdapter(Response.class, new ResponseDeserializer());
         builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
         gson = builder.create();
     }

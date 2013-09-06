@@ -41,7 +41,7 @@ public class MapServiceTest extends BaseServiceTest {
         super.setUp();
         mapService = crowdmap.mapService();
         session = loginService.login(loginForm);
-        mapId = 2405;
+        mapId = 30;
     }
 
     @After
@@ -143,17 +143,25 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testUpdateMapOwner() throws Exception {
-
+        mapService.setSessionToken(session.getSessionToken());
+        Owner owner = mapService.updateOwner(mapId,24);
+        assertNotNull(owner);
     }
 
     @Test
     public void testAddCollaborator() throws Exception {
-
+        mapService.setSessionToken(session.getSessionToken());
+        Collaborators collaborators = mapService.addCollaborator(mapId, 25);
+        assertNotNull(collaborators);
+        assertNotNullOrEmpty("", collaborators.getCollaborators());
     }
 
     @Test
     public void testRemoveCollaborator() throws Exception {
-
+        mapService.setSessionToken(session.getSessionToken());
+        Collaborators collaborators = mapService.removeCollaborator(mapId, 25);
+        assertNotNull(collaborators);
+        assertNotNullOrEmpty("", collaborators.getCollaborators());
     }
 
     @Test
