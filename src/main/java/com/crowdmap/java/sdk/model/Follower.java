@@ -16,6 +16,7 @@ package com.crowdmap.java.sdk.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Following Map model calls
@@ -23,11 +24,11 @@ import java.io.Serializable;
 public class Follower implements Serializable {
 
     /**
-     * Seria version UID
+     * Serial version UID
      */
     private static final long serialVersionUID = -6275336806371569376L;
 
-    private User users;
+    private List<User> users;
 
     /**
      * The person ID
@@ -44,14 +45,14 @@ public class Follower implements Serializable {
     /**
      * @return the users
      */
-    public User getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(User users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 

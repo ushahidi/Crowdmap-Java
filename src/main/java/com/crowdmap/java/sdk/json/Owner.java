@@ -13,7 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.Owner;
+import com.crowdmap.java.sdk.model.User;
 
 import java.io.Serializable;
 
@@ -21,13 +21,27 @@ import java.io.Serializable;
 /**
  *
  */
-public class Owners extends Response implements Serializable {
+public class Owner extends Response implements Serializable {
 
     /**
      * Seria version UID
      */
     private static final long serialVersionUID = 9167104692680294175L;
 
-    public Owner owner;
+    private User owner;
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "owner=" + owner +
+                '}';
+    }
 }

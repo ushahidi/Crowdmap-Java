@@ -31,6 +31,13 @@ public class Followers extends Response implements Serializable {
     private static final long serialVersionUID = -663819341932877092L;
 
     @SerializedName("following_maps")
-    public List<Follower> followingMaps;
+    private List<Follower> followers;
 
+    public List<Follower> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Follower> followers) {
+        this.followers = followers;
+    }
 }

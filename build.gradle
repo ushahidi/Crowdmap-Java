@@ -23,7 +23,8 @@ sourceSets {
 
 dependencies {
     compile 'com.google.code.gson:gson:2.2.+'
-    testCompile 'junit:junit:4.+'
+    testCompile 'junit:junit-dep:4.+'
+    testCompile 'org.mockito:mockito-core:1.9.+'
 }
 
 uploadArchives {

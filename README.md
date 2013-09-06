@@ -22,7 +22,7 @@ System.out.println(about);
 The project is built with Gradle
 
 ```
-$ git clone git://github.com/soundcloud/java-api-wrapper.git
+$ git clone git://github.com/ushahidi/Crowdmap-Java.git
 $ cd Crowdmap-Java
 $ ./gradlew jar  # Build jar file (build/libs/Crowdmap-Java-1.x.x.jar)
 $ ./gradlew test # Run tests

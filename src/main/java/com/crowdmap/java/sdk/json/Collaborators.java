@@ -21,7 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
+ * List of collaborators
  */
 public class Collaborators extends Response implements Serializable {
 
@@ -31,6 +31,13 @@ public class Collaborators extends Response implements Serializable {
     private static final long serialVersionUID = -663819341932877092L;
 
     @SerializedName("maps_collaborators")
-    public List<Collaborator> mapsCollaborators;
+    private List<Collaborator> collaborators;
 
+    public List<Collaborator> getCollaborators() {
+        return collaborators;
+    }
+
+    public void setCollaborators(List<Collaborator> collaborators) {
+        this.collaborators = collaborators;
+    }
 }

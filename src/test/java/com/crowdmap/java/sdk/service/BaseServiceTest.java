@@ -20,6 +20,8 @@ import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 
+import org.mockito.MockitoAnnotations;
+
 import com.crowdmap.java.sdk.Crowdmap;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.form.LoginForm;
@@ -43,12 +45,19 @@ public abstract class BaseServiceTest extends TestCase {
 
     private CrowdmapHttpClient httpClient;
 
+    protected String username;
+    protected String password;
+
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
         httpClient = new CrowdmapHttpClient();
 		crowdmap = new Crowdmap("mcoSiLOiRUXiiAPv","jodJljijJNiBSLLW");
-        loginForm = new LoginForm("henry@ushahidi.com","dontchangeme");
+
+        username = "henry@ushahidi.com";
+        password = "godles123";
+
+        loginForm = new LoginForm(username,password);
         loginService = crowdmap.sessionService();
 	}
 

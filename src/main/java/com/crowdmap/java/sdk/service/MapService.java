@@ -18,7 +18,7 @@ import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.MapSettings;
 import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
-import com.crowdmap.java.sdk.json.Owners;
+import com.crowdmap.java.sdk.json.Owner;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.model.form.MapForm;
@@ -68,7 +68,8 @@ public class MapService extends CrowdmapService {
     /**
      * Get Map as an authenticated user.
      *
-     * This requires that you set a session token by loging in.
+     * <strong>Note:</strong> This requires session token to be set. See {@link
+     * #setSessionToken(String)}
      *
      * @return A list containing all the maps as an authenticated user
      */
@@ -89,22 +90,25 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append("/");
-        setApiKey(METHOD_GET, SEGMENT_MAPS);
+        setApiKey(METHOD_GET, url.toString());
         return fromString(client.get(url.toString()), Maps.class);
     }
 
     /**
-     * Returns a specific map. GET /maps/:map_id
+     * <p>Returns a specific map.</p>
+     *
+     * <strong>Note:</strong> This requires session token to be set. See {@link
+     * #setSessionToken(String)}
      *
      * @param mapId The ID of the map
      * @return A specific map
      */
     public Maps getMapAsAuthenicatedUser(long mapId) {
         checkId(mapId);
+        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append("/");
-        setApiKey(METHOD_GET, SEGMENT_MAPS);
         return fromString(client.get(url.toString()), Maps.class);
     }
 
@@ -116,24 +120,24 @@ public class MapService extends CrowdmapService {
      * @param id The ID of the map
      * @return The information about the owner of the map
      */
-    public Owners getMapOwner(long id) {
+    public Owner getMapOwner(long id) {
         checkId(id);
-        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(id);
         url.append(SEGMENT_OWNER);
-        setApiKey(METHOD_GET, SEGMENT_MAPS);
-        return fromString(client.get(url.toString()),
-                Owners.class);
+        setApiKey(METHOD_GET, url.toString());
+        String json = client.get(url.toString());
+        return fromString(json,
+                Owner.class);
     }
 
     /**
-     * Get information about the owner of a particular map. GET /maps/:map_id/owner
+     * Change the owner of a map.
      *
      * @param mapId The ID of the map
      * @return The information about the owner of the map
      */
-    public Owners updateOwner(long mapId) {
+    public Owner updateOwner(long mapId) {
         checkId(mapId);
         initSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
@@ -141,7 +145,7 @@ public class MapService extends CrowdmapService {
         url.append(SEGMENT_OWNER);
         setApiKey(METHOD_PUT, SEGMENT_MAPS);
         return fromString(client.get(url.toString()),
-                Owners.class);
+                Owner.class);
     }
 
 
@@ -156,15 +160,15 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_COLLABORATORS);
-
-        return fromString(client.get(url.toString()),
-                Collaborators.class);
+        setApiKey(METHOD_GET, url.toString());
+        final String json = client.get(url.toString());
+        return fromString(json, Collaborators.class);
     }
 
     /**
      * Add a collaborator to the a map
      */
-    public Collaborators addCollaborators(long mapId) {
+    public Collaborators addCollaborator(long mapId) {
         //TODO:: ask Brian about collaborators fields
         checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
@@ -197,13 +201,12 @@ public class MapService extends CrowdmapService {
      */
     public Followers getFollowers(long mapId) {
         checkId(mapId);
-        //TODO:: confirm with Brian if this requires authentication
-        initSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_GET, SEGMENT_MAPS);
-        return fromString(client.get(url.toString()),
+        setApiKey(METHOD_GET, url.toString());
+        final String json = client.get(url.toString());
+        return fromString(json,
                 Followers.class);
     }
 
@@ -248,7 +251,7 @@ public class MapService extends CrowdmapService {
 
 
     /**
-     * Get a specific map's tag
+     * Get a specific map by tag
      */
     public MapTags getTags(long mapId, String tag) {
         checkId(mapId);

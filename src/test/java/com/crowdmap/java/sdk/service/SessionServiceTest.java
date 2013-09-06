@@ -45,11 +45,6 @@ public class SessionServiceTest extends BaseServiceTest {
 	 */
 	@Test
 	public void testLogin() throws Exception{
-
-		// Provide correct credentials. Note: these ones are fake.
-		final String username = "henry@ushahidi.com";
-		final String password = "dontchangeme";
-
         LoginForm form = new LoginForm(username,password);
 		Session session = loginService.login(form);
 		assertNotNull("Media cannot be null ", session);

@@ -14,15 +14,19 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.json.Collaborators;
+import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
+import com.crowdmap.java.sdk.json.Owner;
 import com.crowdmap.java.sdk.json.Posts;
-import com.crowdmap.java.sdk.model.Map;
 import com.crowdmap.java.sdk.model.form.MapForm;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.annotation.Resource;
 
 /**
  * Test Map service
@@ -31,10 +35,13 @@ public class MapServiceTest extends BaseServiceTest {
 
     MapService mapService;
 
+    long mapId;
     @Before
     public void setUp() throws Exception {
         super.setUp();
         mapService = crowdmap.mapService();
+        session = loginService.login(loginForm);
+        mapId = 2405;
     }
 
     @After
@@ -53,38 +60,48 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetMapsAsAuthenicatedUser() throws Exception {
-
-        session = loginService.login(loginForm);
         mapService.setSessionToken(session.getSessionToken());
-        Maps  map = mapService.getMaps();
+        Maps  map = mapService.getMapsAsAuthenicatedUser();
         assertNotNull(map);
         assertNotNullOrEmpty("No maps", map.getMaps());
         assertNotNull(map.getMaps().get(0).getId());
     }
 
     @Test
-    public void testGetMap() throws Exception {
-
+    public void testGetMapByID() throws Exception {
+        Maps  map = mapService.getMap(mapId);
+        assertNotNull(map);
+        assertNotNullOrEmpty("No maps", map.getMaps());
+        assertNotNull(map.getMaps().get(0).getId());
     }
 
     @Test
     public void testGetMapAsAuthenicatedUser() throws Exception {
-
+        mapService.setSessionToken(session.getSessionToken());
+        Maps  map = mapService.getMapAsAuthenicatedUser(mapId);
+        assertNotNull(map);
+        assertNotNullOrEmpty("No maps", map.getMaps());
+        assertNotNull(map.getMaps().get(0).getId());
     }
 
     @Test
     public void testGetMapOwner() throws Exception {
-
+        Owner owner = mapService.getMapOwner(2405);
+        assertNotNull(owner);
+        assertNotNull(owner.getOwner().getId());
     }
 
     @Test
     public void testGetFollowers() throws Exception {
-
+        Followers followers =  mapService.getFollowers(mapId);
+        assertNotNull(followers);
+        assertNotNullOrEmpty("", followers.getFollowers());
     }
 
     @Test
     public void testGetCollaborators() throws Exception {
-
+       Collaborators collaborators =  mapService.getCollaborators(mapId);
+        assertNotNull(collaborators);
     }
 
     @Test
@@ -105,7 +122,7 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetTags() throws Exception {
-        MapTags mapTags = mapService.getTags("book");
+        MapTags mapTags = mapService.getTags("externado");
         assertNotNull(mapTags);
         assertNotNullOrEmpty("No maps tags", mapTags.getMapsTags());
     }
@@ -114,14 +131,88 @@ public class MapServiceTest extends BaseServiceTest {
     public void testGetPostOnMap() throws Exception {
         Posts posts = mapService.getPostOnMap(30);
         assertNotNull(posts);
-        System.out.println(posts.toString());
         assertNotNullOrEmpty("Post is empty", posts.getPosts());
     }
 
     @Test
     public void testGetPostOnMapByTag() throws Exception {
-        Posts posts = mapService.getPostOnMapByTag(30, "book");
+        Posts posts = mapService.getPostOnMapByTag(mapId, "Externado");
         assertNotNull(posts);
         assertNotNullOrEmpty("Post is empty", posts.getPosts());
+    }
+
+    @Test
+    public void testUpdateMapOwner() throws Exception {
+
+    }
+
+    @Test
+    public void testAddCollaborator() throws Exception {
+
+    }
+
+    @Test
+    public void testRemoveCollaborator() throws Exception {
+
+    }
+
+    @Test
+    public void testFollowMap() throws Exception {
+
+    }
+
+    @Test
+    public void testStopFollowingMap() throws Exception {
+
+    }
+
+    @Test
+    public void testGetSpecificMapTagsByTag() throws Exception {
+
+    }
+
+    @Test
+    public void testAddTagToAMap() throws  Exception {
+
+    }
+
+    @Test
+    public void testDeleteTagOnAMap() throws Exception {
+
+    }
+
+    @Test
+    public void testApproveOrDenyPostOnMap() throws Exception {
+
+    }
+
+    @Test
+    public void testRemovePostFromMap() throws Exception {
+
+    }
+
+    @Test
+    public void testUpdateMap() throws Exception {
+
+    }
+
+    @Test
+    public void testDeleteMap() throws Exception {
+
+    }
+
+    @Test
+    public void testGetMapSettings() throws Exception {
+
+    }
+
+    @Test
+    public void testCreateOrUpdateMapSettings() throws Exception {
+
+    }
+
+    @Test
+    public void testDeleteMapSettings() throws Exception {
+
     }
 }

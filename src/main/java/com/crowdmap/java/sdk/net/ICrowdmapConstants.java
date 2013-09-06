@@ -28,11 +28,11 @@ public interface ICrowdmapConstants {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    public static final String HOST_API = "api.crdmp3.com";
+    public static final String HOST_API = "api.crowdmap.com";
 
     public static final String API_VERSION = "v1";
 
-    public static final String PROTOCOL_HTTPS = "http";
+    public static final String PROTOCOL_HTTPS = "https";
 
     public static final String API_KEY_PARAM = "apikey";
 
