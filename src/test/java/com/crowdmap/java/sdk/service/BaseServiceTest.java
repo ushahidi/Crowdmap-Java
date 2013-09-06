@@ -55,7 +55,7 @@ public abstract class BaseServiceTest extends TestCase {
 		crowdmap = new Crowdmap("mcoSiLOiRUXiiAPv","jodJljijJNiBSLLW");
 
         username = "henry@ushahidi.com";
-        password = "godles123";
+        password = "dontchangeme";
 
         loginForm = new LoginForm(username,password);
         loginService = crowdmap.sessionService();
