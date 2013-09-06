@@ -76,7 +76,7 @@ public class PostServiceExample {
      */
     public void getTwoPosts() {
         mPostService = crowdmap.postService();
-        Posts posts = mPostService.offset(0).limit(2).getPosts();
+        Posts posts = mPostService.offset(0).limit(1).getPosts();
         System.out.println("Size "+posts.getPosts().size());
     }
 
@@ -111,7 +111,7 @@ public class PostServiceExample {
 
             // Print the details of the post
             for(Post post : posts.getPosts()) {
-                System.out.print(post.toString());
+                System.out.println(post.toString());
             }
         }
     }
@@ -124,7 +124,7 @@ public class PostServiceExample {
             PostServiceExample example  = new PostServiceExample(args[0], args[1], args[2], args[3]);
             example.getPosts();
             example.createPost();
-            example.getPost();
+            //example.getPost();
             example.getTwoPosts();
         }
     }

@@ -18,6 +18,8 @@ import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.model.form.LocationForm;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
 
 /**
@@ -48,5 +50,23 @@ public class LocationService extends CrowdmapService {
         return fromString(client.get(SEGMENT_LOCATIONS),
                 Locations.class);
 
+    }
+
+    @Override
+    protected LocationService limit(int limit) {
+        if (limit > 0) {
+            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
+        }
+        return this;
+    }
+
+    @Override
+    protected LocationService offset(int offset) {
+        if (getClient().getRequestParameters().containsKey(LIMIT)) {
+            throw new IllegalArgumentException("Requires that a limit be set.");
+        }
+
+        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
     }
 }

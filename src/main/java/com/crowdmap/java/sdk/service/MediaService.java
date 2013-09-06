@@ -20,6 +20,8 @@ import com.crowdmap.java.sdk.util.Util;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 
 /**
@@ -73,5 +75,24 @@ public class MediaService extends CrowdmapService {
         url.append(mediaId);
         setApiKey(METHOD_DELETE, url.toString());
         return fromString(client.delete(url.toString()), Response.class);
+    }
+
+
+    @Override
+    protected MediaService limit(int limit) {
+        if (limit > 0) {
+            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
+        }
+        return this;
+    }
+
+    @Override
+    protected MediaService offset(int offset) {
+        if (getClient().getRequestParameters().containsKey(LIMIT)) {
+            throw new IllegalArgumentException("Requires that a limit be set.");
+        }
+
+        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
     }
 }

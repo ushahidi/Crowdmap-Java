@@ -19,6 +19,8 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.model.User;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAP;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MODERATE;
@@ -67,5 +69,24 @@ public class ModerationService extends CrowdmapService {
         url.append(userId);
         setApiKey(METHOD_POST, url.toString());
         return fromString(client.post(url.toString()), User.class);
+    }
+
+
+    @Override
+    protected ModerationService limit(int limit) {
+        if (limit > 0) {
+            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
+        }
+        return this;
+    }
+
+    @Override
+    protected ModerationService offset(int offset) {
+        if (getClient().getRequestParameters().containsKey(LIMIT)) {
+            throw new IllegalArgumentException("Requires that a limit be set.");
+        }
+
+        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
     }
 }

@@ -54,6 +54,10 @@ public abstract class CrowdmapService {
         gson = builder.create();
     }
 
+    protected abstract CrowdmapService limit(int limit);
+
+    protected abstract CrowdmapService offset(int offset);
+
     protected CrowdmapHttpClient client;
 
     /**

@@ -20,6 +20,8 @@ import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_ABOUT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_HEARTBEAT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OEMBED;
@@ -72,5 +74,22 @@ public class UtilityService extends CrowdmapService {
         url.append("/");
         setApiKey(METHOD_GET, url.toString());
         return fromString(client.get(url.toString()), RegisteredMap.class);
+    }
+
+    public UtilityService limit(int limit) {
+        if (limit > 0) {
+            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
+        }
+        return this;
+    }
+
+    public UtilityService offset(int offset) {
+
+        if (getClient().getRequestParameters().containsKey(LIMIT)) {
+            throw new IllegalArgumentException("Requires that a limit be set.");
+        }
+
+        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
     }
 }
