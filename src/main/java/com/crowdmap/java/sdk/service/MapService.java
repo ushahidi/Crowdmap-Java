@@ -175,7 +175,7 @@ public class MapService extends CrowdmapService {
     /**
      * Add a collaborator to the a map.
      *
-     * @param mapId The ID of the map.
+     * @param mapId The ID of the map. This should be a map the logged in user owns.
      * @param userId The ID of the user.
      *
      * @return The  Collaborators.
@@ -188,7 +188,7 @@ public class MapService extends CrowdmapService {
         url.append(mapId);
         url.append(SEGMENT_COLLABORATORS);
         Body body = new Body();
-        body.addField("user_id", userId);
+        body.addField("collaborator_id", userId);
         return fromString(client.post(url.toString(), body),
                 Collaborators.class);
     }

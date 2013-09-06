@@ -40,13 +40,8 @@ public class PostServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetPosts() throws Exception {
-        Posts post = mPostService.getPosts();
-        System.out.println(post.toString());
-    }
-
-    @Test
-    public void testGetPosts1() throws Exception {
-
+        Posts posts = mPostService.getPosts();
+        assertNotNull(posts);
     }
 
     @Test

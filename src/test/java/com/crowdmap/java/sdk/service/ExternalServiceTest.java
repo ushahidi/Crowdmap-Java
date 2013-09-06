@@ -14,6 +14,8 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.json.Externals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,23 +25,22 @@ import org.junit.Test;
  */
 public class ExternalServiceTest extends BaseServiceTest {
 
+    ExternalService mExternalService;
     @Before
     public void setUp() throws Exception {
-
+        super.setUp();
+        mExternalService = crowdmap.externalService();
     }
 
     @After
     public void tearDown() throws Exception {
-
+        super.tearDown();
     }
 
     @Test
     public void testCreateExternal() throws Exception {
-
+        Externals externals = mExternalService.getExternal(30);
+        assertNotNull(externals);
     }
 
-    @Test
-    public void testGetExternal() throws Exception {
-
-    }
 }

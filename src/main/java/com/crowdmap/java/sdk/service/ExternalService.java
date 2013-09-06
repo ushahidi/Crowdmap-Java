@@ -39,16 +39,18 @@ public class ExternalService extends CrowdmapService {
     /**
      * Get specific external. GET /externals/:external_id
      *
+     * @param externalId The external ID
+     *
      * @return The externals
      */
-    public Externals getExternal(long id) {
-        checkId(id);
+    public Externals getExternal(long externalId) {
+        checkId(externalId);
         StringBuilder url = new StringBuilder(SEGMENT_EXTERNALS);
-        url.append(id);
+        url.append(externalId);
         url.append("/");
         setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()),
-                Externals.class);
+        final String json = client.get(url.toString());
+        return fromString(json,Externals.class);
 
     }
 }

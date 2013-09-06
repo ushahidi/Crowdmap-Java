@@ -104,4 +104,9 @@ public class CrowdmapServiceTest extends BaseServiceTest {
         assertEquals(37.785835266113, post.getPosts().get(0).getLocations().get(0).getGeometry().getCoordinates()[1]);
         assertEquals("evansims",post.getPosts().get(0).getUsers().get(0).getUsername());
     }
+
+    @Test
+    public void testExternalsDeserialization() throws Exception {
+
+    }
 }
