@@ -10,7 +10,9 @@ import org.junit.Test;
  * Test cases for Media service
  */
 public class MediaServiceTest extends BaseServiceTest {
+
     MediaService mMediaService;
+
     @Before
     public void setUp() throws Exception {
         super.setUp();

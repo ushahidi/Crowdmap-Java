@@ -28,6 +28,21 @@ public class Externals extends Response implements Serializable {
      */
     private static final long serialVersionUID = 3719058958496371506L;
 
-    public List<External> externals;
 
+    private List<External> externals;
+
+    public List<External> getExternals() {
+        return externals;
+    }
+
+    public void setExternals(List<External> externals) {
+        this.externals = externals;
+    }
+
+    @Override
+    public String toString() {
+        return "Externals{" +
+                "externals=" + externals +
+                '}';
+    }
 }

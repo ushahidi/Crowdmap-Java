@@ -29,8 +29,6 @@ import com.crowdmap.java.sdk.util.ValidateUtil;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
@@ -49,7 +47,6 @@ public abstract class CrowdmapService {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Date.class, new DateDeserializer());
         builder.registerTypeAdapter(userListType, new UsersDeserializer());
-        //builder.registerTypeAdapter(Response.class, new ResponseDeserializer());
         builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
         gson = builder.create();
     }

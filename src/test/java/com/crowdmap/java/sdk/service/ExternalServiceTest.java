@@ -26,6 +26,7 @@ import org.junit.Test;
 public class ExternalServiceTest extends BaseServiceTest {
 
     ExternalService mExternalService;
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
