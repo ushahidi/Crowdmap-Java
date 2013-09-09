@@ -13,8 +13,6 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.User;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,7 +25,6 @@ public class Media extends Response implements Serializable {
      * Serial version UID
      */
     private static final long serialVersionUID = 8498886833164100022L;
-
 
 
     private List<com.crowdmap.java.sdk.model.Media> media;

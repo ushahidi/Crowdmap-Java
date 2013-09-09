@@ -24,6 +24,8 @@ import com.crowdmap.java.sdk.json.MapSettings;
 import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Media;
+import com.crowdmap.java.sdk.json.Notifications;
+import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.Owner;
 import com.crowdmap.java.sdk.json.Posts;
 
@@ -445,8 +447,8 @@ public class CrowdmapServiceTest extends BaseServiceTest {
                 + "}";
         MapTags mapTags = CrowdmapService.fromString(json, MapTags.class);
         assertNotNull(mapTags);
-        assertNotNullOrEmpty("Maps is empty",mapTags.getMapsTags());
-        assertEquals("book", mapTags.getMapsTags().get(0).getTag());
+        assertNotNullOrEmpty("Maps is empty", mapTags.getMapsTags());
+        assertEquals("books", mapTags.getMapsTags().get(0).getTag());
         assertEquals(1, mapTags.getMapsTags().get(0).getUsersCount());
         assertEquals(1, mapTags.getMapsTags().get(0).getMapsCount());
         assertEquals(1, mapTags.getMapsTags().get(0).getUsers().length);
@@ -457,12 +459,65 @@ public class CrowdmapServiceTest extends BaseServiceTest {
 
     @Test
     public void testMapNotificationsDeserialization() throws Exception {
+        final String json
+                = "{\"count\":3,\"unread\":3,\"notifications\":[{\"id\":\"ac053c714940310d0a984765d5ee68c7\",\"sender\":3801,\"message\":\"Commune Elguettar (@commune2180) commented on your post.\",\"unread\":true,\"callback\":\"https:\\/\\/crowdmap.com\\/post\\/16770\\/\",\"created\":1378033388},{\"id\":\"8ffe56f51d61cf9b63c652eb76234d99\",\"sender\":2405,\"message\":\"Stefano Capezzuto (@sigisbaldo) liked your post.\",\"unread\":true,\"callback\":\"https:\\/\\/crowdmap.com\\/post\\/16446\\/\",\"created\":1377557141},{\"id\":\"cf6a18d7d123680a4dc10ae002f0c2ac\",\"sender\":57,\"message\":\"@heatherleson (@heatherleson) liked your post.\",\"unread\":true,\"callback\":\"https:\\/\\/crowdmap.com\\/post\\/16446\\/\",\"created\":1377529076}],\"next\":false,\"curr\":\"https:\\/\\/api.crowdmap.com\\/v1\\/users\\/me\\/notifications\\/?session=UKj0exdv9QLrT9KAqc67459ae6a7ceedcbe7e00a378718384cf94660d&_=1378708576682\",\"prev\":false,\"success\":true,\"status\":200,\"timestamp\":1378708616,\"qcount\":6,\"elapsed\":\"0.1631s\"}";
+        Notifications notifications = CrowdmapService.fromString(json, Notifications.class);
+        assertNotNull(notifications);
+        assertNotNullOrEmpty("Notification is empty", notifications.getNotifications());
+        assertEquals(3, notifications.getCount());
+        assertEquals(3, notifications.getUnread());
+        assertEquals("ac053c714940310d0a984765d5ee68c7", notifications.getNotifications().get(0).getId());
+        assertEquals(3801, notifications.getNotifications().get(0).getSender());
+        assertEquals("Commune Elguettar (@commune2180) commented on your post.", notifications.getNotifications().get(0).getMessage());
+        assertEquals(true, notifications.getNotifications().get(0).isUnread());
+        assertEquals(200, notifications.getStatus());
+        assertEquals(6, notifications.getQcount());
+    }
 
+    @Test
+    void testMapNotificationsCountDeserialization() throws Exception {
+        final String json
+                = "{\"count\":3,\"unread\":3,\"success\":true,\"status\":200,\"timestamp\":1378708581,\"qcount\":6,\"elapsed\":\"0.1748s\"}";
+        Notifications notifications = CrowdmapService.fromString(json, Notifications.class);
+        assertNotNull(notifications);
+        assertEquals(3, notifications.getCount());
+        assertEquals(3, notifications.getUnread());
+        assertEquals(true, notifications.getNotifications().get(0).isUnread());
+        assertEquals(200, notifications.getStatus());
+        assertEquals(6, notifications.getQcount());
     }
 
     @Test
     public void testOEmbedDeserialization() throws Exception {
-
+        final String json = "{\n"
+                + "    \"version\": \"1.0\",\n"
+                + "    \"type\": \"rich\",\n"
+                + "    \"title\": \"Brian Herbert's Post on Crowdmap\",\n"
+                + "    \"url\": \"https:\\/\\/crowdmap.com\\/post\\/832\\/saw-jonshuler-posting-this-on-facebook-check-out-the\\/\",\n"
+                + "    \"author_name\": \"brianherbert\",\n"
+                + "    \"author_url\": \"https:\\/\\/crowdmap.com\\/user\\/brianherbert\\/\",\n"
+                + "    \"provider_name\": \"Crowdmap\",\n"
+                + "    \"provider_url\": \"https:\\/\\/crowdmap.com\\/\",\n"
+                + "    \"width\": \"560\",\n"
+                + "    \"height\": \"550\",\n"
+                + "    \"html\": \"<iframe width=\\\"560px\\\" height=\\\"500px\\\" src=\\\"https:\\/\\/crowdmap.com\\/post\\/832\\/saw-jonshuler-posting-this-on-facebook-check-out-the\\/\\\" frameborder=\\\"0\\\" scrolling=\\\"yes\\\"><\\/iframe>\"\n"
+                + "}";
+        OEmbed oEmbed = CrowdmapService.fromString(json, OEmbed.class);
+        assertNotNull(oEmbed);
+        assertEquals(1.0f, oEmbed.getVersion());
+        assertEquals("Brian Herbert's Post on Crowdmap", oEmbed.getTitle());
+        assertEquals(
+                "https://crowdmap.com/post/832/saw-jonshuler-posting-this-on-facebook-check-out-the/",
+                oEmbed.getUrl());
+        assertEquals("brianherbert", oEmbed.getAuthorName());
+        assertEquals("https://crowdmap.com/user/brianherbert/", oEmbed.getAuthorUrl());
+        assertEquals("Crowdmap", oEmbed.getProviderName());
+        assertEquals("https://crowdmap.com/", oEmbed.getProviderUrl());
+        assertEquals(560, oEmbed.getWidth());
+        assertEquals(550, oEmbed.getHeight());
+        assertEquals(
+                "<iframe width=\"560px\" height=\"500px\" src=\"https://crowdmap.com/post/832/saw-jonshuler-posting-this-on-facebook-check-out-the/\" frameborder=\"0\" scrolling=\"yes\"></iframe>",
+                oEmbed.getHtml());
     }
 
     @Test

@@ -24,9 +24,9 @@ public class Notification implements Serializable {
 
     private static final long serialVersionUID = 4336532175324391627L;
 
-    private long id;
+    private String id;
 
-    private long senderId;
+    private long sender;
 
     private String message;
 
@@ -68,19 +68,19 @@ public class Notification implements Serializable {
         this.message = message;
     }
 
-    public long getSenderId() {
-        return senderId;
+    public long getSender() {
+        return sender;
     }
 
-    public void setSenderId(long senderId) {
-        this.senderId = senderId;
+    public void setSender(long sender) {
+        this.sender = sender;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,7 +88,7 @@ public class Notification implements Serializable {
     public String toString() {
         return "Notification{" +
                 "id=" + id +
-                ", senderId=" + senderId +
+                ", sender=" + sender +
                 ", message='" + message + '\'' +
                 ", unread=" + unread +
                 ", callbackUrl='" + callbackUrl + '\'' +
