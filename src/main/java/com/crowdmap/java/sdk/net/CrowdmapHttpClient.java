@@ -31,7 +31,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
  *
  * @author eyedol
  */
-public class CrowdmapHttpClient extends BaseHttpClient {
+public class CrowdmapHttpClient extends BaseHttpClient implements HttpClient {
 
     /**
      * The user agent to use
@@ -65,11 +65,21 @@ public class CrowdmapHttpClient extends BaseHttpClient {
         requestHeaders.put("Accept-Encoding", GZIP_DEFLATE);
     }
 
-
+    /**
+     * Constructor to configure http client with a configured host and protocol to use
+     *
+     * @param host The api host.
+     *
+     * @param protocol The protocol to use.
+     */
+    public CrowdmapHttpClient(String host, String protocol) {
+        super(host, -1, protocol);
+    }
     /**
      * Set the value to set as the user agent header on every request created. Specifying a null or
      * empty agent parameter will reset this client to use the default user agent header value.
      */
+    @Override
     public void setUserAgent(String agent) {
         if (agent != null && agent.length() > 0) {
             userAgent = agent;
@@ -83,6 +93,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      *
      * @return The user agent
      */
+    @Override
     public String getUserAgent() {
         if (userAgent != null && userAgent.length() > 0) {
             return this.userAgent;
@@ -148,6 +159,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param url The URL to send the GET request to.
      * @return The HTTP response string as returned from the server
      */
+    @Override
     public String get(String url) {
         return request(url, METHOD_GET, null);
 
@@ -160,6 +172,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param url The URL to send the DELETE request to.
      * @return The HTTP response string as returned from the server
      */
+    @Override
     public String delete(String url) {
         return request(url, METHOD_DELETE, null);
 
@@ -173,10 +186,9 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param body The form fields to be sent
      * @return The HTTP response string as returned from the server
      */
+    @Override
     public String post(String url, Body body) {
-
         return request(url, METHOD_POST, body);
-
     }
 
     /**
@@ -187,9 +199,22 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param body The form fields to be sent
      * @return The HTTP response string as returned from the server
      */
+    @Override
     public String put(String url, Body body) {
         return request(url, METHOD_PUT, body);
 
+    }
+
+    /**
+     * Sends a PUT request to the supplied URL. Converts the input stream as received from the
+     * server to string.
+     *
+     * @param url  The URL to send the PUT request to.
+     * @return The HTTP response string as returned from the server
+     */
+    @Override
+    public String put(String url) {
+        return request(url, METHOD_PUT, null);
     }
 
     /**
@@ -212,6 +237,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param body The parameters to
      * @return The HTTP response string as returned from the server
      */
+    @Override
     public String multipartPost(String url, Body body) {
         return request(url, METHOD_MULTIPART, body);
 
@@ -223,6 +249,7 @@ public class CrowdmapHttpClient extends BaseHttpClient {
      * @param key   The variable name
      * @param value The variable value
      */
+    @Override
     public void setRequestParameters(String key, String value) {
         requestParameters.put(key, value);
     }
@@ -234,11 +261,17 @@ public class CrowdmapHttpClient extends BaseHttpClient {
     /**
      * Set the API key to be used for signing the various API request
      */
+    @Override
     public void setApiKey(String apiKey) {
         setRequestParameters(API_KEY_PARAM, apiKey);
     }
 
-    public void setSessionKey(String session) {
+    /**
+     * Set the sesion token
+     * @param session The session token
+     */
+    @Override
+    public void setSessionToken(String session) {
         setRequestParameters(SESSION, session);
     }
 }

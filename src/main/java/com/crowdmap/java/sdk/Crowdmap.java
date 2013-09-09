@@ -15,6 +15,8 @@ package com.crowdmap.java.sdk;
 
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.form.LoginForm;
+import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+import com.crowdmap.java.sdk.net.HttpClient;
 import com.crowdmap.java.sdk.service.CrowdmapService;
 import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.LocationService;
@@ -54,6 +56,19 @@ public class Crowdmap {
      */
     private Integer socketTimeout;
 
+    /**
+     * The HTTP client to use.
+     */
+    private HttpClient httpClient;
+
+    /**
+     * Default constructor
+     *
+     * @param publicKey The Crowdmap public key.
+     *
+     * @param privateKey The Crowdmap private key.
+     */
+
     public Crowdmap(String publicKey, String privateKey) {
         if (ValidateUtil.empty(publicKey)) {
             throw new IllegalArgumentException(
@@ -70,6 +85,18 @@ public class Crowdmap {
         this.privateKey = privateKey;
     }
 
+    /**
+     * Provide custom implementation of the HTTP client.
+     *
+     * @param httpClient The custom HTTP client to use.
+     *
+     * @param publicKey The Crowdmap public key.
+     * @param privateKey The Crowdmap private key.
+     */
+    public Crowdmap(HttpClient httpClient, String publicKey, String privateKey) {
+        this(publicKey, privateKey);
+        this.httpClient = httpClient;
+    }
 
     /**
      * Set default  connection timeout.
@@ -103,11 +130,11 @@ public class Crowdmap {
     private void setupService(CrowdmapService service) {
 
         if (this.connectionTimeout != null) {
-            service.getClient().setConnectionTimeout(this.connectionTimeout);
+            service.getHttpClient().setConnectionTimeout(this.connectionTimeout);
         }
 
         if (this.socketTimeout != null) {
-            service.getClient().setSocketTimeout(this.socketTimeout);
+            service.getHttpClient().setSocketTimeout(this.socketTimeout);
         }
 
         if ((this.privateKey != null)) {
@@ -118,6 +145,11 @@ public class Crowdmap {
             service.setPublicKey(this.publicKey);
         }
 
+        if( this.httpClient != null) {
+            service.setHttpClient(this.httpClient);
+        } else {
+            service.setHttpClient(new CrowdmapHttpClient());
+        }
     }
 
     /**
@@ -133,7 +165,7 @@ public class Crowdmap {
     private static final SessionService newSessionService() {
         return new SessionService();
     }
-
+    
     private static final UserService newUserService() {
         return new UserService();
     }

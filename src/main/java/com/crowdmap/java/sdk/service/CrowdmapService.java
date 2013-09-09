@@ -23,6 +23,7 @@ import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
+import com.crowdmap.java.sdk.net.HttpClient;
 import com.crowdmap.java.sdk.util.Util;
 import com.crowdmap.java.sdk.util.ValidateUtil;
 
@@ -51,11 +52,7 @@ public abstract class CrowdmapService {
         gson = builder.create();
     }
 
-    protected abstract CrowdmapService limit(int limit);
-
-    protected abstract CrowdmapService offset(int offset);
-
-    protected CrowdmapHttpClient client;
+    protected HttpClient client;
 
     /**
      * private app key value *
@@ -70,11 +67,11 @@ public abstract class CrowdmapService {
     private String sessionToken;
 
     /**
-     * Create a the task using the default {@link com.crowdmap.java.sdk.net.CrowdmapHttpClient}
+     * Set the default {@link com.crowdmap.java.sdk.net.HttpClient}
      *
      * @param client The HttpClient
      */
-    public CrowdmapService(CrowdmapHttpClient client) {
+    public void setHttpClient(HttpClient client) {
 
         if (client == null) {
             throw new IllegalArgumentException("Client cannot be null");
@@ -83,16 +80,9 @@ public abstract class CrowdmapService {
     }
 
     /**
-     * Create a service using a default {@link com.crowdmap.java.sdk.net.CrowdmapHttpClient}
-     */
-    public CrowdmapService() {
-        this(new CrowdmapHttpClient());
-    }
-
-    /**
      * Get the configured HTTP client
      */
-    public CrowdmapHttpClient getClient() {
+    public HttpClient getHttpClient() {
         return client;
     }
 
@@ -169,7 +159,7 @@ public abstract class CrowdmapService {
                     "This action requires a valid sessionToken. You will have to login then provide the "
                             + "sessionToken id returned");
         }
-        client.setSessionKey(this.sessionToken);
+        client.setSessionToken(this.sessionToken);
     }
 
     public String getSessionToken() {

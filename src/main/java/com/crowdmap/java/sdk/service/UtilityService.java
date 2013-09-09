@@ -35,7 +35,7 @@ public class UtilityService extends CrowdmapService {
     /**
      * Get status of the Crowdmap service.
      */
-    public Response hearbeat() {
+    public Response heartbeat() {
         setApiKey(METHOD_GET, SEGMENT_HEARTBEAT);
         return fromString(client.get(SEGMENT_HEARTBEAT), Response.class);
     }
@@ -78,18 +78,18 @@ public class UtilityService extends CrowdmapService {
 
     public UtilityService limit(int limit) {
         if (limit > 0) {
-            getClient().setRequestParameters(LIMIT, String.valueOf(limit));
+            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
     public UtilityService offset(int offset) {
 
-        if (getClient().getRequestParameters().containsKey(LIMIT)) {
+        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }
 
-        getClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
         return this;
     }
 }
