@@ -27,7 +27,9 @@ import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Notifications;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.Owner;
+import com.crowdmap.java.sdk.json.PostTags;
 import com.crowdmap.java.sdk.json.Posts;
+import com.crowdmap.java.sdk.json.Users;
 
 import org.junit.After;
 import org.junit.Before;
@@ -170,7 +172,7 @@ public class CrowdmapServiceTest extends BaseServiceTest {
         assertEquals("https://twitter.com/favicons/favicon.ico",
                 externals.getExternals().get(0).getFaviconUrl());
         // Fails no matter what. commenting it out for now.
-        //assertEquals("<blockquote class=\\\"twitter-tweet\\\"><p>War on drugs? &#39;Them&#39; against &#39;us&#39; is out! <a href=\\\"http://t.co/yjJMDKDaN1\\\">http://t.co/yjJMDKDaN1</a> ▸ Top stories today via <a href=\\\"https://twitter.com/HipHopHillbill\\\">@HipHopHillbill</a> <a href=\\\"https://twitter.com/spacejam_mtgo\\\">@spacejam_mtgo</a> <a href=\\\"https://twitter.com/EBrownGomez\\\">@EBrownGomez</a></p>&mdash; harlechnnorfolk (@harlechnnorfolk) <a href=\\\"https://twitter.com/harlechnnorfolk/statuses/376883832215310336\\\">September 9, 2013</a></blockquote>\\n", externals.getExternals().get(0).getEmbedHtml());
+        assertEquals("<blockquote class=\"twitter-tweet\"><p>War on drugs? &#39;Them&#39; against &#39;us&#39; is out! <a href=\"http://t.co/yjJMDKDaN1\">http://t.co/yjJMDKDaN1</a> ▸ Top stories today via <a href=\"https://twitter.com/HipHopHillbill\">@HipHopHillbill</a> <a href=\"https://twitter.com/spacejam_mtgo\">@spacejam_mtgo</a> <a href=\"https://twitter.com/EBrownGomez\">@EBrownGomez</a></p>&mdash; harlechnnorfolk (@harlechnnorfolk) <a href=\"https://twitter.com/harlechnnorfolk/statuses/376883832215310336\">September 9, 2013</a></blockquote>\n", externals.getExternals().get(0).getEmbedHtml());
         assertEquals(
                 "https://api.crowdmap.com/v1/externals/?apikey=AmcoSiLOiRUXiiAPv478e1113546b9c36d58547719c775a431ed5447e&limit=1&offset=1",
                 externals.getNext());
@@ -466,9 +468,11 @@ public class CrowdmapServiceTest extends BaseServiceTest {
         assertNotNullOrEmpty("Notification is empty", notifications.getNotifications());
         assertEquals(3, notifications.getCount());
         assertEquals(3, notifications.getUnread());
-        assertEquals("ac053c714940310d0a984765d5ee68c7", notifications.getNotifications().get(0).getId());
+        assertEquals("ac053c714940310d0a984765d5ee68c7",
+                notifications.getNotifications().get(0).getId());
         assertEquals(3801, notifications.getNotifications().get(0).getSender());
-        assertEquals("Commune Elguettar (@commune2180) commented on your post.", notifications.getNotifications().get(0).getMessage());
+        assertEquals("Commune Elguettar (@commune2180) commented on your post.",
+                notifications.getNotifications().get(0).getMessage());
         assertEquals(true, notifications.getNotifications().get(0).isUnread());
         assertEquals(200, notifications.getStatus());
         assertEquals(6, notifications.getQcount());
@@ -522,12 +526,114 @@ public class CrowdmapServiceTest extends BaseServiceTest {
 
     @Test
     public void testPostTagsDeserialization() throws Exception {
-
+        String json = "{\n"
+                + "\"posts_tags\": [\n"
+                + "{\n"
+                + "\"tag\": \"design\",\n"
+                + "\"color\": \"C9C9C9\",\n"
+                + "\"users_count\": 1,\n"
+                + "\"posts_count\": 1,\n"
+                + "\"users\": [\n"
+                + "2\n"
+                + "],\n"
+                + "\"posts\": [\n"
+                + "4164\n"
+                + "]\n"
+                + "}\n"
+                + "],\n"
+                + "\"success\": true,\n"
+                + "\"status\": 200,\n"
+                + "\"timestamp\": 1378713955,\n"
+                + "\"qcount\": 3,\n"
+                + "\"elapsed\": \"0.1147s\"\n"
+                + "}";
+        PostTags postTags = CrowdmapService.fromString(json, PostTags.class);
+        assertNotNull(postTags);
+        assertNotNullOrEmpty("Post tags empty", postTags.getPostsTags());
+        assertEquals("design", postTags.getPostsTags().get(0).getTag());
+        assertEquals("C9C9C9", postTags.getPostsTags().get(0).getColor());
+        assertEquals(1, postTags.getPostsTags().get(0).getUsersCount());
+        assertEquals(1, postTags.getPostsTags().get(0).getPostsCount());
+        assertEquals(1, postTags.getPostsTags().get(0).getUsers().length);
+        assertEquals(2, postTags.getPostsTags().get(0).getUsers()[0]);
+        assertEquals(1, postTags.getPostsTags().get(0).getPosts().length);
+        assertEquals(4164, postTags.getPostsTags().get(0).getPosts()[0]);
+        assertEquals(true, postTags.isSuccess());
+        assertEquals(200, postTags.getStatus());
+        assertEquals(3, postTags.getQcount());
     }
 
     @Test
     public void testUsersDeserialization() throws Exception {
 
+        final String json = "{\n"
+                + "    \"users\": [\n"
+                + "        {\n"
+                + "            \"user_id\": 3293,\n"
+                + "            \"crowdmap_id\": \"12Y3vkSlgLKC4cxm5atkFzoBz1EyjtziC0SybkJxOmzD6PGgAwCCzCCOGJHKVqnKq1xL3cfErjBdAR4czP0hfb1jimVMhksxhC3aWZRjvGaAcGiFvpxfeGFuWnWLHma3\",\n"
+                + "            \"crowdmap_id_h\": \"f4d1f526e2fb3e10445d04737ce75faf\",\n"
+                + "            \"username\": \"kjs\",\n"
+                + "            \"name\": \"Kevin Skinner\",\n"
+                + "            \"bio\": \"\",\n"
+                + "            \"plus\": false,\n"
+                + "            \"baselayer\": \"crowdmap_satellite\",\n"
+                + "            \"instagram_auto_post\": false,\n"
+                + "            \"twitter_auto_post\": false,\n"
+                + "            \"twitter_auto_post_retweets\": false,\n"
+                + "            \"date_registered\": 1375774449,\n"
+                + "            \"banned\": false,\n"
+                + "            \"avatar\": \"\\/\\/www.gravatar.com\\/avatar\\/0677578025aba7f73cd5dee14ae85c49?r=PG&s=200&d=404\",\n"
+                + "            \"badges\": [\n"
+                + "\n"
+                + "            ]\n"
+                + "        },\n"
+                + "        {\n"
+                + "            \"user_id\": 3292,\n"
+                + "            \"crowdmap_id\": \"be56d53c3a259eef2f51f393f65a0a3a06205b8c7de24183d7db159116ed303476757a314a38386a8e9a7b46cefffa378435d5d333154940d681199cb0d6f53a\",\n"
+                + "            \"crowdmap_id_h\": \"239314db89fb8d801c5faf8dff5c0b01\",\n"
+                + "            \"username\": \"blont68\",\n"
+                + "            \"name\": \"Bart Lont\",\n"
+                + "            \"bio\": \"\",\n"
+                + "            \"plus\": false,\n"
+                + "            \"baselayer\": \"crowdmap_satellite\",\n"
+                + "            \"instagram_auto_post\": false,\n"
+                + "            \"twitter_auto_post\": false,\n"
+                + "            \"twitter_auto_post_retweets\": false,\n"
+                + "            \"date_registered\": 1375773229,\n"
+                + "            \"banned\": false,\n"
+                + "            \"avatar\": null,\n"
+                + "            \"badges\": [\n"
+                + "\n"
+                + "            ]\n"
+                + "        }\n"
+                + "    ],\n"
+                + "    \"next\": \"https:\\/\\/api.crowdmap.com\\/v1\\/users\\/?apikey=godmode&limit=2&offset=2\",\n"
+                + "    \"curr\": \"https:\\/\\/api.crowdmap.com\\/v1\\/users\\/?apikey=godmode&limit=2\",\n"
+                + "    \"prev\": false,\n"
+                + "    \"success\": true,\n"
+                + "    \"status\": 200,\n"
+                + "    \"timestamp\": 1375775196,\n"
+                + "    \"qcount\": 3,\n"
+                + "    \"elapsed\": \"0.1575s\"\n"
+                + "}";
+
+        Users users = CrowdmapService.fromString(json, Users.class);
+        assertNotNull(users);
+        assertNotNullOrEmpty("Users list is empty", users.getUsers());
+        assertEquals(3293, users.getUsers().get(0).getId());
+        assertEquals("12Y3vkSlgLKC4cxm5atkFzoBz1EyjtziC0SybkJxOmzD6PGgAwCCzCCOGJHKVqnKq1xL3cfErjBdAR4czP0hfb1jimVMhksxhC3aWZRjvGaAcGiFvpxfeGFuWnWLHma3", users.getUsers().get(0).getCrowdmapId());
+        assertEquals("f4d1f526e2fb3e10445d04737ce75faf",users.getUsers().get(0).getCrowdmapIdH());
+        assertEquals("kjs", users.getUsers().get(0).getUsername());
+        assertEquals("Kevin Skinner", users.getUsers().get(0).getName());
+        assertEquals("", users.getUsers().get(0).getBio());
+        assertEquals(false,users.getUsers().get(0).isPlus());
+        assertEquals("crowdmap_satellite", users.getUsers().get(0).getBaselayer());
+        assertEquals(false,users.getUsers().get(0).isInstagramAutoPost());
+        assertEquals(false, users.getUsers().get(0).isTwitterAutoPost());
+        assertEquals(false, users.getUsers().get(0).isTwitterAutoPostRetweets());
+        assertEquals(false, users.getUsers().get(0).isBanned());
+        assertEquals("//www.gravatar.com/avatar/0677578025aba7f73cd5dee14ae85c49?r=PG&s=200&d=404",users.getUsers().get(0).getAvatar());
+        assertEquals(0,users.getUsers().get(0).getBadges().size());
     }
 
 }

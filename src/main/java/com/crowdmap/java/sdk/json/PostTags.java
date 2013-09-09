@@ -14,7 +14,7 @@
 
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.Tag;
+import com.crowdmap.java.sdk.model.form.PostTag;
 
 import java.util.List;
 
@@ -25,16 +25,16 @@ public class PostTags extends Response {
 
     private static final long serialVersionUID = 36455760364885900L;
 
-    private List<Tag> postTags;
+    private List<PostTag> postsTags;
 
-    public List<Tag> getPostTags() {
-        return postTags;
+    public List<PostTag> getPostsTags() {
+        return postsTags;
     }
 
     @Override
     public String toString() {
         return "MapTags{" +
-                "mapsTags=" + postTags +
+                "mapsTags=" + postsTags +
                 '}';
     }
 }
