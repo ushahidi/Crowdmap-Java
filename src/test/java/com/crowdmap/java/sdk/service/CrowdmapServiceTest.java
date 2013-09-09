@@ -479,14 +479,13 @@ public class CrowdmapServiceTest extends BaseServiceTest {
     }
 
     @Test
-    void testMapNotificationsCountDeserialization() throws Exception {
+    public void testMapNotificationsCountDeserialization() throws Exception {
         final String json
                 = "{\"count\":3,\"unread\":3,\"success\":true,\"status\":200,\"timestamp\":1378708581,\"qcount\":6,\"elapsed\":\"0.1748s\"}";
         Notifications notifications = CrowdmapService.fromString(json, Notifications.class);
         assertNotNull(notifications);
         assertEquals(3, notifications.getCount());
         assertEquals(3, notifications.getUnread());
-        assertEquals(true, notifications.getNotifications().get(0).isUnread());
         assertEquals(200, notifications.getStatus());
         assertEquals(6, notifications.getQcount());
     }

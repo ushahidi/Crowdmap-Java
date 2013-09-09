@@ -84,13 +84,6 @@ public class MapServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testGetMapOwner() throws Exception {
-        Owner owner = mapService.getMapOwner(2405);
-        assertNotNull(owner);
-        assertNotNull(owner.getOwner().getId());
-    }
-
-    @Test
     public void testGetFollowers() throws Exception {
         Followers followers = mapService.getFollowers(mapId);
         assertNotNull(followers);
@@ -104,122 +97,10 @@ public class MapServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testCreateMapWithBannerUrlAndAvatarUrlSet() throws Exception {
-        MapForm form = new MapForm();
-        session = loginService.login(loginForm);
-        form.setName("Crowdmap Java SDK Map");
-        form.setSubdomain("crowdmapsdkmap");
-        form.setBannerUrl("http://i.imgur.com/rZSVZNI.jpg");
-        form.setAvatarUrl("http://www.gravatar.com/avatar/14be1d2463de4c1acc8b5a5f4d4eef70.png");
-        form.setDescription("Crowdmap Java SDK Test Map");
-        form.setPublic(true);
-        form.setModeration(MapForm.Moderation.Auto);
-        mapService.setSessionToken(session.getSessionToken());
-        Maps maps = mapService.createMap(form);
-        assertNotNull(maps);
-    }
-
-    @Test
     public void testGetTags() throws Exception {
         MapTags mapTags = mapService.getTags("externado");
         assertNotNull(mapTags);
         assertNotNullOrEmpty("No maps tags", mapTags.getMapsTags());
     }
 
-    @Test
-    public void testGetPostOnMap() throws Exception {
-        Posts posts = mapService.getPostOnMap(30);
-        assertNotNull(posts);
-        assertNotNullOrEmpty("Post is empty", posts.getPosts());
-    }
-
-    @Test
-    public void testGetPostOnMapByTag() throws Exception {
-        Posts posts = mapService.getPostOnMapByTag(mapId, "Externado");
-        assertNotNull(posts);
-        assertNotNullOrEmpty("Post is empty", posts.getPosts());
-    }
-
-    @Test
-    public void testUpdateMapOwner() throws Exception {
-        mapService.setSessionToken(session.getSessionToken());
-        Owner owner = mapService.updateOwner(mapId, 24);
-        assertNotNull(owner);
-    }
-
-    @Test
-    public void testAddCollaborator() throws Exception {
-        mapService.setSessionToken(session.getSessionToken());
-        Collaborators collaborators = mapService.addCollaborator(mapId, 25);
-        assertNotNull(collaborators);
-        assertNotNullOrEmpty("", collaborators.getCollaborators());
-    }
-
-    @Test
-    public void testRemoveCollaborator() throws Exception {
-        mapService.setSessionToken(session.getSessionToken());
-        Collaborators collaborators = mapService.removeCollaborator(mapId, 25);
-        assertNotNull(collaborators);
-        assertNotNullOrEmpty("", collaborators.getCollaborators());
-    }
-
-    @Test
-    public void testFollowMap() throws Exception {
-
-    }
-
-    @Test
-    public void testStopFollowingMap() throws Exception {
-
-    }
-
-    @Test
-    public void testGetSpecificMapTagsByTag() throws Exception {
-
-    }
-
-    @Test
-    public void testAddTagToAMap() throws Exception {
-
-    }
-
-    @Test
-    public void testDeleteTagOnAMap() throws Exception {
-
-    }
-
-    @Test
-    public void testApproveOrDenyPostOnMap() throws Exception {
-
-    }
-
-    @Test
-    public void testRemovePostFromMap() throws Exception {
-
-    }
-
-    @Test
-    public void testUpdateMap() throws Exception {
-
-    }
-
-    @Test
-    public void testDeleteMap() throws Exception {
-
-    }
-
-    @Test
-    public void testGetMapSettings() throws Exception {
-
-    }
-
-    @Test
-    public void testCreateOrUpdateMapSettings() throws Exception {
-
-    }
-
-    @Test
-    public void testDeleteMapSettings() throws Exception {
-
-    }
 }

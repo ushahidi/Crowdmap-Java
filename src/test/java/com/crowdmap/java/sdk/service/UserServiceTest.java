@@ -49,18 +49,6 @@ public class UserServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testGetUsersPosts() throws Exception {
-        Posts posts = userService.getUsersPosts(3);
-        assertNotNull(posts);
-        assertNotNullOrEmpty("Post is empty", posts.getPosts());
-    }
-
-    @Test
-    public void testUpdateUser() throws Exception {
-        //TODO: write test code for updating existing user
-    }
-
-    @Test
     public void testGetUser() throws Exception {
         Users user = userService.getUser(23);
         assertNotNull(user);
@@ -72,13 +60,6 @@ public class UserServiceTest extends BaseServiceTest {
         Users users = userService.getUsersFollowedBy(23);
         assertNotNull(users);
         assertNotNullOrEmpty("No followers", users.getUsers());
-    }
-
-    @Test
-    public void testVerifyUsersFollowing() throws Exception {
-        Users users = userService.verifyUsersFollowing(23, 2);
-        assertNotNull(users);
-        assertNotNullOrEmpty("Not following", users.getUsers());
     }
 
     @Test
@@ -96,21 +77,11 @@ public class UserServiceTest extends BaseServiceTest {
         assertNotNull(users);
     }
 
-    @Test
-    public void testGetNotification() throws Exception {
-
-        session = loginService.login(loginForm);
-        userService.setSessionToken(session.getSessionToken());
-
-        //Maps maps = userService.getNotifications(23);
-        //assertNotNull(maps);
-    }
 
     @Test
     public void testGetUsersAssociatedMaps() throws Exception {
         session = loginService.login(loginForm);
         userService.setSessionToken(session.getSessionToken());
-
         Maps maps = userService.getUsersAssociatedMaps(23);
         assertNotNull(maps);
     }
