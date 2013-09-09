@@ -31,4 +31,6 @@ public class Locations extends Response implements Serializable {
     public List<Location> getLocations() {
         return locations;
     }
+
+
 }

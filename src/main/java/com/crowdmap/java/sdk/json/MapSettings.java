@@ -14,6 +14,8 @@
 
 package com.crowdmap.java.sdk.json;
 
+import com.crowdmap.java.sdk.model.MapSetting;
+
 import java.util.List;
 
 /**
@@ -23,5 +25,20 @@ public class MapSettings extends Response {
 
     private static final long serialVersionUID = -7626806384034959085L;
 
-    List<MapSettings> mapsSettings;
+    private List<MapSetting> mapsSettings;
+
+    public List<MapSetting> getMapsSettings() {
+        return mapsSettings;
+    }
+
+    public void setMapsSettings(List<MapSetting> mapsSettings) {
+        this.mapsSettings = mapsSettings;
+    }
+
+    @Override
+    public String toString() {
+        return "MapSettings{" +
+                "mapsSettings=" + mapsSettings +
+                '}';
+    }
 }
