@@ -86,7 +86,7 @@ public interface HttpClient {
     /**
      * Get the request parameters.
      *
-     * @return
+     * @return A map containing the request parameters. key=>value
      */
     public Map<String, String> getRequestParameters();
 

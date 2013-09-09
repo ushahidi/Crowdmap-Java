@@ -356,7 +356,7 @@ public class MapService extends CrowdmapService {
      *
      * @param mapId The ID of the map.
      *
-     * @return
+     * @return The Posts
      */
     public Posts getPostOnMap(long mapId) {
         checkId(mapId);

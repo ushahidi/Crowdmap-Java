@@ -89,7 +89,7 @@ public abstract class CrowdmapService {
     /**
      * Check that id is not null and not empty
      *
-     * @return id
+     * @param id The ID to check.
      */
     protected void checkId(long id) {
         if (id == 0) {

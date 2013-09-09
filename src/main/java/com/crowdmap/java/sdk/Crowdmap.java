@@ -165,7 +165,7 @@ public class Crowdmap {
     private static final SessionService newSessionService() {
         return new SessionService();
     }
-    
+
     private static final UserService newUserService() {
         return new UserService();
     }

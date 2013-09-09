@@ -49,8 +49,8 @@ public abstract class BaseServiceTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        httpClient = new CrowdmapHttpClient();
-        crowdmap = new Crowdmap("mcoSiLOiRUXiiAPv", "jodJljijJNiBSLLW");
+        httpClient = new CrowdmapHttpClient("api.crdmp3.com/v1", "http");
+        crowdmap = new Crowdmap(httpClient, "mcoSiLOiRUXiiAPv", "jodJljijJNiBSLLW");
 
         username = "henry@ushahidi.com";
         password = "dontchangeme";

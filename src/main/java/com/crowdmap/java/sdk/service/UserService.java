@@ -89,9 +89,11 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Get a user by the ID
      *
      * @param userId
-     * @return
+     *
+     * @return The User
      */
     public Users getUser(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -216,9 +218,11 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Get the map a user collaborates on.
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID
+     *
+     * @return The maps the user collaborates on.
      */
     public Maps getMapsUserCollaboratesOn(long userId) {
         initSession();
@@ -229,9 +233,11 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Get a user's map.
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID
+     *
+     * @return The maps by the user.
      */
     public Maps getUsersMaps(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -242,9 +248,11 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * The map a user is associated with.
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID
+     *
+     * @return The maps by the user.
      */
     public Maps getUsersAssociatedMaps(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -258,6 +266,7 @@ public class UserService extends CrowdmapService {
      * Get users notifications
      *
      * @param userId The user's ID to be used for fetching the notification details
+     *
      * @return The list of notifications
      */
     public Notifications getNotifications(long userId) {
@@ -270,9 +279,10 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Mark a notification as read
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID
+     * @return The user's notifications
      */
     public Response markNotificationAsRead(long userId) {
         initSession();
@@ -283,7 +293,13 @@ public class UserService extends CrowdmapService {
         return fromString(client.get(url.toString()), Response.class);
     }
 
-
+    /**
+     * Limit the number items to return.
+     *
+     * @param limit The limit number.
+     *
+     * @return The UserSerivce.
+     */
     protected UserService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
@@ -291,6 +307,14 @@ public class UserService extends CrowdmapService {
         return this;
     }
 
+    /**
+     * The offset to use to limit the number of items returned.
+     *
+     * <p><strong>Note:</strong> This requires limit to be set.</p>
+     * @param offset
+     *
+     * @return The UserSerice
+     */
     protected UserService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
