@@ -23,6 +23,7 @@ import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.json.MapSettings;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Media;
+import com.crowdmap.java.sdk.json.Owner;
 import com.crowdmap.java.sdk.json.Posts;
 
 import org.junit.After;
@@ -386,7 +387,34 @@ public class CrowdmapServiceTest extends BaseServiceTest {
 
     @Test
     public void testOwnerDeserialization() throws Exception {
-
+        final String json = "{\n"
+                + "\"owner\": {\n"
+                + "\"user_id\": 50,\n"
+                + "\"crowdmap_id\": \"rnveKhDBP4xlG2u05vXNDL3baQMATgEyJgcf2wdmg6JEjVFDvBC6MrrK6JKwmVyQg3CAy95iaMHKrWY7YneLJk7tfcyYZt1NCinhL7xvIif92dowlc54bMT4yJOpBXDa\",\n"
+                + "\"crowdmap_id_h\": \"a7d72fe05700a9277a47052b8b668a56\",\n"
+                + "\"username\": \"anushshetty\",\n"
+                + "\"name\": \"Anush Shetty\",\n"
+                + "\"bio\": \"\",\n"
+                + "\"plus\": false,\n"
+                + "\"baselayer\": \"crowdmap_satellite\",\n"
+                + "\"instagram_auto_post\": false,\n"
+                + "\"twitter_auto_post\": false,\n"
+                + "\"twitter_auto_post_retweets\": false,\n"
+                + "\"date_registered\": 1365426285,\n"
+                + "\"banned\": \"0\"\n"
+                + "},\n"
+                + "\"success\": true,\n"
+                + "\"status\": 200,\n"
+                + "\"timestamp\": 1378705992,\n"
+                + "\"qcount\": 3,\n"
+                + "\"elapsed\": \"0.1147s\"\n"
+                + "}";
+        Owner owner = CrowdmapService.fromString(json, Owner.class);
+        assertNotNull(owner);
+        assertEquals(50, owner.getOwner().getId());
+        assertEquals("anushshetty", owner.getOwner().getUsername());
+        assertEquals("Anush Shetty", owner.getOwner().getName());
+        assertEquals(200, owner.getStatus());
     }
 
     @Test
