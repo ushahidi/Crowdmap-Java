@@ -21,6 +21,7 @@ import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.json.MapSettings;
+import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Owner;
@@ -419,7 +420,39 @@ public class CrowdmapServiceTest extends BaseServiceTest {
 
     @Test
     public void testMapTagsDeserialization() throws Exception {
-
+        final String json = "{\n"
+                + "\"maps_tags\": [\n"
+                + "{\n"
+                + "\"tag\": \"books\",\n"
+                + "\"users_count\": 1,\n"
+                + "\"maps_count\": 1,\n"
+                + "\"users\": [\n"
+                + "3\n"
+                + "],\n"
+                + "\"maps\": [\n"
+                + "2006\n"
+                + "]\n"
+                + "}\n"
+                + "],\n"
+                + "\"next\": \"https://api.crowdmap.com/v1/maps/tags/books/?apikey=godmode&limit=1&offset=1\",\n"
+                + "\"curr\": \"https://api.crowdmap.com/v1/maps/tags/books/?apikey=godmode&limit=1\",\n"
+                + "\"prev\": false,\n"
+                + "\"success\": true,\n"
+                + "\"status\": 200,\n"
+                + "\"timestamp\": 1378707149,\n"
+                + "\"qcount\": 3,\n"
+                + "\"elapsed\": \"0.0864s\"\n"
+                + "}";
+        MapTags mapTags = CrowdmapService.fromString(json, MapTags.class);
+        assertNotNull(mapTags);
+        assertNotNullOrEmpty("Maps is empty",mapTags.getMapsTags());
+        assertEquals("book", mapTags.getMapsTags().get(0).getTag());
+        assertEquals(1, mapTags.getMapsTags().get(0).getUsersCount());
+        assertEquals(1, mapTags.getMapsTags().get(0).getMapsCount());
+        assertEquals(1, mapTags.getMapsTags().get(0).getUsers().length);
+        assertEquals(3, mapTags.getMapsTags().get(0).getUsers()[0]);
+        assertEquals(1, mapTags.getMapsTags().get(0).getMaps().length);
+        assertEquals(2006, mapTags.getMapsTags().get(0).getMaps()[0]);
     }
 
     @Test
