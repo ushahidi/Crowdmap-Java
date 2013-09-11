@@ -41,7 +41,7 @@ For Daily SNAPSHOTS, Add the repository
 
 #### Gradle
 ```
-'com.crowdmap:java-sdk:1.0.SNAPSHOT'
+'com.crowdmap:java-sdk:1.0.0-SNAPSHOT'
 ```
 
 #### Maven
