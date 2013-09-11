@@ -145,4 +145,6 @@ public interface HttpClient {
      * @return The socket timeout in milliseconds
      */
     public int getSocketTimeout();
+
+    public String requestUrl = null;
 }

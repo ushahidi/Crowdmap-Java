@@ -89,6 +89,8 @@ public abstract class BaseHttpClient {
 
     protected String baseUri;
 
+    public String requestUrl;
+
     /**
      * Create default HTTP client
      */
@@ -317,7 +319,7 @@ public abstract class BaseHttpClient {
      * @return The input stream
      */
     protected InputStream getRequest(String url, int expected) {
-        HttpURLConnection request = null;
+        HttpURLConnection request;
 
         try {
 
@@ -331,6 +333,8 @@ public abstract class BaseHttpClient {
                             + getParametersString(requestParameters));
                 }
             }
+
+            requestUrl = apiUrl.getHost()+apiUrl.getHost()+apiUrl.getPath()+apiUrl.getQuery();
 
             request = openConnection(apiUrl, "GET");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
@@ -855,6 +859,11 @@ public abstract class BaseHttpClient {
      */
     private HttpURLConnection openConnection(URL u, String method)
             throws IOException {
+        // This fixes an issue with Android sending POST request if setDoOutput is true instead
+        // of the GET request
+        if(method.equals("GET")) {
+            return openConnection(u, method, false);
+        }
         return openConnection(u, method, true);
     }
 
