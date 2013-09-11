@@ -92,4 +92,13 @@ public class UtilityService extends CrowdmapService {
         getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
         return this;
     }
+
+    @Override
+    public UtilityService setSessionToken(String sessionToken) {
+        if ((sessionToken == null) || (sessionToken.length() == 0)) {
+            throw new IllegalArgumentException("Session token cannot be null or empty");
+        }
+        getHttpClient().setSessionToken(sessionToken);
+        return this;
+    }
 }

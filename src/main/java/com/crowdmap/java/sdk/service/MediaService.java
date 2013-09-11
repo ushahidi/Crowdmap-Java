@@ -62,7 +62,7 @@ public class MediaService extends CrowdmapService {
     }
 
     public Media createMedia(MediaForm form) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
         setApiKey(METHOD_POST, url.toString());
         return fromString(client.multipartPost(url.toString(), form.getParameters()), Media.class);
@@ -70,7 +70,7 @@ public class MediaService extends CrowdmapService {
 
     public Response deleteMedia(long mediaId) {
         checkId(mediaId);
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
         url.append(mediaId);
         setApiKey(METHOD_DELETE, url.toString());
@@ -91,6 +91,15 @@ public class MediaService extends CrowdmapService {
         }
 
         getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
+    }
+
+    @Override
+    public MediaService setSessionToken(String sessionToken) {
+        if ((sessionToken == null) || (sessionToken.length() == 0)) {
+            throw new IllegalArgumentException("Session token cannot be null or empty");
+        }
+        getHttpClient().setSessionToken(sessionToken);
         return this;
     }
 }

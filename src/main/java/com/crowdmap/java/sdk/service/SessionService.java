@@ -63,4 +63,9 @@ public class SessionService extends CrowdmapService {
         getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
         return this;
     }
+
+    @Override
+    public SessionService setSessionToken(String sessionToken) {
+        return null;
+    }
 }

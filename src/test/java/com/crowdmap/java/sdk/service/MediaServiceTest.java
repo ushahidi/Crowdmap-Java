@@ -27,7 +27,7 @@ public class MediaServiceTest extends BaseServiceTest {
     @Test
     public void testGetMedia() throws Exception {
         Media media = mMediaService.getMedia();
-        System.out.println(media);
+        assertNotNull(media);
     }
 
     @Test

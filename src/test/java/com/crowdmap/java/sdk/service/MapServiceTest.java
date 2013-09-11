@@ -76,8 +76,7 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetMapAsAuthenicatedUser() throws Exception {
-        mapService.setSessionToken(session.getSessionToken());
-        Maps map = mapService.getMapAsAuthenicatedUser(mapId);
+        Maps map = mapService.setSessionToken(session.getSessionToken()).getMapAsAuthenicatedUser(mapId);
         assertNotNull(map);
         assertNotNullOrEmpty("No maps", map.getMaps());
         assertNotNull(map.getMaps().get(0).getId());

@@ -33,7 +33,7 @@ public class ExternalService extends CrowdmapService {
      * @return The external
      */
     public Externals createExternal(ExternalForm form) {
-        initSession();
+        validateSession();
         return fromString(client.post(SEGMENT_EXTERNALS, form.getParameters()),
                 Externals.class);
     }
@@ -72,4 +72,12 @@ public class ExternalService extends CrowdmapService {
         return this;
     }
 
+    @Override
+    public ExternalService setSessionToken(String sessionToken) {
+        if ((sessionToken == null) || (sessionToken.length() == 0)) {
+            throw new IllegalArgumentException("Session token cannot be null or empty");
+        }
+        getHttpClient().setSessionToken(sessionToken);
+        return this;
+    }
 }

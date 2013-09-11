@@ -104,9 +104,11 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Update user avatar
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID
+     *
+     * @return The updated user
      */
     public User updateUserAvatar(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -122,6 +124,8 @@ public class UserService extends CrowdmapService {
      * Delete a user's avatar
      *
      * @param userId The user's ID
+     *
+     * @return  The user.
      */
     public User deleteUserAvatar(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -133,9 +137,11 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Get Users followed by a particular users
      *
-     * @param userId
-     * @return
+     * @param userId The user ID of the user to get his/her followers.
+     *
+     * @return The users
      */
     public Users getUsersFollowedBy(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -148,6 +154,8 @@ public class UserService extends CrowdmapService {
 
     /**
      * Verify that a user follows the provided user ID
+     *
+     * @return The Users
      */
     public Users verifyUsersFollowing(long userId, long followerId) {
 
@@ -162,9 +170,10 @@ public class UserService extends CrowdmapService {
     }
 
     /**
-     *
+     * Get a User's followers
      * @param userId
-     * @return
+     *
+     * @return The User the user follows
      */
     public Users getUsersFollowers(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -179,9 +188,11 @@ public class UserService extends CrowdmapService {
      * Follow a user.
      *
      * This requires authentication
+     *
+     * @return The Users the user follows with the new user the user is following.
      */
     public Users followUser(long userId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
@@ -189,12 +200,14 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     * Stop following a user
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID
+     *
+     * @return The users the user follows without including the user the user stopped following.
      */
     public Users stopFollowingUser(long userId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
@@ -203,13 +216,15 @@ public class UserService extends CrowdmapService {
     }
 
     /**
+     *  Get the map the user follows
      *
-     * @param userId
-     * @return
+     * @param userId The user's ID
+     *
+     * @return The map the user follows
      */
     public Maps getUserFollowedMap(long userId) {
         // Set session token
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_FOLLOWING);
@@ -225,7 +240,7 @@ public class UserService extends CrowdmapService {
      * @return The maps the user collaborates on.
      */
     public Maps getMapsUserCollaboratesOn(long userId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_COLLABORATING);
@@ -270,7 +285,7 @@ public class UserService extends CrowdmapService {
      * @return The list of notifications
      */
     public Notifications getNotifications(long userId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
@@ -285,7 +300,7 @@ public class UserService extends CrowdmapService {
      * @return The user's notifications
      */
     public Response markNotificationAsRead(long userId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
@@ -321,6 +336,15 @@ public class UserService extends CrowdmapService {
         }
 
         getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
+    }
+
+    @Override
+    public UserService setSessionToken(String sessionToken) {
+        if ((sessionToken == null) || (sessionToken.length() == 0)) {
+            throw new IllegalArgumentException("Session token cannot be null or empty");
+        }
+        getHttpClient().setSessionToken(sessionToken);
         return this;
     }
 }

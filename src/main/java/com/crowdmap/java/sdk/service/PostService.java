@@ -109,13 +109,13 @@ public class PostService extends CrowdmapService {
      * @return The post created
      */
     public Posts createPost(PostForm form) {
-        initSession();
+        validateSession();
         setApiKey(METHOD_POST, SEGMENT_POSTS);
         return fromString(client.post(SEGMENT_POSTS, form.getParameters()), Posts.class);
     }
 
     public Response deletePost(long postId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
@@ -131,7 +131,7 @@ public class PostService extends CrowdmapService {
      * @return The post updated
      */
     public Posts updatePost(long postId, PostForm form) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
@@ -161,7 +161,7 @@ public class PostService extends CrowdmapService {
      * @return The liked posts.
      */
     public Posts likePost(long postId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_LIKE);
@@ -176,7 +176,7 @@ public class PostService extends CrowdmapService {
      * @return The un-liked posts
      */
     public Posts unLikePost(long postId) {
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_LIKE);
@@ -215,7 +215,7 @@ public class PostService extends CrowdmapService {
     public Comments postComment(long postId, long mapId, CommentForm form) {
         checkId(postId);
         checkId(mapId);
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_COMMENTS);
@@ -228,7 +228,7 @@ public class PostService extends CrowdmapService {
     public Comments deletePostComments(long postId, long commentId) {
         checkId(postId);
         checkId(commentId);
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_COMMENTS);
@@ -247,7 +247,7 @@ public class PostService extends CrowdmapService {
      */
     public Posts deletePostFromMap(long postId) {
         checkId(postId);
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_MAPS);
@@ -263,7 +263,7 @@ public class PostService extends CrowdmapService {
      */
     public Posts createPostMap(long postId) {
         checkId(postId);
-        initSession();
+        validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_MAPS);
@@ -286,6 +286,15 @@ public class PostService extends CrowdmapService {
         }
 
         getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
+    }
+
+    @Override
+    public PostService setSessionToken(String sessionToken) {
+        if ((sessionToken == null) || (sessionToken.length() == 0)) {
+            throw new IllegalArgumentException("Session token cannot be null or empty");
+        }
+        getHttpClient().setSessionToken(sessionToken);
         return this;
     }
 }

@@ -24,6 +24,7 @@ import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.crowdmap.java.sdk.net.HttpClient;
+import com.crowdmap.java.sdk.net.ICrowdmapConstants;
 import com.crowdmap.java.sdk.util.Util;
 import com.crowdmap.java.sdk.util.ValidateUtil;
 
@@ -64,7 +65,7 @@ public abstract class CrowdmapService {
      */
     private String publicKey;
 
-    private String sessionToken;
+    protected String sessionToken;
 
     /**
      * Set the default {@link com.crowdmap.java.sdk.net.HttpClient}
@@ -119,12 +120,7 @@ public abstract class CrowdmapService {
         return gson.toJson(obj);
     }
 
-    public void setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        this.sessionToken = sessionToken;
-    }
+    public abstract CrowdmapService setSessionToken(String sessionToken);
 
     public String getPublicKey() {
         return publicKey;
@@ -153,16 +149,12 @@ public abstract class CrowdmapService {
         client.setApiKey(apiKey);
     }
 
-    protected void initSession() {
-        if (ValidateUtil.empty(sessionToken)) {
+    protected void validateSession() {
+        if (!client.getRequestParameters().containsKey(ICrowdmapConstants.SESSION)) {
             throw new IllegalArgumentException(
                     "This action requires a valid sessionToken. You will have to login then provide the "
                             + "sessionToken id returned");
         }
-        client.setSessionToken(this.sessionToken);
     }
 
-    public String getSessionToken() {
-        return sessionToken;
-    }
 }

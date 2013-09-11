@@ -34,7 +34,7 @@ public class LocationService extends CrowdmapService {
      * @return The list of locations including the newly created location.
      */
     public Locations createLocation(LocationForm form) {
-        initSession();
+        validateSession();
         return fromString(client.post(SEGMENT_LOCATIONS, form.getParameters()),
                 Locations.class);
     }
@@ -65,6 +65,16 @@ public class LocationService extends CrowdmapService {
         }
 
         getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
+        return this;
+    }
+
+
+    @Override
+    public LocationService setSessionToken(String sessionToken) {
+        if ((sessionToken == null) || (sessionToken.length() == 0)) {
+            throw new IllegalArgumentException("Session token cannot be null or empty");
+        }
+        getHttpClient().setSessionToken(sessionToken);
         return this;
     }
 }
