@@ -42,7 +42,6 @@ public class MediaService extends CrowdmapService {
         // set the apikey for the request
         client.setApiKey(apiKey);
         final String json = client.get(SEGMENT_MEDIA);
-        System.out.println(json);
         Media mediaJson = fromString(json, Media.class);
         return mediaJson;
     }
