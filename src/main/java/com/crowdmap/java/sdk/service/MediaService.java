@@ -20,6 +20,7 @@ import com.crowdmap.java.sdk.util.Util;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
@@ -36,11 +37,9 @@ public class MediaService extends CrowdmapService {
         //Crowdmap requires a new api signature every 2 minutes
         // so before a request is made, generate a new key
         //generate the api key
-        final String apiKey = Util
-                .generateSignature("GET", SEGMENT_MEDIA, getPublicKey(), getPrivateKey());
 
         // set the apikey for the request
-        client.setApiKey(apiKey);
+        setApiKey(METHOD_GET, SEGMENT_MEDIA);
         final String json = client.get(SEGMENT_MEDIA);
         Media mediaJson = fromString(json, Media.class);
         return mediaJson;
@@ -56,6 +55,7 @@ public class MediaService extends CrowdmapService {
         checkId(mediaId);
         StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
         url.append(mediaId);
+        setApiKey(METHOD_GET, url.toString());
         String response = client.get(url.toString());
         Media mediaJson = fromString(response, Media.class);
         return mediaJson;
