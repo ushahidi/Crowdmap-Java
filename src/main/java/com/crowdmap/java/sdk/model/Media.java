@@ -102,13 +102,13 @@ public class Media implements Serializable {
      * The width of large media
      */
     @SerializedName("l_width")
-    private String largeWidth;
+    private int largeWidth;
 
     /**
      * The height of the large media
      */
     @SerializedName("l_height")
-    private String largeHeight;
+    private int largeHeight;
 
     /**
      * The small media file name
@@ -138,13 +138,13 @@ public class Media implements Serializable {
      * The medai's thumbnail width
      */
     @SerializedName("t_width")
-    private String thumbnailWidth;
+    private int thumbnailWidth;
 
     /**
      * The media's thumbnail height
      */
     @SerializedName("t_height")
-    private String thumbnailHeight;
+    private int thumbnailHeight;
 
     /**
      * The media mime type
@@ -330,28 +330,28 @@ public class Media implements Serializable {
     /**
      * @return the largeWidth
      */
-    public String getLargeWidth() {
+    public int getLargeWidth() {
         return largeWidth;
     }
 
     /**
      * @param largeWidth the largeWidth to set
      */
-    public void setLargeWidth(String largeWidth) {
+    public void setLargeWidth(int largeWidth) {
         this.largeWidth = largeWidth;
     }
 
     /**
      * @return the largeHeight
      */
-    public String getLargeHeight() {
+    public int getLargeHeight() {
         return largeHeight;
     }
 
     /**
      * @param largeHeight the largeHeight to set
      */
-    public void setLargeHeight(String largeHeight) {
+    public void setLargeHeight(int largeHeight) {
         this.largeHeight = largeHeight;
     }
 
@@ -414,28 +414,28 @@ public class Media implements Serializable {
     /**
      * @return the thumbnailWidth
      */
-    public String getThumbnailWidth() {
+    public int getThumbnailWidth() {
         return thumbnailWidth;
     }
 
     /**
      * @param thumbnailWidth the thumbnailWidth to set
      */
-    public void setThumbnailWidth(String thumbnailWidth) {
+    public void setThumbnailWidth(int thumbnailWidth) {
         this.thumbnailWidth = thumbnailWidth;
     }
 
     /**
      * @return the thumbnailHeight
      */
-    public String getThumbnailHeight() {
+    public int getThumbnailHeight() {
         return thumbnailHeight;
     }
 
     /**
      * @param thumbnailHeight the thumbnailHeight to set
      */
-    public void setThumbnailHeight(String thumbnailHeight) {
+    public void setThumbnailHeight(int thumbnailHeight) {
         this.thumbnailHeight = thumbnailHeight;
     }
 
