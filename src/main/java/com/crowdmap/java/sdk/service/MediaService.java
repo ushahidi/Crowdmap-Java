@@ -50,12 +50,13 @@ public class MediaService extends CrowdmapService {
     /**
      * Get a specific media
      *
-     * @param id The ID of the media
+     * @param mediaId The ID of the media
      * @return Media Object
      */
-    public Media getMedia(String id) {
+    public Media getMedia(long mediaId) {
+        checkId(mediaId);
         StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        url.append(id);
+        url.append(mediaId);
         String response = client.get(url.toString());
         Media mediaJson = fromString(response, Media.class);
         return mediaJson;
