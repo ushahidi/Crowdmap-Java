@@ -620,14 +620,14 @@ public class MapService extends CrowdmapService {
     }
 
 
-    protected MapService limit(int limit) {
+    public MapService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
-    protected MapService offset(int offset) {
+    public MapService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }

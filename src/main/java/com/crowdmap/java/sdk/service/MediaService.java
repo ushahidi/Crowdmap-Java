@@ -78,14 +78,14 @@ public class MediaService extends CrowdmapService {
     }
 
 
-    protected MediaService limit(int limit) {
+    public MediaService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
-    protected MediaService offset(int offset) {
+    public MediaService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }

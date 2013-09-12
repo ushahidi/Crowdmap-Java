@@ -315,7 +315,7 @@ public class UserService extends CrowdmapService {
      *
      * @return The UserSerivce.
      */
-    protected UserService limit(int limit) {
+    public UserService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
@@ -330,7 +330,7 @@ public class UserService extends CrowdmapService {
      *
      * @return The UserSerice
      */
-    protected UserService offset(int offset) {
+    public UserService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }

@@ -48,14 +48,14 @@ public class SessionService extends CrowdmapService {
                 Session.class);
     }
 
-    protected SessionService limit(int limit) {
+    public SessionService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
-    protected SessionService offset(int offset) {
+    public SessionService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }

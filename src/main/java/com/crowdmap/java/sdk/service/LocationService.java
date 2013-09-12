@@ -52,14 +52,14 @@ public class LocationService extends CrowdmapService {
 
     }
 
-    protected LocationService limit(int limit) {
+    public LocationService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
-    protected LocationService offset(int offset) {
+    public LocationService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }

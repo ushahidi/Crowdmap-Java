@@ -56,14 +56,14 @@ public class ExternalService extends CrowdmapService {
 
     }
 
-    protected ExternalService limit(int limit) {
+    public ExternalService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
-    protected ExternalService offset(int offset) {
+    public ExternalService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }

@@ -72,14 +72,14 @@ public class ModerationService extends CrowdmapService {
     }
 
 
-    protected ModerationService limit(int limit) {
+    public ModerationService limit(int limit) {
         if (limit > 0) {
             getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
         }
         return this;
     }
 
-    protected ModerationService offset(int offset) {
+    public ModerationService offset(int offset) {
         if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
             throw new IllegalArgumentException("Requires that a limit be set.");
         }
