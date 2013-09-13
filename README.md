@@ -18,6 +18,18 @@ final String about = crowdmap.utilityService().about().toString();
 System.out.println(about);
 ```
 
+### Demo Android apps
+#### Media Gallery
+A gallery app that download images submitted to Crowdmap.
+
+#### Profile
+An app that allows you to login to Crowdmap then displays the profile of the logged in user.
+
+You can get the demo apps from
+
+``
+
+
 ### Building
 The project is built with Gradle
 
@@ -58,5 +70,5 @@ For Daily SNAPSHOTS, Add the repository
 This project is released under the `GNU AFFERO GENERAL PUBLIC LICENSE Version 3`
 See the [license][2] file for more details.
 
-[1]: https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE
-[2]: https://github.com/ushahidi/Crowdmap-Java/
+[1]: https://github.com/ushahidi/Crowdmap-Java/
+[2]: https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE
