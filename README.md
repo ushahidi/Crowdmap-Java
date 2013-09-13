@@ -31,7 +31,7 @@ An app that allows you to login to Crowdmap then displays the profile of the log
 
 You can get the demo apps from the link below
 
-`https://github.com/ushahidi/Crowdmap-Android`
+https://github.com/ushahidi/Crowdmap-Android
 
 
 ### Building
