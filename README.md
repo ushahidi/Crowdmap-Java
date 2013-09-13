@@ -29,9 +29,9 @@ A gallery app that download images submitted to Crowdmap.
 An app that allows you to login to Crowdmap then displays the profile of the logged in user.
 ![](https://raw.github.com/ushahidi/Crowdmap-Android/master/screenshots/profile_framed.png)
 
-You can get the demo apps from
+You can get the demo apps from the link below
 
-``
+`https://github.com/ushahidi/Crowdmap-Android`
 
 
 ### Building
