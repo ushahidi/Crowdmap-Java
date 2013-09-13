@@ -18,12 +18,16 @@ final String about = crowdmap.utilityService().about().toString();
 System.out.println(about);
 ```
 
-### Demo Android apps
+Demo Android apps
+=================
 #### Media Gallery
 A gallery app that download images submitted to Crowdmap.
+![](https://raw.github.com/ushahidi/Crowdmap-Android/master/screenshots/nexu4_landscape_framed.png)
+
 
 #### Profile
 An app that allows you to login to Crowdmap then displays the profile of the logged in user.
+![](https://raw.github.com/ushahidi/Crowdmap-Android/master/screenshots/profile_framed.png)
 
 You can get the demo apps from
 
