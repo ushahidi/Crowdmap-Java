@@ -1,7 +1,6 @@
 ### Introduction.
 A Java wrapper for the Crowdmap API. It wraps the raw HTTP calls to the Crowdmap APIs. The goal of
-this SDK is to ease Crowdmap API integration into your Java applications. For more information on the
-Crowdmap API, Go to https://api.crowdmap.com/developers/v1/
+this SDK is to ease Crowdmap API integration into your Java applications. For more information, go to https://api.crowdmap.com/developers/v1/
 
 ### Usage
 
