@@ -33,7 +33,7 @@ public class PostForm extends Form {
     private int fsqVenueId;
 
     @FormField(name="map_id")
-    private int mapId;
+    private long mapId;
 
     @FormField(name = "tweet")
     private int tweet;
@@ -127,11 +127,11 @@ public class PostForm extends Form {
         this.media = media;
     }
 
-    public int getMapId() {
+    public long getMapId() {
         return mapId;
     }
 
-    public void setMapId(int mapId) {
+    public void setMapId(long mapId) {
         this.mapId = mapId;
     }
 
