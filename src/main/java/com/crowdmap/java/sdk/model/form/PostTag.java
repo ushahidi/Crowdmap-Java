@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * Post tag
  */
-public class PostTag  implements Serializable {
+public class PostTag implements Serializable {
 
     private static final long serialVersionUID = 5523825368925745125L;
 

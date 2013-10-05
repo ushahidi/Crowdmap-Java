@@ -111,7 +111,7 @@ public class PostService extends CrowdmapService {
     public Posts createPost(PostForm form) {
         validateSession();
         setApiKey(METHOD_POST, SEGMENT_POSTS);
-        return fromString(client.post(SEGMENT_POSTS, form.getParameters()), Posts.class);
+        return fromString(client.multipartPost(SEGMENT_POSTS, form.getParameters()), Posts.class);
     }
 
     public Response deletePost(long postId) {

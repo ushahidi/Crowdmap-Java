@@ -15,7 +15,7 @@ public class PostForm extends Form {
     private String message;
 
     @FormField(name = "public")
-    private boolean isPublic;
+    private int isPublic;
 
     @FormField(name = "locations[name]")
     private String locationName;
@@ -32,7 +32,7 @@ public class PostForm extends Form {
     @FormField(name = "locations[fsq_venue_id]")
     private int fsqVenueId;
 
-    @FormField(name="map_id")
+    @FormField(name = "map_id")
     private long mapId;
 
     @FormField(name = "tweet")
@@ -41,7 +41,7 @@ public class PostForm extends Form {
     @FormField(name = "externals[url]")
     private String externalUrl;
 
-    @FormField(name = "media[file]")
+    @FormField(name = "file")
     private File media;
 
     public String getMessage() {
@@ -55,12 +55,16 @@ public class PostForm extends Form {
         this.message = message;
     }
 
-    public boolean getPublic() {
+    public int getPublic() {
         return isPublic;
     }
 
     public void setPublic(boolean aPublic) {
-        isPublic = aPublic;
+        if (aPublic) {
+            isPublic = 1;
+        } else {
+            isPublic = 0;
+        }
     }
 
     public String getLocationName() {
