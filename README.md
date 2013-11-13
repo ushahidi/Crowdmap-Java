@@ -75,3 +75,7 @@ See the [license][2] file for more details.
 
 [1]: https://github.com/ushahidi/Crowdmap-Java/
 [2]: https://github.com/ushahidi/Crowdmap-Java/blob/master/LICENSE
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ushahidi/crowdmap-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
