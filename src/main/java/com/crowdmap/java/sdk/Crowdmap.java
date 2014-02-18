@@ -13,7 +13,16 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import com.crowdmap.java.sdk.json.Date;
+import com.crowdmap.java.sdk.json.DateDeserializer;
+import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.Session;
+import com.crowdmap.java.sdk.json.UsersDeserializer;
+import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.model.form.LoginForm;
 import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.crowdmap.java.sdk.net.HttpClient;
@@ -28,6 +37,23 @@ import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
 import com.crowdmap.java.sdk.util.ValidateUtil;
+import com.squareup.okhttp.OkHttpClient;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import javax.inject.Singleton;
+
+import dagger.Provides;
+import retrofit.Endpoint;
+import retrofit.RestAdapter;
+import retrofit.Server;
+import retrofit.client.Client;
+import retrofit.client.OkClient;
+import retrofit.converter.GsonConverter;
+
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.CROWDMAP_API;
+import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
  * Creates the various Crowdmap API resources. Create an object of this class to get to the various
@@ -46,22 +72,6 @@ public class Crowdmap {
     private String publicKey;
 
     /**
-     * Connection timeout (in milliseconds).
-     */
-
-    private Integer connectionTimeout;
-
-    /**
-     * Socket timeout (in milliseconds).
-     */
-    private Integer socketTimeout;
-
-    /**
-     * The HTTP client to use.
-     */
-    private HttpClient httpClient;
-
-    /**
      * Default constructor
      *
      * @param publicKey The Crowdmap public key.
@@ -69,6 +79,20 @@ public class Crowdmap {
      * @param privateKey The Crowdmap private key.
      */
 
+    private static Gson gson;
+
+    static {
+        Type userListType = new TypeToken<List<User>>() {
+        }.getType();
+        Type type = new TypeToken<Response>() {
+
+        }.getType();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Date.class, new DateDeserializer());
+        builder.registerTypeAdapter(userListType, new UsersDeserializer());
+        builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
+        gson = builder.create();
+    }
     public Crowdmap(String publicKey, String privateKey) {
         if (ValidateUtil.empty(publicKey)) {
             throw new IllegalArgumentException(
@@ -83,19 +107,29 @@ public class Crowdmap {
         this.publicKey = publicKey;
 
         this.privateKey = privateKey;
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(CROWDMAP_API)
+                .setConverter(new GsonConverter(gson))
+                .build();
     }
 
-    /**
-     * Provide custom implementation of the HTTP client.
-     *
-     * @param httpClient The custom HTTP client to use.
-     *
-     * @param publicKey The Crowdmap public key.
-     * @param privateKey The Crowdmap private key.
-     */
-    public Crowdmap(HttpClient httpClient, String publicKey, String privateKey) {
-        this(publicKey, privateKey);
-        this.httpClient = httpClient;
+    @Provides
+    @Singleton
+    Client provideClient(OkHttpClient client) {
+        return new OkClient(client);
+    }
+
+    @Provides @Singleton
+    RestAdapter provideRestAdapter(Endpoint endpoint, Client client) {
+        return new RestAdapter.Builder() //
+                .setClient(client) //
+                .setEndpoint(endpoint) //
+                .build();
+    }
+
+    @Provides @Singleton GalleryService provideGalleryService(RestAdapter restAdapter) {
+        return restAdapter.create(GalleryService.class);
     }
 
     /**
