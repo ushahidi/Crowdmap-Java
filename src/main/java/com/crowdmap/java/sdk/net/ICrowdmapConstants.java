@@ -44,7 +44,8 @@ public interface ICrowdmapConstants {
 
     public static final String CROWDMAP_API = HOST_API + "/" + API_VERSION;
 
-    public static final String CROWDMAP_HOST_API = PROTOCOL_HTTPS+ "://"+HOST_API + "/" + API_VERSION;
+    public static final String CROWDMAP_HOST_API = PROTOCOL_HTTPS + "://" + HOST_API + "/"
+            + API_VERSION;
     public static final String USER_AGENT = "Crowdmap-Java-SDK/" + VERSION;
 
     public static final String GZIP_DEFLATE = "gzip";

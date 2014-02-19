@@ -23,8 +23,6 @@ import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_ABOUT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_HEARTBEAT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OEMBED;

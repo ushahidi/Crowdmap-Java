@@ -14,12 +14,9 @@
 
 package com.crowdmap.java.sdk;
 
-import javax.inject.Singleton;
-
 /**
  * Both public and private api key
  */
-@Singleton
 public final class ApiKeys {
 
     /**

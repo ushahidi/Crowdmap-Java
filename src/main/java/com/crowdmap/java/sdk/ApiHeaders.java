@@ -16,17 +16,13 @@ package com.crowdmap.java.sdk;
 
 import com.crowdmap.java.sdk.util.ValidateUtil;
 
-import javax.inject.Singleton;
-
 import retrofit.RequestInterceptor;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.GZIP_DEFLATE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
 
 /**
- * Created by eyedol on 2/19/14.
+ * HTTP Headers
  */
-@Singleton
 public final class ApiHeaders implements RequestInterceptor {
 
     /**
@@ -46,7 +42,6 @@ public final class ApiHeaders implements RequestInterceptor {
 
     @Override
     public void intercept(RequestFacade request) {
-        request.addHeader("content-type", "application/json");
         request.addHeader("User-Agent", getUserAgent());
     }
 

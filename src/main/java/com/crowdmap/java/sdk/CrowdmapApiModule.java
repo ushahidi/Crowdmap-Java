@@ -19,7 +19,6 @@ import com.google.gson.reflect.TypeToken;
 
 import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.DateDeserializer;
-import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.ICrowdmapConstants;
@@ -31,7 +30,6 @@ import com.squareup.okhttp.OkHttpClient;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import dagger.Module;
 import retrofit.Endpoint;
 import retrofit.Endpoints;
 import retrofit.RestAdapter;
@@ -46,10 +44,6 @@ import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
  * Creates the various Crowdmap API resources. Create an object of this class to get to the various
  * services supported by the Crowdmap API.
  */
-@Module(
-        complete = false,
-        library = true
-)
 public class CrowdmapApiModule {
 
     private static Gson gson;
@@ -79,7 +73,7 @@ public class CrowdmapApiModule {
                 .setClient(client)
                 .setEndpoint(endpoint)
                 .setRequestInterceptor(headers)
-                //.setLogLevel(RestAdapter.LogLevel.FULL)
+                        //.setLogLevel(RestAdapter.LogLevel.FULL)
                 .setConverter(new GsonConverter(gson))
                 .build();
     }
@@ -95,7 +89,7 @@ public class CrowdmapApiModule {
     }
 
     public UtilityService utilityService() {
-        UtilityInterface  utilityInterface = restAdapter.create(UtilityInterface.class);
+        UtilityInterface utilityInterface = restAdapter.create(UtilityInterface.class);
         return new UtilityService(utilityInterface, apiKeys);
     }
 

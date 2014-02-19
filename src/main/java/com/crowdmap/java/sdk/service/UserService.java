@@ -44,9 +44,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
  */
 public class UserService extends CrowdmapService {
 
-    public UserService(ApiKeys keys){
+    public UserService(ApiKeys keys) {
         super(keys);
     }
+
     /**
      * Get users registered on Crowdmap
      *

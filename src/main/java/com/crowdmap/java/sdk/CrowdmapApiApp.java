@@ -17,16 +17,13 @@ package com.crowdmap.java.sdk;
 import com.crowdmap.java.sdk.service.UtilityService;
 import com.crowdmap.java.sdk.util.ValidateUtil;
 
-import javax.inject.Inject;
-
-import dagger.ObjectGraph;
-
 /**
  * Crowdmap Api app
  */
 public class CrowdmapApiApp {
 
     CrowdmapApiModule module;
+
     public CrowdmapApiApp(String privateKey, String publicKey) {
         if (ValidateUtil.empty(publicKey)) {
             throw new IllegalArgumentException(
