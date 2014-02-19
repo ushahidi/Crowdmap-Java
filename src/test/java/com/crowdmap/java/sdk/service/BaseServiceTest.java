@@ -27,7 +27,6 @@ import java.util.Collection;
 
 /**
  * The base class for testing all the task supported by the Ushahidi API
- *
  */
 public abstract class BaseServiceTest extends TestCase {
 

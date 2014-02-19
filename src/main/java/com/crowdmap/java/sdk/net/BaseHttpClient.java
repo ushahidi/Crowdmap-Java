@@ -218,7 +218,7 @@ public abstract class BaseHttpClient {
      * @param is the input stream to be converted to string
      * @return the converted string
      */
-    protected String streamToString(InputStream is) {
+    public String streamToString(InputStream is) {
         /*
          * To convert the InputStream to String we use the
 		 * BufferedReader.readLine() method. We iterate until the BufferedReader
@@ -334,7 +334,7 @@ public abstract class BaseHttpClient {
                 }
             }
 
-            requestUrl = apiUrl.getHost()+apiUrl.getHost()+apiUrl.getPath()+apiUrl.getQuery();
+            requestUrl = apiUrl.getHost() + apiUrl.getHost() + apiUrl.getPath() + apiUrl.getQuery();
 
             request = openConnection(apiUrl, "GET");
             request.setRequestProperty("Content-Type", CONTENT_TYPE_JSON
@@ -861,7 +861,7 @@ public abstract class BaseHttpClient {
             throws IOException {
         // This fixes an issue with Android sending POST request if setDoOutput is true instead
         // of the GET request
-        if(method.equals("GET")) {
+        if (method.equals("GET")) {
             return openConnection(u, method, false);
         }
         return openConnection(u, method, true);

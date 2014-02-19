@@ -172,7 +172,9 @@ public class CrowdmapServiceTest extends BaseServiceTest {
         assertEquals("https://twitter.com/favicons/favicon.ico",
                 externals.getExternals().get(0).getFaviconUrl());
         // Fails no matter what. commenting it out for now.
-        assertEquals("<blockquote class=\"twitter-tweet\"><p>War on drugs? &#39;Them&#39; against &#39;us&#39; is out! <a href=\"http://t.co/yjJMDKDaN1\">http://t.co/yjJMDKDaN1</a> ▸ Top stories today via <a href=\"https://twitter.com/HipHopHillbill\">@HipHopHillbill</a> <a href=\"https://twitter.com/spacejam_mtgo\">@spacejam_mtgo</a> <a href=\"https://twitter.com/EBrownGomez\">@EBrownGomez</a></p>&mdash; harlechnnorfolk (@harlechnnorfolk) <a href=\"https://twitter.com/harlechnnorfolk/statuses/376883832215310336\">September 9, 2013</a></blockquote>\n", externals.getExternals().get(0).getEmbedHtml());
+        assertEquals(
+                "<blockquote class=\"twitter-tweet\"><p>War on drugs? &#39;Them&#39; against &#39;us&#39; is out! <a href=\"http://t.co/yjJMDKDaN1\">http://t.co/yjJMDKDaN1</a> ▸ Top stories today via <a href=\"https://twitter.com/HipHopHillbill\">@HipHopHillbill</a> <a href=\"https://twitter.com/spacejam_mtgo\">@spacejam_mtgo</a> <a href=\"https://twitter.com/EBrownGomez\">@EBrownGomez</a></p>&mdash; harlechnnorfolk (@harlechnnorfolk) <a href=\"https://twitter.com/harlechnnorfolk/statuses/376883832215310336\">September 9, 2013</a></blockquote>\n",
+                externals.getExternals().get(0).getEmbedHtml());
         assertEquals(
                 "https://api.crowdmap.com/v1/externals/?apikey=AmcoSiLOiRUXiiAPv478e1113546b9c36d58547719c775a431ed5447e&limit=1&offset=1",
                 externals.getNext());
@@ -620,19 +622,22 @@ public class CrowdmapServiceTest extends BaseServiceTest {
         assertNotNull(users);
         assertNotNullOrEmpty("Users list is empty", users.getUsers());
         assertEquals(3293, users.getUsers().get(0).getId());
-        assertEquals("12Y3vkSlgLKC4cxm5atkFzoBz1EyjtziC0SybkJxOmzD6PGgAwCCzCCOGJHKVqnKq1xL3cfErjBdAR4czP0hfb1jimVMhksxhC3aWZRjvGaAcGiFvpxfeGFuWnWLHma3", users.getUsers().get(0).getCrowdmapId());
-        assertEquals("f4d1f526e2fb3e10445d04737ce75faf",users.getUsers().get(0).getCrowdmapIdH());
+        assertEquals(
+                "12Y3vkSlgLKC4cxm5atkFzoBz1EyjtziC0SybkJxOmzD6PGgAwCCzCCOGJHKVqnKq1xL3cfErjBdAR4czP0hfb1jimVMhksxhC3aWZRjvGaAcGiFvpxfeGFuWnWLHma3",
+                users.getUsers().get(0).getCrowdmapId());
+        assertEquals("f4d1f526e2fb3e10445d04737ce75faf", users.getUsers().get(0).getCrowdmapIdH());
         assertEquals("kjs", users.getUsers().get(0).getUsername());
         assertEquals("Kevin Skinner", users.getUsers().get(0).getName());
         assertEquals("", users.getUsers().get(0).getBio());
-        assertEquals(false,users.getUsers().get(0).isPlus());
+        assertEquals(false, users.getUsers().get(0).isPlus());
         assertEquals("crowdmap_satellite", users.getUsers().get(0).getBaselayer());
-        assertEquals(false,users.getUsers().get(0).isInstagramAutoPost());
+        assertEquals(false, users.getUsers().get(0).isInstagramAutoPost());
         assertEquals(false, users.getUsers().get(0).isTwitterAutoPost());
         assertEquals(false, users.getUsers().get(0).isTwitterAutoPostRetweets());
         assertEquals(false, users.getUsers().get(0).isBanned());
-        assertEquals("//www.gravatar.com/avatar/0677578025aba7f73cd5dee14ae85c49?r=PG&s=200&d=404",users.getUsers().get(0).getAvatar());
-        assertEquals(0,users.getUsers().get(0).getBadges().size());
+        assertEquals("//www.gravatar.com/avatar/0677578025aba7f73cd5dee14ae85c49?r=PG&s=200&d=404",
+                users.getUsers().get(0).getAvatar());
+        assertEquals(0, users.getUsers().get(0).getBadges().size());
     }
 
 }

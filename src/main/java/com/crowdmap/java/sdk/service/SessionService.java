@@ -13,6 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.form.LoginForm;
 
@@ -27,7 +28,8 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
  */
 public class SessionService extends CrowdmapService {
 
-    public SessionService() {
+    public SessionService(ApiKeys keys) {
+        super(keys);
     }
 
     /**

@@ -15,7 +15,6 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Maps;
-import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Users;
 
 import org.junit.After;

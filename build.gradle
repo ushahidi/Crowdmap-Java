@@ -26,8 +26,6 @@ dependencies {
     testCompile 'com.squareup.retrofit:retrofit-mock:1.4.1'
     compile 'com.google.code.gson:gson:2.2.+'
     compile 'com.squareup.retrofit:retrofit:1.3.+'
-    compile 'com.netflix.rxjava:rxjava-core:0.16.+'
-    compile 'com.netflix.rxjava:rxjava-android:0.16.'
     compile 'com.squareup.dagger:dagger:1.2.1'
     compile 'com.squareup.dagger:dagger-compiler:1.2.1'
     testCompile 'junit:junit-dep:4.+'

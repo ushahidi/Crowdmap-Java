@@ -14,6 +14,7 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Notifications;
 import com.crowdmap.java.sdk.json.Posts;
@@ -43,6 +44,9 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
  */
 public class UserService extends CrowdmapService {
 
+    public UserService(ApiKeys keys){
+        super(keys);
+    }
     /**
      * Get users registered on Crowdmap
      *
@@ -91,8 +95,6 @@ public class UserService extends CrowdmapService {
     /**
      * Get a user by the ID
      *
-     * @param userId
-     *
      * @return The User
      */
     public Users getUser(long userId) {
@@ -107,7 +109,6 @@ public class UserService extends CrowdmapService {
      * Update user avatar
      *
      * @param userId The user's ID
-     *
      * @return The updated user
      */
     public User updateUserAvatar(long userId) {
@@ -124,8 +125,7 @@ public class UserService extends CrowdmapService {
      * Delete a user's avatar
      *
      * @param userId The user's ID
-     *
-     * @return  The user.
+     * @return The user.
      */
     public User deleteUserAvatar(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
@@ -140,7 +140,6 @@ public class UserService extends CrowdmapService {
      * Get Users followed by a particular users
      *
      * @param userId The user ID of the user to get his/her followers.
-     *
      * @return The users
      */
     public Users getUsersFollowedBy(long userId) {
@@ -171,7 +170,6 @@ public class UserService extends CrowdmapService {
 
     /**
      * Get a User's followers
-     * @param userId
      *
      * @return The User the user follows
      */
@@ -203,7 +201,6 @@ public class UserService extends CrowdmapService {
      * Stop following a user
      *
      * @param userId The user's ID
-     *
      * @return The users the user follows without including the user the user stopped following.
      */
     public Users stopFollowingUser(long userId) {
@@ -216,10 +213,9 @@ public class UserService extends CrowdmapService {
     }
 
     /**
-     *  Get the map the user follows
+     * Get the map the user follows
      *
      * @param userId The user's ID
-     *
      * @return The map the user follows
      */
     public Maps getUserFollowedMap(long userId) {
@@ -236,7 +232,6 @@ public class UserService extends CrowdmapService {
      * Get the map a user collaborates on.
      *
      * @param userId The user's ID
-     *
      * @return The maps the user collaborates on.
      */
     public Maps getMapsUserCollaboratesOn(long userId) {
@@ -251,7 +246,6 @@ public class UserService extends CrowdmapService {
      * Get a user's map.
      *
      * @param userId The user's ID
-     *
      * @return The maps by the user.
      */
     public Maps getUsersMaps(long userId) {
@@ -266,7 +260,6 @@ public class UserService extends CrowdmapService {
      * The map a user is associated with.
      *
      * @param userId The user's ID
-     *
      * @return The maps by the user.
      */
     public Maps getUsersAssociatedMaps(long userId) {
@@ -281,7 +274,6 @@ public class UserService extends CrowdmapService {
      * Get users notifications
      *
      * @param userId The user's ID to be used for fetching the notification details
-     *
      * @return The list of notifications
      */
     public Notifications getNotifications(long userId) {
@@ -312,7 +304,6 @@ public class UserService extends CrowdmapService {
      * Limit the number items to return.
      *
      * @param limit The limit number.
-     *
      * @return The UserSerivce.
      */
     public UserService limit(int limit) {
@@ -326,7 +317,6 @@ public class UserService extends CrowdmapService {
      * The offset to use to limit the number of items returned.
      *
      * <p><strong>Note:</strong> This requires limit to be set.</p>
-     * @param offset
      *
      * @return The UserSerice
      */

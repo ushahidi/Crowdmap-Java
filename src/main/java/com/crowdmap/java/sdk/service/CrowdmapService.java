@@ -17,16 +17,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.DateDeserializer;
-import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
-import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 import com.crowdmap.java.sdk.net.HttpClient;
 import com.crowdmap.java.sdk.net.ICrowdmapConstants;
 import com.crowdmap.java.sdk.util.Util;
-import com.crowdmap.java.sdk.util.ValidateUtil;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -40,11 +38,12 @@ public abstract class CrowdmapService {
 
     public static Gson gson;
 
+    protected int limit = 10;
+
+    protected int offset = 0;
+
     static {
         Type userListType = new TypeToken<List<User>>() {
-        }.getType();
-        Type type = new TypeToken<Response>() {
-
         }.getType();
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Date.class, new DateDeserializer());
@@ -66,6 +65,12 @@ public abstract class CrowdmapService {
     private String publicKey;
 
     protected String sessionToken;
+
+    protected ApiKeys apiKeys;
+
+    public CrowdmapService(ApiKeys apiKeys) {
+        this.apiKeys = apiKeys;
+    }
 
     /**
      * Set the default {@link com.crowdmap.java.sdk.net.HttpClient}
@@ -147,6 +152,10 @@ public abstract class CrowdmapService {
                 .generateSignature(method, uri, getPublicKey(), getPrivateKey());
         // set the apikey for the request
         client.setApiKey(apiKey);
+    }
+
+    protected String generateApiKey(String method, String uri) {
+        return Util.generateSignature(method, uri, apiKeys.publicKey, apiKeys.getPrivateKey());
     }
 
     protected void validateSession() {

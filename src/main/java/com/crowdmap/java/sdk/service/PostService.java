@@ -13,6 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.PostTags;
@@ -38,13 +39,17 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
  */
 public class PostService extends CrowdmapService {
 
+    public PostService(ApiKeys keys) {
+        super(keys);
+    }
+
     /**
      * Get all posts across crowdmap - GET /posts
      */
     public Posts getPosts() {
         setApiKey(METHOD_GET, SEGMENT_POSTS);
         String json = client.get(SEGMENT_POSTS);
-        return fromString(json,Posts.class);
+        return fromString(json, Posts.class);
     }
 
     /**

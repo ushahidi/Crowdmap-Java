@@ -13,6 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.model.form.ExternalForm;
 
@@ -25,6 +26,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
  * External service
  */
 public class ExternalService extends CrowdmapService {
+
+    public ExternalService(ApiKeys keys) {
+        super(keys);
+    }
 
     /**
      * Create a new external
@@ -42,7 +47,6 @@ public class ExternalService extends CrowdmapService {
      * Get specific external. GET /externals/:external_id
      *
      * @param externalId The external ID
-     *
      * @return The externals
      */
     public Externals getExternal(long externalId) {
@@ -52,7 +56,7 @@ public class ExternalService extends CrowdmapService {
         url.append("/");
         setApiKey(METHOD_GET, url.toString());
         final String json = client.get(url.toString());
-        return fromString(json,Externals.class);
+        return fromString(json, Externals.class);
 
     }
 

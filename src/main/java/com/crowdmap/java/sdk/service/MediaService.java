@@ -13,14 +13,14 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.model.form.MediaForm;
-import com.crowdmap.java.sdk.util.Util;
 
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
+import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
@@ -29,6 +29,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
  * Service for interacting with crowdmap's media API
  */
 public class MediaService extends CrowdmapService {
+
+    public MediaService(ApiKeys keys) {
+        super(keys);
+    }
 
     /**
      * Get media in crowdmap. GET /media

@@ -14,6 +14,7 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.model.form.LocationForm;
 
@@ -26,6 +27,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
  * The location service. Locations are the points or geometries that are attached to posts.
  */
 public class LocationService extends CrowdmapService {
+
+    public LocationService(ApiKeys keys) {
+        super(keys);
+    }
 
     /**
      * Create a new location.

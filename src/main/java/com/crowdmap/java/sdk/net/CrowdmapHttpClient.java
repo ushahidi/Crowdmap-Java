@@ -68,13 +68,13 @@ public class CrowdmapHttpClient extends BaseHttpClient implements HttpClient {
     /**
      * Constructor to configure http client with a configured host and protocol to use
      *
-     * @param host The api host.
-     *
+     * @param host     The api host.
      * @param protocol The protocol to use.
      */
     public CrowdmapHttpClient(String host, String protocol) {
         super(host, -1, protocol);
     }
+
     /**
      * Set the value to set as the user agent header on every request created. Specifying a null or
      * empty agent parameter will reset this client to use the default user agent header value.
@@ -209,7 +209,7 @@ public class CrowdmapHttpClient extends BaseHttpClient implements HttpClient {
      * Sends a PUT request to the supplied URL. Converts the input stream as received from the
      * server to string.
      *
-     * @param url  The URL to send the PUT request to.
+     * @param url The URL to send the PUT request to.
      * @return The HTTP response string as returned from the server
      */
     @Override
@@ -268,6 +268,7 @@ public class CrowdmapHttpClient extends BaseHttpClient implements HttpClient {
 
     /**
      * Set the sesion token
+     *
      * @param session The session token
      */
     @Override

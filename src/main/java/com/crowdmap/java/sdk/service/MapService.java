@@ -13,6 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.ApiKeys;
 import com.crowdmap.java.sdk.json.Collaborators;
 import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.MapSettings;
@@ -51,7 +52,8 @@ public class MapService extends CrowdmapService {
     /**
      * Create map service with default configured client
      */
-    public MapService() {
+    public MapService(ApiKeys keys) {
+        super(keys);
     }
 
     /**
@@ -137,7 +139,6 @@ public class MapService extends CrowdmapService {
      * Change the owner of a map.
      *
      * @param mapId The ID of the map
-     *
      * @return The information about the owner of the map
      */
     public Owner updateOwner(long mapId, long userId) {
@@ -160,7 +161,6 @@ public class MapService extends CrowdmapService {
      * Get the collaborators on a map. GET /maps/:map_id/collaborators
      *
      * @param mapId The ID of the map.
-     *
      * @return The followers of a map.
      */
     public Collaborators getCollaborators(long mapId) {
@@ -177,9 +177,8 @@ public class MapService extends CrowdmapService {
     /**
      * Add a collaborator to the a map.
      *
-     * @param mapId The ID of the map. This should be a map the logged in user owns.
+     * @param mapId  The ID of the map. This should be a map the logged in user owns.
      * @param userId The ID of the user.
-     *
      * @return The  Collaborators.
      */
     public Collaborators addCollaborator(long mapId, long userId) {
@@ -198,9 +197,8 @@ public class MapService extends CrowdmapService {
     /**
      * Remove a collaborator from the map
      *
-     * @param mapId The ID of the map.
+     * @param mapId  The ID of the map.
      * @param userId The ID of the user.
-     *
      * @return The collaborators on the map.
      */
     public Collaborators removeCollaborator(long mapId, long userId) {
@@ -220,7 +218,6 @@ public class MapService extends CrowdmapService {
      * Get the followers of a map. GET /maps/:map_id/followers
      *
      * @param mapId The ID of the map.
-     *
      * @return The followers of a map.
      */
     public Followers getFollowers(long mapId) {
@@ -237,9 +234,8 @@ public class MapService extends CrowdmapService {
     /**
      * Follower a map.
      *
-     * @param mapId The ID of the map.
+     * @param mapId  The ID of the map.
      * @param userId The user ID.
-     *
      * @return The maps.
      */
     public Followers followMap(long mapId, long userId) {
@@ -260,7 +256,6 @@ public class MapService extends CrowdmapService {
      * Stop following a particular map.
      *
      * @param mapId The ID of the map to stop following.
-     *
      * @return The followers of the map.
      */
     public Followers stopFollowingMap(long mapId) {
@@ -281,7 +276,6 @@ public class MapService extends CrowdmapService {
      * Get tags attached to a map.
      *
      * @param tag The tag to add to the map.
-     *
      * @return The tags.
      */
     public MapTags getTags(String tag) {
@@ -292,7 +286,6 @@ public class MapService extends CrowdmapService {
         return fromString(client.get(url.toString()), MapTags.class);
     }
 
-
     /**
      * Get a specific map by tag
      */
@@ -300,7 +293,7 @@ public class MapService extends CrowdmapService {
      * Get tags of a particular map.
      *
      * @param mapId The ID of the map.
-     * @param tag The tag to retrieve the map by.
+     * @param tag   The tag to retrieve the map by.
      * @return The tags
      */
     public MapTags getTags(long mapId, String tag) {
@@ -317,8 +310,7 @@ public class MapService extends CrowdmapService {
      * Add a new tag to the map.
      *
      * @param mapId The ID of the map.
-     * @param form The TagForm which holds the fields of the tag.
-     *
+     * @param form  The TagForm which holds the fields of the tag.
      * @return The tags.
      */
     public MapTags addTag(long mapId, TagForm form) {
@@ -334,8 +326,7 @@ public class MapService extends CrowdmapService {
      * Delete an existing map.
      *
      * @param mapId The ID of the map.
-     * @param tag The tag to delete from the map.
-     *
+     * @param tag   The tag to delete from the map.
      * @return The tags.
      */
     public MapTags deleteTag(long mapId, String tag) {
@@ -355,7 +346,6 @@ public class MapService extends CrowdmapService {
      * Get a post on a map.
      *
      * @param mapId The ID of the map.
-     *
      * @return The Posts
      */
     public Posts getPostOnMap(long mapId) {
@@ -372,8 +362,7 @@ public class MapService extends CrowdmapService {
      * Post a tag on a map.
      *
      * @param mapId The ID of the map.
-     * @param tag The tag to post on the map.
-     *
+     * @param tag   The tag to post on the map.
      * @return The posts
      */
     public Posts getPostOnMapByTag(long mapId, String tag) {
@@ -391,9 +380,8 @@ public class MapService extends CrowdmapService {
     /**
      * Approve or deny a post on map.
      *
-     * @param mapId The ID of the map to approve or deny the post.
+     * @param mapId  The ID of the map to approve or deny the post.
      * @param postId The post post to approve or deny.
-     *
      * @return The posts
      */
     public Posts approveOrDenyPostOnMap(long mapId, long postId) {
@@ -518,7 +506,6 @@ public class MapService extends CrowdmapService {
      * Delete an existing map.
      *
      * @param mapId The ID of the map
-     *
      * @return The list of maps minus the deleted map
      */
     public Maps deleteMap(long mapId) {

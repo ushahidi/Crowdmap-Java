@@ -26,6 +26,16 @@ public class About extends Response implements Serializable {
 
     private int version;
 
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
+    }
+
+    private String environment;
+
     public int getVersion() {
         return version;
     }
@@ -38,6 +48,8 @@ public class About extends Response implements Serializable {
     public String toString() {
         return "About{" +
                 "version=" + version +
+                ", environment='" + environment + '\'' +
+                ", response='" + super.toString() + '\'' +
                 '}';
     }
 }

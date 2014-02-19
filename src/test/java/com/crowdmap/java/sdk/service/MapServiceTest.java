@@ -18,9 +18,6 @@ import com.crowdmap.java.sdk.json.Collaborators;
 import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
-import com.crowdmap.java.sdk.json.Owner;
-import com.crowdmap.java.sdk.json.Posts;
-import com.crowdmap.java.sdk.model.form.MapForm;
 
 import org.junit.After;
 import org.junit.Before;
@@ -76,7 +73,8 @@ public class MapServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetMapAsAuthenicatedUser() throws Exception {
-        Maps map = mapService.setSessionToken(session.getSessionToken()).getMapAsAuthenicatedUser(mapId);
+        Maps map = mapService.setSessionToken(session.getSessionToken())
+                .getMapAsAuthenicatedUser(mapId);
         assertNotNull(map);
         assertNotNullOrEmpty("No maps", map.getMaps());
         assertNotNull(map.getMaps().get(0).getId());

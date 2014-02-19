@@ -51,7 +51,7 @@ public interface HttpClient {
      * Sends a PUT request to the supplied URL. Converts the input stream as received from the
      * server to string.
      *
-     * @param url  The URL to send the PUT request to.
+     * @param url The URL to send the PUT request to.
      * @return The HTTP response string as returned from the server
      */
     public String put(String url);
