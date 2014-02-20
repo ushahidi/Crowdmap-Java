@@ -14,7 +14,7 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.model.User;
@@ -32,7 +32,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USER;
  */
 public class ModerationService extends CrowdmapService {
 
-    public ModerationService(ApiKeys keys) {
+    public ModerationService(RequestParam keys) {
         super(keys);
     }
 

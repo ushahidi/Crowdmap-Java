@@ -13,7 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.model.form.ExternalForm;
 
@@ -27,7 +27,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
  */
 public class ExternalService extends CrowdmapService {
 
-    public ExternalService(ApiKeys keys) {
+    public ExternalService(RequestParam keys) {
         super(keys);
     }
 

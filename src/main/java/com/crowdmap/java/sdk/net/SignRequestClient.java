@@ -15,7 +15,7 @@
 package com.crowdmap.java.sdk.net;
 
 import com.crowdmap.java.sdk.ApiKey;
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.util.Util;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -39,17 +39,17 @@ public class SignRequestClient extends UrlConnectionClient implements Client {
 
     static final int READ_TIMEOUT_MILLIS = 20 * 1000; // 20s
 
-    ApiKeys apikeys;
+    RequestParam mApikeys;
 
     final OkHttpClient client;
 
-    public SignRequestClient(OkHttpClient client, ApiKeys apiKeys) {
+    public SignRequestClient(OkHttpClient client, RequestParam requestParam) {
         this.client = client;
-        this.apikeys = apiKeys;
+        this.mApikeys = requestParam;
     }
 
-    public SignRequestClient(ApiKeys apiKeys) {
-        this(generateDefaultOkHttp(), apiKeys);
+    public SignRequestClient(RequestParam requestParam) {
+        this(generateDefaultOkHttp(), requestParam);
     }
 
     private static OkHttpClient generateDefaultOkHttp() {
@@ -66,8 +66,8 @@ public class SignRequestClient extends UrlConnectionClient implements Client {
                 ICrowdmapConstants.API_VERSION.length()
                         + 1); // Remove the version number from the returned path. plus 1 to take care of the leading slash
         final @ApiKey String key = Util
-                .generateSignature(request.getMethod(), path, apikeys.getPublicKey(),
-                        apikeys.getPrivateKey());
+                .generateSignature(request.getMethod(), path, mApikeys.getPublicKey(),
+                        mApikeys.getPrivateKey());
 
         return client.open(new URL(request.getUrl() + "&apikey=" + key));
     }

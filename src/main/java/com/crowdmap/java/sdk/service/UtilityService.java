@@ -14,17 +14,13 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.service.provider.UtilityInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_ABOUT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_HEARTBEAT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OEMBED;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_REGISTEREDMAP;
 
 /**
@@ -34,7 +30,7 @@ public class UtilityService extends CrowdmapService {
 
     private final UtilityInterface utility;
 
-    public UtilityService(UtilityInterface utility, ApiKeys keys) {
+    public UtilityService(UtilityInterface utility, RequestParam keys) {
         super(keys);
         this.utility = utility;
     }

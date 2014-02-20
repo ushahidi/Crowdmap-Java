@@ -49,7 +49,7 @@ public class CrowdmapApiModule {
 
     private RestAdapter restAdapter;
 
-    private ApiKeys apiKeys;
+    private RequestParam mRequestParam;
 
     static {
         Type userListType = new TypeToken<List<User>>() {
@@ -62,12 +62,12 @@ public class CrowdmapApiModule {
     }
 
     public CrowdmapApiModule(Endpoint endpoint, Client client, ApiHeaders headers,
-            ApiKeys apiKeys) {
-        if (apiKeys == null) {
+            RequestParam requestParam) {
+        if (requestParam == null) {
             throw new IllegalArgumentException(
-                    "ApiKeys cannot be public. Please provide a valid api key");
+                    "RequestParam cannot be public. Please provide a valid api key");
         }
-        this.apiKeys = apiKeys;
+        this.mRequestParam = requestParam;
 
         this.restAdapter = new RestAdapter.Builder()
                 .setClient(client)
@@ -78,19 +78,19 @@ public class CrowdmapApiModule {
                 .build();
     }
 
-    public CrowdmapApiModule(ApiKeys apiKeys) {
+    public CrowdmapApiModule(RequestParam requestParam) {
         this(Endpoints.newFixedEndpoint(ICrowdmapConstants.CROWDMAP_HOST_API),
-                new SignRequestClient(apiKeys), new ApiHeaders(), apiKeys);
+                new SignRequestClient(requestParam), new ApiHeaders(), requestParam);
     }
 
-    public CrowdmapApiModule(RestAdapter adapter, ApiKeys apiKeys) {
-        this(apiKeys);
+    public CrowdmapApiModule(RestAdapter adapter, RequestParam requestParam) {
+        this(requestParam);
         this.restAdapter = adapter;
     }
 
     public UtilityService utilityService() {
         UtilityInterface utilityInterface = restAdapter.create(UtilityInterface.class);
-        return new UtilityService(utilityInterface, apiKeys);
+        return new UtilityService(utilityInterface, mRequestParam);
     }
 
     /**

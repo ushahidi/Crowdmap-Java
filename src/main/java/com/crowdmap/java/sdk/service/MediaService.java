@@ -13,7 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.model.form.MediaForm;
@@ -30,7 +30,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
  */
 public class MediaService extends CrowdmapService {
 
-    public MediaService(ApiKeys keys) {
+    public MediaService(RequestParam keys) {
         super(keys);
     }
 

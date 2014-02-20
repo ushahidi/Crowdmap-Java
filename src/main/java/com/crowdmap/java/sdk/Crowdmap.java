@@ -65,15 +65,15 @@ public class Crowdmap {
 
     private RestAdapter restAdapter;
 
-    private static ApiKeys apiKeys;
+    private static RequestParam mRequestParam;
 
-    public Crowdmap(RestAdapter restAdapter, ApiKeys apiKeys) {
+    public Crowdmap(RestAdapter restAdapter, RequestParam requestParam) {
         this.restAdapter = restAdapter;
-        this.apiKeys = apiKeys;
+        this.mRequestParam = requestParam;
     }
 
-    public Crowdmap(ApiKeys apiKeys) {
-        this(null, apiKeys);
+    public Crowdmap(RequestParam requestParam) {
+        this(null, requestParam);
     }
 
     /**
@@ -170,22 +170,22 @@ public class Crowdmap {
      * Create a new media service instance
      */
     private static final MediaService newMediaService() {
-        return new MediaService(apiKeys);
+        return new MediaService(mRequestParam);
     }
 
     /**
      * Create a new session service instance
      */
     private static final SessionService newSessionService() {
-        return new SessionService(apiKeys);
+        return new SessionService(mRequestParam);
     }
 
     private static final UserService newUserService() {
-        return new UserService(apiKeys);
+        return new UserService(mRequestParam);
     }
 
     private static final MapService newMapService() {
-        return new MapService(apiKeys);
+        return new MapService(mRequestParam);
     }
 
     private static final UtilityService newUtilitySerivce() {
@@ -193,19 +193,19 @@ public class Crowdmap {
     }
 
     private static final ModerationService newModerationSerivce() {
-        return new ModerationService(apiKeys);
+        return new ModerationService(mRequestParam);
     }
 
     private static final ExternalService newExternalService() {
-        return new ExternalService(apiKeys);
+        return new ExternalService(mRequestParam);
     }
 
     private static final LocationService newLocationService() {
-        return new LocationService(apiKeys);
+        return new LocationService(mRequestParam);
     }
 
     private static final PostService newPostService() {
-        return new PostService(apiKeys);
+        return new PostService(mRequestParam);
     }
 
     /**

@@ -15,30 +15,8 @@
 package com.crowdmap.java.sdk;
 
 /**
- * Both public and private api key
+ * Session Token
  */
-public final class ApiKeys {
+public @interface SessionToken {
 
-    /**
-     * private app key value *
-     */
-    public String privateKey;
-
-    /**
-     * public app key value *
-     */
-    public String publicKey;
-
-    public ApiKeys(String privateKey, String publicKey) {
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
-    }
-
-    public String getPrivateKey() {
-        return this.privateKey;
-    }
-
-    public String getPublicKey() {
-        return this.publicKey;
-    }
 }

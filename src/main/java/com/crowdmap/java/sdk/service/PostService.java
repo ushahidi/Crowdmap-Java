@@ -13,7 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.PostTags;
@@ -39,7 +39,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
  */
 public class PostService extends CrowdmapService {
 
-    public PostService(ApiKeys keys) {
+    public PostService(RequestParam keys) {
         super(keys);
     }
 

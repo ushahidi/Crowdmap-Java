@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
@@ -66,10 +66,10 @@ public abstract class CrowdmapService {
 
     protected String sessionToken;
 
-    protected ApiKeys apiKeys;
+    protected RequestParam mRequestParam;
 
-    public CrowdmapService(ApiKeys apiKeys) {
-        this.apiKeys = apiKeys;
+    public CrowdmapService(RequestParam requestParam) {
+        this.mRequestParam = requestParam;
     }
 
     /**
@@ -155,7 +155,7 @@ public abstract class CrowdmapService {
     }
 
     protected String generateApiKey(String method, String uri) {
-        return Util.generateSignature(method, uri, apiKeys.publicKey, apiKeys.getPrivateKey());
+        return Util.generateSignature(method, uri, mRequestParam.publicKey, mRequestParam.getPrivateKey());
     }
 
     protected void validateSession() {

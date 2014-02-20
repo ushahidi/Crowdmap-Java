@@ -13,7 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.ApiKeys;
+import com.crowdmap.java.sdk.RequestParam;
 import com.crowdmap.java.sdk.json.Collaborators;
 import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.MapSettings;
@@ -52,7 +52,7 @@ public class MapService extends CrowdmapService {
     /**
      * Create map service with default configured client
      */
-    public MapService(ApiKeys keys) {
+    public MapService(RequestParam keys) {
         super(keys);
     }
 
