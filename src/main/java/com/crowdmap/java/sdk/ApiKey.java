@@ -14,36 +14,9 @@
 
 package com.crowdmap.java.sdk;
 
-import com.crowdmap.java.sdk.util.ValidateUtil;
-
-import retrofit.RequestInterceptor;
-
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
-
 /**
- * HTTP Headers
+ * Api Key. This represent the generated API key for Crowdmap API calls.
  */
-public final class ApiHeaders implements RequestInterceptor {
-
-    /**
-     * The user agent to use
-     */
-    private String userAgent = USER_AGENT;
-
-    public ApiHeaders() {
-        this(null);
-    }
-
-    public ApiHeaders(String agent) {
-        if (!ValidateUtil.empty(agent)) {
-            userAgent = agent;
-        }
-    }
-
-    @Override
-    public void intercept(RequestFacade request) {
-
-        request.addHeader("User-Agent", userAgent);
-    }
+public @interface ApiKey {
 
 }

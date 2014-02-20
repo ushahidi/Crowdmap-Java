@@ -34,18 +34,17 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_REGISTEREDMAP
 public interface UtilityInterface {
 
     @GET(SEGMENT_HEARTBEAT)
-    Response heartbeat(@Query("apikey") String apikey, @Query("limit") int limit,
+    Response heartbeat(@Query("limit") int limit,
             @Query("offset") int offset);
 
     @GET(SEGMENT_ABOUT)
-    About about(@Query("apikey") String apikey, @Query("limit") int limit,
+    About about(@Query("limit") int limit,
             @Query("offset") int offset);
 
     @GET(SEGMENT_OEMBED)
-    OEmbed oEmbed(@Query("url") String url, @Query("apikey") String apikey,
+    OEmbed oEmbed(@Query("url") String url,
             @Query("limit") int limit, @Query("offset") int offset);
 
     @GET(SEGMENT_REGISTEREDMAP + "{domain}/")
-    RegisteredMap registeredMap(@Path("domain") String domain,
-            @Query("apikey") String apikey);
+    RegisteredMap registeredMap(@Path("domain") String domain);
 }

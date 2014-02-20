@@ -22,10 +22,10 @@ import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.ICrowdmapConstants;
+import com.crowdmap.java.sdk.net.SignRequestClient;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.UtilityService;
 import com.crowdmap.java.sdk.service.provider.UtilityInterface;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -34,7 +34,6 @@ import retrofit.Endpoint;
 import retrofit.Endpoints;
 import retrofit.RestAdapter;
 import retrofit.client.Client;
-import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
@@ -69,18 +68,19 @@ public class CrowdmapApiModule {
                     "ApiKeys cannot be public. Please provide a valid api key");
         }
         this.apiKeys = apiKeys;
+
         this.restAdapter = new RestAdapter.Builder()
                 .setClient(client)
                 .setEndpoint(endpoint)
                 .setRequestInterceptor(headers)
-                        //.setLogLevel(RestAdapter.LogLevel.FULL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setConverter(new GsonConverter(gson))
                 .build();
     }
 
     public CrowdmapApiModule(ApiKeys apiKeys) {
         this(Endpoints.newFixedEndpoint(ICrowdmapConstants.CROWDMAP_HOST_API),
-                new OkClient(new OkHttpClient()), new ApiHeaders(), apiKeys);
+                new SignRequestClient(apiKeys), new ApiHeaders(), apiKeys);
     }
 
     public CrowdmapApiModule(RestAdapter adapter, ApiKeys apiKeys) {

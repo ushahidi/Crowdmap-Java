@@ -12,38 +12,28 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk;
+package com.crowdmap.java.sdk.service.provider;
 
-import com.crowdmap.java.sdk.util.ValidateUtil;
+import com.crowdmap.java.sdk.json.Externals;
+import com.crowdmap.java.sdk.model.form.ExternalForm;
 
-import retrofit.RequestInterceptor;
+import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
+import retrofit.http.POST;
+import retrofit.http.Query;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 
 /**
- * HTTP Headers
+ * Interface for external activities
  */
-public final class ApiHeaders implements RequestInterceptor {
+public interface ExternalInterface {
 
-    /**
-     * The user agent to use
-     */
-    private String userAgent = USER_AGENT;
+    @GET(SEGMENT_EXTERNALS)
+    Externals getExternal(@Query("apikey") long externalId, @Query("limit") int limit,
+            @Query("offset") int offset);
 
-    public ApiHeaders() {
-        this(null);
-    }
-
-    public ApiHeaders(String agent) {
-        if (!ValidateUtil.empty(agent)) {
-            userAgent = agent;
-        }
-    }
-
-    @Override
-    public void intercept(RequestFacade request) {
-
-        request.addHeader("User-Agent", userAgent);
-    }
-
+    @FormUrlEncoded
+    @POST(SEGMENT_EXTERNALS)
+    Externals createExternal(ExternalForm form);
 }

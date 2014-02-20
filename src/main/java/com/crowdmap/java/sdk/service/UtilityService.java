@@ -43,7 +43,7 @@ public class UtilityService extends CrowdmapService {
      * Get status of the Crowdmap service.
      */
     public Response heartbeat() {
-        return utility.heartbeat(generateApiKey(METHOD_GET, SEGMENT_HEARTBEAT), limit, offset);
+        return utility.heartbeat(limit, offset);
 
     }
 
@@ -55,7 +55,7 @@ public class UtilityService extends CrowdmapService {
      * @return Details about the Crowdmap API
      */
     public About about() {
-        return utility.about(generateApiKey(METHOD_GET, SEGMENT_ABOUT), limit, offset);
+        return utility.about(limit, offset);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UtilityService extends CrowdmapService {
      * @return OEmbed details
      */
     public OEmbed oEmbed(String url) {
-        return utility.oEmbed(url, generateApiKey(METHOD_GET, SEGMENT_OEMBED), limit, offset);
+        return utility.oEmbed(url, limit, offset);
     }
 
     /**
@@ -78,7 +78,7 @@ public class UtilityService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_REGISTEREDMAP);
         url.append(subdomain);
         url.append("/");
-        return utility.registeredMap(subdomain, generateApiKey(METHOD_GET, url.toString()));
+        return utility.registeredMap(subdomain);
     }
 
     public UtilityService limit(int limit) {
