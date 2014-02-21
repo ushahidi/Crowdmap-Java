@@ -15,7 +15,8 @@
 package com.crowdmap.java.sdk.net;
 
 import com.crowdmap.java.sdk.ApiKey;
-import com.crowdmap.java.sdk.RequestParam;
+import com.crowdmap.java.sdk.CrowdmapApiKeys;
+import com.crowdmap.java.sdk.RequestVariable;
 import com.crowdmap.java.sdk.util.Util;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -39,17 +40,17 @@ public class SignRequestClient extends UrlConnectionClient implements Client {
 
     static final int READ_TIMEOUT_MILLIS = 20 * 1000; // 20s
 
-    RequestParam mApikeys;
+    CrowdmapApiKeys mCrowdmapApiKeys;
 
     final OkHttpClient client;
 
-    public SignRequestClient(OkHttpClient client, RequestParam requestParam) {
+    public SignRequestClient(OkHttpClient client, CrowdmapApiKeys crowdmapApiKeys) {
         this.client = client;
-        this.mApikeys = requestParam;
+        this.mCrowdmapApiKeys = crowdmapApiKeys;
     }
 
-    public SignRequestClient(RequestParam requestParam) {
-        this(generateDefaultOkHttp(), requestParam);
+    public SignRequestClient(CrowdmapApiKeys crowdmapApiKeys) {
+        this(generateDefaultOkHttp(), crowdmapApiKeys);
     }
 
     private static OkHttpClient generateDefaultOkHttp() {
@@ -66,10 +67,12 @@ public class SignRequestClient extends UrlConnectionClient implements Client {
                 ICrowdmapConstants.API_VERSION.length()
                         + 1); // Remove the version number from the returned path. plus 1 to take care of the leading slash
         final @ApiKey String key = Util
-                .generateSignature(request.getMethod(), path, mApikeys.getPublicKey(),
-                        mApikeys.getPrivateKey());
+                .generateSignature(request.getMethod(), path, mCrowdmapApiKeys.getPublicKey(),
+                        mCrowdmapApiKeys.getPrivateKey());
+        
+        final RequestVariable requestVariable = new RequestVariable("&apikey", key);
 
-        return client.open(new URL(request.getUrl() + "&apikey=" + key));
+        return client.open(new URL(request.getUrl() + requestVariable.toString()));
     }
 
 }

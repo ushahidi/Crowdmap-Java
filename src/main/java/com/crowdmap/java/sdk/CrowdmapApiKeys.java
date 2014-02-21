@@ -17,7 +17,7 @@ package com.crowdmap.java.sdk;
 /**
  * Both public and private api key
  */
-public final class RequestParam {
+public final class CrowdmapApiKeys {
 
     /**
      * private app key value *
@@ -29,7 +29,7 @@ public final class RequestParam {
      */
     public String publicKey;
 
-    public RequestParam(String privateKey, String publicKey) {
+    public CrowdmapApiKeys(String privateKey, String publicKey) {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
     }

@@ -14,7 +14,7 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.RequestParam;
+import com.crowdmap.java.sdk.CrowdmapApiKeys;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Notifications;
 import com.crowdmap.java.sdk.json.Posts;
@@ -44,7 +44,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
  */
 public class UserService extends CrowdmapService {
 
-    public UserService(RequestParam keys) {
+    public UserService(CrowdmapApiKeys keys) {
         super(keys);
     }
 

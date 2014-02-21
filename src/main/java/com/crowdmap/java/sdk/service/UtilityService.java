@@ -14,7 +14,7 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.RequestParam;
+import com.crowdmap.java.sdk.CrowdmapApiKeys;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
@@ -30,7 +30,7 @@ public class UtilityService extends CrowdmapService {
 
     private final UtilityInterface utility;
 
-    public UtilityService(UtilityInterface utility, RequestParam keys) {
+    public UtilityService(UtilityInterface utility, CrowdmapApiKeys keys) {
         super(keys);
         this.utility = utility;
     }

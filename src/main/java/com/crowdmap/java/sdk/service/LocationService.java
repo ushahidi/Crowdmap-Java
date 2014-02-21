@@ -14,7 +14,7 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.RequestParam;
+import com.crowdmap.java.sdk.CrowdmapApiKeys;
 import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.model.form.LocationForm;
 
@@ -28,7 +28,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
  */
 public class LocationService extends CrowdmapService {
 
-    public LocationService(RequestParam keys) {
+    public LocationService(CrowdmapApiKeys keys) {
         super(keys);
     }
 

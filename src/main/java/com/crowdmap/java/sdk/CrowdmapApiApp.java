@@ -35,7 +35,7 @@ public class CrowdmapApiApp {
                     "Private key cannot be null or empty. Please provide a valid private key");
         }
 
-        module = new CrowdmapApiModule(new RequestParam(privateKey, publicKey));
+        module = new CrowdmapApiModule(new CrowdmapApiKeys(privateKey, publicKey));
     }
 
     public UtilityService utilityService() {

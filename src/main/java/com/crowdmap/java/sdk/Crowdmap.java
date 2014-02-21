@@ -65,15 +65,15 @@ public class Crowdmap {
 
     private RestAdapter restAdapter;
 
-    private static RequestParam mRequestParam;
+    private static CrowdmapApiKeys mCrowdmapApiKeys;
 
-    public Crowdmap(RestAdapter restAdapter, RequestParam requestParam) {
+    public Crowdmap(RestAdapter restAdapter, CrowdmapApiKeys crowdmapApiKeys) {
         this.restAdapter = restAdapter;
-        this.mRequestParam = requestParam;
+        this.mCrowdmapApiKeys = crowdmapApiKeys;
     }
 
-    public Crowdmap(RequestParam requestParam) {
-        this(null, requestParam);
+    public Crowdmap(CrowdmapApiKeys crowdmapApiKeys) {
+        this(null, crowdmapApiKeys);
     }
 
     /**
@@ -170,22 +170,22 @@ public class Crowdmap {
      * Create a new media service instance
      */
     private static final MediaService newMediaService() {
-        return new MediaService(mRequestParam);
+        return new MediaService(mCrowdmapApiKeys);
     }
 
     /**
      * Create a new session service instance
      */
     private static final SessionService newSessionService() {
-        return new SessionService(mRequestParam);
+        return new SessionService(mCrowdmapApiKeys);
     }
 
     private static final UserService newUserService() {
-        return new UserService(mRequestParam);
+        return new UserService(mCrowdmapApiKeys);
     }
 
     private static final MapService newMapService() {
-        return new MapService(mRequestParam);
+        return new MapService(mCrowdmapApiKeys);
     }
 
     private static final UtilityService newUtilitySerivce() {
@@ -193,19 +193,19 @@ public class Crowdmap {
     }
 
     private static final ModerationService newModerationSerivce() {
-        return new ModerationService(mRequestParam);
+        return new ModerationService(mCrowdmapApiKeys);
     }
 
     private static final ExternalService newExternalService() {
-        return new ExternalService(mRequestParam);
+        return new ExternalService(mCrowdmapApiKeys);
     }
 
     private static final LocationService newLocationService() {
-        return new LocationService(mRequestParam);
+        return new LocationService(mCrowdmapApiKeys);
     }
 
     private static final PostService newPostService() {
-        return new PostService(mRequestParam);
+        return new PostService(mCrowdmapApiKeys);
     }
 
     /**
