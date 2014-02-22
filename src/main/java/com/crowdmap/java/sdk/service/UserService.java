@@ -42,11 +42,8 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
 /**
  * User service
  */
-public class UserService extends CrowdmapService {
+public class UserService extends CrowdmapService<UserService> {
 
-    public UserService(CrowdmapApiKeys keys) {
-        super(keys);
-    }
 
     /**
      * Get users registered on Crowdmap
@@ -56,12 +53,13 @@ public class UserService extends CrowdmapService {
     public Users getUsers() {
 
         //Set the api signature key
-        setApiKey(METHOD_GET, SEGMENT_USERS);
+        //setApiKey(METHOD_GET, SEGMENT_USERS);
 
         //Send a get request to fetch registered users
-        String json = client.get(SEGMENT_USERS);
-        return fromString(json,
-                Users.class);
+        //String json = client.get(SEGMENT_USERS);
+        //return fromString(json,
+          //      Users.class);
+        return null;
     }
 
     /**
@@ -75,8 +73,9 @@ public class UserService extends CrowdmapService {
         url.append(userId);
         url.append(SEGMENT_POSTS);
 
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Posts.class);
+        //setApiKey(METHOD_GET, url.toString());
+        //return fromString(client.get(url.toString()), Posts.class);
+        return null;
     }
 
     /**
@@ -89,8 +88,9 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
 
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.put(url.toString(), userFrom.getParameters()), User.class);
+        //setApiKey(METHOD_PUT, url.toString());
+        //return fromString(client.put(url.toString(), userFrom.getParameters()), User.class);
+        return null;
     }
 
     /**
@@ -101,9 +101,10 @@ public class UserService extends CrowdmapService {
     public Users getUser(long userId) {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
-        setApiKey(METHOD_GET, url.toString());
-        String json = client.get(url.toString());
-        return fromString(json, Users.class);
+        //setApiKey(METHOD_GET, url.toString());
+        //String json = client.get(url.toString());
+        //return fromString(json, Users.class);
+        return null;
     }
 
     /**
@@ -116,7 +117,7 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_AVATAR);
-        setApiKey(METHOD_PUT, url.toString());
+        //setApiKey(METHOD_PUT, url.toString());
         //TODO: lookup the form fields
         return null;
 
@@ -132,9 +133,7 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_AVATAR);
-        setApiKey(METHOD_DELETE, url.toString());
-        //TODO: lookup the form fields for avatar
-        return fromString(client.delete(url.toString()), User.class);
+        return null;
     }
 
     /**
@@ -147,9 +146,7 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWS);
-        setApiKey(METHOD_GET, url.toString());
-
-        return fromString(client.get(url.toString()), Users.class);
+        return null;
     }
 
     /**
@@ -164,9 +161,7 @@ public class UserService extends CrowdmapService {
         url.append(SEGMENT_FOLLOWS);
         url.append(followerId);
         url.append("/");
-        setApiKey(METHOD_GET, url.toString());
-
-        return fromString(client.get(url.toString()), Users.class);
+        return null;
     }
 
     /**
@@ -178,9 +173,10 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_GET, url.toString());
+        //setApiKey(METHOD_GET, url.toString());
 
-        return fromString(client.get(url.toString()), Users.class);
+        //return fromString(client.get(url.toString()), Users.class);
+        return null;
     }
 
     /**
@@ -191,11 +187,12 @@ public class UserService extends CrowdmapService {
      * @return The Users the user follows with the new user the user is following.
      */
     public Users followUser(long userId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
-        return fromString(client.post(url.toString()), Users.class);
+        //return fromString(client.post(url.toString()), Users.class);
+        return null;
     }
 
     /**
@@ -205,12 +202,13 @@ public class UserService extends CrowdmapService {
      * @return The users the user follows without including the user the user stopped following.
      */
     public Users stopFollowingUser(long userId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.post(url.toString()), Users.class);
+        //setApiKey(METHOD_DELETE, url.toString());
+        //return fromString(client.post(url.toString()), Users.class);
+        return null;
     }
 
     /**
@@ -221,12 +219,13 @@ public class UserService extends CrowdmapService {
      */
     public Maps getUserFollowedMap(long userId) {
         // Set session token
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_FOLLOWING);
 
-        return fromString(client.get(url.toString()), Maps.class);
+        //return fromString(client.get(url.toString()), Maps.class);
+        return null;
     }
 
     /**
@@ -236,11 +235,12 @@ public class UserService extends CrowdmapService {
      * @return The maps the user collaborates on.
      */
     public Maps getMapsUserCollaboratesOn(long userId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_COLLABORATING);
-        return fromString(client.get(url.toString()), Maps.class);
+        //return fromString(client.get(url.toString()), Maps.class);
+        return null;
     }
 
     /**
@@ -253,8 +253,9 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_OWNS);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Maps.class);
+        //setApiKey(METHOD_GET, url.toString());
+        //return fromString(client.get(url.toString()), Maps.class);
+        return null;
     }
 
     /**
@@ -267,8 +268,9 @@ public class UserService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_MAPS_ASSOCIATED);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Maps.class);
+        //setApiKey(METHOD_GET, url.toString());
+        //return fromString(client.get(url.toString()), Maps.class);
+        return null;
     }
 
     /**
@@ -278,12 +280,13 @@ public class UserService extends CrowdmapService {
      * @return The list of notifications
      */
     public Notifications getNotifications(long userId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Notifications.class);
+        //setApiKey(METHOD_GET, url.toString());
+        //return fromString(client.get(url.toString()), Notifications.class);
+        return null;
     }
 
     /**
@@ -293,49 +296,12 @@ public class UserService extends CrowdmapService {
      * @return The user's notifications
      */
     public Response markNotificationAsRead(long userId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_USERS);
         url.append(userId);
         url.append(SEGMENT_NOTIFICATIONS);
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.get(url.toString()), Response.class);
-    }
-
-    /**
-     * Limit the number items to return.
-     *
-     * @param limit The limit number.
-     * @return The UserSerivce.
-     */
-    public UserService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    /**
-     * The offset to use to limit the number of items returned.
-     *
-     * <p><strong>Note:</strong> This requires limit to be set.</p>
-     *
-     * @return The UserSerice
-     */
-    public UserService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public UserService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
+        //setApiKey(METHOD_PUT, url.toString());
+        //return fromString(client.get(url.toString()), Response.class);
+        return null;
     }
 }

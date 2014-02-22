@@ -15,8 +15,6 @@
 package com.crowdmap.java.sdk.examples;
 
 import com.crowdmap.java.sdk.Crowdmap;
-import com.crowdmap.java.sdk.CrowdmapApiApp;
-import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,11 +33,11 @@ public class UtilityServiceExample {
 
     private Crowdmap crowdmap;
 
-    private CrowdmapApiApp mApiApp;
+    private Crowdmap mApiApp;
 
     public UtilityServiceExample(String pubKey, String privKey) {
         crowdmap  = new Crowdmap(pubKey, privKey);
-        mApiApp = new CrowdmapApiApp(privKey,pubKey);
+        mApiApp = new Crowdmap(privKey,pubKey);
     }
 
     /**

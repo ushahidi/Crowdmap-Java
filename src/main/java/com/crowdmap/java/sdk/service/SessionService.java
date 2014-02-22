@@ -26,11 +26,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
 /**
  * Login service
  */
-public class SessionService extends CrowdmapService {
-
-    public SessionService(CrowdmapApiKeys keys) {
-        super(keys);
-    }
+public class SessionService extends CrowdmapService<SessionService> {
 
     /**
      * Login a user. POST /session/login
@@ -44,30 +40,11 @@ public class SessionService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_SESSION);
         url.append(SEGMENT_LOGIN);
 
-        setApiKey(METHOD_POST, url.toString());
+        //setApiKey(METHOD_POST, url.toString());
         // Send a post request to login
-        return fromString(client.multipartPost(url.toString(), form.getParameters()),
-                Session.class);
-    }
-
-    public SessionService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public SessionService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public SessionService setSessionToken(String sessionToken) {
+        //return fromString(client.multipartPost(url.toString(), form.getParameters()),
+          //      Session.class);
         return null;
     }
+
 }

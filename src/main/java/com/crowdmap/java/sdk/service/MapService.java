@@ -47,14 +47,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
 /**
  * Service for interacting with various maps setup on crowdmap
  */
-public class MapService extends CrowdmapService {
-
-    /**
-     * Create map service with default configured client
-     */
-    public MapService(CrowdmapApiKeys keys) {
-        super(keys);
-    }
+public class MapService extends CrowdmapService<MapService> {
 
     /**
      * Get list of maps as anonymous user
@@ -62,10 +55,7 @@ public class MapService extends CrowdmapService {
      * @return Maps as
      */
     public Maps getMaps() {
-        //Crowdmap requires a new api signature every 2 minutes
-        // so before a request is made, generate a new key
-        setApiKey(METHOD_GET, SEGMENT_MAPS);
-        return fromString(client.get(SEGMENT_MAPS), Maps.class);
+        return null;
     }
 
 
@@ -79,8 +69,8 @@ public class MapService extends CrowdmapService {
      */
     public Maps getMapsAsAuthenicatedUser() {
         // Set session token
-        validateSession();
-        return fromString(client.get(SEGMENT_MAPS), Maps.class);
+        //validateSession();
+        return null;
     }
 
     /**
@@ -94,8 +84,7 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append("/");
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Maps.class);
+        return null;
     }
 
     /**
@@ -109,11 +98,11 @@ public class MapService extends CrowdmapService {
      */
     public Maps getMapAsAuthenicatedUser(long mapId) {
         checkId(mapId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append("/");
-        return fromString(client.get(url.toString()), Maps.class);
+        return null;
     }
 
     // Users associations with maps
@@ -129,10 +118,7 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(id);
         url.append(SEGMENT_OWNER);
-        setApiKey(METHOD_GET, url.toString());
-        String json = client.get(url.toString());
-        return fromString(json,
-                Owner.class);
+        return null;
     }
 
     /**
@@ -144,16 +130,13 @@ public class MapService extends CrowdmapService {
     public Owner updateOwner(long mapId, long userId) {
         checkId(mapId);
         checkId(userId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_OWNER);
         Body body = new Body();
         body.addField("user_id", userId);
-        setApiKey(METHOD_PUT, SEGMENT_MAPS);
-        String json = client.put(url.toString(), body);
-        return fromString(json,
-                Owner.class);
+        return null;
     }
 
 
@@ -169,9 +152,10 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_COLLABORATORS);
-        setApiKey(METHOD_GET, url.toString());
-        final String json = client.get(url.toString());
-        return fromString(json, Collaborators.class);
+        //setApiKey(METHOD_GET, url.toString());
+        //final String json = client.get(url.toString());
+        //return fromString(json, Collaborators.class);
+        return null;
     }
 
     /**
@@ -184,14 +168,15 @@ public class MapService extends CrowdmapService {
     public Collaborators addCollaborator(long mapId, long userId) {
         checkId(mapId);
         checkId(userId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_COLLABORATORS);
         Body body = new Body();
         body.addField("collaborator_id", userId);
-        return fromString(client.post(url.toString(), body),
-                Collaborators.class);
+        //return fromString(client.post(url.toString(), body),
+          //      Collaborators.class);
+        return null;
     }
 
     /**
@@ -204,14 +189,13 @@ public class MapService extends CrowdmapService {
     public Collaborators removeCollaborator(long mapId, long userId) {
         checkId(mapId);
         checkId(userId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_COLLABORATORS);
         url.append(userId);
         url.append("/");
-        return fromString(client.delete(url.toString()),
-                Collaborators.class);
+        return null;
     }
 
     /**
@@ -225,10 +209,8 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_GET, url.toString());
-        final String json = client.get(url.toString());
-        return fromString(json,
-                Followers.class);
+
+        return null;
     }
 
     /**
@@ -241,15 +223,14 @@ public class MapService extends CrowdmapService {
     public Followers followMap(long mapId, long userId) {
         checkId(mapId);
         checkId(userId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_POST, url.toString());
+        //setApiKey(METHOD_POST, url.toString());
         Body body = new Body();
         body.addField("user_id", userId);
-        return fromString(client.post(url.toString(), body),
-                Followers.class);
+        return null;
     }
 
     /**
@@ -260,14 +241,13 @@ public class MapService extends CrowdmapService {
      */
     public Followers stopFollowingMap(long mapId) {
         checkId(mapId);
-        validateSession();
+        //validateSession();
         checkId(mapId);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()),
-                Followers.class);
+        //setApiKey(METHOD_DELETE, url.toString());
+       return null;
     }
 
     // Tagging Maps
@@ -282,8 +262,7 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(tag);
         url.append(SEGMENT_TAGS);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), MapTags.class);
+        return null;
     }
 
     /**
@@ -302,8 +281,7 @@ public class MapService extends CrowdmapService {
         url.append(mapId);
         url.append(tag);
         url.append(SEGMENT_TAGS);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), MapTags.class);
+        return null;
     }
 
     /**
@@ -318,8 +296,7 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_TAGS);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString(), form.getParameters()), MapTags.class);
+        return null;
     }
 
     /**
@@ -336,8 +313,7 @@ public class MapService extends CrowdmapService {
         url.append(SEGMENT_TAGS);
         url.append(tag);
         url.append("/");
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()), MapTags.class);
+        return null;
     }
 
     //post on a map
@@ -353,9 +329,7 @@ public class MapService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_POSTS);
-        setApiKey(METHOD_GET, url.toString());
-        String json = client.get(url.toString());
-        return fromString(json, Posts.class);
+        return null;
     }
 
     /**
@@ -372,9 +346,7 @@ public class MapService extends CrowdmapService {
         url.append(SEGMENT_POSTS);
         url.append(tag);
         url.append("/");
-        setApiKey(METHOD_GET, url.toString());
-        String json = client.get(url.toString());
-        return fromString(json, Posts.class);
+        return null;
     }
 
     /**
@@ -388,27 +360,25 @@ public class MapService extends CrowdmapService {
         //Double check the fields involve
         checkId(mapId);
         checkId(postId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.put(url.toString(), null), Posts.class);
+        return null;
     }
 
     public Posts removePostFromMap(long mapId, long postId) {
         checkId(mapId);
         checkId(postId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()), Posts.class);
+        return null;
     }
 
     /**
@@ -420,10 +390,10 @@ public class MapService extends CrowdmapService {
      * @return The newly created map
      */
     public Maps createMap(MapForm form) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
 
-        Maps maps = fromString(
+       /* Maps maps = fromString(
                 client.multipartPost(url.toString(), form.getParameters()),
                 Maps.class);
 
@@ -441,7 +411,8 @@ public class MapService extends CrowdmapService {
             }
         }
 
-        return maps;
+        return maps;*/
+        return null;
     }
 
     /**
@@ -473,14 +444,14 @@ public class MapService extends CrowdmapService {
      * @return The updated map.
      */
     public Maps updateMap(long mapId, MapForm form) {
-        validateSession();
+        // validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
 
         // if a mapId is set
         url.append(mapId);
         url.append("/");
 
-        Maps maps = fromString(
+        /*Maps maps = fromString(
                 client.put(url.toString(), form.getParameters()),
                 Maps.class);
 
@@ -498,7 +469,8 @@ public class MapService extends CrowdmapService {
             }
         }
 
-        return maps;
+        return maps;*/
+        return null;
 
     }
 
@@ -509,11 +481,11 @@ public class MapService extends CrowdmapService {
      * @return The list of maps minus the deleted map
      */
     public Maps deleteMap(long mapId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append("/");
-        return fromString(client.delete(url.toString()), Maps.class);
+        return null;
     }
 
     /**
@@ -524,7 +496,7 @@ public class MapService extends CrowdmapService {
      * @return The map settings
      */
     public MapSettings getMapSettings(long mapId, String settingsName) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         // if a mapId is set
         checkId(mapId);
@@ -532,10 +504,7 @@ public class MapService extends CrowdmapService {
         url.append(SEGMENT_SETTINGS);
         url.append(settingsName);
         url.append("/");
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(
-                client.get(url.toString()),
-                MapSettings.class);
+        return null;
     }
 
     /**
@@ -547,7 +516,7 @@ public class MapService extends CrowdmapService {
      */
     public MapSettings createOrUpdateMapSettings(long mapId, String settingsName,
             String settingsValue) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         // if a mapId is set
         checkId(mapId);
@@ -558,10 +527,7 @@ public class MapService extends CrowdmapService {
         Body body = new Body();
         body.addField("settings", settingsName);
         body.addField("value", settingsValue);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(
-                client.post(url.toString()),
-                MapSettings.class);
+        return null;
     }
 
     /**
@@ -573,16 +539,13 @@ public class MapService extends CrowdmapService {
      */
     public MapSettings deleteMapSettings(long mapId, String settingsName) {
         checkId(mapId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(SEGMENT_SETTINGS);
         url.append(settingsName);
         url.append("/");
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(
-                client.delete(url.toString()),
-                MapSettings.class);
+        return null;
     }
 
     /**
@@ -594,41 +557,13 @@ public class MapService extends CrowdmapService {
      * @return The updated map.
      */
     private Maps uploadImage(long mapId, File image, String uri) {
-        validateSession();
+        //validateSession();
         Body body = new Body();
         body.addField("file", image);
         StringBuilder url = new StringBuilder(SEGMENT_MAPS);
         url.append(mapId);
         url.append(uri);
 
-        return fromString(
-                client.multipartPost(url.toString(), body),
-                Maps.class);
-    }
-
-
-    public MapService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public MapService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public MapService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
+        return null;
     }
 }

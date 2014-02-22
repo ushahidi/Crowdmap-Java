@@ -37,19 +37,16 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
 /**
  * Service for interacting with Crowdmap post API
  */
-public class PostService extends CrowdmapService {
-
-    public PostService(CrowdmapApiKeys keys) {
-        super(keys);
-    }
+public class PostService extends CrowdmapService<PostService> {
 
     /**
      * Get all posts across crowdmap - GET /posts
      */
     public Posts getPosts() {
-        setApiKey(METHOD_GET, SEGMENT_POSTS);
-        String json = client.get(SEGMENT_POSTS);
-        return fromString(json, Posts.class);
+        //setApiKey(METHOD_GET, SEGMENT_POSTS);
+        //String json = client.get(SEGMENT_POSTS);
+        //return fromString(json, Posts.class);
+        return null;
     }
 
     /**
@@ -68,9 +65,10 @@ public class PostService extends CrowdmapService {
         if (segment != null && segment.length() > 0) {
             url.append(segment);
         }
-        setApiKey(METHOD_GET, url.toString());
-        final String json = client.get(url.toString());
-        return fromString(json, cls);
+        //setApiKey(METHOD_GET, url.toString());
+        //final String json = client.get(url.toString());
+        //return fromString(json, cls);
+        return null;
     }
 
     /**
@@ -114,18 +112,20 @@ public class PostService extends CrowdmapService {
      * @return The post created
      */
     public Posts createPost(PostForm form) {
-        validateSession();
-        setApiKey(METHOD_POST, SEGMENT_POSTS);
-        return fromString(client.multipartPost(SEGMENT_POSTS, form.getParameters()), Posts.class);
+        //validateSession();
+        //setApiKey(METHOD_POST, SEGMENT_POSTS);
+        //return fromString(client.multipartPost(SEGMENT_POSTS, form.getParameters()), Posts.class);
+        return null;
     }
 
     public Response deletePost(long postId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()), Response.class);
+       // setApiKey(METHOD_DELETE, url.toString());
+        //return fromString(client.delete(url.toString()), Response.class);
+        return null;
     }
 
     /**
@@ -136,12 +136,13 @@ public class PostService extends CrowdmapService {
      * @return The post updated
      */
     public Posts updatePost(long postId, PostForm form) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.put(url.toString(), form.getParameters()), Posts.class);
+        //setApiKey(METHOD_PUT, url.toString());
+        //return fromString(client.put(url.toString(), form.getParameters()), Posts.class);
+        return null;
     }
 
     /**
@@ -155,8 +156,9 @@ public class PostService extends CrowdmapService {
         url.append(SEGMENT_TAGS);
         url.append(tag);
         url.append("/");
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.get(url.toString()), PostTags.class);
+        //setApiKey(METHOD_PUT, url.toString());
+        //return fromString(client.get(url.toString()), PostTags.class);
+        return null;
     }
 
     /**
@@ -166,12 +168,13 @@ public class PostService extends CrowdmapService {
      * @return The liked posts.
      */
     public Posts likePost(long postId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_LIKE);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Posts.class);
+        //setApiKey(METHOD_POST, url.toString());
+        //return fromString(client.post(url.toString()), Posts.class);
+        return null;
     }
 
     /**
@@ -181,12 +184,13 @@ public class PostService extends CrowdmapService {
      * @return The un-liked posts
      */
     public Posts unLikePost(long postId) {
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_LIKE);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()), Posts.class);
+        //setApiKey(METHOD_DELETE, url.toString());
+        //return fromString(client.delete(url.toString()), Posts.class);
+        return null;
     }
 
     /**
@@ -205,8 +209,7 @@ public class PostService extends CrowdmapService {
         url.append(SEGMENT_COMMENTS);
         url.append(mapId);
 
-        return fromString(client.get(url.toString()),
-                Comments.class);
+       return null;
     }
 
     /**
@@ -220,28 +223,25 @@ public class PostService extends CrowdmapService {
     public Comments postComment(long postId, long mapId, CommentForm form) {
         checkId(postId);
         checkId(mapId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_COMMENTS);
         url.append(mapId);
         url.append("/");
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Comments.class);
+        return null;
     }
 
     public Comments deletePostComments(long postId, long commentId) {
         checkId(postId);
         checkId(commentId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_COMMENTS);
         url.append(commentId);
         url.append("/");
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()),
-                Comments.class);
+        return null;
     }
 
     /**
@@ -252,13 +252,11 @@ public class PostService extends CrowdmapService {
      */
     public Posts deletePostFromMap(long postId) {
         checkId(postId);
-        validateSession();
+       // validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_MAPS);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()),
-                Posts.class);
+       return null;
     }
 
     /**
@@ -268,38 +266,11 @@ public class PostService extends CrowdmapService {
      */
     public Posts createPostMap(long postId) {
         checkId(postId);
-        validateSession();
+        //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_MAPS);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()),
-                Posts.class);
+        return null;
     }
 
-    public PostService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public PostService offset(int offset) {
-
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public PostService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
-    }
 }

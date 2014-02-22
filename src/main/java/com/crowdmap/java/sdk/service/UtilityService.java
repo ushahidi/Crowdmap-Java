@@ -26,12 +26,11 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_REGISTEREDMAP
 /**
  * The Utility service provide resources for useful information about the Crowdmap API
  */
-public class UtilityService extends CrowdmapService {
+public class UtilityService extends CrowdmapService<UtilityService> {
 
     private final UtilityInterface utility;
 
-    public UtilityService(UtilityInterface utility, CrowdmapApiKeys keys) {
-        super(keys);
+    public UtilityService(UtilityInterface utility) {
         this.utility = utility;
     }
 
@@ -71,36 +70,7 @@ public class UtilityService extends CrowdmapService {
      * @return The registeration details.
      */
     public RegisteredMap registeredMap(String subdomain) {
-        StringBuilder url = new StringBuilder(SEGMENT_REGISTEREDMAP);
-        url.append(subdomain);
-        url.append("/");
         return utility.registeredMap(subdomain);
     }
 
-    public UtilityService limit(int limit) {
-        if (limit > 0) {
-            this.limit = limit;
-        }
-        return this;
-    }
-
-    public UtilityService offset(int offset) {
-
-        if (limit < 0) {
-            throw new IllegalArgumentException(
-                    "Requires that a limit greater than 0 should be set.");
-        }
-        this.offset = offset;
-
-        return this;
-    }
-
-    @Override
-    public UtilityService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
-    }
 }

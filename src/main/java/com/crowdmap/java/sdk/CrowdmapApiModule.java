@@ -51,6 +51,8 @@ public class CrowdmapApiModule {
 
     private CrowdmapApiKeys mCrowdmapApiKeys;
 
+    protected @SessionToken String sessionToken;
+
     static {
         Type userListType = new TypeToken<List<User>>() {
         }.getType();
@@ -65,7 +67,7 @@ public class CrowdmapApiModule {
             CrowdmapApiKeys crowdmapApiKeys) {
         if (crowdmapApiKeys == null) {
             throw new IllegalArgumentException(
-                    "CrowdmapApiKeys cannot be public. Please provide a valid api key");
+                    "Crowdmap API Key cannot be public. Please provide a valid api key");
         }
         this.mCrowdmapApiKeys = crowdmapApiKeys;
 
@@ -90,7 +92,7 @@ public class CrowdmapApiModule {
 
     public UtilityService utilityService() {
         UtilityInterface utilityInterface = restAdapter.create(UtilityInterface.class);
-        return new UtilityService(utilityInterface, mCrowdmapApiKeys);
+        return new UtilityService(utilityInterface);
     }
 
     /**

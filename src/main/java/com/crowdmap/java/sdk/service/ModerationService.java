@@ -30,11 +30,7 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USER;
 /**
  * Moderation service. Use for flagging content on Crowdmap for moderation by the Crowdmap team.
  */
-public class ModerationService extends CrowdmapService {
-
-    public ModerationService(CrowdmapApiKeys keys) {
-        super(keys);
-    }
+public class ModerationService extends CrowdmapService<ModerationService> {
 
     /**
      * Flag a comment for moderation.
@@ -46,8 +42,9 @@ public class ModerationService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
         url.append(SEGMENT_COMMENT);
         url.append(commentId);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Comments.class);
+        //setApiKey(METHOD_POST, url.toString());
+        ///return fromString(client.post(url.toString()), Comments.class);
+        return null;
     }
 
     /**
@@ -59,8 +56,9 @@ public class ModerationService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
         url.append(SEGMENT_MAP);
         url.append(mapId);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Maps.class);
+        //setApiKey(METHOD_POST, url.toString());
+        //return fromString(client.post(url.toString()), Maps.class);
+        return null;
     }
 
     /**
@@ -72,33 +70,9 @@ public class ModerationService extends CrowdmapService {
         StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
         url.append(SEGMENT_USER);
         url.append(userId);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), User.class);
+        //setApiKey(METHOD_POST, url.toString());
+        //return fromString(client.post(url.toString()), User.class);
+        return null;
     }
 
-
-    public ModerationService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public ModerationService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public ModerationService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
-    }
 }

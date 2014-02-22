@@ -13,84 +13,21 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import com.crowdmap.java.sdk.CrowdmapApiKeys;
-import com.crowdmap.java.sdk.json.Date;
-import com.crowdmap.java.sdk.json.DateDeserializer;
-import com.crowdmap.java.sdk.json.UsersDeserializer;
-import com.crowdmap.java.sdk.model.User;
-import com.crowdmap.java.sdk.net.HttpClient;
-import com.crowdmap.java.sdk.net.ICrowdmapConstants;
-import com.crowdmap.java.sdk.util.Util;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
-import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
+import com.crowdmap.java.sdk.SessionToken;
+import com.crowdmap.java.sdk.util.ValidateUtil;
 
 /**
  * Base crowdmap service class
  */
-public abstract class CrowdmapService {
-
-    public static Gson gson;
+public abstract class CrowdmapService<T> {
 
     protected int limit = 10;
 
     protected int offset = 0;
 
-    static {
-        Type userListType = new TypeToken<List<User>>() {
-        }.getType();
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Date.class, new DateDeserializer());
-        builder.registerTypeAdapter(userListType, new UsersDeserializer());
-        builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
-        gson = builder.create();
-    }
-
-    protected HttpClient client;
-
-    /**
-     * private app key value *
-     */
-    private String privateKey;
-
-    /**
-     * public app key value *
-     */
-    private String publicKey;
-
-    protected String sessionToken;
-
-    protected CrowdmapApiKeys mCrowdmapApiKeys;
-
-    public CrowdmapService(CrowdmapApiKeys crowdmapApiKeys) {
-        this.mCrowdmapApiKeys = crowdmapApiKeys;
-    }
-
-    /**
-     * Set the default {@link com.crowdmap.java.sdk.net.HttpClient}
-     *
-     * @param client The HttpClient
-     */
-    public void setHttpClient(HttpClient client) {
-
-        if (client == null) {
-            throw new IllegalArgumentException("Client cannot be null");
-        }
-        this.client = client;
-    }
-
-    /**
-     * Get the configured HTTP client
-     */
-    public HttpClient getHttpClient() {
-        return client;
-    }
+    private
+    @SessionToken
+    String sessionToken;
 
     /**
      * Check that id is not null and not empty
@@ -103,68 +40,41 @@ public abstract class CrowdmapService {
         }
     }
 
-    /**
-     * Deserialize the JSON string into Java objects representing the various Crowdmap models.
-     *
-     * @param json the json string to be converted
-     * @param cls  the class for the model
-     * @return The Object related to the Crowdmap API model
-     */
-    public static <T> T fromString(String json, Class<T> cls) {
-
-        return gson.fromJson(json, cls);
+    @SuppressWarnings("unchecked")
+    public T setSessionToken(@SessionToken String sessionToken) {
+        this.sessionToken = sessionToken;
+        return (T) this;
     }
 
-    /**
-     * Serialize an Object into JSON objects.
-     *
-     * @param obj the object to be serialized
-     * @return the json string
-     */
-    public static String toJson(final Object obj) {
-        return gson.toJson(obj);
+    @SuppressWarnings("unchecked")
+    public T limit(int limit) {
+        if (limit > 0) {
+            this.limit = limit;
+        }
+        return (T) this;
     }
 
-    public abstract CrowdmapService setSessionToken(String sessionToken);
+    @SuppressWarnings("unchecked")
+    public T offset(int offset) {
+        if (limit <= 0) {
+            throw new IllegalArgumentException("Requires that a limit be set.");
+        }
 
-    public String getPublicKey() {
-        return publicKey;
+        this.offset = offset;
+
+        return (T) this;
     }
 
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public String getPrivateKey() {
-        return privateKey;
-    }
-
-    public void setPrivateKey(String privateKey) {
-        this.privateKey = privateKey;
-    }
-
-    /**
-     * Set the application signature key for every request.
-     */
-    protected void setApiKey(String method, String uri) {
-        //generate the api key
-        final String apiKey = Util
-                .generateSignature(method, uri, getPublicKey(), getPrivateKey());
-        // set the apikey for the request
-        client.setApiKey(apiKey);
-    }
-
-    protected String generateApiKey(String method, String uri) {
-        return Util.generateSignature(method, uri, mCrowdmapApiKeys.publicKey,
-                mCrowdmapApiKeys.getPrivateKey());
-    }
-
-    protected void validateSession() {
-        if (!client.getRequestParameters().containsKey(ICrowdmapConstants.SESSION)) {
+    protected
+    @SessionToken
+    String getSessionToken() {
+        if (ValidateUtil.empty(sessionToken)) {
             throw new IllegalArgumentException(
                     "This action requires a valid sessionToken. You will have to login then provide the "
                             + "sessionToken id returned");
         }
+        return this.sessionToken;
     }
+
 
 }

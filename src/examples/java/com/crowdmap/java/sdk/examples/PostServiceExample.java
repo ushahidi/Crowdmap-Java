@@ -14,7 +14,6 @@
 
 package com.crowdmap.java.sdk.examples;
 
-import com.crowdmap.java.sdk.Crowdmap;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.model.Comment;
 import com.crowdmap.java.sdk.model.form.PostForm;
@@ -24,7 +23,6 @@ import com.crowdmap.java.sdk.model.Post;
 import com.crowdmap.java.sdk.json.Session;
 
 import java.lang.System;
-import java.util.Scanner;
 
 /**
  * This example code will show you how to pull post as unauthenticated user and also show you

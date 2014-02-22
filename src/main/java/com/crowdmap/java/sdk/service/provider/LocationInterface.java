@@ -14,30 +14,12 @@
 
 package com.crowdmap.java.sdk.service.provider;
 
-import com.crowdmap.java.sdk.json.Externals;
-import com.crowdmap.java.sdk.model.External;
-
-import retrofit.http.Body;
-import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Query;
-
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
+import com.crowdmap.java.sdk.json.Locations;
 
 /**
- * Interface for external activities
+ * Location interface
  */
-public interface ExternalInterface {
+public interface LocationInterface {
 
-    @GET(SEGMENT_EXTERNALS)
-    Externals getExternal(@Query("external_id") String externalId, @Query("limit") int limit,
-            @Query("offset") int offset);
-
-    @FormUrlEncoded
-    @POST(SEGMENT_EXTERNALS)
-    Externals createExternal(
-            @Body External external, @Field("session") String session
-    );
+    Locations getLocation();
 }
