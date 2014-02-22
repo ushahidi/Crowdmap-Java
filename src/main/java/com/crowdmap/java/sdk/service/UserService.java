@@ -14,7 +14,6 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.CrowdmapApiKeys;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Notifications;
 import com.crowdmap.java.sdk.json.Posts;
@@ -23,11 +22,6 @@ import com.crowdmap.java.sdk.json.Users;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.model.form.UserForm;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWS;

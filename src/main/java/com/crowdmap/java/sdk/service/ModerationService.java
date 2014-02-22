@@ -14,14 +14,10 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.CrowdmapApiKeys;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.model.User;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENT;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAP;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MODERATE;

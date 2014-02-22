@@ -15,13 +15,7 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.model.External;
-import com.crowdmap.java.sdk.model.form.ExternalForm;
 import com.crowdmap.java.sdk.service.provider.ExternalInterface;
-
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 
 /**
  * External service
@@ -40,7 +34,6 @@ public class ExternalService extends CrowdmapService<ExternalService> {
      * @return The created external
      */
     public Externals createExternal(External external) {
-
         return mExternalInterface.createExternal(external, getSessionToken());
     }
 

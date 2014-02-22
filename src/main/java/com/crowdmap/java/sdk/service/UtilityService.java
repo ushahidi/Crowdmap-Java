@@ -14,14 +14,11 @@
 
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.CrowdmapApiKeys;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.service.provider.UtilityInterface;
-
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_REGISTEREDMAP;
 
 /**
  * The Utility service provide resources for useful information about the Crowdmap API
@@ -38,7 +35,7 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      * Get status of the Crowdmap service.
      */
     public Response heartbeat() {
-        return utility.heartbeat(limit, offset);
+        return utility.heartbeat();
 
     }
 
@@ -50,7 +47,7 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      * @return Details about the Crowdmap API
      */
     public About about() {
-        return utility.about(limit, offset);
+        return utility.about();
     }
 
     /**
@@ -60,7 +57,7 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      * @return OEmbed details
      */
     public OEmbed oEmbed(String url) {
-        return utility.oEmbed(url, limit, offset);
+        return utility.oEmbed(url);
     }
 
     /**
