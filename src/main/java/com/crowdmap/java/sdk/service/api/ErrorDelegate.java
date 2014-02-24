@@ -12,14 +12,29 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.service.provider;
+package com.crowdmap.java.sdk.service.api;
 
-import com.crowdmap.java.sdk.json.Locations;
+import com.crowdmap.java.sdk.json.Response;
+
+import retrofit.RetrofitError;
 
 /**
- * Location interface
+ * Error delegate
  */
-public interface LocationInterface {
+public interface ErrorDelegate {
 
-    Locations getLocation();
+    // No Network
+    public void noNetworkError(RetrofitError error);
+
+    // HTTP 401
+    public void notAuthorizedError(RetrofitError error, Response response);
+
+    // HTTP 400-500
+    public void invalidUrlError(RetrofitError error);
+
+    // HTTP 500-600
+    public void serverError(RetrofitError error);
+
+    // HTTP 200 OK but unknown error.
+    public void generalError(RetrofitError error, Response response);
 }

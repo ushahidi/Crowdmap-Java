@@ -70,7 +70,7 @@ public class SignRequestClient extends UrlConnectionClient implements Client {
                 .generateSignature(request.getMethod(), path, mCrowdmapApiKeys.getPublicKey(),
                         mCrowdmapApiKeys.getPrivateKey());
 
-        final RequestVariable requestVariable = new RequestVariable("&apikey", key);
+        final RequestVariable requestVariable = new RequestVariable("apikey", key);
 
         return client.open(new URL(request.getUrl() + requestVariable.toString()));
     }

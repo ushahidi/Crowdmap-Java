@@ -16,14 +16,12 @@ package com.crowdmap.java.sdk.examples;
 
 import com.crowdmap.java.sdk.Crowdmap;
 import com.crowdmap.java.sdk.json.Comments;
+import com.crowdmap.java.sdk.json.Posts;
+import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.Comment;
+import com.crowdmap.java.sdk.model.Post;
 import com.crowdmap.java.sdk.model.form.PostForm;
 import com.crowdmap.java.sdk.service.PostService;
-import com.crowdmap.java.sdk.json.Posts;
-import com.crowdmap.java.sdk.model.Post;
-import com.crowdmap.java.sdk.json.Session;
-
-import java.lang.System;
 
 /**
  * This example code will show you how to pull post as unauthenticated user and also show you
@@ -41,7 +39,7 @@ public class PostServiceExample {
     private String mPassword;
 
     public PostServiceExample(String pubKey, String privKey, String userName, String password) {
-        crowdmap  = new Crowdmap(pubKey, privKey);
+        crowdmap = new Crowdmap(pubKey, privKey);
         this.mUserName = userName;
         this.mPassword = password;
     }
@@ -52,7 +50,8 @@ public class PostServiceExample {
      * @return Session
      */
     public Session login() {
-        return crowdmap.login(mUserName, mPassword);
+        //return crowdmap.login(mUserName, mPassword);
+        return null;
     }
 
 
@@ -60,12 +59,12 @@ public class PostServiceExample {
      * Get recent posts as anonymous user
      */
     public void getPosts() {
-        mPostService = crowdmap.postService();
+        // mPostService = crowdmap.postService();
         Posts posts = mPostService.getPosts();
         System.out.println(posts.toString());
 
         // Print the details of the post
-        for(Post post : posts.getPosts()) {
+        for (Post post : posts.getPosts()) {
             System.out.println(post.toString());
         }
     }
@@ -74,24 +73,24 @@ public class PostServiceExample {
      * Example on how to make paginated queries
      */
     public void getTwoPosts() {
-        mPostService = crowdmap.postService();
+        //mPostService = crowdmap.postService();
         Posts posts = mPostService.offset(0).limit(1).getPosts();
-        System.out.println("Size "+posts.getPosts().size());
+        System.out.println("Size " + posts.getPosts().size());
     }
 
     /**
      * Get comments on a post
      */
     public void getPost() {
-        mPostService = crowdmap.postService();
+        //mPostService = crowdmap.postService();
         Comments comments = mPostService.getPostComments(17097);
-        for(Comment comment : comments.getComments()) {
+        for (Comment comment : comments.getComments()) {
             System.out.println(comment.toString());
         }
     }
 
     public void createPost() {
-        mPostService = crowdmap.postService();
+        // mPostService = crowdmap.postService();
 
         // Set post fields for submission
         PostForm form = new PostForm();
@@ -102,25 +101,25 @@ public class PostServiceExample {
         Session session = login();
 
         // Pass the session token for authenticated requests
-        if(session != null) {
-            mPostService.setSessionToken(session.getSessionToken());
+        if (session != null) {
+            // mPostService.setSessionToken(session.getSessionToken());
 
             // Create a new post
             Posts posts = mPostService.createPost(form);
 
             // Print the details of the post
-            for(Post post : posts.getPosts()) {
+            for (Post post : posts.getPosts()) {
                 System.out.println(post.toString());
             }
         }
     }
 
     public static void main(String[] args) throws Exception {
-        if(args.length == 0 || args.length < 1) {
+        if (args.length == 0 || args.length < 1) {
 
             System.out.println("Please provide your apps public key and private key respectively.");
         } else {
-            PostServiceExample example  = new PostServiceExample(args[0], args[1], args[2], args[3]);
+            PostServiceExample example = new PostServiceExample(args[0], args[1], args[2], args[3]);
             example.getPosts();
             example.createPost();
             //example.getPost();

@@ -13,8 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
-import com.crowdmap.java.sdk.SessionToken;
-import com.crowdmap.java.sdk.util.ValidateUtil;
+import retrofit.RestAdapter;
 
 /**
  * Base crowdmap service class
@@ -25,9 +24,15 @@ public abstract class CrowdmapService<T> {
 
     protected int offset = 0;
 
-    private
-    @SessionToken
-    String sessionToken;
+    RestAdapter restAdapter;
+
+    public CrowdmapService(RestAdapter restAdapter) {
+        this.restAdapter = restAdapter;
+    }
+
+    public RestAdapter getRestAdapter() {
+        return restAdapter;
+    }
 
     /**
      * Check that id is not null and not empty
@@ -38,12 +43,6 @@ public abstract class CrowdmapService<T> {
         if (id == 0) {
             throw new IllegalArgumentException("Id cannot be zero");
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    public T setSessionToken(@SessionToken String sessionToken) {
-        this.sessionToken = sessionToken;
-        return (T) this;
     }
 
     @SuppressWarnings("unchecked")
@@ -64,17 +63,5 @@ public abstract class CrowdmapService<T> {
 
         return (T) this;
     }
-
-    protected
-    @SessionToken
-    String getSessionToken() {
-        if (ValidateUtil.empty(sessionToken)) {
-            throw new IllegalArgumentException(
-                    "This action requires a valid sessionToken. You will have to login then provide the "
-                            + "sessionToken id returned");
-        }
-        return this.sessionToken;
-    }
-
 
 }

@@ -82,6 +82,9 @@ public class MockServerResponse {
 
     List<External> mExternalList;
 
+    public MockServerResponse() {
+        mExternalList = new ArrayList<External>();
+    }
     private void initAbout() {
         mAbout = new About();
         mAbout.setEnvironment("Demo");
@@ -206,6 +209,12 @@ public class MockServerResponse {
     public List<External> getExternalList() {
         initListExternals();
         return mExternalList;
+    }
+
+    public List<External> addExternaList(External external) {
+        List<External> list = getExternalList();
+        list.add(external);
+        return list;
     }
 
     public External getExternal() {

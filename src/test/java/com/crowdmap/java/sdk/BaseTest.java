@@ -14,6 +14,9 @@
 
 package com.crowdmap.java.sdk;
 
+import com.crowdmap.java.sdk.service.api.ApiStatusDelegate;
+import com.crowdmap.java.sdk.service.api.ErrorDelegate;
+
 import junit.framework.TestCase;
 
 import org.junit.After;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -12,30 +12,12 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.json;
-
-import com.crowdmap.java.sdk.model.Location;
-
-import java.io.Serializable;
-import java.util.List;
+package com.crowdmap.java.sdk.service.api;
 
 /**
- * Location resource
+ * Api Loading status delegate.
  */
-public class Locations extends Response implements Serializable {
+public interface ApiStatusDelegate {
 
-    private static final long serialVersionUID = -4915937124515578046L;
-
-    private List<Location> locations;
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    @Override
-    public String toString() {
-        return "Locations{" +super.toString()+
-                "locations=" + locations +
-                '}';
-    }
+    public void onCallbackFinished();
 }

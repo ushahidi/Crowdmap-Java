@@ -14,7 +14,7 @@
 
 package com.crowdmap.java.sdk.mock;
 
-import com.crowdmap.java.sdk.service.provider.UtilityInterface;
+import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
 import retrofit.MockRestAdapter;
 import retrofit.RestAdapter;

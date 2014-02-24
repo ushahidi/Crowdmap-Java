@@ -22,6 +22,8 @@ import com.crowdmap.java.sdk.json.Users;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.model.form.UserForm;
 
+import retrofit.RestAdapter;
+
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWS;
@@ -39,6 +41,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
 public class UserService extends CrowdmapService<UserService> {
 
 
+    public UserService(RestAdapter restAdapter) {
+        super(restAdapter);
+    }
+
     /**
      * Get users registered on Crowdmap
      *
@@ -52,7 +58,7 @@ public class UserService extends CrowdmapService<UserService> {
         //Send a get request to fetch registered users
         //String json = client.get(SEGMENT_USERS);
         //return fromString(json,
-          //      Users.class);
+        //      Users.class);
         return null;
     }
 

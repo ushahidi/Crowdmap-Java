@@ -13,9 +13,12 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Externals;
-import com.crowdmap.java.sdk.model.External;
-import com.crowdmap.java.sdk.service.provider.ExternalInterface;
+import com.crowdmap.java.sdk.service.api.ApiCallback;
+import com.crowdmap.java.sdk.service.api.ExternalInterface;
+
+import retrofit.RestAdapter;
 
 /**
  * External service
@@ -24,17 +27,20 @@ public class ExternalService extends CrowdmapService<ExternalService> {
 
     private final ExternalInterface mExternalInterface;
 
-    public ExternalService(ExternalInterface externalInterface) {
-        mExternalInterface = externalInterface;
+    public ExternalService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mExternalInterface = restAdapter.create(ExternalInterface.class);
     }
+
     /**
      * Create a new external
      *
-     * @param External The external form
+     * @param serviceId The external form
      * @return The created external
      */
-    public Externals createExternal(External external) {
-        return mExternalInterface.createExternal(external, getSessionToken());
+    public void createExternal(long serviceId, String idOnService,
+            @SessionToken String sessionToken, ApiCallback<Externals> callback) {
+        mExternalInterface.createExternal(serviceId, idOnService, sessionToken, callback);
     }
 
     /**
@@ -43,8 +49,8 @@ public class ExternalService extends CrowdmapService<ExternalService> {
      * @param externalId The external ID
      * @return The externals
      */
-    public Externals getExternal(long externalId) {
+    public void getExternal(long externalId, ApiCallback<Externals> callback) {
         checkId(externalId);
-        return mExternalInterface.getExternal(externalId, limit, offset);
+        mExternalInterface.getExternal(externalId, limit, offset, callback);
     }
 }

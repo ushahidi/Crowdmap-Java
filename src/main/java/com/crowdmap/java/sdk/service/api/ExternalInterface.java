@@ -12,12 +12,11 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.service.provider;
+package com.crowdmap.java.sdk.service.api;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Externals;
-import com.crowdmap.java.sdk.model.External;
 
-import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
@@ -32,12 +31,14 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 public interface ExternalInterface {
 
     @GET(SEGMENT_EXTERNALS)
-    Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
-            @Query("offset") int offset);
+    void getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
+            @Query("offset") int offset, ApiCallback<Externals> callback);
 
     @FormUrlEncoded
     @POST(SEGMENT_EXTERNALS)
-    Externals createExternal(
-            @Body External external, @Field("session") String session
+    void createExternal(@Field("service_id") long serviceId,
+            @Field("id_on_service") String idOnService,
+            @Field("session_token") @SessionToken String sessionToken,
+            ApiCallback<Externals> callback
     );
 }

@@ -19,12 +19,11 @@ import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.provider.MockUtilityService;
-import com.crowdmap.java.sdk.service.provider.UtilityInterface;
+import com.crowdmap.java.sdk.service.api.MockUtilityService;
+import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 
 /**
  * Test for Utility Service
@@ -38,7 +37,6 @@ public class UtilityServiceTest extends BaseTest {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        MockitoAnnotations.initMocks(this);
 
         mockUtilityService = new MockUtilityService(mMockServerResponse);
 

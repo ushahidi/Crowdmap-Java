@@ -23,9 +23,11 @@ import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.ICrowdmapConstants;
 import com.crowdmap.java.sdk.net.SignRequestClient;
+import com.crowdmap.java.sdk.service.ExternalService;
+import com.crowdmap.java.sdk.service.LocationService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.UtilityService;
-import com.crowdmap.java.sdk.service.provider.UtilityInterface;
+import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -50,8 +52,6 @@ public class CrowdmapApiModule {
     private RestAdapter restAdapter;
 
     private CrowdmapApiKeys mCrowdmapApiKeys;
-
-    protected @SessionToken String sessionToken;
 
     static {
         Type userListType = new TypeToken<List<User>>() {
@@ -91,8 +91,15 @@ public class CrowdmapApiModule {
     }
 
     public UtilityService utilityService() {
-        UtilityInterface utilityInterface = restAdapter.create(UtilityInterface.class);
-        return new UtilityService(utilityInterface);
+        return new UtilityService(restAdapter);
+    }
+
+    public ExternalService externalService() {
+        return new ExternalService(restAdapter);
+    }
+
+    public LocationService locationService() {
+        return new LocationService(restAdapter);
     }
 
     /**

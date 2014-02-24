@@ -18,25 +18,29 @@ import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.provider.UtilityInterface;
+import com.crowdmap.java.sdk.service.api.ApiCallback;
+import com.crowdmap.java.sdk.service.api.UtilityInterface;
+
+import retrofit.RestAdapter;
 
 /**
  * The Utility service provide resources for useful information about the Crowdmap API
  */
 public class UtilityService extends CrowdmapService<UtilityService> {
 
-    private final UtilityInterface utility;
+    private UtilityInterface utility;
 
-    public UtilityService(UtilityInterface utility) {
-        this.utility = utility;
+    public UtilityService(RestAdapter restAdapter) {
+        super(restAdapter);
+        utility = restAdapter.create(UtilityInterface.class);
     }
+
 
     /**
      * Get status of the Crowdmap service.
      */
-    public Response heartbeat() {
-        return utility.heartbeat();
-
+    public void heartbeat(ApiCallback<Response> callback) {
+        utility.heartbeat(callback);
     }
 
 
@@ -46,8 +50,8 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      *
      * @return Details about the Crowdmap API
      */
-    public About about() {
-        return utility.about();
+    public void about(ApiCallback<About> callback) {
+        utility.about(callback);
     }
 
     /**
@@ -56,8 +60,8 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      * @param url A Crowdmap encoded URL.
      * @return OEmbed details
      */
-    public OEmbed oEmbed(String url) {
-        return utility.oEmbed(url);
+    public void oEmbed(String url, ApiCallback<OEmbed> callback) {
+        utility.oEmbed(url, callback);
     }
 
     /**
@@ -66,8 +70,8 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      * @param subdomain The name of the subdomain to check for
      * @return The registeration details.
      */
-    public RegisteredMap registeredMap(String subdomain) {
-        return utility.registeredMap(subdomain);
+    public void registeredMap(String subdomain, ApiCallback<RegisteredMap> callback) {
+        utility.registeredMap(subdomain, callback);
     }
 
 }

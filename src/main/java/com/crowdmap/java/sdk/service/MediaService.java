@@ -17,6 +17,8 @@ import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.model.form.MediaForm;
 
+import retrofit.RestAdapter;
+
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 
 /**
@@ -24,6 +26,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
  */
 public class MediaService extends CrowdmapService<MediaService> {
 
+
+    public MediaService(RestAdapter restAdapter) {
+        super(restAdapter);
+    }
 
     /**
      * Get media in crowdmap. GET /media
@@ -34,7 +40,7 @@ public class MediaService extends CrowdmapService<MediaService> {
         //generate the api key
 
         // set the apikey for the request
-       // setApiKey(METHOD_GET, SEGMENT_MEDIA);
+        // setApiKey(METHOD_GET, SEGMENT_MEDIA);
         //final String json = client.get(SEGMENT_MEDIA);
         //Media mediaJson = fromString(json, Media.class);
         return null;

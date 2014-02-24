@@ -14,9 +14,15 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
+import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.json.Locations;
-import com.crowdmap.java.sdk.model.form.LocationForm;
-import com.crowdmap.java.sdk.service.provider.LocationInterface;
+import com.crowdmap.java.sdk.model.Geometry;
+import com.crowdmap.java.sdk.model.Location;
+import com.crowdmap.java.sdk.service.api.ApiCallback;
+import com.crowdmap.java.sdk.service.api.LocationInterface;
+
+import retrofit.RestAdapter;
 
 /**
  * The location service. Locations are the points or geometries that are attached to posts.
@@ -25,8 +31,9 @@ public class LocationService extends CrowdmapService<LocationService> {
 
     private LocationInterface mLocationInterface;
 
-    public LocationService(LocationInterface locationInterface) {
-        mLocationInterface = locationInterface;
+    public LocationService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mLocationInterface = restAdapter.create(LocationInterface.class);
     }
 
     /**
@@ -35,9 +42,12 @@ public class LocationService extends CrowdmapService<LocationService> {
      * @param form The location to be added to Crowdmap
      * @return The list of locations including the newly created location.
      */
-    public Locations createLocation(LocationForm form) {
-        //validateSession();
-        return null;
+    public void createLocation(String fsVenueId, Geometry geometry, String name, String region,
+            @SessionToken String sessionToken,
+            ApiCallback<Locations> callback) {
+        mLocationInterface
+                .createLocation(fsVenueId, geometry.toString(), name, region, sessionToken,
+                        callback);
     }
 
     /**
@@ -45,7 +55,11 @@ public class LocationService extends CrowdmapService<LocationService> {
      *
      * @return Get location.
      */
-    public Locations getLocation() {
-        return null;
+    public void getLocation(ApiCallback<Locations> callback) {
+        mLocationInterface.getLocation(callback);
+    }
+
+    public void getLocation(long locationId, ApiCallback<Locations> callback) {
+        mLocationInterface.getLocation(locationId, callback);
     }
 }

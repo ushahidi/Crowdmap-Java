@@ -19,9 +19,8 @@ import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.provider.UtilityInterface;
+import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
-import retrofit.MockRestAdapter;
 import retrofit.http.Path;
 import retrofit.http.Query;
 

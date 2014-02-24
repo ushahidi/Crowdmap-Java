@@ -21,6 +21,8 @@ import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.model.form.CommentForm;
 import com.crowdmap.java.sdk.model.form.PostForm;
 
+import retrofit.RestAdapter;
+
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LIKE;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
@@ -31,6 +33,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
  * Service for interacting with Crowdmap post API
  */
 public class PostService extends CrowdmapService<PostService> {
+
+    public PostService(RestAdapter restAdapter) {
+        super(restAdapter);
+    }
 
     /**
      * Get all posts across crowdmap - GET /posts
@@ -116,7 +122,7 @@ public class PostService extends CrowdmapService<PostService> {
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append("/");
-       // setApiKey(METHOD_DELETE, url.toString());
+        // setApiKey(METHOD_DELETE, url.toString());
         //return fromString(client.delete(url.toString()), Response.class);
         return null;
     }
@@ -202,7 +208,7 @@ public class PostService extends CrowdmapService<PostService> {
         url.append(SEGMENT_COMMENTS);
         url.append(mapId);
 
-       return null;
+        return null;
     }
 
     /**
@@ -245,11 +251,11 @@ public class PostService extends CrowdmapService<PostService> {
      */
     public Posts deletePostFromMap(long postId) {
         checkId(postId);
-       // validateSession();
+        // validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);
         url.append(postId);
         url.append(SEGMENT_MAPS);
-       return null;
+        return null;
     }
 
     /**

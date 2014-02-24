@@ -26,6 +26,8 @@ import com.crowdmap.java.sdk.net.content.Body;
 
 import java.io.File;
 
+import retrofit.RestAdapter;
+
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_BANNER;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COLLABORATORS;
@@ -40,6 +42,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
  * Service for interacting with various maps setup on crowdmap
  */
 public class MapService extends CrowdmapService<MapService> {
+
+    public MapService(RestAdapter restAdapter) {
+        super(restAdapter);
+    }
 
     /**
      * Get list of maps as anonymous user
@@ -167,7 +173,7 @@ public class MapService extends CrowdmapService<MapService> {
         Body body = new Body();
         body.addField("collaborator_id", userId);
         //return fromString(client.post(url.toString(), body),
-          //      Collaborators.class);
+        //      Collaborators.class);
         return null;
     }
 
@@ -239,7 +245,7 @@ public class MapService extends CrowdmapService<MapService> {
         url.append(mapId);
         url.append(SEGMENT_FOLLOWERS);
         //setApiKey(METHOD_DELETE, url.toString());
-       return null;
+        return null;
     }
 
     // Tagging Maps

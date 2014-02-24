@@ -12,9 +12,10 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.service.provider;
+package com.crowdmap.java.sdk.service.api;
 
 import com.crowdmap.java.sdk.MockServerResponse;
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.model.External;
 
@@ -27,20 +28,33 @@ import retrofit.http.Query;
  */
 public class MockExternalService implements ExternalInterface {
 
-    MockServerResponse mMockServerResponse;
+    @Override
+    public  void getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
+            @Query("offset") int offset, ApiCallback<Externals> callback) {
 
-    public MockExternalService(MockServerResponse mockServerResponse) {
-        this.mMockServerResponse = mockServerResponse;
     }
 
     @Override
+    public void createExternal(@Body External external,
+            @Field("session") @SessionToken String session, ApiCallback<Externals> callback) {
+
+    }
+
+    /*@Override
     public Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
             @Query("offset") int offset) {
-        return mMockServerResponse.getExternals();
+        for (External external : mMockServerResponse.getExternals().getExternals()) {
+            if (external.getId() == externalId) {
+                return mMockServerResponse.getExternals();
+            }
+        }
+        return null;
     }
 
     @Override
     public Externals createExternal(@Body External external, @Field("session") String session) {
-        return mMockServerResponse.getExternals();
-    }
+        Externals externals = mMockServerResponse.getExternals();
+        externals.setExternals(mMockServerResponse.addExternaList(external));
+        return externals;
+    }*/
 }

@@ -16,6 +16,8 @@ package com.crowdmap.java.sdk.service;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.form.LoginForm;
 
+import retrofit.RestAdapter;
+
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
 
@@ -23,6 +25,10 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
  * Login service
  */
 public class SessionService extends CrowdmapService<SessionService> {
+
+    public SessionService(RestAdapter restAdapter) {
+        super(restAdapter);
+    }
 
     /**
      * Login a user. POST /session/login
@@ -39,7 +45,7 @@ public class SessionService extends CrowdmapService<SessionService> {
         //setApiKey(METHOD_POST, url.toString());
         // Send a post request to login
         //return fromString(client.multipartPost(url.toString(), form.getParameters()),
-          //      Session.class);
+        //      Session.class);
         return null;
     }
 

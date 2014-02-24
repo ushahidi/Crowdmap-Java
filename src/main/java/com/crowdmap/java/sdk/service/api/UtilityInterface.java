@@ -12,7 +12,7 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.service.provider;
+package com.crowdmap.java.sdk.service.api;
 
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
@@ -34,14 +34,14 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_REGISTEREDMAP
 public interface UtilityInterface {
 
     @GET(SEGMENT_HEARTBEAT)
-    Response heartbeat();
+    void heartbeat(ApiCallback<Response> callback);
 
     @GET(SEGMENT_ABOUT)
-    About about();
+    void about(ApiCallback<About> callback);
 
     @GET(SEGMENT_OEMBED)
-    OEmbed oEmbed(@Query("url") String url);
+    void oEmbed(@Query("url") String url, ApiCallback<OEmbed> callback);
 
     @GET(SEGMENT_REGISTEREDMAP + "{domain}/")
-    RegisteredMap registeredMap(@Path("domain") String domain);
+    void registeredMap(@Path("domain") String domain, ApiCallback<RegisteredMap> callback);
 }

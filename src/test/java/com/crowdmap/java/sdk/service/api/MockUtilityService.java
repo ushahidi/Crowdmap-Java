@@ -12,7 +12,7 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.service.provider;
+package com.crowdmap.java.sdk.service.api;
 
 import com.crowdmap.java.sdk.MockServerResponse;
 import com.crowdmap.java.sdk.json.About;
@@ -28,29 +28,23 @@ import retrofit.http.Query;
  */
 public class MockUtilityService implements UtilityInterface {
 
-    MockServerResponse mMockServerResponse;
+    @Override
+    public void heartbeat(ApiCallback<Response> callback) {
 
-    public MockUtilityService(MockServerResponse mockServerResponse) {
-        this.mMockServerResponse = mockServerResponse;
     }
 
     @Override
-    public Response heartbeat() {
-        return mMockServerResponse.getResponse();
+    public void about(ApiCallback<About> callback) {
+
     }
 
     @Override
-    public About about() {
-        return mMockServerResponse.getAbout();
+    public void oEmbed(@Query("url") String url, ApiCallback<OEmbed> callback) {
+
     }
 
     @Override
-    public OEmbed oEmbed(@Query("url") String url) {
-        return mMockServerResponse.getOEmbed();
-    }
+    public void registeredMap(@Path("domain") String domain, ApiCallback<RegisteredMap> callback) {
 
-    @Override
-    public RegisteredMap registeredMap(@Path("domain") String domain) {
-        return mMockServerResponse.getRegisteredMap();
     }
 }

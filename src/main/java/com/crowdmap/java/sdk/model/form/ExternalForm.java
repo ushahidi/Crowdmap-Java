@@ -24,9 +24,9 @@ public class ExternalForm extends Form {
     private int serviceId;
 
     /**
-     * The provider. The name of the site the content came from
+     * The api. The name of the site the content came from
      */
-    @FormField(name = "provider")
+    @FormField(name = "api")
     private String provider;
 
     /**
@@ -126,14 +126,14 @@ public class ExternalForm extends Form {
     }
 
     /**
-     * @return the provider
+     * @return the api
      */
     public String getProvider() {
         return provider;
     }
 
     /**
-     * @param provider the provider to set
+     * @param provider the api to set
      */
     public void setProvider(String provider) {
         this.provider = provider;
@@ -284,7 +284,7 @@ public class ExternalForm extends Form {
         return "External{" +
                 "id=" + id +
                 ", serviceId=" + serviceId +
-                ", provider='" + provider + '\'' +
+                ", api='" + provider + '\'' +
                 ", type='" + type + '\'' +
                 ", idOnService='" + idOnService + '\'' +
                 ", content='" + content + '\'' +
