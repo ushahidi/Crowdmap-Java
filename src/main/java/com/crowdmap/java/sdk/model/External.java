@@ -40,7 +40,7 @@ public class External implements Serializable {
     /**
      * The service ID
      */
-    private int serviceId;
+    private long serviceId;
 
     /**
      * The provider. The name of the site the content came from
@@ -120,7 +120,7 @@ public class External implements Serializable {
     /**
      * @return the serviceId
      */
-    public int getServiceId() {
+    public long getServiceId() {
         return serviceId;
     }
 

@@ -19,7 +19,7 @@ import java.io.Serializable;
 /**
  * Registered map resource. Check if a subdomain for a map has already been registered on Crowdmap.
  */
-public class RegisteredMap implements Serializable {
+public class RegisteredMap extends  Response implements Serializable {
 
     private static final long serialVersionUID = 2177384105800482410L;
 

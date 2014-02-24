@@ -45,8 +45,6 @@ public class ExternalService extends CrowdmapService<ExternalService> {
      */
     public Externals getExternal(long externalId) {
         checkId(externalId);
-        StringBuilder url = new StringBuilder(String.valueOf(externalId));
-        url.append("/");
-        return mExternalInterface.getExternal(url.toString(), limit, offset);
+        return mExternalInterface.getExternal(externalId, limit, offset);
     }
 }

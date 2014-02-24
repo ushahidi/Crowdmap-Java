@@ -14,30 +14,33 @@
 
 package com.crowdmap.java.sdk.service.provider;
 
+import com.crowdmap.java.sdk.MockServerResponse;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.model.External;
 
 import retrofit.http.Body;
 import retrofit.http.Field;
-import retrofit.http.FormUrlEncoded;
-import retrofit.http.GET;
-import retrofit.http.POST;
 import retrofit.http.Query;
 
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
-
 /**
- * Interface for external activities
+ * Mock external service
  */
-public interface ExternalInterface {
+public class MockExternalService implements ExternalInterface {
 
-    @GET(SEGMENT_EXTERNALS)
-    Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
-            @Query("offset") int offset);
+    MockServerResponse mMockServerResponse;
 
-    @FormUrlEncoded
-    @POST(SEGMENT_EXTERNALS)
-    Externals createExternal(
-            @Body External external, @Field("session") String session
-    );
+    public MockExternalService(MockServerResponse mockServerResponse) {
+        this.mMockServerResponse = mockServerResponse;
+    }
+
+    @Override
+    public Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
+            @Query("offset") int offset) {
+        return mMockServerResponse.getExternals();
+    }
+
+    @Override
+    public Externals createExternal(@Body External external, @Field("session") String session) {
+        return mMockServerResponse.getExternals();
+    }
 }
