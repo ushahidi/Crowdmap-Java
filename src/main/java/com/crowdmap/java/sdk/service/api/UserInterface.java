@@ -82,14 +82,14 @@ public interface UserInterface {
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWS)
     void getUsersFollowedBy(@Path("user_id") long userId,
-            @Query("session") @SessionToken String sessionToken,
             ApiCallback<Users> callback);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWS + "{follower_id/}")
-    void verifyUsersFollowing(@Path("user_id") long userId, @Path("follower_id") long followerId);
+    void verifyUsersFollowing(@Path("user_id") long userId, @Path("follower_id") long followerId,
+            ApiCallback<Users> callback);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWERS)
-    void getUsersFollowers(@Path("user_id") long userId);
+    void getUsersFollowers(@Path("user_id") long userId, ApiCallback<Users> callback);
 
     @FormUrlEncoded
     @POST(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWERS)

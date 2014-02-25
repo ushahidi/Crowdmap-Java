@@ -27,6 +27,7 @@ import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.LocationService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.SessionService;
+import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
 import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
@@ -106,10 +107,15 @@ public class CrowdmapApiModule {
     public SessionService sessionService() {
         return new SessionService(restAdapter);
     }
+
+    public UserService userService() {
+        return new UserService(restAdapter);
+    }
+
     /**
      * Create a new media service instance
      */
-    private MediaService provideMediaService(RestAdapter restAdapter) {
-        return restAdapter.create(MediaService.class);
+    private MediaService provideMediaService() {
+        return new MediaService(restAdapter);
     }
 }

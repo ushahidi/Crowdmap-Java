@@ -14,14 +14,10 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.form.LoginForm;
 import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.SessionInterface;
 
 import retrofit.RestAdapter;
-
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
 
 /**
  * Login service
@@ -38,14 +34,10 @@ public class SessionService extends CrowdmapService<SessionService> {
     /**
      * Login a user. POST /session/login
      *
-     *
-     * @param username
-     * @param password
-     * @param callback
      * @return {@link com.crowdmap.java.sdk.json.Session}
      */
     public void login(String username, String password, ApiCallback<Session> callback) {
-        mSessionInterface.login(username,password,callback);
+        mSessionInterface.login(username, password, callback);
     }
 
 }
