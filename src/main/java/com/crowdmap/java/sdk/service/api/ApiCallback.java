@@ -113,7 +113,7 @@ public abstract class ApiCallback<T> implements Callback<T> {
         try {
             crowdmapResponse = (com.crowdmap.java.sdk.json.Response) retrofitError
                     .getBodyAs(com.crowdmap.java.sdk.json.Response.class);
-        }   catch (Exception exception) {
+        } catch (Exception exception) {
         }
 
         Response response = retrofitError.getResponse();

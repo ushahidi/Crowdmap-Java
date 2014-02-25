@@ -16,7 +16,6 @@ package com.crowdmap.java.sdk.service.api;
 
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Locations;
-import com.crowdmap.java.sdk.model.Location;
 
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
