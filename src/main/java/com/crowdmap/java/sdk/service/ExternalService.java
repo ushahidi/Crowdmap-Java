@@ -40,6 +40,7 @@ public class ExternalService extends CrowdmapService<ExternalService> {
      */
     public void createExternal(long serviceId, String idOnService,
             @SessionToken String sessionToken, ApiCallback<Externals> callback) {
+        checkId(serviceId);
         mExternalInterface.createExternal(serviceId, idOnService, sessionToken, callback);
     }
 

@@ -37,7 +37,7 @@ public class LocationService extends CrowdmapService<LocationService> {
     /**
      * Create a new location.
      *
-     * @param form The location to be added to Crowdmap
+     * @param fsVenueId The location to be added to Crowdmap
      * @return The list of locations including the newly created location.
      */
     public void createLocation(String fsVenueId, Geometry geometry, String name, String region,
@@ -58,6 +58,7 @@ public class LocationService extends CrowdmapService<LocationService> {
     }
 
     public void getLocation(long locationId, ApiCallback<Locations> callback) {
+        checkId(locationId);
         mLocationInterface.getLocation(locationId, callback);
     }
 }

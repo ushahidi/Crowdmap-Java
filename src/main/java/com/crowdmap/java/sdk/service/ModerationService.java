@@ -16,22 +16,21 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
-import com.crowdmap.java.sdk.model.User;
+import com.crowdmap.java.sdk.service.api.ApiCallback;
+import com.crowdmap.java.sdk.service.api.ModerationInterface;
 
 import retrofit.RestAdapter;
-
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAP;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MODERATE;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USER;
 
 /**
  * Moderation service. Use for flagging content on Crowdmap for moderation by the Crowdmap team.
  */
 public class ModerationService extends CrowdmapService<ModerationService> {
 
+    private ModerationInterface mModerationInterface;
+
     public ModerationService(RestAdapter restAdapter) {
         super(restAdapter);
+        mModerationInterface = restAdapter.create(ModerationInterface.class);
     }
 
     /**
@@ -40,13 +39,9 @@ public class ModerationService extends CrowdmapService<ModerationService> {
      * @param commentId The ID of the comment to be flagged for moderation.
      * @return List of comments
      */
-    public Comments moderateComment(long commentId) {
-        StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
-        url.append(SEGMENT_COMMENT);
-        url.append(commentId);
-        //setApiKey(METHOD_POST, url.toString());
-        ///return fromString(client.post(url.toString()), Comments.class);
-        return null;
+    public void reportComment(long commentId, ApiCallback<Comments> callback) {
+        checkId(commentId);
+        mModerationInterface.reportComment(commentId, callback);
     }
 
     /**
@@ -54,13 +49,9 @@ public class ModerationService extends CrowdmapService<ModerationService> {
      *
      * @param mapId The ID of the map to be flagged for moderation.
      */
-    public Maps moderateMaps(long mapId) {
-        StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
-        url.append(SEGMENT_MAP);
-        url.append(mapId);
-        //setApiKey(METHOD_POST, url.toString());
-        //return fromString(client.post(url.toString()), Maps.class);
-        return null;
+    public void reportMaps(long mapId, ApiCallback<Maps> callback) {
+        checkId(mapId);
+        mModerationInterface.reportMap(mapId, callback);
     }
 
     /**
@@ -68,13 +59,9 @@ public class ModerationService extends CrowdmapService<ModerationService> {
      *
      * @param userId The ID of the user to be flagged for moderation.
      */
-    public User moderateUser(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
-        url.append(SEGMENT_USER);
-        url.append(userId);
-        //setApiKey(METHOD_POST, url.toString());
-        //return fromString(client.post(url.toString()), User.class);
-        return null;
+    public void reportUser(long userId, ApiCallback<Maps> callback) {
+        checkId(userId);
+        mModerationInterface.reportUser(userId, callback);
     }
 
 }
