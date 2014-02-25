@@ -26,6 +26,7 @@ import com.crowdmap.java.sdk.net.SignRequestClient;
 import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.LocationService;
 import com.crowdmap.java.sdk.service.MediaService;
+import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UtilityService;
 import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
@@ -102,6 +103,9 @@ public class CrowdmapApiModule {
         return new LocationService(restAdapter);
     }
 
+    public SessionService sessionService() {
+        return new SessionService(restAdapter);
+    }
     /**
      * Create a new media service instance
      */

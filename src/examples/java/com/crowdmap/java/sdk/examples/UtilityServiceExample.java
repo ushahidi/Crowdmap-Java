@@ -28,6 +28,7 @@ import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.json.OEmbed;
+import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.External;
 import com.crowdmap.java.sdk.model.Geometry;
@@ -217,6 +218,27 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
                         });
     }
 
+    public void login() {
+        System.out.println("Login Service");
+        mModule.sessionService().login("henry@ushahidi.com", "godles123", new ApiCallback<Session>(this,this) {
+            @Override
+            public void success(Session session, Response response) {
+                super.success(session, response);
+                System.out.println("Login Service");
+                System.out.println(session.toString() + "\n\n");
+            }
+
+            @Override
+            public void failure(RetrofitError retrofitError) {
+                super.failure(retrofitError);
+                System.out.println("Retrofit Error ");
+                System.out.println(
+                        retrofitError.getResponse().getReason() + " " + retrofitError.getResponse()
+                                .getStatus() + " " + retrofitError.getUrl() + "\n\n");
+            }
+        });
+    }
+
     public static void main(String[] args) throws Exception {
         if (args.length == 0 || args.length < 1) {
 
@@ -230,12 +252,13 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
             example.createExternal();
             example.getLocations();
             example.createLocation();
+            example.login();
         }
     }
 
     @Override
     public void onCallbackFinished() {
-        System.out.println("Loading finished!");
+
     }
 
     @Override
@@ -255,7 +278,9 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
 
     @Override
     public void invalidUrlError(RetrofitError error) {
-
+        System.out.println(
+                "Invalid URL : " + error.getResponse().getReason() + " " + error.getResponse()
+                        .getStatus() + "\n\n");
     }
 
     @Override

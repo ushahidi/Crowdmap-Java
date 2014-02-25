@@ -23,8 +23,6 @@ import retrofit.client.Response;
  */
 public abstract class ApiCallback<T> implements Callback<T> {
 
-    private boolean isNextPage = false;
-
     private boolean isCancelled = false;
 
     private boolean isFinished;
@@ -115,7 +113,7 @@ public abstract class ApiCallback<T> implements Callback<T> {
         try {
             crowdmapResponse = (com.crowdmap.java.sdk.json.Response) retrofitError
                     .getBodyAs(com.crowdmap.java.sdk.json.Response.class);
-        } catch (Exception exception) {
+        }   catch (Exception exception) {
         }
 
         Response response = retrofitError.getResponse();

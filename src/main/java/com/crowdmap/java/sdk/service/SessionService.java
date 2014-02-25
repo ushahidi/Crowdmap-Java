@@ -15,6 +15,8 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.form.LoginForm;
+import com.crowdmap.java.sdk.service.api.ApiCallback;
+import com.crowdmap.java.sdk.service.api.SessionInterface;
 
 import retrofit.RestAdapter;
 
@@ -26,27 +28,24 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
  */
 public class SessionService extends CrowdmapService<SessionService> {
 
+    private SessionInterface mSessionInterface;
+
     public SessionService(RestAdapter restAdapter) {
         super(restAdapter);
+        mSessionInterface = restAdapter.create(SessionInterface.class);
     }
 
     /**
      * Login a user. POST /session/login
      *
-     * @param form The login form.
+     *
+     * @param username
+     * @param password
+     * @param callback
      * @return {@link com.crowdmap.java.sdk.json.Session}
      */
-    public Session login(LoginForm form) {
-
-        // Build the URL for the login endpoint
-        StringBuilder url = new StringBuilder(SEGMENT_SESSION);
-        url.append(SEGMENT_LOGIN);
-
-        //setApiKey(METHOD_POST, url.toString());
-        // Send a post request to login
-        //return fromString(client.multipartPost(url.toString(), form.getParameters()),
-        //      Session.class);
-        return null;
+    public void login(String username, String password, ApiCallback<Session> callback) {
+        mSessionInterface.login(username,password,callback);
     }
 
 }
