@@ -115,7 +115,7 @@ public class CrowdmapApiModule {
     /**
      * Create a new media service instance
      */
-    private MediaService provideMediaService() {
+    private MediaService mediaService() {
         return new MediaService(restAdapter);
     }
 }

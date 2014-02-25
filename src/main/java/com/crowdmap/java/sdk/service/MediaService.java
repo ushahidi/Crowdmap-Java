@@ -13,37 +13,32 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Media;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.model.form.MediaForm;
+import com.crowdmap.java.sdk.service.api.ApiCallback;
+import com.crowdmap.java.sdk.service.api.MediaInterface;
 
 import retrofit.RestAdapter;
-
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
+import retrofit.mime.TypedFile;
 
 /**
  * Service for interacting with crowdmap's media API
  */
 public class MediaService extends CrowdmapService<MediaService> {
 
+    private MediaInterface mMediaInterface;
 
     public MediaService(RestAdapter restAdapter) {
         super(restAdapter);
+        mMediaInterface = restAdapter.create(MediaInterface.class);
     }
 
     /**
      * Get media in crowdmap. GET /media
      */
-    public Media getMedia() {
-        //Crowdmap requires a new api signature every 2 minutes
-        // so before a request is made, generate a new key
-        //generate the api key
-
-        // set the apikey for the request
-        // setApiKey(METHOD_GET, SEGMENT_MEDIA);
-        //final String json = client.get(SEGMENT_MEDIA);
-        //Media mediaJson = fromString(json, Media.class);
-        return null;
+    public void getMedia(ApiCallback<Media> callback) {
+        mMediaInterface.getMedia(callback);
     }
 
     /**
@@ -52,31 +47,18 @@ public class MediaService extends CrowdmapService<MediaService> {
      * @param mediaId The ID of the media
      * @return Media Object
      */
-    public Media getMedia(long mediaId) {
+    public void getMedia(long mediaId, ApiCallback<Media> callback) {
         checkId(mediaId);
-        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        url.append(mediaId);
-        //setApiKey(METHOD_GET, url.toString());
-        //String response = client.get(url.toString());
-        //Media mediaJson = fromString(response, Media.class);
-        return null;
+        mMediaInterface.getMedia(mediaId, callback);
     }
 
-    public Media createMedia(MediaForm form) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        //setApiKey(METHOD_POST, url.toString());
-        //return fromString(client.multipartPost(url.toString(), form.getParameters()), Media.class);
-        return null;
+    public void createMedia(TypedFile photo, ApiCallback<Media> callback) {
+        mMediaInterface.createMedia(photo, callback);
     }
 
-    public Response deleteMedia(long mediaId) {
+    public void deleteMedia(long mediaId, @SessionToken String sessionToken,
+            ApiCallback<Response> callback) {
         checkId(mediaId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        url.append(mediaId);
-        //setApiKey(METHOD_DELETE, url.toString());
-        //return fromString(client.delete(url.toString()), Response.class);
-        return null;
+        mMediaInterface.deleteMedia(mediaId, sessionToken, callback);
     }
 }
