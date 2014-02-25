@@ -17,7 +17,6 @@ package com.crowdmap.java.sdk.service.api;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Posts;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 
 import retrofit.http.POST;
 import retrofit.http.Path;

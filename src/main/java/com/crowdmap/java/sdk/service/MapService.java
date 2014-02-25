@@ -398,14 +398,14 @@ public class MapService extends CrowdmapService<MapService> {
         // Check if upload banner is set, then upload the files
         if (form.getUploadBanner() != null) {
             for (Map map : maps.getMaps()) {
-                createBanner(map.getId(), form.getUploadBanner());
+                createBanner(map.getUserId(), form.getUploadBanner());
             }
         }
 
         // Check if upload avatar is set, then upload the files
         if (form.getUploadAvatar() != null) {
             for (Map map : maps.getMaps()) {
-                createAvatar(map.getId(), form.getUploadAvatar());
+                createAvatar(map.getUserId(), form.getUploadAvatar());
             }
         }
 
@@ -456,14 +456,14 @@ public class MapService extends CrowdmapService<MapService> {
         // Check if upload banner is set, then upload the files
         if (form.getUploadBanner() != null) {
             for (Map map : maps.getMaps()) {
-                createBanner(map.getId(), form.getUploadBanner());
+                createBanner(map.getUserId(), form.getUploadBanner());
             }
         }
 
         // Check if upload avatar is set, then upload the files
         if (form.getUploadAvatar() != null) {
             for (Map map : maps.getMaps()) {
-                createAvatar(map.getId(), form.getUploadAvatar());
+                createAvatar(map.getUserId(), form.getUploadAvatar());
             }
         }
 

@@ -44,7 +44,7 @@ public class MockExternalService implements ExternalInterface {
     public Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
             @Query("offset") int offset) {
         for (External external : mMockServerResponse.getExternals().getExternals()) {
-            if (external.getId() == externalId) {
+            if (external.getUserId() == externalId) {
                 return mMockServerResponse.getExternals();
             }
         }

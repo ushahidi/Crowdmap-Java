@@ -55,7 +55,7 @@ public class ExternalServiceTest extends  BaseTest implements ApiStatusDelegate,
                 assertNotNull(externals);
                 /*for (External external : externals.getExternals()) {
                     Ext
-                    if (external.getId() == 1) {
+                    if (external.getUserId() == 1) {
                         return mMockServerResponse.getExternals();
                     }
                 }*/
@@ -65,7 +65,7 @@ public class ExternalServiceTest extends  BaseTest implements ApiStatusDelegate,
         //assertNotNull(externals);
         //assertTrue(externals.isSuccess());
         //assertEquals(200, externals.getStatus());
-        //assertEquals(1, externals.getExternals().get(0).getId());
+        //assertEquals(1, externals.getExternals().get(0).getUserId());
         //assertEquals(1, externals.getExternals().get(0).getServiceId());
     }
 
