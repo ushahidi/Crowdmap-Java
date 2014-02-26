@@ -25,11 +25,11 @@ import com.crowdmap.java.sdk.net.ICrowdmapConstants;
 import com.crowdmap.java.sdk.net.SignRequestClient;
 import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.LocationService;
+import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
 import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
-import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -115,7 +115,12 @@ public class CrowdmapApiModule {
     /**
      * Create a new media service instance
      */
-    private MediaService mediaService() {
+    public MediaService mediaService() {
         return new MediaService(restAdapter);
     }
+
+    public MapService mapService() {
+        return new MapService(restAdapter);
+    }
+
 }

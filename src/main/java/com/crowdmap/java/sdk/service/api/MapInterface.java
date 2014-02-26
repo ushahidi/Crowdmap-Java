@@ -57,7 +57,11 @@ public interface MapInterface {
             ApiCallback<Maps> callback);
 
     @GET(SEGMENT_MAPS + "{map_id}")
-    void getMap(@Path("map_id") long mapId, ApiCallback<Maps> callback);
+    void getMaps(@Path("map_id") long mapId, ApiCallback<Maps> callback);
+
+    @GET(SEGMENT_MAPS + "{map_id}")
+    void getMaps(@Path("map_id") long mapId, @Query("session") @SessionToken String sessionToken,
+            ApiCallback<Maps> callback);
 
     @GET(SEGMENT_MAPS + "{map_id}" + SEGMENT_OWNER)
     void getMapOwner(@Path("map_id") long mapId, ApiCallback<Owner> callback);
@@ -65,6 +69,7 @@ public interface MapInterface {
 
     @GET(SEGMENT_MAPS + "{map_id}" + SEGMENT_OWNER + "{user_id}")
     void updateOwner(@Path("map_id") long mapId, @Path("user_id") long userId,
+            @Query("session") @SessionToken String sessionToken,
             ApiCallback<Owner> callback);
 
     @GET(SEGMENT_MAPS + "{map_id}" + SEGMENT_COLLABORATORS)
@@ -72,7 +77,7 @@ public interface MapInterface {
 
     @GET(SEGMENT_MAPS + "{map_id}" + SEGMENT_COLLABORATORS + "{user_id}")
     void addCollaborator(@Path("map_id") long mapId, @Path("user_id") long userId,
-            @Query("session") @SessionToken String sessionToken,
+            @Query("session") String sessionToken,
             ApiCallback<Collaborators> callback);
 
     @DELETE(SEGMENT_MAPS + "{map_id}" + SEGMENT_COLLABORATORS + "{user_id}")
@@ -105,7 +110,7 @@ public interface MapInterface {
 
     @DELETE(SEGMENT_MAPS + "{map_id}" + SEGMENT_TAGS + "{tag}")
     void deleteTag(@Path("map_id") long mapId, @Path("tag") String tag,
-            @Query("session") @SessionToken String sessionToken, ApiCallback<MapTags> callback);
+            @Field("session") @SessionToken String sessionToken, ApiCallback<MapTags> callback);
 
     //post on a map
     @GET(SEGMENT_MAPS + "{map_id}" + SEGMENT_POSTS)
@@ -117,52 +122,54 @@ public interface MapInterface {
 
     @PUT(SEGMENT_MAPS + "{map_id}" + SEGMENT_POSTS + "{post_id}")
     void approveOrDenyPostOnMap(@Path("map_id") long mapId, @Path("post_id") long postId,
-            @SessionToken String sessionToken, ApiCallback<Posts> callback);
+            @Field("session") String sessionToken, ApiCallback<Posts> callback);
 
     @DELETE(SEGMENT_MAPS + "{map_id}" + SEGMENT_POSTS + "{post_id}")
     void removePostFromMap(@Path("map_id") long mapId, @Path("post_id") long postId,
-            @SessionToken String sessionToken, ApiCallback<Posts> callback);
+            @Field("session") String sessionToken, ApiCallback<Posts> callback);
 
     @POST(SEGMENT_MAPS)
-    void createMap(@Field("subdomain") String subdomain, @SessionToken String sessionToken,
-            ApiCallback<Posts> callback);
+    void createMap(@Field("subdomain") String subdomain, @Field("name") String name,
+            @Field("description") String description, @Field("session") String sessionToken,
+            ApiCallback<Maps> callback);
 
     @Multipart
     @POST(SEGMENT_MAPS + "{map_id}" + SEGMENT_BANNER)
     void createBanner(@Path("map_id") long mapId,
             @Part("banner") TypedFile banner,
-            @SessionToken String sessionToken,
+            @Part("session") String sessionToken,
             ApiCallback<Maps> callback);
 
     @Multipart
     @POST(SEGMENT_MAPS + "{map_id}" + SEGMENT_AVATAR)
     void createAvatar(@Path("map_id") long mapId, @Part("avatar") TypedFile avatar,
-            @SessionToken String sessionToken,
+            @Part("session") String sessionToken,
             ApiCallback<Maps> callback);
 
-    @POST(SEGMENT_MAPS + "{map_id}")
+    @PUT(SEGMENT_MAPS + "{map_id}")
     void updateMap(@Path("map_id") long mapId,
-            @Field("name") String name,
-            @Field("description") String description,
-            @SessionToken String sessionToken,
+            @Query("name") String name,
+            @Query("description") String description,
+            @Query("session") String sessionToken,
             ApiCallback<Maps> callback);
 
     @DELETE(SEGMENT_MAPS + "{map_id}")
     void deleteMap(@Path("map_id") long mapId,
-            @SessionToken String sessionToken,
+            @Query("session") String sessionToken,
             ApiCallback<Maps> callback);
 
     @GET(SEGMENT_MAPS + "{map_id}" + SEGMENT_SETTINGS + "{setting}")
     void getMapSettings(@Path("map_id") long mapId, @Path("setting") String settingsName,
+            @Query("session") String sessionToken,
             ApiCallback<MapSettings> callback);
 
     @PUT(SEGMENT_MAPS + "{map_id}" + SEGMENT_SETTINGS)
     void updateMapSettings(@Path("map_id") long mapId,
-            @Field("setting") String settingsName,
-            @Field("value") String settingsValue,
-            @Field("session") @SessionToken String sessionToken, ApiCallback<MapSettings> callback);
+            @Query("setting") String settingsName,
+            @Query("value") String settingsValue,
+            @Query("session") @SessionToken String sessionToken, ApiCallback<MapSettings> callback);
 
-    @GET(SEGMENT_MAPS + "{map_id}" + SEGMENT_SETTINGS + "{setting}")
+    @DELETE(SEGMENT_MAPS + "{map_id}" + SEGMENT_SETTINGS + "{setting}")
     void deleteMapSettings(@Path("map_id") long mapId, @Path("setting") String settingsName,
-            @Field("session") @SessionToken String sessionToken, ApiCallback<MapSettings> callback);
+            @Query("session") @SessionToken String sessionToken, ApiCallback<MapSettings> callback);
 }

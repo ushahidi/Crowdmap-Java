@@ -45,6 +45,6 @@ public class Collaborators extends Response implements Serializable {
     public String toString() {
         return "Collaborators{" +
                 "collaborators=" + collaborators +
-                "},"+super.toString();
+                "}," + super.toString();
     }
 }

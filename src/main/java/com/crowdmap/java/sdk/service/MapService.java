@@ -13,6 +13,7 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Collaborators;
 import com.crowdmap.java.sdk.json.Followers;
 import com.crowdmap.java.sdk.json.MapSettings;
@@ -20,31 +21,22 @@ import com.crowdmap.java.sdk.json.MapTags;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Owner;
 import com.crowdmap.java.sdk.json.Posts;
-import com.crowdmap.java.sdk.model.form.MapForm;
-import com.crowdmap.java.sdk.model.form.TagForm;
-import com.crowdmap.java.sdk.net.content.Body;
-
-import java.io.File;
+import com.crowdmap.java.sdk.service.api.ApiCallback;
+import com.crowdmap.java.sdk.service.api.MapInterface;
 
 import retrofit.RestAdapter;
-
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_BANNER;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COLLABORATORS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OWNER;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SETTINGS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
+import retrofit.mime.TypedFile;
 
 /**
  * Service for interacting with various maps setup on crowdmap
  */
 public class MapService extends CrowdmapService<MapService> {
 
+    MapInterface mMapInterface;
+
     public MapService(RestAdapter restAdapter) {
         super(restAdapter);
+        mMapInterface = restAdapter.create(MapInterface.class);
     }
 
     /**
@@ -52,23 +44,18 @@ public class MapService extends CrowdmapService<MapService> {
      *
      * @return Maps as
      */
-    public Maps getMaps() {
-        return null;
+    public void getMaps(ApiCallback<Maps> callback) {
+        mMapInterface.getMaps(callback);
     }
 
 
     /**
      * Get Map as an authenticated user.
      *
-     * <strong>Note:</strong> This requires session token to be set. See {@link
-     * #setSessionToken(String)}
-     *
      * @return A list containing all the maps as an authenticated user
      */
-    public Maps getMapsAsAuthenicatedUser() {
-        // Set session token
-        //validateSession();
-        return null;
+    public void getMaps(@SessionToken String sessionToken, ApiCallback<Maps> callback) {
+        mMapInterface.getMaps(sessionToken, callback);
     }
 
     /**
@@ -77,30 +64,22 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return A specific map
      */
-    public Maps getMap(long mapId) {
+    public void getMaps(long mapId, ApiCallback<Maps> callback) {
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append("/");
-        return null;
+        mMapInterface.getMaps(mapId, callback);
     }
 
     /**
      * <p>Returns a specific map.</p>
      *
-     * <strong>Note:</strong> This requires session token to be set. See {@link
-     * #setSessionToken(String)}
+     * <strong>Note:</strong> This requires session token to be set.
      *
      * @param mapId The ID of the map
      * @return A specific map
      */
-    public Maps getMapAsAuthenicatedUser(long mapId) {
+    public void getMaps(long mapId, String sessionToken, ApiCallback<Maps> callback) {
         checkId(mapId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append("/");
-        return null;
+        mMapInterface.getMaps(mapId, sessionToken, callback);
     }
 
     // Users associations with maps
@@ -108,15 +87,12 @@ public class MapService extends CrowdmapService<MapService> {
     /**
      * Get information about the owner of a particular map. GET /maps/:map_id/owner
      *
-     * @param id The ID of the map
+     * @param mapId The ID of the map
      * @return The information about the owner of the map
      */
-    public Owner getMapOwner(long id) {
-        checkId(id);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(id);
-        url.append(SEGMENT_OWNER);
-        return null;
+    public void getMapOwner(long mapId, ApiCallback<Owner> callback) {
+        checkId(mapId);
+        mMapInterface.getMapOwner(mapId, callback);
     }
 
     /**
@@ -125,16 +101,11 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return The information about the owner of the map
      */
-    public Owner updateOwner(long mapId, long userId) {
+    public void updateOwner(long mapId, long userId, String sessionToken,
+            ApiCallback<Owner> callback) {
         checkId(mapId);
         checkId(userId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_OWNER);
-        Body body = new Body();
-        body.addField("user_id", userId);
-        return null;
+        mMapInterface.updateOwner(mapId, userId, sessionToken, callback);
     }
 
 
@@ -144,16 +115,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map.
      * @return The followers of a map.
      */
-    public Collaborators getCollaborators(long mapId) {
+    public void getCollaborators(long mapId, ApiCallback<Collaborators> callback) {
         checkId(mapId);
-
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_COLLABORATORS);
-        //setApiKey(METHOD_GET, url.toString());
-        //final String json = client.get(url.toString());
-        //return fromString(json, Collaborators.class);
-        return null;
+        mMapInterface.getCollaborators(mapId, callback);
     }
 
     /**
@@ -163,18 +127,11 @@ public class MapService extends CrowdmapService<MapService> {
      * @param userId The ID of the user.
      * @return The  Collaborators.
      */
-    public Collaborators addCollaborator(long mapId, long userId) {
+    public void addCollaborator(long mapId, long userId, String sessionToken,
+            ApiCallback<Collaborators> callback) {
         checkId(mapId);
         checkId(userId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_COLLABORATORS);
-        Body body = new Body();
-        body.addField("collaborator_id", userId);
-        //return fromString(client.post(url.toString(), body),
-        //      Collaborators.class);
-        return null;
+        mMapInterface.addCollaborator(mapId, userId, sessionToken, callback);
     }
 
     /**
@@ -184,16 +141,11 @@ public class MapService extends CrowdmapService<MapService> {
      * @param userId The ID of the user.
      * @return The collaborators on the map.
      */
-    public Collaborators removeCollaborator(long mapId, long userId) {
+    public void removeCollaborator(long mapId, long userId, String sessionToken,
+            ApiCallback<Collaborators> callback) {
         checkId(mapId);
         checkId(userId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_COLLABORATORS);
-        url.append(userId);
-        url.append("/");
-        return null;
+        mMapInterface.removeCollaborator(mapId, userId, sessionToken, callback);
     }
 
     /**
@@ -202,13 +154,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map.
      * @return The followers of a map.
      */
-    public Followers getFollowers(long mapId) {
+    public void getFollowers(long mapId, ApiCallback<Followers> callback) {
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_FOLLOWERS);
-
-        return null;
+        mMapInterface.getFollowers(mapId, callback);
     }
 
     /**
@@ -218,17 +166,11 @@ public class MapService extends CrowdmapService<MapService> {
      * @param userId The user ID.
      * @return The maps.
      */
-    public Followers followMap(long mapId, long userId) {
+    public void followMap(long mapId, long userId, String sessionToken,
+            ApiCallback<Followers> callback) {
         checkId(mapId);
         checkId(userId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_FOLLOWERS);
-        //setApiKey(METHOD_POST, url.toString());
-        Body body = new Body();
-        body.addField("user_id", userId);
-        return null;
+        mMapInterface.followMap(mapId, userId, sessionToken, callback);
     }
 
     /**
@@ -237,15 +179,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map to stop following.
      * @return The followers of the map.
      */
-    public Followers stopFollowingMap(long mapId) {
+    public void stopFollowingMap(long mapId, String sessionToken, ApiCallback<Followers> callback) {
         checkId(mapId);
-        //validateSession();
-        checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_FOLLOWERS);
-        //setApiKey(METHOD_DELETE, url.toString());
-        return null;
+        mMapInterface.stopFollowingMap(mapId, sessionToken, callback);
     }
 
     // Tagging Maps
@@ -256,11 +192,8 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag The tag to add to the map.
      * @return The tags.
      */
-    public MapTags getTags(String tag) {
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(tag);
-        url.append(SEGMENT_TAGS);
-        return null;
+    public void getTags(String tag, ApiCallback<MapTags> callback) {
+        mMapInterface.getTags(tag, callback);
     }
 
     /**
@@ -273,28 +206,20 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag   The tag to retrieve the map by.
      * @return The tags
      */
-    public MapTags getTags(long mapId, String tag) {
+    public void getTags(long mapId, String tag, ApiCallback<MapTags> callback) {
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(tag);
-        url.append(SEGMENT_TAGS);
-        return null;
+        mMapInterface.getTags(mapId, tag, callback);
     }
 
     /**
      * Add a new tag to the map.
      *
      * @param mapId The ID of the map.
-     * @param form  The TagForm which holds the fields of the tag.
      * @return The tags.
      */
-    public MapTags addTag(long mapId, TagForm form) {
+    public void addTag(long mapId, String tag, String sessionToken, ApiCallback<MapTags> callback) {
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_TAGS);
-        return null;
+        mMapInterface.addTag(mapId, tag, sessionToken, callback);
     }
 
     /**
@@ -304,14 +229,10 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag   The tag to delete from the map.
      * @return The tags.
      */
-    public MapTags deleteTag(long mapId, String tag) {
+    public void deleteTag(long mapId, String tag, String sessionToken,
+            ApiCallback<MapTags> callback) {
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_TAGS);
-        url.append(tag);
-        url.append("/");
-        return null;
+        mMapInterface.deleteTag(mapId, tag, sessionToken, callback);
     }
 
     //post on a map
@@ -322,12 +243,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map.
      * @return The Posts
      */
-    public Posts getPostOnMap(long mapId) {
+    public void getPostOnMap(long mapId, ApiCallback<Posts> callback) {
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_POSTS);
-        return null;
+        mMapInterface.getPostOnMap(mapId, callback);
     }
 
     /**
@@ -337,14 +255,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag   The tag to post on the map.
      * @return The posts
      */
-    public Posts getPostOnMapByTag(long mapId, String tag) {
+    public void getPostOnMapByTag(long mapId, String tag, ApiCallback<Posts> callback) {
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_POSTS);
-        url.append(tag);
-        url.append("/");
-        return null;
+        mMapInterface.getPostOnMapByTag(mapId, tag, callback);
     }
 
     /**
@@ -354,29 +267,19 @@ public class MapService extends CrowdmapService<MapService> {
      * @param postId The post post to approve or deny.
      * @return The posts
      */
-    public Posts approveOrDenyPostOnMap(long mapId, long postId) {
+    public void approveOrDenyPostOnMap(long mapId, long postId, String sessionToken,
+            ApiCallback<Posts> callback) {
         //Double check the fields involve
         checkId(mapId);
         checkId(postId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_POSTS);
-        url.append(postId);
-        url.append("/");
-        return null;
+        mMapInterface.approveOrDenyPostOnMap(mapId, postId, sessionToken, callback);
     }
 
-    public Posts removePostFromMap(long mapId, long postId) {
+    public void removePostFromMap(long mapId, long postId, String sessionToken,
+            ApiCallback<Posts> callback) {
         checkId(mapId);
         checkId(postId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_POSTS);
-        url.append(postId);
-        url.append("/");
-        return null;
+        mMapInterface.removePostFromMap(mapId, postId, sessionToken, callback);
     }
 
     /**
@@ -384,33 +287,12 @@ public class MapService extends CrowdmapService<MapService> {
      *
      * <p><strong>Note:</strong> Requires authentication</p>
      *
-     * @param form The MapForm holding the map field values
+     * @param subdomain The MapForm holding the map field values
      * @return The newly created map
      */
-    public Maps createMap(MapForm form) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-
-       /* Maps maps = fromString(
-                client.multipartPost(url.toString(), form.getParameters()),
-                Maps.class);
-
-        // Check if upload banner is set, then upload the files
-        if (form.getUploadBanner() != null) {
-            for (Map map : maps.getMaps()) {
-                createBanner(map.getUserId(), form.getUploadBanner());
-            }
-        }
-
-        // Check if upload avatar is set, then upload the files
-        if (form.getUploadAvatar() != null) {
-            for (Map map : maps.getMaps()) {
-                createAvatar(map.getUserId(), form.getUploadAvatar());
-            }
-        }
-
-        return maps;*/
-        return null;
+    public void createMap(String subdomain, String name, String description, String sessionToken,
+            ApiCallback<Maps> callback) {
+        mMapInterface.createMap(subdomain, name, description, sessionToken, callback);
     }
 
     /**
@@ -419,8 +301,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId  The ID of the map to attach the image to be uploaded to.
      * @param banner The image file
      */
-    public Maps createBanner(long mapId, File banner) {
-        return uploadImage(mapId, banner, SEGMENT_BANNER);
+    public void createBanner(long mapId, TypedFile banner, String sessionToken,
+            ApiCallback<Maps> callback) {
+        mMapInterface.createBanner(mapId, banner, sessionToken, callback);
     }
 
     /**
@@ -430,46 +313,21 @@ public class MapService extends CrowdmapService<MapService> {
      * @param avatar The image file
      * @return The updated map
      */
-    public Maps createAvatar(long mapId, File avatar) {
-        return uploadImage(mapId, avatar, SEGMENT_AVATAR);
+    public void createAvatar(long mapId, TypedFile avatar, String sessionToken,
+            ApiCallback<Maps> callback) {
+        mMapInterface.createAvatar(mapId, avatar, sessionToken, callback);
     }
 
     /**
      * Update an exisiting map.
      *
      * @param mapId The ID of the map to be updated.
-     * @param form  The fields to be updated.
+     * @param name  The fields to be updated.
      * @return The updated map.
      */
-    public Maps updateMap(long mapId, MapForm form) {
-        // validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-
-        // if a mapId is set
-        url.append(mapId);
-        url.append("/");
-
-        /*Maps maps = fromString(
-                client.put(url.toString(), form.getParameters()),
-                Maps.class);
-
-        // Check if upload banner is set, then upload the files
-        if (form.getUploadBanner() != null) {
-            for (Map map : maps.getMaps()) {
-                createBanner(map.getUserId(), form.getUploadBanner());
-            }
-        }
-
-        // Check if upload avatar is set, then upload the files
-        if (form.getUploadAvatar() != null) {
-            for (Map map : maps.getMaps()) {
-                createAvatar(map.getUserId(), form.getUploadAvatar());
-            }
-        }
-
-        return maps;*/
-        return null;
-
+    public void updateMap(long mapId, String name, String description, String sessionToken,
+            ApiCallback<Maps> callback) {
+        mMapInterface.updateMap(mapId, name, description, sessionToken, callback);
     }
 
     /**
@@ -478,12 +336,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return The list of maps minus the deleted map
      */
-    public Maps deleteMap(long mapId) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append("/");
-        return null;
+    public void deleteMap(long mapId, String sessionToken,
+            ApiCallback<Maps> callback) {
+        mMapInterface.deleteMap(mapId, sessionToken, callback);
     }
 
     /**
@@ -493,39 +348,14 @@ public class MapService extends CrowdmapService<MapService> {
      * @param settingsName The map settings name.
      * @return The map settings
      */
-    public MapSettings getMapSettings(long mapId, String settingsName) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        // if a mapId is set
-        checkId(mapId);
-        url.append(mapId);
-        url.append(SEGMENT_SETTINGS);
-        url.append(settingsName);
-        url.append("/");
-        return null;
+    public void getMapSettings(long mapId, String settingsName, String sessionToken,
+            ApiCallback<MapSettings> callback) {
+        mMapInterface.getMapSettings(mapId, settingsName, sessionToken, callback);
     }
 
-    /**
-     * Get map settings.
-     *
-     * @param mapId        The map to get it's settings.
-     * @param settingsName The map settings name.
-     * @return The map settings
-     */
-    public MapSettings createOrUpdateMapSettings(long mapId, String settingsName,
-            String settingsValue) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        // if a mapId is set
-        checkId(mapId);
-        url.append(mapId);
-        url.append(SEGMENT_SETTINGS);
-        url.append(settingsName);
-        url.append("/");
-        Body body = new Body();
-        body.addField("settings", settingsName);
-        body.addField("value", settingsValue);
-        return null;
+    public void updateMapSettings(long mapId, String settingsName, String settingsValue, String sessionToken,
+            ApiCallback<MapSettings> callback) {
+        mMapInterface.updateMapSettings(mapId, settingsName, settingsValue, sessionToken, callback);
     }
 
     /**
@@ -535,33 +365,12 @@ public class MapService extends CrowdmapService<MapService> {
      * @param settingsName The name of the settings to delete.
      * @return The map settings
      */
-    public MapSettings deleteMapSettings(long mapId, String settingsName) {
+    public void deleteMapSettings(long mapId, String settingsName, String sessionToken,
+            ApiCallback<MapSettings> callback) {
         checkId(mapId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(SEGMENT_SETTINGS);
-        url.append(settingsName);
-        url.append("/");
-        return null;
+        mMapInterface.deleteMapSettings(mapId, settingsName, sessionToken, callback);
     }
 
-    /**
-     * Upload image to the specified endpoint.
-     *
-     * @param mapId The ID of the map to attach the image to be uploaded to.
-     * @param image The image file.
-     * @param uri   The endpoint uri segement
-     * @return The updated map.
-     */
-    private Maps uploadImage(long mapId, File image, String uri) {
-        //validateSession();
-        Body body = new Body();
-        body.addField("file", image);
-        StringBuilder url = new StringBuilder(SEGMENT_MAPS);
-        url.append(mapId);
-        url.append(uri);
 
-        return null;
-    }
+
 }
