@@ -19,13 +19,13 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.PostTags;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.model.form.CommentForm;
-import com.crowdmap.java.sdk.model.form.PostForm;
 
 import retrofit.http.DELETE;
+import retrofit.http.Field;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -84,22 +84,44 @@ public interface PostInterface {
             TypedString externalUrl,
 
             @Part("file")
-            TypedFile media, @Part("session") TypedString sessionToken,
+            TypedFile media,
+            @Part("session") TypedString sessionToken,
             ApiCallback<Posts> callback);
 
     @DELETE(SEGMENT_POSTS + "{post_id}")
     void deletePost(@Path("post_id") long postId, @Query("session") String sessionToken,
             ApiCallback<Response> callback);
 
-    public Posts updatePost(long postId, PostForm form) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append("/");
-        //setApiKey(METHOD_PUT, url.toString());
-        //return fromString(client.put(url.toString(), form.getParameters()), Posts.class);
-        return null;
-    }
+    @Multipart
+    @PUT(SEGMENT_POSTS + "{post_id}")
+    void updatePost(@Path("post_id") long postId, @Part("message") TypedString message,
+            @Part("public") TypedString isPublic,
+
+            @Part("locations[name]") TypedString locationName,
+
+            @Part("locations[lat]") TypedString lat,
+
+            @Part("locations[lon]")
+            TypedString lon,
+
+            @Part("locations[geometry]")
+            TypedString geometry,
+
+            @Part("locations[fsq_venue_id]")
+            TypedString fsqVenueId,
+
+            @Part("map_id")
+            TypedString mapId,
+
+            @Part("tweet")
+            TypedString tweet,
+
+            @Part("externals[url]")
+            TypedString externalUrl,
+
+            @Part("file")
+            TypedFile media, @Part("session") TypedString sessionToken,
+            ApiCallback<Posts> callback);
 
     /**
      * Get tags attached to a post
@@ -107,127 +129,35 @@ public interface PostInterface {
      * @param tag The name of the tag. This can be CSV
      * @return The tags attached to a post
      */
-    public PostTags getPostTag(String tag) {
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(SEGMENT_TAGS);
-        url.append(tag);
-        url.append("/");
-        //setApiKey(METHOD_PUT, url.toString());
-        //return fromString(client.get(url.toString()), PostTags.class);
-        return null;
-    }
+    @GET(SEGMENT_POSTS + "{tag}" + SEGMENT_TAGS)
+    public void getPostTag(String tag, ApiCallback<PostTags> callback);
 
-    /**
-     * Like a particular post
-     *
-     * @param postId The post to like
-     * @return The liked posts.
-     */
-    public Posts likePost(long postId) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_LIKE);
-        //setApiKey(METHOD_POST, url.toString());
-        //return fromString(client.post(url.toString()), Posts.class);
-        return null;
-    }
+    @POST(SEGMENT_POSTS + "{post_id}")
+    void likePost(@Path("post_id") long postId, @Field("session") String sessionToken,
+            ApiCallback<Posts> callback);
 
-    /**
-     * Un-like a particular post
-     *
-     * @param postId The post to un-like
-     * @return The un-liked posts
-     */
-    public Posts unLikePost(long postId) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_LIKE);
-        //setApiKey(METHOD_DELETE, url.toString());
-        //return fromString(client.delete(url.toString()), Posts.class);
-        return null;
-    }
+    @DELETE(SEGMENT_POSTS + "{post_id}" + SEGMENT_LIKE)
+    void unLikePost(@Path("post_id") long postId, @Query("session") String sessionToken,
+            ApiCallback<Posts> callback);
 
-    /**
-     * Get the comments on a post from the context of a map the post is featured on. GET
-     * /posts/:post_id/comments/:map_id
-     *
-     * @param postId The Post ID
-     * @param mapId  The map ID
-     * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
-     */
-    public Comments getPostComments(long postId, long mapId) {
-        checkId(postId);
-        checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_COMMENTS);
-        url.append(mapId);
+    @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{map_id}")
+    void getPostComments(@Path("post_id") long postId, @Path("map_id") long mapId,
+            ApiCallback<Comments> callback);
 
-        return null;
-    }
+    @POST(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{map_id}")
+    void postComment(@Path("post_id") long postId, @Path("map_id") long mapId,
+            @Field("comment") String comment,
+            @Field("session") String sessionToken, ApiCallback<Comments> callback);
 
-    /**
-     * Add a comment on a post.
-     *
-     * @param postId The ID of the post to add the comment to.
-     * @param mapId  The map ID
-     * @param form   The comment form
-     * @return The posted comment
-     */
-    public Comments postComment(long postId, long mapId, CommentForm form) {
-        checkId(postId);
-        checkId(mapId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_COMMENTS);
-        url.append(mapId);
-        url.append("/");
-        return null;
-    }
+    @DELETE(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{comment_id}")
+    void deletePostComments(@Path("post_id") long postId, @Path("comment_id") long commentId,
+            @Query("session") String sessionToken, ApiCallback<Comments> callback);
 
-    public Comments deletePostComments(long postId, long commentId) {
-        checkId(postId);
-        checkId(commentId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_COMMENTS);
-        url.append(commentId);
-        url.append("/");
-        return null;
-    }
+    @DELETE(SEGMENT_POSTS + "{post_id}" + SEGMENT_MAPS)
+    void deletePostFromMap(@Path("post_id") long postId, @Query("session") String sessionToken,
+            ApiCallback<Posts> callback);
 
-    /**
-     * Delete a post from a map
-     *
-     * @param postId The ID of the post to be deleted.
-     * @return Post minus the deleted post
-     */
-    public Posts deletePostFromMap(long postId) {
-        checkId(postId);
-        // validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_MAPS);
-        return null;
-    }
-
-    /**
-     * Add an existing post to a map
-     *
-     * @return Post
-     */
-    public Posts createPostMap(long postId) {
-        checkId(postId);
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_MAPS);
-
-        return null;
-    }
-
+    @POST(SEGMENT_POSTS + "{post_id}" + SEGMENT_MAPS)
+    void createPostMap(@Path("post_id") long postId, @Field("session") String sessionToken,
+            ApiCallback<Posts> callback);
 }
