@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -11,7 +11,8 @@
  * ensure the GNU AFFERO GENERAL PUBLIC LICENSE Version 3 requirements
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
-package com.crowdmap.java.sdk.service;
+
+package com.crowdmap.java.sdk.service.api;
 
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
@@ -21,7 +22,15 @@ import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.model.form.CommentForm;
 import com.crowdmap.java.sdk.model.form.PostForm;
 
-import retrofit.RestAdapter;
+import retrofit.http.DELETE;
+import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.Part;
+import retrofit.http.Path;
+import retrofit.http.Query;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LIKE;
@@ -30,110 +39,58 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
 import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
 
 /**
- * Service for interacting with Crowdmap post API
+ * Post Interface
  */
-public class PostService extends CrowdmapService<PostService> {
+public interface PostInterface {
 
-    public PostService(RestAdapter restAdapter) {
-        super(restAdapter);
-    }
 
-    /**
-     * Get all posts across crowdmap - GET /posts
-     */
-    public Posts getPosts() {
-        //setApiKey(METHOD_GET, SEGMENT_POSTS);
-        //String json = client.get(SEGMENT_POSTS);
-        //return fromString(json, Posts.class);
-        return null;
-    }
+    @GET(SEGMENT_POSTS)
+    void getPosts(ApiCallback<Posts> callback);
 
-    /**
-     * Get posts based on the post ID and a segment of the URL passed to it
-     *
-     * @param postId  The ID of the post
-     * @param segment The URL segment
-     * @return The Object related to the JSON response
-     */
-    private <T> T get(long postId, String segment, Class<T> cls) {
 
-        checkId(postId);
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        // Add the segment
-        if (segment != null && segment.length() > 0) {
-            url.append(segment);
-        }
-        //setApiKey(METHOD_GET, url.toString());
-        //final String json = client.get(url.toString());
-        //return fromString(json, cls);
-        return null;
-    }
+    public void getPosts(@Path("post_id") long postId);
 
-    /**
-     * Get a specific post. GET /posts/:post_id
-     *
-     * @param postId The post ID
-     * @return The {@link com.crowdmap.java.sdk.json.Posts} response of the specific post
-     */
-    public Posts getPosts(long postId) {
+    @GET(SEGMENT_POSTS + "{post_id}")
+    void getPostMaps(long postId, ApiCallback<Maps> callback);
 
-        return get(postId, null, Posts.class);
-    }
+    @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS)
+    void getPostComments(long postId, ApiCallback<Maps> callback);
 
-    /**
-     * Get all of the maps a specific post is featured on. GET /posts/:post_id/maps
-     *
-     * @param postId The post ID
-     * @return The {@link com.crowdmap.java.sdk.json.Maps} response for the specific post
-     */
-    public Maps getPostMaps(long postId) {
+    @Multipart
+    @POST(SEGMENT_POSTS)
+    public Posts createPost(@Part("message") TypedString message,
+            @Part("public") TypedString isPublic,
 
-        return get(postId, SEGMENT_MAPS, Maps.class);
-    }
+            @Part("locations[name]") TypedString locationName,
 
-    /**
-     * Gell all the comments associated with a specific post.
-     *
-     * GET /posts/:post_id/comments/
-     *
-     * @param postId The post ID
-     * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
-     */
-    public Comments getPostComments(long postId) {
-        return get(postId, SEGMENT_COMMENTS, Comments.class);
-    }
+            @Part("locations[lat]") TypedString lat,
 
-    /**
-     * Create a new post as an authenticated user.
-     *
-     * @param form The post fields to submitted.
-     * @return The post created
-     */
-    public Posts createPost(PostForm form) {
-        //validateSession();
-        //setApiKey(METHOD_POST, SEGMENT_POSTS);
-        //return fromString(client.multipartPost(SEGMENT_POSTS, form.getParameters()), Posts.class);
-        return null;
-    }
+            @Part("locations[lon]")
+            TypedString lon,
 
-    public Response deletePost(long postId) {
-        //validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append("/");
-        // setApiKey(METHOD_DELETE, url.toString());
-        //return fromString(client.delete(url.toString()), Response.class);
-        return null;
-    }
+            @Part("locations[geometry]")
+            TypedString geometry,
 
-    /**
-     * Update an existing post
-     *
-     * @param postId The ID of the post to be updated
-     * @param form   The post fields
-     * @return The post updated
-     */
+            @Part("locations[fsq_venue_id]")
+            TypedString fsqVenueId,
+
+            @Part("map_id")
+            TypedString mapId,
+
+            @Part("tweet")
+            TypedString tweet,
+
+            @Part("externals[url]")
+            TypedString externalUrl,
+
+            @Part("file")
+            TypedFile media, @Part("session") TypedString sessionToken,
+            ApiCallback<Posts> callback);
+
+    @DELETE(SEGMENT_POSTS + "{post_id}")
+    void deletePost(@Path("post_id") long postId, @Query("session") String sessionToken,
+            ApiCallback<Response> callback);
+
     public Posts updatePost(long postId, PostForm form) {
         //validateSession();
         StringBuilder url = new StringBuilder(SEGMENT_POSTS);

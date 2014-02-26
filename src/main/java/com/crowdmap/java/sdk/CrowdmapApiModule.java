@@ -27,6 +27,7 @@ import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.LocationService;
 import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
+import com.crowdmap.java.sdk.service.PostService;
 import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
@@ -123,4 +124,7 @@ public class CrowdmapApiModule {
         return new MapService(restAdapter);
     }
 
+    public PostService postService() {
+        return new PostService(restAdapter);
+    }
 }
