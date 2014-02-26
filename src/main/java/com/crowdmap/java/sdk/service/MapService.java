@@ -197,9 +197,6 @@ public class MapService extends CrowdmapService<MapService> {
     }
 
     /**
-     * Get a specific map by tag
-     */
-    /**
      * Get tags of a particular map.
      *
      * @param mapId The ID of the map.
@@ -353,7 +350,8 @@ public class MapService extends CrowdmapService<MapService> {
         mMapInterface.getMapSettings(mapId, settingsName, sessionToken, callback);
     }
 
-    public void updateMapSettings(long mapId, String settingsName, String settingsValue, String sessionToken,
+    public void updateMapSettings(long mapId, String settingsName, String settingsValue,
+            String sessionToken,
             ApiCallback<MapSettings> callback) {
         mMapInterface.updateMapSettings(mapId, settingsName, settingsValue, sessionToken, callback);
     }
@@ -370,7 +368,5 @@ public class MapService extends CrowdmapService<MapService> {
         checkId(mapId);
         mMapInterface.deleteMapSettings(mapId, settingsName, sessionToken, callback);
     }
-
-
 
 }
