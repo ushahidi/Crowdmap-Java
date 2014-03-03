@@ -249,7 +249,7 @@ public class MapService extends CrowdmapService<MapService> {
      */
     public Posts getPostOnMapByTag(long mapId, String tag) {
         checkId(mapId);
-        mMapInterface.getPostOnMapByTag(mapId, tag);
+        return mMapInterface.getPostOnMapByTag(mapId, tag);
     }
 
     /**
