@@ -44,8 +44,8 @@ public class MapService extends CrowdmapService<MapService> {
      *
      * @return Maps as
      */
-    public void getMaps(ApiCallback<Maps> callback) {
-        mMapInterface.getMaps(callback);
+    public Maps getMaps(ApiCallback<Maps> callback) {
+        return mMapInterface.getMaps();
     }
 
 
@@ -54,8 +54,8 @@ public class MapService extends CrowdmapService<MapService> {
      *
      * @return A list containing all the maps as an authenticated user
      */
-    public void getMaps(@SessionToken String sessionToken, ApiCallback<Maps> callback) {
-        mMapInterface.getMaps(sessionToken, callback);
+    public Maps getMaps(@SessionToken String sessionToken) {
+        return mMapInterface.getMaps(sessionToken);
     }
 
     /**
@@ -64,9 +64,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return A specific map
      */
-    public void getMaps(long mapId, ApiCallback<Maps> callback) {
+    public Maps getMaps(long mapId) {
         checkId(mapId);
-        mMapInterface.getMaps(mapId, callback);
+        return mMapInterface.getMaps(mapId);
     }
 
     /**
@@ -77,9 +77,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return A specific map
      */
-    public void getMaps(long mapId, String sessionToken, ApiCallback<Maps> callback) {
+    public Maps getMaps(long mapId, String sessionToken) {
         checkId(mapId);
-        mMapInterface.getMaps(mapId, sessionToken, callback);
+        return mMapInterface.getMaps(mapId, sessionToken);
     }
 
     // Users associations with maps
@@ -90,9 +90,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return The information about the owner of the map
      */
-    public void getMapOwner(long mapId, ApiCallback<Owner> callback) {
+    public Owner getMapOwner(long mapId) {
         checkId(mapId);
-        mMapInterface.getMapOwner(mapId, callback);
+        return mMapInterface.getMapOwner(mapId);
     }
 
     /**
@@ -101,11 +101,10 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return The information about the owner of the map
      */
-    public void updateOwner(long mapId, long userId, String sessionToken,
-            ApiCallback<Owner> callback) {
+    public Owner updateOwner(long mapId, long userId, String sessionToken) {
         checkId(mapId);
         checkId(userId);
-        mMapInterface.updateOwner(mapId, userId, sessionToken, callback);
+        return mMapInterface.updateOwner(mapId, userId, sessionToken);
     }
 
 
@@ -115,9 +114,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map.
      * @return The followers of a map.
      */
-    public void getCollaborators(long mapId, ApiCallback<Collaborators> callback) {
+    public Collaborators getCollaborators(long mapId) {
         checkId(mapId);
-        mMapInterface.getCollaborators(mapId, callback);
+        return mMapInterface.getCollaborators(mapId);
     }
 
     /**
@@ -127,11 +126,10 @@ public class MapService extends CrowdmapService<MapService> {
      * @param userId The ID of the user.
      * @return The  Collaborators.
      */
-    public void addCollaborator(long mapId, long userId, String sessionToken,
-            ApiCallback<Collaborators> callback) {
+    public Collaborators addCollaborator(long mapId, long userId, String sessionToken) {
         checkId(mapId);
         checkId(userId);
-        mMapInterface.addCollaborator(mapId, userId, sessionToken, callback);
+        return mMapInterface.addCollaborator(mapId, userId, sessionToken);
     }
 
     /**
@@ -141,11 +139,10 @@ public class MapService extends CrowdmapService<MapService> {
      * @param userId The ID of the user.
      * @return The collaborators on the map.
      */
-    public void removeCollaborator(long mapId, long userId, String sessionToken,
-            ApiCallback<Collaborators> callback) {
+    public Collaborators removeCollaborator(long mapId, long userId, String sessionToken) {
         checkId(mapId);
         checkId(userId);
-        mMapInterface.removeCollaborator(mapId, userId, sessionToken, callback);
+        return mMapInterface.removeCollaborator(mapId, userId, sessionToken);
     }
 
     /**
@@ -154,9 +151,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map.
      * @return The followers of a map.
      */
-    public void getFollowers(long mapId, ApiCallback<Followers> callback) {
+    public Followers getFollowers(long mapId) {
         checkId(mapId);
-        mMapInterface.getFollowers(mapId, callback);
+        return mMapInterface.getFollowers(mapId);
     }
 
     /**
@@ -166,11 +163,10 @@ public class MapService extends CrowdmapService<MapService> {
      * @param userId The user ID.
      * @return The maps.
      */
-    public void followMap(long mapId, long userId, String sessionToken,
-            ApiCallback<Followers> callback) {
+    public Followers followMap(long mapId, long userId, String sessionToken) {
         checkId(mapId);
         checkId(userId);
-        mMapInterface.followMap(mapId, userId, sessionToken, callback);
+        return mMapInterface.followMap(mapId, userId, sessionToken);
     }
 
     /**
@@ -179,9 +175,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map to stop following.
      * @return The followers of the map.
      */
-    public void stopFollowingMap(long mapId, String sessionToken, ApiCallback<Followers> callback) {
+    public Followers stopFollowingMap(long mapId, String sessionToken) {
         checkId(mapId);
-        mMapInterface.stopFollowingMap(mapId, sessionToken, callback);
+        return mMapInterface.stopFollowingMap(mapId, sessionToken);
     }
 
     // Tagging Maps
@@ -192,8 +188,8 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag The tag to add to the map.
      * @return The tags.
      */
-    public void getTags(String tag, ApiCallback<MapTags> callback) {
-        mMapInterface.getTags(tag, callback);
+    public MapTags getTags(String tag) {
+        return mMapInterface.getTags(tag);
     }
 
     /**
@@ -203,9 +199,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag   The tag to retrieve the map by.
      * @return The tags
      */
-    public void getTags(long mapId, String tag, ApiCallback<MapTags> callback) {
+    public MapTags getTags(long mapId, String tag) {
         checkId(mapId);
-        mMapInterface.getTags(mapId, tag, callback);
+        return mMapInterface.getTags(mapId, tag);
     }
 
     /**
@@ -214,9 +210,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map.
      * @return The tags.
      */
-    public void addTag(long mapId, String tag, String sessionToken, ApiCallback<MapTags> callback) {
+    public MapTags addTag(long mapId, String tag, String sessionToken) {
         checkId(mapId);
-        mMapInterface.addTag(mapId, tag, sessionToken, callback);
+        return mMapInterface.addTag(mapId, tag, sessionToken);
     }
 
     /**
@@ -226,10 +222,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag   The tag to delete from the map.
      * @return The tags.
      */
-    public void deleteTag(long mapId, String tag, String sessionToken,
-            ApiCallback<MapTags> callback) {
+    public MapTags deleteTag(long mapId, String tag, String sessionToken) {
         checkId(mapId);
-        mMapInterface.deleteTag(mapId, tag, sessionToken, callback);
+        return mMapInterface.deleteTag(mapId, tag, sessionToken);
     }
 
     //post on a map
@@ -240,9 +235,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map.
      * @return The Posts
      */
-    public void getPostOnMap(long mapId, ApiCallback<Posts> callback) {
+    public Posts getPostOnMap(long mapId) {
         checkId(mapId);
-        mMapInterface.getPostOnMap(mapId, callback);
+        return mMapInterface.getPostOnMap(mapId);
     }
 
     /**
@@ -252,9 +247,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param tag   The tag to post on the map.
      * @return The posts
      */
-    public void getPostOnMapByTag(long mapId, String tag, ApiCallback<Posts> callback) {
+    public Posts getPostOnMapByTag(long mapId, String tag) {
         checkId(mapId);
-        mMapInterface.getPostOnMapByTag(mapId, tag, callback);
+        mMapInterface.getPostOnMapByTag(mapId, tag);
     }
 
     /**
@@ -264,19 +259,17 @@ public class MapService extends CrowdmapService<MapService> {
      * @param postId The post post to approve or deny.
      * @return The posts
      */
-    public void approveOrDenyPostOnMap(long mapId, long postId, String sessionToken,
-            ApiCallback<Posts> callback) {
+    public Posts approveOrDenyPostOnMap(long mapId, long postId, String sessionToken) {
         //Double check the fields involve
         checkId(mapId);
         checkId(postId);
-        mMapInterface.approveOrDenyPostOnMap(mapId, postId, sessionToken, callback);
+        return mMapInterface.approveOrDenyPostOnMap(mapId, postId, sessionToken);
     }
 
-    public void removePostFromMap(long mapId, long postId, String sessionToken,
-            ApiCallback<Posts> callback) {
+    public Posts removePostFromMap(long mapId, long postId, String sessionToken) {
         checkId(mapId);
         checkId(postId);
-        mMapInterface.removePostFromMap(mapId, postId, sessionToken, callback);
+        return mMapInterface.removePostFromMap(mapId, postId, sessionToken);
     }
 
     /**
@@ -287,9 +280,8 @@ public class MapService extends CrowdmapService<MapService> {
      * @param subdomain The MapForm holding the map field values
      * @return The newly created map
      */
-    public void createMap(String subdomain, String name, String description, String sessionToken,
-            ApiCallback<Maps> callback) {
-        mMapInterface.createMap(subdomain, name, description, sessionToken, callback);
+    public Maps createMap(String subdomain, String name, String description, String sessionToken) {
+        return mMapInterface.createMap(subdomain, name, description, sessionToken);
     }
 
     /**
@@ -298,9 +290,8 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId  The ID of the map to attach the image to be uploaded to.
      * @param banner The image file
      */
-    public void createBanner(long mapId, TypedFile banner, String sessionToken,
-            ApiCallback<Maps> callback) {
-        mMapInterface.createBanner(mapId, banner, sessionToken, callback);
+    public Maps createBanner(long mapId, TypedFile banner, String sessionToken) {
+        return mMapInterface.createBanner(mapId, banner, sessionToken);
     }
 
     /**
@@ -310,9 +301,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param avatar The image file
      * @return The updated map
      */
-    public void createAvatar(long mapId, TypedFile avatar, String sessionToken,
+    public Maps createAvatar(long mapId, TypedFile avatar, String sessionToken,
             ApiCallback<Maps> callback) {
-        mMapInterface.createAvatar(mapId, avatar, sessionToken, callback);
+        return mMapInterface.createAvatar(mapId, avatar, sessionToken);
     }
 
     /**
@@ -322,9 +313,8 @@ public class MapService extends CrowdmapService<MapService> {
      * @param name  The fields to be updated.
      * @return The updated map.
      */
-    public void updateMap(long mapId, String name, String description, String sessionToken,
-            ApiCallback<Maps> callback) {
-        mMapInterface.updateMap(mapId, name, description, sessionToken, callback);
+    public Maps updateMap(long mapId, String name, String description, String sessionToken) {
+        return mMapInterface.updateMap(mapId, name, description, sessionToken);
     }
 
     /**
@@ -333,9 +323,8 @@ public class MapService extends CrowdmapService<MapService> {
      * @param mapId The ID of the map
      * @return The list of maps minus the deleted map
      */
-    public void deleteMap(long mapId, String sessionToken,
-            ApiCallback<Maps> callback) {
-        mMapInterface.deleteMap(mapId, sessionToken, callback);
+    public Maps deleteMap(long mapId, String sessionToken) {
+        return mMapInterface.deleteMap(mapId, sessionToken);
     }
 
     /**
@@ -345,15 +334,14 @@ public class MapService extends CrowdmapService<MapService> {
      * @param settingsName The map settings name.
      * @return The map settings
      */
-    public void getMapSettings(long mapId, String settingsName, String sessionToken,
-            ApiCallback<MapSettings> callback) {
-        mMapInterface.getMapSettings(mapId, settingsName, sessionToken, callback);
+    public MapSettings getMapSettings(long mapId, String settingsName, String sessionToken) {
+        return mMapInterface.getMapSettings(mapId, settingsName, sessionToken);
     }
 
-    public void updateMapSettings(long mapId, String settingsName, String settingsValue,
+    public MapSettings updateMapSettings(long mapId, String settingsName, String settingsValue,
             String sessionToken,
             ApiCallback<MapSettings> callback) {
-        mMapInterface.updateMapSettings(mapId, settingsName, settingsValue, sessionToken, callback);
+        return mMapInterface.updateMapSettings(mapId, settingsName, settingsValue, sessionToken);
     }
 
     /**
@@ -363,10 +351,9 @@ public class MapService extends CrowdmapService<MapService> {
      * @param settingsName The name of the settings to delete.
      * @return The map settings
      */
-    public void deleteMapSettings(long mapId, String settingsName, String sessionToken,
-            ApiCallback<MapSettings> callback) {
+    public MapSettings deleteMapSettings(long mapId, String settingsName, String sessionToken) {
         checkId(mapId);
-        mMapInterface.deleteMapSettings(mapId, settingsName, sessionToken, callback);
+        return mMapInterface.deleteMapSettings(mapId, settingsName, sessionToken);
     }
 
 }
