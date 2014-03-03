@@ -17,7 +17,6 @@ package com.crowdmap.java.sdk.service;
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.model.Geometry;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.LocationInterface;
 
 import retrofit.RestAdapter;
@@ -40,12 +39,10 @@ public class LocationService extends CrowdmapService<LocationService> {
      * @param fsVenueId The location to be added to Crowdmap
      * @return The list of locations including the newly created location.
      */
-    public void createLocation(String fsVenueId, Geometry geometry, String name, String region,
-            @SessionToken String sessionToken,
-            ApiCallback<Locations> callback) {
-        mLocationInterface
-                .createLocation(fsVenueId, geometry.toString(), name, region, sessionToken,
-                        callback);
+    public Locations createLocation(String fsVenueId, Geometry geometry, String name, String region,
+            @SessionToken String sessionToken) {
+        return mLocationInterface
+                .createLocation(fsVenueId, geometry.toString(), name, region, sessionToken);
     }
 
     /**
@@ -53,12 +50,12 @@ public class LocationService extends CrowdmapService<LocationService> {
      *
      * @return Get location.
      */
-    public void getLocation(ApiCallback<Locations> callback) {
-        mLocationInterface.getLocation(callback);
+    public Locations getLocation() {
+        return mLocationInterface.getLocation();
     }
 
-    public void getLocation(long locationId, ApiCallback<Locations> callback) {
+    public Locations getLocation(long locationId) {
         checkId(locationId);
-        mLocationInterface.getLocation(locationId, callback);
+        return mLocationInterface.getLocation(locationId);
     }
 }

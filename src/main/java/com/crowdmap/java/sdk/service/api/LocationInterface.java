@@ -31,15 +31,15 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
 public interface LocationInterface {
 
     @GET(SEGMENT_LOCATIONS)
-    void getLocation(ApiCallback<Locations> callback);
+    Locations getLocation();
 
     @GET(SEGMENT_LOCATIONS + "{external_id}/")
-    void getLocation(@Path("external_id") long externalId, ApiCallback<Locations> callback);
+    Locations getLocation(@Path("external_id") long externalId);
 
     @FormUrlEncoded
     @POST(SEGMENT_LOCATIONS)
-    void createLocation(@Field("fsq_venue_id") String fsVenueId, @Field("geometry") String geometry,
+    Locations createLocation(@Field("fsq_venue_id") String fsVenueId,
+            @Field("geometry") String geometry,
             @Field("name") String name, @Field("region") String region,
-            @Field("session_token") @SessionToken String sessionToken,
-            ApiCallback<Locations> callback);
+            @Field("session_token") @SessionToken String sessionToken);
 }

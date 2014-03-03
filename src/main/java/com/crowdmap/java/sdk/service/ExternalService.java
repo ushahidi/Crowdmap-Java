@@ -15,8 +15,6 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Externals;
-import com.crowdmap.java.sdk.model.External;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.ExternalInterface;
 
 import retrofit.RestAdapter;
