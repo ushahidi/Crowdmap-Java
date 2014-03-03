@@ -85,6 +85,7 @@ public class MockServerResponse {
     public MockServerResponse() {
         mExternalList = new ArrayList<External>();
     }
+
     private void initAbout() {
         mAbout = new About();
         mAbout.setEnvironment("Demo");

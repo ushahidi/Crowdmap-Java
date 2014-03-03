@@ -31,14 +31,13 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
 public interface ExternalInterface {
 
     @GET(SEGMENT_EXTERNALS)
-    void getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
-            @Query("offset") int offset, ApiCallback<Externals> callback);
+    Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
+            @Query("offset") int offset);
 
     @FormUrlEncoded
     @POST(SEGMENT_EXTERNALS)
-    void createExternal(@Field("service_id") long serviceId,
+    Externals createExternal(@Field("service_id") long serviceId,
             @Field("id_on_service") String idOnService,
-            @Field("session_token") @SessionToken String sessionToken,
-            ApiCallback<Externals> callback
+            @Field("session_token") @SessionToken String sessionToken
     );
 }

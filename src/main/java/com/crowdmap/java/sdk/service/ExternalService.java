@@ -15,6 +15,7 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Externals;
+import com.crowdmap.java.sdk.model.External;
 import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.ExternalInterface;
 
@@ -38,10 +39,10 @@ public class ExternalService extends CrowdmapService<ExternalService> {
      * @param serviceId The external form
      * @return The created external
      */
-    public void createExternal(long serviceId, String idOnService,
-            @SessionToken String sessionToken, ApiCallback<Externals> callback) {
+    public Externals createExternal(long serviceId, String idOnService,
+            @SessionToken String sessionToken) {
         checkId(serviceId);
-        mExternalInterface.createExternal(serviceId, idOnService, sessionToken, callback);
+        return mExternalInterface.createExternal(serviceId, idOnService, sessionToken);
     }
 
     /**
@@ -50,8 +51,8 @@ public class ExternalService extends CrowdmapService<ExternalService> {
      * @param externalId The external ID
      * @return The externals
      */
-    public void getExternal(long externalId, ApiCallback<Externals> callback) {
+    public Externals getExternal(long externalId) {
         checkId(externalId);
-        mExternalInterface.getExternal(externalId, limit, offset, callback);
+        return mExternalInterface.getExternal(externalId, limit, offset);
     }
 }

@@ -16,7 +16,6 @@ package com.crowdmap.java.sdk;
 
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.model.External;
 import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.ApiStatusDelegate;
 import com.crowdmap.java.sdk.service.api.ErrorDelegate;
@@ -26,14 +25,14 @@ import com.crowdmap.java.sdk.service.api.MockExternalService;
 import org.junit.Before;
 
 import retrofit.RetrofitError;
-import retrofit.client.Request;
 
 /**
  * Test for External service.
  */
-public class ExternalServiceTest extends  BaseTest implements ApiStatusDelegate, ErrorDelegate {
+public class ExternalServiceTest extends BaseTest implements ApiStatusDelegate, ErrorDelegate {
 
     ExternalInterface mExternalInterface;
+
     MockExternalService mMockExternalService;
 
     ApiCallback<Externals> mApiCallback;
@@ -48,7 +47,7 @@ public class ExternalServiceTest extends  BaseTest implements ApiStatusDelegate,
     @Before
     public void testGetExternal() {
         mMockExternalService.getExternal(1, 1, 3, mApiCallback);
-        mApiCallback = new ApiCallback<Externals>(this,this) {
+        mApiCallback = new ApiCallback<Externals>(this, this) {
             @Override
             public void success(Externals externals, retrofit.client.Response response) {
                 assertEquals(200, response.getStatus());

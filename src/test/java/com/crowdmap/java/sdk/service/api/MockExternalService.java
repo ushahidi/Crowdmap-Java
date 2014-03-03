@@ -14,12 +14,9 @@
 
 package com.crowdmap.java.sdk.service.api;
 
-import com.crowdmap.java.sdk.MockServerResponse;
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Externals;
-import com.crowdmap.java.sdk.model.External;
 
-import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.Query;
 
@@ -29,14 +26,16 @@ import retrofit.http.Query;
 public class MockExternalService implements ExternalInterface {
 
     @Override
-    public  void getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
+    public void getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
             @Query("offset") int offset, ApiCallback<Externals> callback) {
 
     }
 
     @Override
-    public void createExternal(@Body External external,
-            @Field("session") @SessionToken String session, ApiCallback<Externals> callback) {
+    public void createExternal(@Field("service_id") long serviceId,
+            @Field("id_on_service") String idOnService,
+            @Field("session_token") @SessionToken String sessionToken,
+            ApiCallback<Externals> callback) {
 
     }
 

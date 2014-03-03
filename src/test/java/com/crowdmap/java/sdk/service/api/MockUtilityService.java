@@ -14,14 +14,16 @@
 
 package com.crowdmap.java.sdk.service.api;
 
-import com.crowdmap.java.sdk.MockServerResponse;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
 
+import java.util.Collections;
+
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.TypedByteArray;
 
 /**
  * Mock Utility service
@@ -30,7 +32,10 @@ public class MockUtilityService implements UtilityInterface {
 
     @Override
     public void heartbeat(ApiCallback<Response> callback) {
-
+        callback.success(null,
+                new retrofit.client.Response("http://www.crowdmap.com", 200, "nothing",
+                        Collections.EMPTY_LIST,
+                        new TypedByteArray("application/json", "".getBytes())));
     }
 
     @Override
