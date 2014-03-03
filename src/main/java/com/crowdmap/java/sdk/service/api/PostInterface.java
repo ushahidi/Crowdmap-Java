@@ -48,13 +48,13 @@ public interface PostInterface {
     void getPosts(ApiCallback<Posts> callback);
 
 
-    public void getPosts(@Path("post_id") long postId);
+    public void getPosts(@Path("post_id") long postId, ApiCallback<Posts> callback);
 
     @GET(SEGMENT_POSTS + "{post_id}")
     void getPostMaps(long postId, ApiCallback<Maps> callback);
 
     @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS)
-    void getPostComments(long postId, ApiCallback<Maps> callback);
+    void getPostComments(long postId, ApiCallback<Comments> callback);
 
     @Multipart
     @POST(SEGMENT_POSTS)
