@@ -17,6 +17,9 @@ package com.crowdmap.java.sdk.service;
 import com.crowdmap.java.sdk.BaseTest;
 import com.crowdmap.java.sdk.Endpoints;
 import com.crowdmap.java.sdk.MockHttpClient;
+import com.crowdmap.java.sdk.json.About;
+import com.crowdmap.java.sdk.json.OEmbed;
+import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.ApiStatusDelegate;
@@ -33,7 +36,7 @@ import retrofit.RetrofitError;
 /**
  * Test for Utility Service
  */
-public class UtilityServiceTest extends BaseTest implements ApiStatusDelegate, ErrorDelegate {
+public class UtilityServiceTest extends BaseTest{
 
     UtilityInterface utilityInterface;
 
@@ -42,90 +45,41 @@ public class UtilityServiceTest extends BaseTest implements ApiStatusDelegate, E
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        String response = "{\"success\":true,\"status\":200,\"timestamp\":1393829600,\"qcount\":3,\"elapsed\":\"0.3035s\"}";
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(Endpoints.MOCK_MODE.url)
-                .setClient(new MockHttpClient(response))
-                .build();
 
-        mockUtilityService = new MockUtilityService();
+        mockUtilityService = new MockUtilityService(mMockServerResponse);
 
-        utilityInterface = restAdapter.create(UtilityInterface.class);
+        utilityInterface = mMockRestAdapter.create(UtilityInterface.class, mockUtilityService);
     }
 
     @Test
     public void testHeartbeat() throws Exception {
-        utilityInterface.heartbeat(new ApiCallback<Response>(this, this) {
-            @Override
-            public void success(Response response, retrofit.client.Response response2) {
-                super.success(response, response2);
-                assertEquals(200, response.getStatus());
-                assertNotNull(response);
-                assertEquals("0.1135s", response.getElapsed());
-                System.out.println("Ouch!");
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                super.failure(retrofitError);
-                assertNull(retrofitError);
-                System.out.println("Hey there");
-            }
-        });
-        //System.out.println("Yo!");
+        Response response = utilityInterface.heartbeat();
+        assertEquals(200, response.getStatus());
+        assertNotNull(response);
+        assertEquals("0.1135s", response.getElapsed());
     }
 
     @Test
     public void testAbout() throws Exception {
-        /*About about = utilityInterface.about();
+        About about = utilityInterface.about();
         assertNotNull(about);
         assertEquals(200, about.getStatus());
-        assertEquals(1, about.getVersion());*/
+        assertEquals(1, about.getVersion());
     }
 
     @Test
     public void testOEmbed() throws Exception {
-        /*OEmbed oEmbed = utilityInterface.oEmbed("https://crowdmap.com/post/3354821");
+        OEmbed oEmbed = utilityInterface.oEmbed("https://crowdmap.com/post/3354821");
         assertNotNull(oEmbed);
         assertEquals("eyedol", oEmbed.getAuthorName());
-        assertEquals(1.0f, oEmbed.getVersion());*/
+        assertEquals(1.0f, oEmbed.getVersion());
 
     }
 
     @Test
     public void testRegisteredMap() throws Exception {
-        /*RegisteredMap registeredMap = utilityInterface.registeredMap("eyedol");
+        RegisteredMap registeredMap = utilityInterface.registeredMap("eyedol");
         assertNotNull(registeredMap);
-        assertTrue(registeredMap.isRegistered());*/
-    }
-
-    @Override
-    public void onCallbackFinished() {
-
-    }
-
-    @Override
-    public void noNetworkError(RetrofitError error) {
-
-    }
-
-    @Override
-    public void notAuthorizedError(RetrofitError error, Response response) {
-
-    }
-
-    @Override
-    public void invalidUrlError(RetrofitError error) {
-
-    }
-
-    @Override
-    public void serverError(RetrofitError error) {
-
-    }
-
-    @Override
-    public void generalError(RetrofitError error, Response response) {
-
+        assertTrue(registeredMap.isRegistered());
     }
 }

@@ -14,6 +14,7 @@
 
 package com.crowdmap.java.sdk.service.api;
 
+import com.crowdmap.java.sdk.MockServerResponse;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
@@ -30,26 +31,28 @@ import retrofit.mime.TypedByteArray;
  */
 public class MockUtilityService implements UtilityInterface {
 
+    MockServerResponse mMockServerResponse;
+
+    public MockUtilityService(MockServerResponse mMockServerResponse) {
+        this.mMockServerResponse  = mMockServerResponse;
+    }
     @Override
-    public void heartbeat(ApiCallback<Response> callback) {
-        callback.success(null,
-                new retrofit.client.Response("http://www.crowdmap.com", 200, "nothing",
-                        Collections.EMPTY_LIST,
-                        new TypedByteArray("application/json", "".getBytes())));
+    public Response heartbeat() {
+        return mMockServerResponse.getResponse();
     }
 
     @Override
-    public void about(ApiCallback<About> callback) {
-
+    public About about() {
+        return mMockServerResponse.getAbout();
     }
 
     @Override
-    public void oEmbed(@Query("url") String url, ApiCallback<OEmbed> callback) {
-
+    public OEmbed oEmbed(@Query("url") String url) {
+        return mMockServerResponse.getOEmbed();
     }
 
     @Override
-    public void registeredMap(@Path("domain") String domain, ApiCallback<RegisteredMap> callback) {
-
+    public RegisteredMap registeredMap(@Path("domain") String domain) {
+        return mMockServerResponse.getRegisteredMap();
     }
 }

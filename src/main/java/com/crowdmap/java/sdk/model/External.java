@@ -127,7 +127,7 @@ public class External implements Serializable {
     /**
      * @param serviceId the serviceId to set
      */
-    public void setServiceId(int serviceId) {
+    public void setServiceId(long serviceId) {
         this.serviceId = serviceId;
     }
 

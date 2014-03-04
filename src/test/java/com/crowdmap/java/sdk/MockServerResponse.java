@@ -171,7 +171,6 @@ public class MockServerResponse {
         external.setEmbedHtml(
                 "<blockquote class=\"twitter-tweet\"><p>Just completed a 3.94 km bike with <a href=\"https://twitter.com/RunKeeper\">@RunKeeper</a>. Check it out! <a href=\"http://t.co/IEB4h7wgb1\">http://t.co/IEB4h7wgb1</a> <a href=\"https://twitter.com/search?q=%23RunKeeper&amp;src=hash\">#RunKeeper</a></p>&mdash; Tetsuya Sato - 佐藤哲也 (@satetsu) <a href=\"https://twitter.com/satetsu/statuses/365695488227409921\">August 9, 2013</a></blockquote>\n");
         external.setFaviconUrl("https://twitter.com/favicons/faviico");
-
         mExternalList = new ArrayList<External>();
         mExternalList.add(getExternal());
         mExternalList.add(external);
@@ -212,10 +211,13 @@ public class MockServerResponse {
         return mExternalList;
     }
 
-    public List<External> addExternaList(External external) {
+    public Externals addExternaList(External external) {
         List<External> list = getExternalList();
         list.add(external);
-        return list;
+        initExternal();
+        Externals externals = getExternals();
+        externals.setExternals(list);
+        return externals;
     }
 
     public External getExternal() {

@@ -14,8 +14,11 @@
 
 package com.crowdmap.java.sdk.service.api;
 
+import com.crowdmap.java.sdk.MockServerResponse;
 import com.crowdmap.java.sdk.SessionToken;
+import com.crowdmap.java.sdk.json.Date;
 import com.crowdmap.java.sdk.json.Externals;
+import com.crowdmap.java.sdk.model.External;
 
 import retrofit.http.Field;
 import retrofit.http.Query;
@@ -25,25 +28,15 @@ import retrofit.http.Query;
  */
 public class MockExternalService implements ExternalInterface {
 
-    @Override
-    public void getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
-            @Query("offset") int offset, ApiCallback<Externals> callback) {
-
+    MockServerResponse mMockServerResponse;
+    public MockExternalService(MockServerResponse mMockServerResponse) {
+        this.mMockServerResponse = mMockServerResponse;
     }
-
     @Override
-    public void createExternal(@Field("service_id") long serviceId,
-            @Field("id_on_service") String idOnService,
-            @Field("session_token") @SessionToken String sessionToken,
-            ApiCallback<Externals> callback) {
-
-    }
-
-    /*@Override
     public Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
             @Query("offset") int offset) {
         for (External external : mMockServerResponse.getExternals().getExternals()) {
-            if (external.getUserId() == externalId) {
+            if (external.getId() == externalId) {
                 return mMockServerResponse.getExternals();
             }
         }
@@ -51,9 +44,22 @@ public class MockExternalService implements ExternalInterface {
     }
 
     @Override
-    public Externals createExternal(@Body External external, @Field("session") String session) {
-        Externals externals = mMockServerResponse.getExternals();
-        externals.setExternals(mMockServerResponse.addExternaList(external));
+    public Externals createExternal(@Field("service_id") long serviceId,
+            @Field("id_on_service") String idOnService,
+            @Field("session_token") @SessionToken String sessionToken) {
+        External external = new External();
+        external.setId(1);
+        external.setServiceId(serviceId);
+        external.setIdOnService(idOnService);
+        external.setContent(
+                "Just completed a 3.94 km bike with @RunKeeper. Check it out! http://t.co/IEB4h7wgb1 #RunKeeper");
+        external.setDateTime(new Date(1376023573));
+        external.setEmbedHtml(
+                "<blockquote class=\"twitter-tweet\"><p>Just completed a 3.94 km bike with <a href=\"https://twitter.com/RunKeeper\">@RunKeeper</a>. Check it out! <a href=\"http://t.co/IEB4h7wgb1\">http://t.co/IEB4h7wgb1</a> <a href=\"https://twitter.com/search?q=%23RunKeeper&amp;src=hash\">#RunKeeper</a></p>&mdash; Tetsuya Sato - 佐藤哲也 (@satetsu) <a href=\"https://twitter.com/satetsu/statuses/365695488227409921\">August 9, 2013</a></blockquote>\n");
+        external.setFaviconUrl("https://twitter.com/favicons/faviico");
+
+        Externals externals = mMockServerResponse.addExternaList(external);
+
         return externals;
-    }*/
+    }
 }
