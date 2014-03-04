@@ -15,28 +15,20 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.BaseTest;
-import com.crowdmap.java.sdk.Endpoints;
-import com.crowdmap.java.sdk.MockHttpClient;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
-import com.crowdmap.java.sdk.service.api.ApiStatusDelegate;
-import com.crowdmap.java.sdk.service.api.ErrorDelegate;
 import com.crowdmap.java.sdk.service.api.MockUtilityService;
 import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-
 /**
  * Test for Utility Service
  */
-public class UtilityServiceTest extends BaseTest{
+public class UtilityServiceTest extends BaseTest {
 
     UtilityInterface utilityInterface;
 

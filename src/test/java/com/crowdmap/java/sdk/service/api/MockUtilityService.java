@@ -20,11 +20,8 @@ import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
 
-import java.util.Collections;
-
 import retrofit.http.Path;
 import retrofit.http.Query;
-import retrofit.mime.TypedByteArray;
 
 /**
  * Mock Utility service
@@ -34,8 +31,9 @@ public class MockUtilityService implements UtilityInterface {
     MockServerResponse mMockServerResponse;
 
     public MockUtilityService(MockServerResponse mMockServerResponse) {
-        this.mMockServerResponse  = mMockServerResponse;
+        this.mMockServerResponse = mMockServerResponse;
     }
+
     @Override
     public Response heartbeat() {
         return mMockServerResponse.getResponse();

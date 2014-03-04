@@ -14,7 +14,7 @@
 
 package com.crowdmap.java.sdk.json;
 
-import com.crowdmap.java.sdk.model.form.PostTag;
+import com.crowdmap.java.sdk.model.PostTag;
 
 import java.util.List;
 

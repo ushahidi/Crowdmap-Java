@@ -29,9 +29,11 @@ import retrofit.http.Query;
 public class MockExternalService implements ExternalInterface {
 
     MockServerResponse mMockServerResponse;
+
     public MockExternalService(MockServerResponse mMockServerResponse) {
         this.mMockServerResponse = mMockServerResponse;
     }
+
     @Override
     public Externals getExternal(@Query("external_id") long externalId, @Query("limit") int limit,
             @Query("offset") int offset) {

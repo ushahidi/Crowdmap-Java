@@ -16,22 +16,16 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.BaseTest;
 import com.crowdmap.java.sdk.json.Externals;
-import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
-import com.crowdmap.java.sdk.service.api.ApiStatusDelegate;
-import com.crowdmap.java.sdk.service.api.ErrorDelegate;
 import com.crowdmap.java.sdk.service.api.ExternalInterface;
 import com.crowdmap.java.sdk.service.api.MockExternalService;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import retrofit.RetrofitError;
-
 /**
  * Test for External service.
  */
-public class ExternalServiceTest extends BaseTest{
+public class ExternalServiceTest extends BaseTest {
 
     ExternalInterface mExternalInterface;
 
@@ -56,7 +50,7 @@ public class ExternalServiceTest extends BaseTest{
 
     @Test
     public void testCreateExternal() {
-        Externals externals = mExternalInterface.createExternal(1,"0303ld", "test");
+        Externals externals = mExternalInterface.createExternal(1, "0303ld", "test");
         int lastItem = externals.getExternals().size() - 1;
         assertNotNull(externals);
         assertTrue(externals.isSuccess());
