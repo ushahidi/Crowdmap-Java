@@ -18,7 +18,6 @@ import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
 import retrofit.RestAdapter;
@@ -39,8 +38,8 @@ public class UtilityService extends CrowdmapService<UtilityService> {
     /**
      * Get status of the Crowdmap service.
      */
-    public void heartbeat(ApiCallback<Response> callback) {
-        utility.heartbeat(callback);
+    public Response heartbeat() {
+        return utility.heartbeat();
     }
 
 
@@ -50,8 +49,8 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      *
      * @return Details about the Crowdmap API
      */
-    public void about(ApiCallback<About> callback) {
-        utility.about(callback);
+    public About about() {
+        return utility.about();
     }
 
     /**
@@ -60,8 +59,8 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      * @param url A Crowdmap encoded URL.
      * @return OEmbed details
      */
-    public void oEmbed(String url, ApiCallback<OEmbed> callback) {
-        utility.oEmbed(url, callback);
+    public OEmbed oEmbed(String url) {
+        return utility.oEmbed(url);
     }
 
     /**
@@ -70,8 +69,8 @@ public class UtilityService extends CrowdmapService<UtilityService> {
      * @param subdomain The name of the subdomain to check for
      * @return The registeration details.
      */
-    public void registeredMap(String subdomain, ApiCallback<RegisteredMap> callback) {
-        utility.registeredMap(subdomain, callback);
+    public RegisteredMap registeredMap(String subdomain) {
+        return utility.registeredMap(subdomain);
     }
 
 }

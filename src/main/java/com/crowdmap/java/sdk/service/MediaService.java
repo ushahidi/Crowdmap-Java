@@ -15,8 +15,6 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Media;
-import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.MediaInterface;
 
 import retrofit.RestAdapter;
@@ -38,7 +36,7 @@ public class MediaService extends CrowdmapService<MediaService> {
      * Get media in crowdmap. GET /media
      */
     public Media getMedia() {
-       return  mMediaInterface.getMedia();
+        return mMediaInterface.getMedia();
     }
 
     /**

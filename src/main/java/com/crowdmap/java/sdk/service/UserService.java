@@ -20,7 +20,6 @@ import com.crowdmap.java.sdk.json.Notifications;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.Users;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.UserInterface;
 
 import retrofit.RestAdapter;
@@ -76,8 +75,9 @@ public class UserService extends CrowdmapService<UserService> {
         final int instagramAutoPost = isInstagramAutoPost ? 1 : 0;
         final int twitterAutoPostRetweet = isTwitterAutoPostRetweets ? 1 : 0;
 
-        return mUserInterface.updateUser(userId, name, bio, baseLayer, twitterAutoPost, instagramAutoPost,
-                twitterAutoPostRetweet, sessionToken);
+        return mUserInterface
+                .updateUser(userId, name, bio, baseLayer, twitterAutoPost, instagramAutoPost,
+                        twitterAutoPostRetweet, sessionToken);
     }
 
     /**
@@ -206,7 +206,7 @@ public class UserService extends CrowdmapService<UserService> {
      */
     public Maps getUsersAssociatedMaps(long userId) {
         checkId(userId);
-       return mUserInterface.getUsersAssociatedMaps(userId);
+        return mUserInterface.getUsersAssociatedMaps(userId);
     }
 
     /**
@@ -217,7 +217,7 @@ public class UserService extends CrowdmapService<UserService> {
      */
     public Notifications getNotifications(long userId) {
         checkId(userId);
-       return mUserInterface.getNotifications(userId);
+        return mUserInterface.getNotifications(userId);
     }
 
     /**

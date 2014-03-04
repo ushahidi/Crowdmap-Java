@@ -14,7 +14,6 @@
 package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.SessionInterface;
 
 import retrofit.RestAdapter;

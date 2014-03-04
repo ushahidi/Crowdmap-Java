@@ -16,7 +16,6 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.ModerationInterface;
 
 import retrofit.RestAdapter;
@@ -61,7 +60,7 @@ public class ModerationService extends CrowdmapService<ModerationService> {
      */
     public Maps reportUser(long userId) {
         checkId(userId);
-       return mModerationInterface.reportUser(userId);
+        return mModerationInterface.reportUser(userId);
     }
 
 }
