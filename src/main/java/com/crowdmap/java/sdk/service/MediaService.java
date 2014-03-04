@@ -37,8 +37,8 @@ public class MediaService extends CrowdmapService<MediaService> {
     /**
      * Get media in crowdmap. GET /media
      */
-    public void getMedia(ApiCallback<Media> callback) {
-        mMediaInterface.getMedia(callback);
+    public Media getMedia() {
+       return  mMediaInterface.getMedia();
     }
 
     /**
@@ -47,18 +47,17 @@ public class MediaService extends CrowdmapService<MediaService> {
      * @param mediaId The ID of the media
      * @return Media Object
      */
-    public void getMedia(long mediaId, ApiCallback<Media> callback) {
+    public Media getMedia(long mediaId) {
         checkId(mediaId);
-        mMediaInterface.getMedia(mediaId, callback);
+        return mMediaInterface.getMedia(mediaId);
     }
 
-    public void createMedia(TypedFile photo, ApiCallback<Media> callback) {
-        mMediaInterface.createMedia(photo, callback);
+    public Media createMedia(TypedFile photo) {
+        return mMediaInterface.createMedia(photo);
     }
 
-    public void deleteMedia(long mediaId, @SessionToken String sessionToken,
-            ApiCallback<Response> callback) {
+    public Media deleteMedia(long mediaId, @SessionToken String sessionToken) {
         checkId(mediaId);
-        mMediaInterface.deleteMedia(mediaId, sessionToken, callback);
+        return mMediaInterface.deleteMedia(mediaId, sessionToken);
     }
 }

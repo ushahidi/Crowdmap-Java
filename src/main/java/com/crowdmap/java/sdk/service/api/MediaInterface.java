@@ -35,16 +35,16 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
 public interface MediaInterface {
 
     @GET(SEGMENT_MEDIA)
-    void getMedia(ApiCallback<Media> callback);
+    Media getMedia();
 
     @GET(SEGMENT_MEDIA + "{media_id}")
-    void getMedia(@Path("media_id") long mediaId, ApiCallback<Media> callback);
+    Media getMedia(@Path("media_id") long mediaId);
 
     @Multipart
     @POST(SEGMENT_MEDIA)
-    void createMedia(@Part("file") TypedFile photo, ApiCallback<Media> callback);
+    Media createMedia(@Part("file") TypedFile photo);
 
     @DELETE(SEGMENT_MEDIA + "{media_id}")
-    void deleteMedia(@Path("media_id") long mediaId,
-            @Query("session") @SessionToken String sessionToken, ApiCallback<Response> callback);
+    Media deleteMedia(@Path("media_id") long mediaId,
+            @Query("session") @SessionToken String sessionToken);
 }
