@@ -39,9 +39,9 @@ public class ModerationService extends CrowdmapService<ModerationService> {
      * @param commentId The ID of the comment to be flagged for moderation.
      * @return List of comments
      */
-    public void reportComment(long commentId, ApiCallback<Comments> callback) {
+    public Comments reportComment(long commentId) {
         checkId(commentId);
-        mModerationInterface.reportComment(commentId, callback);
+        return mModerationInterface.reportComment(commentId);
     }
 
     /**
@@ -49,9 +49,9 @@ public class ModerationService extends CrowdmapService<ModerationService> {
      *
      * @param mapId The ID of the map to be flagged for moderation.
      */
-    public void reportMaps(long mapId, ApiCallback<Maps> callback) {
+    public Maps reportMaps(long mapId) {
         checkId(mapId);
-        mModerationInterface.reportMap(mapId, callback);
+        return mModerationInterface.reportMap(mapId);
     }
 
     /**
@@ -59,9 +59,9 @@ public class ModerationService extends CrowdmapService<ModerationService> {
      *
      * @param userId The ID of the user to be flagged for moderation.
      */
-    public void reportUser(long userId, ApiCallback<Maps> callback) {
+    public Maps reportUser(long userId) {
         checkId(userId);
-        mModerationInterface.reportUser(userId, callback);
+       return mModerationInterface.reportUser(userId);
     }
 
 }

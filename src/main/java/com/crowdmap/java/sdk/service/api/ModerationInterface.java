@@ -32,14 +32,14 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POST;
 public interface ModerationInterface {
 
     @POST(SEGMENT_MODERATE + SEGMENT_COMMENT + "{comment_id}")
-    void reportComment(@Path("comment_id") long commentId, ApiCallback<Comments> callback);
+    Comments reportComment(@Path("comment_id") long commentId);
 
     @POST(SEGMENT_MODERATE + SEGMENT_POST + "{post_id}")
-    void reportPost(@Path("post_id") long postId, ApiCallback<Posts> callback);
+    Posts reportPost(@Path("post_id") long postId);
 
     @POST(SEGMENT_MODERATE + SEGMENT_MAP + "{map_id}")
-    void reportMap(@Path("map_id") long mapId, ApiCallback<Maps> callback);
+    Maps reportMap(@Path("map_id") long mapId);
 
     @POST(SEGMENT_MODERATE + SEGMENT_POST + "{post_id}")
-    void reportUser(@Path("post_id") long postId, ApiCallback<Maps> callback);
+    Maps reportUser(@Path("post_id") long postId);
 }
