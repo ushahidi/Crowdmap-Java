@@ -45,20 +45,20 @@ public interface PostInterface {
 
 
     @GET(SEGMENT_POSTS)
-    void getPosts(ApiCallback<Posts> callback);
+    Posts getPosts();
 
 
-    public void getPosts(@Path("post_id") long postId, ApiCallback<Posts> callback);
+    public Posts getPosts(@Path("post_id") long postId);
 
     @GET(SEGMENT_POSTS + "{post_id}")
-    void getPostMaps(long postId, ApiCallback<Maps> callback);
+    Maps getPostMaps(long postId);
 
     @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS)
-    void getPostComments(long postId, ApiCallback<Comments> callback);
+    Comments getPostComments(long postId);
 
     @Multipart
     @POST(SEGMENT_POSTS)
-    public Posts createPost(@Part("message") TypedString message,
+    Posts createPost(@Part("message") TypedString message,
             @Part("public") TypedString isPublic,
 
             @Part("locations[name]") TypedString locationName,
@@ -85,16 +85,14 @@ public interface PostInterface {
 
             @Part("file")
             TypedFile media,
-            @Part("session") TypedString sessionToken,
-            ApiCallback<Posts> callback);
+            @Part("session") TypedString sessionToken);
 
     @DELETE(SEGMENT_POSTS + "{post_id}")
-    void deletePost(@Path("post_id") long postId, @Query("session") String sessionToken,
-            ApiCallback<Response> callback);
+    Response deletePost(@Path("post_id") long postId, @Query("session") String sessionToken);
 
     @Multipart
     @PUT(SEGMENT_POSTS + "{post_id}")
-    void updatePost(@Path("post_id") long postId, @Part("message") TypedString message,
+    Posts updatePost(@Path("post_id") long postId, @Part("message") TypedString message,
             @Part("public") TypedString isPublic,
 
             @Part("locations[name]") TypedString locationName,
@@ -120,8 +118,7 @@ public interface PostInterface {
             TypedString externalUrl,
 
             @Part("file")
-            TypedFile media, @Part("session") TypedString sessionToken,
-            ApiCallback<Posts> callback);
+            TypedFile media, @Part("session") TypedString sessionToken);
 
     /**
      * Get tags attached to a post
@@ -130,34 +127,29 @@ public interface PostInterface {
      * @return The tags attached to a post
      */
     @GET(SEGMENT_POSTS + "{tag}" + SEGMENT_TAGS)
-    public void getPostTag(String tag, ApiCallback<PostTags> callback);
+    PostTags getPostTag(String tag);
 
     @POST(SEGMENT_POSTS + "{post_id}")
-    void likePost(@Path("post_id") long postId, @Field("session") String sessionToken,
-            ApiCallback<Posts> callback);
+    Posts likePost(@Path("post_id") long postId, @Field("session") String sessionToken);
 
     @DELETE(SEGMENT_POSTS + "{post_id}" + SEGMENT_LIKE)
-    void unLikePost(@Path("post_id") long postId, @Query("session") String sessionToken,
-            ApiCallback<Posts> callback);
+    Posts unLikePost(@Path("post_id") long postId, @Query("session") String sessionToken);
 
     @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{map_id}")
-    void getPostComments(@Path("post_id") long postId, @Path("map_id") long mapId,
-            ApiCallback<Comments> callback);
+    Comments getPostComments(@Path("post_id") long postId, @Path("map_id") long mapId);
 
     @POST(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{map_id}")
-    void postComment(@Path("post_id") long postId, @Path("map_id") long mapId,
+    Comments postComment(@Path("post_id") long postId, @Path("map_id") long mapId,
             @Field("comment") String comment,
-            @Field("session") String sessionToken, ApiCallback<Comments> callback);
+            @Field("session") String sessionToken);
 
     @DELETE(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{comment_id}")
-    void deletePostComments(@Path("post_id") long postId, @Path("comment_id") long commentId,
-            @Query("session") String sessionToken, ApiCallback<Comments> callback);
+    Comments deletePostComments(@Path("post_id") long postId, @Path("comment_id") long commentId,
+            @Query("session") String sessionToken);
 
     @DELETE(SEGMENT_POSTS + "{post_id}" + SEGMENT_MAPS)
-    void deletePostFromMap(@Path("post_id") long postId, @Query("session") String sessionToken,
-            ApiCallback<Posts> callback);
+    Posts deletePostFromMap(@Path("post_id") long postId, @Query("session") String sessionToken);
 
     @POST(SEGMENT_POSTS + "{post_id}" + SEGMENT_MAPS)
-    void createPostMap(@Path("post_id") long postId, @Field("session") String sessionToken,
-            ApiCallback<Posts> callback);
+    Posts createPostMap(@Path("post_id") long postId, @Field("session") String sessionToken);
 }

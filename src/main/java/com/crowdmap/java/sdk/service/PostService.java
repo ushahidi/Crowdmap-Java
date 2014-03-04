@@ -18,7 +18,6 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.PostTags;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.PostInterface;
 
 import retrofit.RestAdapter;
@@ -40,8 +39,8 @@ public class PostService extends CrowdmapService<PostService> {
     /**
      * Get all posts across crowdmap - GET /posts
      */
-    public void getPosts(ApiCallback<Posts> callback) {
-        mPostInterface.getPosts(callback);
+    public Posts getPosts() {
+        return mPostInterface.getPosts();
     }
 
 
@@ -51,9 +50,9 @@ public class PostService extends CrowdmapService<PostService> {
      * @param postId The post ID
      * @return The {@link com.crowdmap.java.sdk.json.Posts} response of the specific post
      */
-    public void getPosts(long postId, ApiCallback<Posts> callback) {
+    public Posts getPosts(long postId) {
         checkId(postId);
-        mPostInterface.getPosts(postId, callback);
+        return mPostInterface.getPosts(postId);
     }
 
     /**
@@ -62,9 +61,9 @@ public class PostService extends CrowdmapService<PostService> {
      * @param postId The post ID
      * @return The {@link com.crowdmap.java.sdk.json.Maps} response for the specific post
      */
-    public void getPostMaps(long postId, ApiCallback<Maps> callback) {
+    public Maps getPostMaps(long postId) {
         checkId(postId);
-        mPostInterface.getPostMaps(postId, callback);
+        return mPostInterface.getPostMaps(postId);
     }
 
     /**
@@ -75,9 +74,9 @@ public class PostService extends CrowdmapService<PostService> {
      * @param postId The post ID
      * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
      */
-    public void getPostComments(long postId, ApiCallback<Comments> callback) {
+    public Comments getPostComments(long postId) {
         checkId(postId);
-        mPostInterface.getPostComments(postId, callback);
+        return mPostInterface.getPostComments(postId);
     }
 
     /**
@@ -87,7 +86,7 @@ public class PostService extends CrowdmapService<PostService> {
      * @return The post created
      */
     //TODO: improve the paramter. Use MapForm field instead
-    public void createPost(TypedString message,
+    public Posts createPost(TypedString message,
             TypedString isPublic, TypedString locationName, TypedString lat, TypedString lon,
             TypedString geometry, TypedString fsqVenueId,
 
@@ -98,16 +97,15 @@ public class PostService extends CrowdmapService<PostService> {
             TypedString externalUrl,
 
             TypedFile media,
-            TypedString sessionToken,
-            ApiCallback<Posts> callback) {
-        mPostInterface
+            TypedString sessionToken) {
+        return mPostInterface
                 .createPost(message, isPublic, locationName, lat, lon, geometry, fsqVenueId, mapId,
-                        tweet, externalUrl, media, sessionToken, callback);
+                        tweet, externalUrl, media, sessionToken);
     }
 
-    public void deletePost(long postId, String sessionToken, ApiCallback<Response> callback) {
+    public Response deletePost(long postId, String sessionToken) {
         checkId(postId);
-        mPostInterface.deletePost(postId, sessionToken, callback);
+        return mPostInterface.deletePost(postId, sessionToken);
     }
 
     /**
@@ -117,7 +115,7 @@ public class PostService extends CrowdmapService<PostService> {
      * @param message The post fields
      * @return The post updated
      */
-    public void updatePost(long postId, TypedString message,
+    public Posts updatePost(long postId, TypedString message,
             TypedString isPublic, TypedString locationName, TypedString lat, TypedString lon,
             TypedString geometry, TypedString fsqVenueId,
 
@@ -128,11 +126,10 @@ public class PostService extends CrowdmapService<PostService> {
             TypedString externalUrl,
 
             TypedFile media,
-            TypedString sessionToken,
-            ApiCallback<Posts> callback) {
-        mPostInterface
+            TypedString sessionToken) {
+        return mPostInterface
                 .updatePost(postId, message, isPublic, locationName, lat, lon, geometry, fsqVenueId,
-                        mapId, tweet, externalUrl, media, sessionToken, callback);
+                        mapId, tweet, externalUrl, media, sessionToken);
     }
 
     /**
@@ -141,8 +138,8 @@ public class PostService extends CrowdmapService<PostService> {
      * @param tag The name of the tag. This can be CSV
      * @return The tags attached to a post
      */
-    public void getPostTag(String tag, ApiCallback<PostTags> callback) {
-        mPostInterface.getPostTag(tag, callback);
+    public PostTags getPostTag(String tag) {
+        return mPostInterface.getPostTag(tag);
     }
 
     /**
@@ -151,9 +148,9 @@ public class PostService extends CrowdmapService<PostService> {
      * @param postId The post to like
      * @return The liked posts.
      */
-    public void likePost(long postId, String sessionToken, ApiCallback<Posts> callback) {
+    public Posts likePost(long postId, String sessionToken) {
         checkId(postId);
-        mPostInterface.likePost(postId, sessionToken, callback);
+        return mPostInterface.likePost(postId, sessionToken);
     }
 
     /**
@@ -162,8 +159,8 @@ public class PostService extends CrowdmapService<PostService> {
      * @param postId The post to un-like
      * @return The un-liked posts
      */
-    public void unLikePost(long postId, String sessionToken, ApiCallback<Posts> callback) {
-        mPostInterface.unLikePost(postId, sessionToken, callback);
+    public Posts unLikePost(long postId, String sessionToken) {
+        return mPostInterface.unLikePost(postId, sessionToken);
     }
 
     /**
@@ -174,10 +171,10 @@ public class PostService extends CrowdmapService<PostService> {
      * @param mapId  The map ID
      * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
      */
-    public void getPostComments(long postId, long mapId, ApiCallback<Comments> callback) {
+    public Comments getPostComments(long postId, long mapId) {
         checkId(postId);
         checkId(mapId);
-        mPostInterface.getPostComments(postId, mapId, callback);
+        return mPostInterface.getPostComments(postId, mapId);
     }
 
     /**
@@ -188,18 +185,16 @@ public class PostService extends CrowdmapService<PostService> {
      * @param comment The comment form
      * @return The posted comment
      */
-    public void postComment(long postId, long mapId, String comment, String sessionToken,
-            ApiCallback<Comments> callback) {
+    public Comments postComment(long postId, long mapId, String comment, String sessionToken) {
         checkId(postId);
         checkId(mapId);
-        mPostInterface.postComment(postId, mapId, comment, sessionToken, callback);
+        return mPostInterface.postComment(postId, mapId, comment, sessionToken);
     }
 
-    public void deletePostComments(long postId, long commentId, String sessionToken,
-            ApiCallback<Comments> callback) {
+    public Comments deletePostComments(long postId, long commentId, String sessionToken) {
         checkId(postId);
         checkId(commentId);
-        mPostInterface.deletePostComments(postId, commentId, sessionToken, callback);
+        return mPostInterface.deletePostComments(postId, commentId, sessionToken);
     }
 
     /**
@@ -208,9 +203,9 @@ public class PostService extends CrowdmapService<PostService> {
      * @param postId The ID of the post to be deleted.
      * @return Post minus the deleted post
      */
-    public void deletePostFromMap(long postId, String sessionToken, ApiCallback<Posts> callback) {
+    public Posts deletePostFromMap(long postId, String sessionToken) {
         checkId(postId);
-        mPostInterface.deletePostFromMap(postId, sessionToken, callback);
+        return mPostInterface.deletePostFromMap(postId, sessionToken);
     }
 
     /**
@@ -218,8 +213,8 @@ public class PostService extends CrowdmapService<PostService> {
      *
      * @return Post
      */
-    public void createPostMap(long postId, String sessionToken, ApiCallback<Posts> callback) {
+    public Posts createPostMap(long postId, String sessionToken) {
         checkId(postId);
-        mPostInterface.createPostMap(postId, sessionToken, callback);
+        return mPostInterface.createPostMap(postId, sessionToken);
     }
 }
