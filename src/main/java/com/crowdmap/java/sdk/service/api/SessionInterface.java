@@ -30,6 +30,5 @@ public interface SessionInterface {
 
     @FormUrlEncoded
     @POST(SEGMENT_SESSION + SEGMENT_LOGIN)
-    void login(@Field("username") String username, @Field("password") String password,
-            ApiCallback<Session> callback);
+    Session login(@Field("username") String username, @Field("password") String password);
 }

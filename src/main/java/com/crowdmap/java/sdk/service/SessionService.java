@@ -36,8 +36,8 @@ public class SessionService extends CrowdmapService<SessionService> {
      *
      * @return {@link com.crowdmap.java.sdk.json.Session}
      */
-    public void login(String username, String password, ApiCallback<Session> callback) {
-        mSessionInterface.login(username, password, callback);
+    public Session login(String username, String password) {
+        return mSessionInterface.login(username, password);
     }
 
 }

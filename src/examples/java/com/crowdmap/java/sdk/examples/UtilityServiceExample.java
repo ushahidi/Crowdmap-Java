@@ -28,11 +28,9 @@ import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.json.OEmbed;
-import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.External;
 import com.crowdmap.java.sdk.model.Geometry;
-import com.crowdmap.java.sdk.model.Location;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.service.api.ApiCallback;
 import com.crowdmap.java.sdk.service.api.ApiStatusDelegate;
@@ -220,23 +218,7 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
 
     public void login() {
         System.out.println("Login Service");
-        mModule.sessionService().login("henry@ushahidi.com", "godles123", new ApiCallback<Session>(this,this) {
-            @Override
-            public void success(Session session, Response response) {
-                super.success(session, response);
-                System.out.println("Login Service");
-                System.out.println(session.toString() + "\n\n");
-            }
-
-            @Override
-            public void failure(RetrofitError retrofitError) {
-                super.failure(retrofitError);
-                System.out.println("Retrofit Error ");
-                System.out.println(
-                        retrofitError.getResponse().getReason() + " " + retrofitError.getResponse()
-                                .getStatus() + " " + retrofitError.getUrl() + "\n\n");
-            }
-        });
+        mModule.sessionService().login("henry@ushahidi.com", "godles123");
     }
 
     public static void main(String[] args) throws Exception {
