@@ -14,7 +14,6 @@
 
 package com.crowdmap.java.sdk.examples;
 
-import com.crowdmap.java.sdk.Crowdmap;
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Session;

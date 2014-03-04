@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2014 Ushahidi Inc.
+ * Copyright (c) 2010 - 2013 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -11,34 +11,120 @@
  * ensure the GNU AFFERO GENERAL PUBLIC LICENSE Version 3 requirements
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
-
 package com.crowdmap.java.sdk;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import com.crowdmap.java.sdk.json.Date;
+import com.crowdmap.java.sdk.json.DateDeserializer;
+import com.crowdmap.java.sdk.json.UsersDeserializer;
+import com.crowdmap.java.sdk.model.User;
+import com.crowdmap.java.sdk.net.ICrowdmapConstants;
+import com.crowdmap.java.sdk.net.SignRequestClient;
+import com.crowdmap.java.sdk.service.ExternalService;
+import com.crowdmap.java.sdk.service.LocationService;
+import com.crowdmap.java.sdk.service.MapService;
+import com.crowdmap.java.sdk.service.MediaService;
+import com.crowdmap.java.sdk.service.PostService;
+import com.crowdmap.java.sdk.service.SessionService;
+import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
-import com.crowdmap.java.sdk.util.ValidateUtil;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import retrofit.Endpoint;
+import retrofit.Endpoints;
+import retrofit.RestAdapter;
+import retrofit.client.Client;
+import retrofit.converter.GsonConverter;
+
+import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
+
 
 /**
- * Crowdmap Api app
+ * Creates the various Crowdmap API resources. Create an object of this class to get to the various
+ * services supported by the Crowdmap API.
  */
 public class Crowdmap {
 
-    CrowdmapApiModule module;
+    private static Gson gson;
 
-    public Crowdmap(String privateKey, String publicKey) {
-        if (ValidateUtil.empty(publicKey)) {
+    private RestAdapter restAdapter;
+
+    private CrowdmapApiKeys mCrowdmapApiKeys;
+
+    static {
+        Type userListType = new TypeToken<List<User>>() {
+        }.getType();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Date.class, new DateDeserializer());
+        builder.registerTypeAdapter(userListType, new UsersDeserializer());
+        builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
+        gson = builder.create();
+    }
+
+    public Crowdmap(Endpoint endpoint, Client client, ApiHeaders headers,
+            CrowdmapApiKeys crowdmapApiKeys) {
+        if (crowdmapApiKeys == null) {
             throw new IllegalArgumentException(
-                    "Public key cannot be null or empty. Please provide a valid public key");
+                    "Crowdmap API Key cannot be public. Please provide a valid api key");
         }
+        this.mCrowdmapApiKeys = crowdmapApiKeys;
 
-        if (ValidateUtil.empty(privateKey)) {
-            throw new IllegalArgumentException(
-                    "Private key cannot be null or empty. Please provide a valid private key");
-        }
+        this.restAdapter = new RestAdapter.Builder()
+                .setClient(client)
+                .setEndpoint(endpoint)
+                .setRequestInterceptor(headers)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setConverter(new GsonConverter(gson))
+                .build();
+    }
 
-        module = new CrowdmapApiModule(new CrowdmapApiKeys(privateKey, publicKey));
+    public Crowdmap(CrowdmapApiKeys crowdmapApiKeys) {
+        this(Endpoints.newFixedEndpoint(ICrowdmapConstants.CROWDMAP_HOST_API),
+                new SignRequestClient(crowdmapApiKeys), new ApiHeaders(), crowdmapApiKeys);
+    }
+
+    public Crowdmap(RestAdapter adapter, CrowdmapApiKeys crowdmapApiKeys) {
+        this(crowdmapApiKeys);
+        this.restAdapter = adapter;
     }
 
     public UtilityService utilityService() {
-        return module.utilityService();
+        return new UtilityService(restAdapter);
+    }
+
+    public ExternalService externalService() {
+        return new ExternalService(restAdapter);
+    }
+
+    public LocationService locationService() {
+        return new LocationService(restAdapter);
+    }
+
+    public SessionService sessionService() {
+        return new SessionService(restAdapter);
+    }
+
+    public UserService userService() {
+        return new UserService(restAdapter);
+    }
+
+    /**
+     * Create a new media service instance
+     */
+    public MediaService mediaService() {
+        return new MediaService(restAdapter);
+    }
+
+    public MapService mapService() {
+        return new MapService(restAdapter);
+    }
+
+    public PostService postService() {
+        return new PostService(restAdapter);
     }
 }

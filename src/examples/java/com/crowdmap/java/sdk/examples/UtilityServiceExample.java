@@ -20,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 
 import com.crowdmap.java.sdk.Crowdmap;
 import com.crowdmap.java.sdk.CrowdmapApiKeys;
-import com.crowdmap.java.sdk.CrowdmapApiModule;
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.Date;
@@ -40,9 +39,7 @@ import java.util.List;
 import retrofit.Endpoints;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 import retrofit.client.OkClient;
-import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
@@ -52,9 +49,7 @@ import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
  */
 public class UtilityServiceExample {
 
-    private Crowdmap crowdmap;
-
-    private CrowdmapApiModule mModule;
+    private Crowdmap mModule;
 
     static Gson gson;
 
@@ -70,7 +65,6 @@ public class UtilityServiceExample {
 
 
     public UtilityServiceExample(String pubKey, String privKey) {
-        crowdmap = new Crowdmap(pubKey, privKey);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setClient(new OkClient(new OkHttpClient()))
@@ -80,7 +74,7 @@ public class UtilityServiceExample {
                 .setConverter(new GsonConverter(gson))
                 .build();
 
-        mModule = new CrowdmapApiModule(restAdapter, new CrowdmapApiKeys(privKey, pubKey));
+        mModule = new Crowdmap(restAdapter, new CrowdmapApiKeys(privKey, pubKey));
     }
 
     /**
@@ -153,7 +147,7 @@ public class UtilityServiceExample {
 
     public void login() {
         System.out.println("Login Service");
-        mModule.sessionService().login("henry@ushahidi.com", "godles123");
+        mModule.sessionService().login("henry@ushahidi.com", "myPassword");
     }
 
     public static void main(String[] args) throws Exception {
