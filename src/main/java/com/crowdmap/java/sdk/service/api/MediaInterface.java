@@ -16,7 +16,6 @@ package com.crowdmap.java.sdk.service.api;
 
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Media;
-import com.crowdmap.java.sdk.json.Response;
 
 import retrofit.http.DELETE;
 import retrofit.http.GET;

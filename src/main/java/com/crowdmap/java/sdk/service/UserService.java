@@ -43,7 +43,7 @@ public class UserService extends CrowdmapService<UserService> {
      * @return Users detail
      */
     public void getUsers(ApiCallback<Users> callback) {
-        mUserInterface.getUsers(callback);
+        mUserInterface.getUsers();
     }
 
     /**
@@ -78,7 +78,7 @@ public class UserService extends CrowdmapService<UserService> {
         final int twitterAutoPostRetweet = isTwitterAutoPostRetweets ? 1 : 0;
 
         mUserInterface.updateUser(userId, name, bio, baseLayer, twitterAutoPost, instagramAutoPost,
-                twitterAutoPostRetweet, sessionToken, callback);
+                twitterAutoPostRetweet, sessionToken);
     }
 
     /**
@@ -88,7 +88,7 @@ public class UserService extends CrowdmapService<UserService> {
      */
     public void getUser(long userId, ApiCallback<Users> callback) {
         checkId(userId);
-        mUserInterface.getUser(userId, callback);
+        mUserInterface.getUser(userId);
     }
 
     /**
@@ -100,7 +100,7 @@ public class UserService extends CrowdmapService<UserService> {
     public void updateUserAvatar(long userId, String avatar, @SessionToken String sessionToken,
             ApiCallback<Users> callback) {
         checkId(userId);
-        mUserInterface.updateAvatar(userId, avatar, sessionToken, callback);
+        mUserInterface.updateAvatar(userId, avatar, sessionToken);
     }
 
     /**
@@ -112,7 +112,7 @@ public class UserService extends CrowdmapService<UserService> {
     public void deleteUserAvatar(long userId, @SessionToken String sessionToken,
             ApiCallback<Users> callback) {
         checkId(userId);
-        mUserInterface.deleteUserAvatar(userId, sessionToken, callback);
+        mUserInterface.deleteUserAvatar(userId, sessionToken);
     }
 
     /**
@@ -122,7 +122,7 @@ public class UserService extends CrowdmapService<UserService> {
      * @return The users
      */
     public void getUsersFollowedBy(long userId, ApiCallback<Users> callback) {
-        mUserInterface.getUsersFollowedBy(userId, callback);
+        mUserInterface.getUsersFollowedBy(userId);
     }
 
     /**

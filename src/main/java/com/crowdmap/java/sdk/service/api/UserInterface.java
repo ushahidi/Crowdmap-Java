@@ -46,78 +46,70 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
 public interface UserInterface {
 
     @GET(SEGMENT_USERS)
-    void getUsers(ApiCallback<Users> callback);
+    Users getUsers();
 
     @GET(SEGMENT_USERS + "{user_id}")
-    void getUser(@Path("user_id") long userId, ApiCallback<Users> callback);
+    Users getUser(@Path("user_id") long userId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_POSTS)
-    void getUsersPosts(@Path("user_id") long userId, ApiCallback<Posts> callback);
+    Posts getUsersPosts(@Path("user_id") long userId);
 
     @FormUrlEncoded
     @POST(SEGMENT_USERS + "{user_id}")
-    void updateUser(@Path("user_id") long userId, @Field("name") String name,
+    Users updateUser(@Path("user_id") long userId, @Field("name") String name,
             @Field("bio") String bio,
             @Field("baseLayer") String baseLayer,
             @Field("twitter_auto_post") int twitterAutoPost,
             @Field("instagram_auto_post") int isInstagramAutoPost,
             @Field("twitter_auto_post_retweets") int isTwitterAutoPostRetweets,
-            @Field("session") @SessionToken String sessionToken,
-            ApiCallback<Users> callback);
+            @Field("session") @SessionToken String sessionToken);
 
     @FormUrlEncoded
     @POST(SEGMENT_USERS + "{user_id}" + SEGMENT_AVATAR)
-    void updateAvatar(@Path("user_id") long userId, @Field("avatar") String avatar,
-            @Field("session") @SessionToken String sessionToken,
-            ApiCallback<Users> callback);
+    Users updateAvatar(@Path("user_id") long userId, @Field("avatar") String avatar,
+            @Field("session") @SessionToken String sessionToken);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_AVATAR)
-    void getAvatar(@Path("user_id") long userId, @Field("avatar") String avatar,
-            ApiCallback<Users> callback);
+    Users getAvatar(@Path("user_id") long userId, @Field("avatar") String avatar);
 
     @DELETE(SEGMENT_USERS + "{user_id}" + SEGMENT_AVATAR)
-    void deleteUserAvatar(@Path("user_id") long userId,
-            @Query("session") @SessionToken String sessionToken,
-            ApiCallback<Users> callback);
+    Users deleteUserAvatar(@Path("user_id") long userId,
+            @Query("session") @SessionToken String sessionToken);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWS)
-    void getUsersFollowedBy(@Path("user_id") long userId,
-            ApiCallback<Users> callback);
+    Users getUsersFollowedBy(@Path("user_id") long userId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWS + "{follower_id/}")
-    void verifyUsersFollowing(@Path("user_id") long userId, @Path("follower_id") long followerId,
-            ApiCallback<Users> callback);
+    Users verifyUsersFollowing(@Path("user_id") long userId, @Path("follower_id") long followerId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWERS)
-    void getUsersFollowers(@Path("user_id") long userId, ApiCallback<Users> callback);
+    Users getUsersFollowers(@Path("user_id") long userId);
 
     @FormUrlEncoded
     @POST(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWERS)
-    void followUser(@Path("user_id") long userId,
-            @Query("session") @SessionToken String sessionToken,
-            ApiCallback<Users> callback);
+    Users followUser(@Path("user_id") long userId,
+            @Query("session") @SessionToken String sessionToken);
 
     @DELETE(SEGMENT_USERS + "{user_id}" + SEGMENT_FOLLOWERS)
-    void stopFollowingUser(@Path("user_id") long userId,
-            @Query("session") @SessionToken String sessionToken,
-            ApiCallback<Users> callback);
+    Users stopFollowingUser(@Path("user_id") long userId,
+            @Query("session") @SessionToken String sessionToken);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_MAPS_FOLLOWING)
-    void getUserFollowedMap(@Path("user_id") long userId, ApiCallback<Maps> callback);
+    Maps getUserFollowedMap(@Path("user_id") long userId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_MAPS_COLLABORATING)
-    void getMapsUserCollaboratesOn(@Path("user_id") long userId, ApiCallback<Maps> callback);
+    Maps getMapsUserCollaboratesOn(@Path("user_id") long userId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_MAPS_OWNS)
-    void getUsersMaps(@Path("user_id") long userId, ApiCallback<Maps> callback);
+    Maps getUsersMaps(@Path("user_id") long userId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_MAPS_ASSOCIATED)
-    void getUsersAssociatedMaps(@Path("user_id") long userId, ApiCallback<Maps> callback);
+    Maps getUsersAssociatedMaps(@Path("user_id") long userId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_NOTIFICATIONS)
-    void getNotifications(@Path("user_id") long userId, ApiCallback<Notifications> callback);
+    Notifications getNotifications(@Path("user_id") long userId);
 
     @GET(SEGMENT_USERS + "{user_id}" + SEGMENT_NOTIFICATIONS)
-    void markNotificationAsRead(long userId, @Query("session") @SessionToken String sessionToken,
-            ApiCallback<Response> callback);
+    Response markNotificationAsRead(long userId,
+            @Query("session") @SessionToken String sessionToken);
 }
