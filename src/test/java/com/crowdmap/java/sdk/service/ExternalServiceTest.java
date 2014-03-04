@@ -58,7 +58,6 @@ public class ExternalServiceTest extends BaseTest{
     public void testCreateExternal() {
         Externals externals = mExternalInterface.createExternal(1,"0303ld", "test");
         int lastItem = externals.getExternals().size() - 1;
-        //System.out.println(externals +"" + externals.getExternals().get(0).getIdOnService());
         assertNotNull(externals);
         assertTrue(externals.isSuccess());
         assertEquals(200, externals.getStatus());
