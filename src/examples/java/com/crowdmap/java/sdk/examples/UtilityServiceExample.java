@@ -14,67 +14,23 @@
 
 package com.crowdmap.java.sdk.examples;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import com.crowdmap.java.sdk.Crowdmap;
-import com.crowdmap.java.sdk.CrowdmapApiKeys;
 import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.Date;
-import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.json.Externals;
 import com.crowdmap.java.sdk.json.Locations;
 import com.crowdmap.java.sdk.json.OEmbed;
-import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.External;
 import com.crowdmap.java.sdk.model.Geometry;
-import com.crowdmap.java.sdk.model.User;
-import com.squareup.okhttp.OkHttpClient;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
-import retrofit.Endpoints;
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
-import retrofit.client.OkClient;
-import retrofit.converter.GsonConverter;
-
-import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
  * This example code will show you how to information about the Crowmap API version
  */
-public class UtilityServiceExample {
-
-    private Crowdmap mModule;
-
-    static Gson gson;
-
-    static {
-        Type userListType = new TypeToken<List<User>>() {
-        }.getType();
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Date.class, new DateDeserializer());
-        builder.registerTypeAdapter(userListType, new UsersDeserializer());
-        builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
-        gson = builder.create();
-    }
+public class UtilityServiceExample extends BaseServiceExample{
 
 
     public UtilityServiceExample(String pubKey, String privKey) {
-
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setClient(new OkClient(new OkHttpClient()))
-                .setEndpoint(Endpoints.newFixedEndpoint("http://api.crdmp3.com/v1"))
-                .setRequestInterceptor(new ExampleApiHeaders())
-                        //.setLogLevel(RestAdapter.LogLevel.FULL)
-                .setConverter(new GsonConverter(gson))
-                .build();
-
-        mModule = new Crowdmap(restAdapter, new CrowdmapApiKeys(privKey, pubKey));
+        super(pubKey,privKey);
     }
 
     /**
@@ -167,12 +123,4 @@ public class UtilityServiceExample {
         }
     }
 
-    class ExampleApiHeaders implements RequestInterceptor {
-
-        @Override
-        public void intercept(RequestFacade request) {
-            request.addQueryParam("apikey", "godmode");
-            request.addHeader("User-Agent", "Test Crowdmap SDK Client");
-        }
-    }
 }

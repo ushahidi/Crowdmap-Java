@@ -43,7 +43,7 @@ public class MapService extends CrowdmapService<MapService> {
      *
      * @return Maps as
      */
-    public Maps getMaps(ApiCallback<Maps> callback) {
+    public Maps getMaps() {
         return mMapInterface.getMaps();
     }
 
@@ -300,8 +300,7 @@ public class MapService extends CrowdmapService<MapService> {
      * @param avatar The image file
      * @return The updated map
      */
-    public Maps createAvatar(long mapId, TypedFile avatar, String sessionToken,
-            ApiCallback<Maps> callback) {
+    public Maps createAvatar(long mapId, TypedFile avatar, String sessionToken) {
         return mMapInterface.createAvatar(mapId, avatar, sessionToken);
     }
 
@@ -338,8 +337,7 @@ public class MapService extends CrowdmapService<MapService> {
     }
 
     public MapSettings updateMapSettings(long mapId, String settingsName, String settingsValue,
-            String sessionToken,
-            ApiCallback<MapSettings> callback) {
+            String sessionToken) {
         return mMapInterface.updateMapSettings(mapId, settingsName, settingsValue, sessionToken);
     }
 
