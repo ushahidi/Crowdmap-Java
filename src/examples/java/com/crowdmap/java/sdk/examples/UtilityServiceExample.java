@@ -32,9 +32,6 @@ import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.External;
 import com.crowdmap.java.sdk.model.Geometry;
 import com.crowdmap.java.sdk.model.User;
-import com.crowdmap.java.sdk.service.api.ApiCallback;
-import com.crowdmap.java.sdk.service.api.ApiStatusDelegate;
-import com.crowdmap.java.sdk.service.api.ErrorDelegate;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.reflect.Type;
@@ -53,7 +50,7 @@ import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 /**
  * This example code will show you how to information about the Crowmap API version
  */
-public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
+public class UtilityServiceExample {
 
     private Crowdmap crowdmap;
 
@@ -90,56 +87,31 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
      * Get the version number of crowdmap
      */
     public void getAbout() {
-        mModule.utilityService().about(new ApiCallback<About>(this, this) {
-            @Override
-            public void success(About about, Response response) {
-                super.success(about, response);
-                System.out.println("About");
-                System.out.println(about.toString() + "\n\n");
-            }
-        });
+        About about = mModule.utilityService().about();
+        System.out.println(about.toString());
     }
 
     /**
      * Check if crowdmap api service is up and running
      */
     public void hearbeat() {
-        mModule.utilityService().heartbeat(
-                new ApiCallback<com.crowdmap.java.sdk.json.Response>(this, this) {
-                    @Override
-                    public void success(com.crowdmap.java.sdk.json.Response response,
-                            Response response2) {
-                        super.success(response, response2);
-                        System.out.println("Heart Beat");
-                        System.out.println(response.toString() + "\n\n");
-                    }
-                });
-
+        com.crowdmap.java.sdk.json.Response response = mModule.utilityService().heartbeat();
+        System.out.println("Heart Beat");
+        System.out.println(response.toString() + "\n\n");
     }
 
     public void oembed() {
-        mModule.utilityService()
-                .oEmbed("https://crowdmap.com/post/832/saw-jonshuler-posting-this-on-facebook-check-out-the",
-                        new ApiCallback<OEmbed>(this, this) {
-                            @Override
-                            public void success(OEmbed response,
-                                    Response response2) {
-                                super.success(response, response2);
-                                System.out.println("Oembed");
-                                System.out.println(response.toString() + "\n\n");
-                            }
-                        });
+        OEmbed embed = mModule.utilityService()
+                .oEmbed("https://crowdmap.com/post/832/saw-jonshuler-posting-this-on-facebook-check-out-the");
+        System.out.println("Oembed");
+        System.out.println(embed.toString() + "\n\n");
+
     }
 
     public void getExternal() {
-        mModule.externalService().getExternal(1, new ApiCallback<Externals>(this, this) {
-            @Override
-            public void success(Externals externals, Response response) {
-                super.success(externals, response);
-                System.out.println("Get Externals");
-                System.out.println(externals.toString() + "\n\n");
-            }
-        });
+        Externals externals = mModule.externalService().getExternal(1);
+        System.out.println("Get Externals");
+        System.out.println(externals.toString() + "\n\n");
     }
 
     public void createExternal() {
@@ -154,44 +126,16 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
         mExternal.setEmbedHtml(
                 "<blockquote class=\"twitter-tweet\"><p>Just completed a 4 km bike with <a href=\"https://twitter.com/RunKeeper\">@RunKeeper</a>. Check it out! <a href=\"http://t.co/IEB4h7wgb1\">http://t.co/IEB4h7wgb1</a> <a href=\"https://twitter.com/search?q=%23RunKeeper&amp;src=hash\">#RunKeeper</a></p>&mdash; Tetsuya Sato - 佐藤哲也 (@satetsu) <a href=\"https://twitter.com/satetsu/statuses/365695488227409921\">August 9, 2013</a></blockquote>\n");
         mExternal.setFaviconUrl("https://twitter.com/favicons/faviico");
-        mModule.externalService().createExternal(1, "365695488227409921", sessionToken,
-                new ApiCallback<Externals>(this, this) {
-                    @Override
-                    public void success(Externals externals, Response response) {
-                        super.success(externals, response);
-                        System.out.println("Create Externals");
-                        System.out.println(externals.toString() + "\n\n");
-                    }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        super.failure(error);
-                        System.out.println("Error ");
-                        System.out.println(
-                                error.getResponse().getReason() + " " + error.getResponse()
-                                        .getStatus() + " " + error.getUrl() + "\n\n");
-                    }
-                });
+        Externals externals = mModule.externalService().createExternal(1, "365695488227409921", sessionToken);
+        System.out.println("Create External");
+        System.out.println(externals.toString());
     }
 
     public void getLocations() {
-        mModule.locationService().getLocation(new ApiCallback<Locations>(this, this) {
-            @Override
-            public void failure(RetrofitError error) {
-                super.failure(error);
-                System.out.println("Error ");
-                System.out.println(
-                        error.getResponse().getReason() + " " + error.getResponse()
-                                .getStatus() + " " + error.getUrl() + "\n\n");
-            }
-
-            @Override
-            public void success(Locations location, Response response) {
-                super.success(location, response);
-                System.out.println("Get Locations "+response.getUrl());
-                System.out.println(location.toString() + "\n\n");
-            }
-        });
+        Locations location = mModule.locationService().getLocation();
+        System.out.println("Get Locations ");
+        System.out.println(location.toString() + "\n\n");
     }
 
     public void createLocation() {
@@ -199,21 +143,12 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
         Geometry geometry = new Geometry();
         geometry.setType("Point");
         geometry.setCoordinates(coordinates);
-        mModule.locationService()
-                .createLocation("4c9de5a7d3c2b60c1173c5bc", geometry, "Green Hills", "", "test",
-                        new ApiCallback<Locations>(this,this) {
-                            @Override
-                            public void success(Locations location, Response response) {
-                                super.success(location, response);
-                                System.out.println("Add A Location");
-                                System.out.println(location.getLocations().toString() + "\n\n");
-                            }
 
-                            @Override
-                            public void failure(RetrofitError retrofitError) {
-                                super.failure(retrofitError);
-                            }
-                        });
+        Locations location = mModule.locationService()
+                .createLocation("4c9de5a7d3c2b60c1173c5bc", geometry, "Green Hills", "", "test");
+
+        System.out.println("Add A Location");
+        System.out.println(location.getLocations().toString() + "\n\n");
     }
 
     public void login() {
@@ -236,45 +171,6 @@ public class UtilityServiceExample implements ApiStatusDelegate, ErrorDelegate {
             example.createLocation();
             example.login();
         }
-    }
-
-    @Override
-    public void onCallbackFinished() {
-
-    }
-
-    @Override
-    public void noNetworkError(RetrofitError error) {
-        System.out.println(
-                "No Network Error: " + error.getResponse().getReason() + " " + error.getResponse()
-                        .getStatus() + "\n\n");
-    }
-
-    @Override
-    public void notAuthorizedError(RetrofitError error,
-            com.crowdmap.java.sdk.json.Response response) {
-        System.out.println(
-                "Authorized Error : " + error.getResponse().getReason() + " " + error.getResponse()
-                        .getStatus() + "\n\n");
-    }
-
-    @Override
-    public void invalidUrlError(RetrofitError error) {
-        System.out.println(
-                "Invalid URL : " + error.getResponse().getReason() + " " + error.getResponse()
-                        .getStatus() + "\n\n");
-    }
-
-    @Override
-    public void serverError(RetrofitError error) {
-        System.out.println(
-                "Server Error " + error.getResponse().getReason() + " " + error.getResponse()
-                        .getStatus() + "\n\n");
-    }
-
-    @Override
-    public void generalError(RetrofitError error, com.crowdmap.java.sdk.json.Response response) {
-        System.out.println("General Error " + response.getMessage() + " " + response.getError());
     }
 
     class ExampleApiHeaders implements RequestInterceptor {
