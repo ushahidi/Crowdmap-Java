@@ -25,7 +25,6 @@ import com.crowdmap.java.sdk.json.DateDeserializer;
 import com.crowdmap.java.sdk.json.UsersDeserializer;
 import com.crowdmap.java.sdk.model.User;
 import com.crowdmap.java.sdk.net.SignRequestClient;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -33,7 +32,6 @@ import java.util.List;
 import retrofit.Endpoints;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
-import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;
 
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
@@ -59,15 +57,17 @@ public abstract class BaseServiceExample {
 
     public BaseServiceExample(String pubKey, String privKey) {
 
+        CrowdmapApiKeys keys = new CrowdmapApiKeys(privKey, pubKey);
+
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setClient(new SignRequestClient(new CrowdmapApiKeys(privKey, pubKey)))
+                .setClient(new SignRequestClient(keys))
                 .setEndpoint(Endpoints.newFixedEndpoint("http://api.crdmp3.com/v1"))
                 .setRequestInterceptor(new ExampleApiHeaders())
-                        //.setLogLevel(RestAdapter.LogLevel.FULL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setConverter(new GsonConverter(gson))
                 .build();
 
-        mModule = new Crowdmap(restAdapter, new CrowdmapApiKeys(privKey, pubKey));
+        mModule = new Crowdmap(restAdapter, keys);
     }
 
     class ExampleApiHeaders implements RequestInterceptor {

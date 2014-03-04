@@ -26,11 +26,11 @@ import com.crowdmap.java.sdk.model.Geometry;
 /**
  * This example code will show you how to information about the Crowmap API version
  */
-public class UtilityServiceExample extends BaseServiceExample{
+public class UtilityServiceExample extends BaseServiceExample {
 
 
     public UtilityServiceExample(String pubKey, String privKey) {
-        super(pubKey,privKey);
+        super(pubKey, privKey);
     }
 
     /**
@@ -77,7 +77,8 @@ public class UtilityServiceExample extends BaseServiceExample{
                 "<blockquote class=\"twitter-tweet\"><p>Just completed a 4 km bike with <a href=\"https://twitter.com/RunKeeper\">@RunKeeper</a>. Check it out! <a href=\"http://t.co/IEB4h7wgb1\">http://t.co/IEB4h7wgb1</a> <a href=\"https://twitter.com/search?q=%23RunKeeper&amp;src=hash\">#RunKeeper</a></p>&mdash; Tetsuya Sato - 佐藤哲也 (@satetsu) <a href=\"https://twitter.com/satetsu/statuses/365695488227409921\">August 9, 2013</a></blockquote>\n");
         mExternal.setFaviconUrl("https://twitter.com/favicons/faviico");
 
-        Externals externals = mModule.externalService().createExternal(1, "365695488227409921", sessionToken);
+        Externals externals = mModule.externalService()
+                .createExternal(1, "365695488227409921", sessionToken);
         System.out.println("Create External");
         System.out.println(externals.toString());
     }

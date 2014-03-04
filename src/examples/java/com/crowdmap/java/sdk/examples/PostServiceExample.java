@@ -26,11 +26,12 @@ import com.crowdmap.java.sdk.service.PostService;
  *
  * how to make a post as an authenticated user.
  */
-public class PostServiceExample extends  BaseServiceExample{
+public class PostServiceExample extends BaseServiceExample {
 
     PostService mPostService;
+
     public PostServiceExample(String pubKey, String privKey) {
-        super(pubKey,privKey);
+        super(pubKey, privKey);
         mPostService = mModule.postService();
     }
 
@@ -95,12 +96,12 @@ public class PostServiceExample extends  BaseServiceExample{
             // mPostService.setSessionToken(session.getSessionToken());
 
             // Create a new post
-        //    Posts posts = mPostService.createPost(form);
+            //    Posts posts = mPostService.createPost(form);
 
             // Print the details of the post
-          //  for (Post post : posts.getPosts()) {
+            //  for (Post post : posts.getPosts()) {
             //    System.out.println(post.toString());
-           // }
+            // }
         }
     }
 
