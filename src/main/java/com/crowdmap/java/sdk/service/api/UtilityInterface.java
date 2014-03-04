@@ -34,14 +34,14 @@ import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_REGISTEREDMAP
 public interface UtilityInterface {
 
     @GET(SEGMENT_HEARTBEAT)
-    void heartbeat(ApiCallback<Response> callback);
+    Response heartbeat();
 
     @GET(SEGMENT_ABOUT)
-    void about(ApiCallback<About> callback);
+    About about();
 
     @GET(SEGMENT_OEMBED)
-    void oEmbed(@Query("url") String url, ApiCallback<OEmbed> callback);
+    OEmbed oEmbed(@Query("url") String url);
 
     @GET(SEGMENT_REGISTEREDMAP + "{domain}/")
-    void registeredMap(@Path("domain") String domain, ApiCallback<RegisteredMap> callback);
+    RegisteredMap registeredMap(@Path("domain") String domain);
 }

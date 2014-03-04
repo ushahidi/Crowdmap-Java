@@ -42,8 +42,8 @@ public class UserService extends CrowdmapService<UserService> {
      *
      * @return Users detail
      */
-    public void getUsers(ApiCallback<Users> callback) {
-        mUserInterface.getUsers();
+    public Users getUsers() {
+        return mUserInterface.getUsers();
     }
 
     /**
@@ -52,9 +52,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return Posts the user has created
      */
-    public void getUsersPosts(long userId, ApiCallback<Posts> callback) {
+    public Posts getUsersPosts(long userId) {
         checkId(userId);
-        mUserInterface.getUsersPosts(userId, callback);
+        return mUserInterface.getUsersPosts(userId);
     }
 
     /**
@@ -63,21 +63,20 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @param name   User fields;
      */
-    public void updateUser(long userId, String name,
+    public Users updateUser(long userId, String name,
             String bio,
             String baseLayer,
             boolean isTwitterAutoPost,
             boolean isInstagramAutoPost,
             boolean isTwitterAutoPostRetweets,
-            @SessionToken String sessionToken,
-            ApiCallback<Users> callback) {
+            @SessionToken String sessionToken) {
         checkId(userId);
         // Not sure how to send boolean value to the server. So turn true to 1 and false to 0
         final int twitterAutoPost = isTwitterAutoPost ? 1 : 0;
         final int instagramAutoPost = isInstagramAutoPost ? 1 : 0;
         final int twitterAutoPostRetweet = isTwitterAutoPostRetweets ? 1 : 0;
 
-        mUserInterface.updateUser(userId, name, bio, baseLayer, twitterAutoPost, instagramAutoPost,
+        return mUserInterface.updateUser(userId, name, bio, baseLayer, twitterAutoPost, instagramAutoPost,
                 twitterAutoPostRetweet, sessionToken);
     }
 
@@ -86,9 +85,9 @@ public class UserService extends CrowdmapService<UserService> {
      *
      * @return The User
      */
-    public void getUser(long userId, ApiCallback<Users> callback) {
+    public Users getUser(long userId) {
         checkId(userId);
-        mUserInterface.getUser(userId);
+        return mUserInterface.getUser(userId);
     }
 
     /**
@@ -97,10 +96,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The updated user
      */
-    public void updateUserAvatar(long userId, String avatar, @SessionToken String sessionToken,
-            ApiCallback<Users> callback) {
+    public Users updateUserAvatar(long userId, String avatar, @SessionToken String sessionToken) {
         checkId(userId);
-        mUserInterface.updateAvatar(userId, avatar, sessionToken);
+        return mUserInterface.updateAvatar(userId, avatar, sessionToken);
     }
 
     /**
@@ -109,10 +107,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The user.
      */
-    public void deleteUserAvatar(long userId, @SessionToken String sessionToken,
-            ApiCallback<Users> callback) {
+    public Users deleteUserAvatar(long userId, @SessionToken String sessionToken) {
         checkId(userId);
-        mUserInterface.deleteUserAvatar(userId, sessionToken);
+        return mUserInterface.deleteUserAvatar(userId, sessionToken);
     }
 
     /**
@@ -121,8 +118,8 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user ID of the user to get his/her followers.
      * @return The users
      */
-    public void getUsersFollowedBy(long userId, ApiCallback<Users> callback) {
-        mUserInterface.getUsersFollowedBy(userId);
+    public Users getUsersFollowedBy(long userId) {
+        return mUserInterface.getUsersFollowedBy(userId);
     }
 
     /**
@@ -130,9 +127,9 @@ public class UserService extends CrowdmapService<UserService> {
      *
      * @return The Users
      */
-    public void verifyUsersFollowing(long userId, long followerId, ApiCallback<Users> callback) {
+    public Users verifyUsersFollowing(long userId, long followerId) {
         checkId(userId);
-        mUserInterface.verifyUsersFollowing(userId, followerId, callback);
+        return mUserInterface.verifyUsersFollowing(userId, followerId);
     }
 
     /**
@@ -140,9 +137,9 @@ public class UserService extends CrowdmapService<UserService> {
      *
      * @return The User the user follows
      */
-    public void getUsersFollowers(long userId, ApiCallback<Users> callback) {
+    public Users getUsersFollowers(long userId) {
         checkId(userId);
-        mUserInterface.getUsersFollowers(userId, callback);
+        return mUserInterface.getUsersFollowers(userId);
     }
 
     /**
@@ -152,10 +149,9 @@ public class UserService extends CrowdmapService<UserService> {
      *
      * @return The Users the user follows with the new user the user is following.
      */
-    public void followUser(long userId, @SessionToken String sessionToken,
-            ApiCallback<Users> callback) {
+    public Users followUser(long userId, @SessionToken String sessionToken) {
         checkId(userId);
-        mUserInterface.followUser(userId, sessionToken, callback);
+        return mUserInterface.followUser(userId, sessionToken);
     }
 
     /**
@@ -164,10 +160,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The users the user follows without including the user the user stopped following.
      */
-    public void stopFollowingUser(long userId, @SessionToken String sessionToken,
-            ApiCallback<Users> callback) {
+    public Users stopFollowingUser(long userId, @SessionToken String sessionToken) {
         checkId(userId);
-        mUserInterface.stopFollowingUser(userId, sessionToken, callback);
+        return mUserInterface.stopFollowingUser(userId, sessionToken);
     }
 
     /**
@@ -176,9 +171,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The map the user follows
      */
-    public void getUserFollowedMap(long userId, ApiCallback<Maps> callback) {
+    public Maps getUserFollowedMap(long userId) {
         checkId(userId);
-        mUserInterface.getUserFollowedMap(userId, callback);
+        return mUserInterface.getUserFollowedMap(userId);
     }
 
     /**
@@ -187,9 +182,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The maps the user collaborates on.
      */
-    public void getMapsUserCollaboratesOn(long userId, ApiCallback<Maps> callback) {
+    public Maps getMapsUserCollaboratesOn(long userId) {
         checkId(userId);
-        mUserInterface.getMapsUserCollaboratesOn(userId, callback);
+        return mUserInterface.getMapsUserCollaboratesOn(userId);
     }
 
     /**
@@ -198,9 +193,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The maps by the user.
      */
-    public void getUsersMaps(long userId, ApiCallback<Maps> callback) {
+    public Maps getUsersMaps(long userId) {
         checkId(userId);
-        mUserInterface.getUsersMaps(userId, callback);
+        return mUserInterface.getUsersMaps(userId);
     }
 
     /**
@@ -209,9 +204,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The maps by the user.
      */
-    public void getUsersAssociatedMaps(long userId, ApiCallback<Maps> callback) {
+    public Maps getUsersAssociatedMaps(long userId) {
         checkId(userId);
-        mUserInterface.getUsersAssociatedMaps(userId, callback);
+       return mUserInterface.getUsersAssociatedMaps(userId);
     }
 
     /**
@@ -220,9 +215,9 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID to be used for fetching the notification details
      * @return The list of notifications
      */
-    public void getNotifications(long userId, ApiCallback<Notifications> callback) {
+    public Notifications getNotifications(long userId) {
         checkId(userId);
-        mUserInterface.getNotifications(userId, callback);
+       return mUserInterface.getNotifications(userId);
     }
 
     /**
@@ -231,9 +226,8 @@ public class UserService extends CrowdmapService<UserService> {
      * @param userId The user's ID
      * @return The user's notifications
      */
-    public void markNotificationAsRead(long userId, @SessionToken String sessionToken,
-            ApiCallback<Response> callback) {
+    public Response markNotificationAsRead(long userId, @SessionToken String sessionToken) {
         checkId(userId);
-        mUserInterface.markNotificationAsRead(userId, sessionToken, callback);
+        return mUserInterface.markNotificationAsRead(userId, sessionToken);
     }
 }
