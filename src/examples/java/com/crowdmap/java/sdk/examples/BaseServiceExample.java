@@ -57,7 +57,7 @@ public abstract class BaseServiceExample {
 
     public BaseServiceExample(String pubKey, String privKey) {
 
-        CrowdmapApiKeys keys = new CrowdmapApiKeys(privKey, pubKey);
+        CrowdmapApiKeys keys = new CrowdmapApiKeys(pubKey, privKey);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setClient(new SignRequestClient(keys))
