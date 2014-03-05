@@ -22,7 +22,7 @@ public abstract class CrowdmapService<T> {
 
     protected int limit = 10;
 
-    protected int offset = 0;
+    protected int offset = 50;
 
     RestAdapter restAdapter;
 
