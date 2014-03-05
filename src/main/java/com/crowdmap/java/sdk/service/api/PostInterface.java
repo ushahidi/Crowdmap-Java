@@ -47,14 +47,14 @@ public interface PostInterface {
     @GET(SEGMENT_POSTS)
     Posts getPosts();
 
-
-    public Posts getPosts(@Path("post_id") long postId);
+    @GET(SEGMENT_POSTS + "{post_id}")
+    Posts getPosts(@Path("post_id") long postId);
 
     @GET(SEGMENT_POSTS + "{post_id}")
-    Maps getPostMaps(long postId);
+    Maps getPostMaps(@Path("post_id") long postId);
 
     @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS)
-    Comments getPostComments(long postId);
+    Comments getPostComments(@Path("post_id") long postId);
 
     @Multipart
     @POST(SEGMENT_POSTS)
@@ -127,7 +127,7 @@ public interface PostInterface {
      * @return The tags attached to a post
      */
     @GET(SEGMENT_POSTS + "{tag}" + SEGMENT_TAGS)
-    PostTags getPostTag(String tag);
+    PostTags getPostTag(@Path("tag") String tag);
 
     @POST(SEGMENT_POSTS + "{post_id}")
     Posts likePost(@Path("post_id") long postId, @Field("session") String sessionToken);

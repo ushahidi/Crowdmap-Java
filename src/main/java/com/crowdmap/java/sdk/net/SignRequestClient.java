@@ -71,8 +71,8 @@ public class SignRequestClient extends UrlConnectionClient implements Client {
                         mCrowdmapApiKeys.getPrivateKey());
 
         final RequestVariable requestVariable = new RequestVariable("apikey", key);
-
-        return client.open(new URL(request.getUrl() + requestVariable.toString()));
+        final String query = url.getQuery() == null ? "?" : "&";
+        return client.open(new URL(request.getUrl() + query + requestVariable.toString()));
     }
 
 }

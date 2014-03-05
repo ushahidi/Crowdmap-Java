@@ -50,7 +50,7 @@ public class PostServiceExample extends BaseServiceExample {
      * Get recent posts as anonymous user
      */
     public void getPosts() {
-        // mPostService = crowdmap.postService();
+
         Posts posts = mPostService.getPosts();
         System.out.println(posts.toString());
 
@@ -112,9 +112,9 @@ public class PostServiceExample extends BaseServiceExample {
         } else {
             PostServiceExample example = new PostServiceExample(args[0], args[1]);
             example.getPosts();
-            example.createPost();
+            //example.createPost();
             //example.getPost();
-            example.getTwoPosts();
+            //example.getTwoPosts();
         }
     }
 }

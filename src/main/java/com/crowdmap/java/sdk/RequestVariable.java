@@ -66,6 +66,6 @@ public class RequestVariable {
 
     @Override
     public String toString() {
-        return (name != null ? "&" + name : "") + "=" + (value != null ? value : "");
+        return (name != null ? name : "") + "=" + (value != null ? value : "");
     }
 }
