@@ -1,9 +1,7 @@
 com.crowdmap.java.sdk
-com.crowdmap.java.sdk.annotations
 com.crowdmap.java.sdk.json
 com.crowdmap.java.sdk.model
-com.crowdmap.java.sdk.model.form
 com.crowdmap.java.sdk.net
-com.crowdmap.java.sdk.net.content
 com.crowdmap.java.sdk.service
+com.crowdmap.java.sdk.service.api
 com.crowdmap.java.sdk.util
