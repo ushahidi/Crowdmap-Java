@@ -81,7 +81,6 @@ public class PostServiceExample extends BaseServiceExample {
     }
 
     public void createPost() {
-        // mPostService = crowdmap.postService();
 
         // Set post fields for submission
         //PostForm form = new PostForm();
