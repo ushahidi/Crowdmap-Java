@@ -45,16 +45,19 @@ public interface PostInterface {
 
 
     @GET(SEGMENT_POSTS)
-    Posts getPosts();
+    Posts getPosts(@Query("limit") int limit, @Query("offset") int offset);
 
     @GET(SEGMENT_POSTS + "{post_id}")
-    Posts getPosts(@Path("post_id") long postId);
+    Posts getPosts(@Path("post_id") long postId, @Query("limit") int limit,
+            @Query("offset") int offset);
 
     @GET(SEGMENT_POSTS + "{post_id}")
-    Maps getPostMaps(@Path("post_id") long postId);
+    Maps getPostMaps(@Path("post_id") long postId, @Query("limit") int limit,
+            @Query("offset") int offset);
 
     @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS)
-    Comments getPostComments(@Path("post_id") long postId);
+    Comments getPostComments(@Path("post_id") long postId, @Query("limit") int limit,
+            @Query("offset") int offset);
 
     @Multipart
     @POST(SEGMENT_POSTS)
@@ -127,7 +130,8 @@ public interface PostInterface {
      * @return The tags attached to a post
      */
     @GET(SEGMENT_POSTS + "{tag}" + SEGMENT_TAGS)
-    PostTags getPostTag(@Path("tag") String tag);
+    PostTags getPostTag(@Path("tag") String tag, @Query("limit") int limit,
+            @Query("offset") int offset);
 
     @POST(SEGMENT_POSTS + "{post_id}")
     Posts likePost(@Path("post_id") long postId, @Field("session") String sessionToken);
@@ -136,7 +140,8 @@ public interface PostInterface {
     Posts unLikePost(@Path("post_id") long postId, @Query("session") String sessionToken);
 
     @GET(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{map_id}")
-    Comments getPostComments(@Path("post_id") long postId, @Path("map_id") long mapId);
+    Comments getPostComments(@Path("post_id") long postId, @Path("map_id") long mapId,
+            @Query("limit") int limit, @Query("offset") int offset);
 
     @POST(SEGMENT_POSTS + "{post_id}" + SEGMENT_COMMENTS + "{map_id}")
     Comments postComment(@Path("post_id") long postId, @Path("map_id") long mapId,

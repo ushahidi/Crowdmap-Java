@@ -40,7 +40,7 @@ public class PostService extends CrowdmapService<PostService> {
      * Get all posts across crowdmap - GET /posts
      */
     public Posts getPosts() {
-        return mPostInterface.getPosts();
+        return mPostInterface.getPosts(limit, offset);
     }
 
 
@@ -52,7 +52,7 @@ public class PostService extends CrowdmapService<PostService> {
      */
     public Posts getPosts(long postId) {
         checkId(postId);
-        return mPostInterface.getPosts(postId);
+        return mPostInterface.getPosts(postId,limit, offset);
     }
 
     /**
@@ -63,7 +63,7 @@ public class PostService extends CrowdmapService<PostService> {
      */
     public Maps getPostMaps(long postId) {
         checkId(postId);
-        return mPostInterface.getPostMaps(postId);
+        return mPostInterface.getPostMaps(postId,limit, offset);
     }
 
     /**
@@ -76,7 +76,7 @@ public class PostService extends CrowdmapService<PostService> {
      */
     public Comments getPostComments(long postId) {
         checkId(postId);
-        return mPostInterface.getPostComments(postId);
+        return mPostInterface.getPostComments(postId,limit, offset);
     }
 
     /**
@@ -139,7 +139,7 @@ public class PostService extends CrowdmapService<PostService> {
      * @return The tags attached to a post
      */
     public PostTags getPostTag(String tag) {
-        return mPostInterface.getPostTag(tag);
+        return mPostInterface.getPostTag(tag,limit, offset);
     }
 
     /**
@@ -174,7 +174,7 @@ public class PostService extends CrowdmapService<PostService> {
     public Comments getPostComments(long postId, long mapId) {
         checkId(postId);
         checkId(mapId);
-        return mPostInterface.getPostComments(postId, mapId);
+        return mPostInterface.getPostComments(postId, mapId,limit, offset);
     }
 
     /**

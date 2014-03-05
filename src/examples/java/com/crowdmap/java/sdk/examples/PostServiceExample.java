@@ -52,11 +52,11 @@ public class PostServiceExample extends BaseServiceExample {
     public void getPosts() {
 
         Posts posts = mPostService.getPosts();
-        System.out.println(posts.toString());
+        //System.out.println(posts.toString());
 
         // Print the details of the post
         for (Post post : posts.getPosts()) {
-            System.out.println(post.toString());
+            //System.out.println(post.toString());
         }
     }
 
@@ -114,7 +114,7 @@ public class PostServiceExample extends BaseServiceExample {
             example.getPosts();
             //example.createPost();
             //example.getPost();
-            //example.getTwoPosts();
+            example.getTwoPosts();
         }
     }
 }
