@@ -93,6 +93,10 @@ public class Crowdmap {
         this.restAdapter = adapter;
     }
 
+    public RestAdapter getRestAdapter() {
+        return this.restAdapter;
+    }
+
     public UtilityService utilityService() {
         return new UtilityService(restAdapter);
     }
