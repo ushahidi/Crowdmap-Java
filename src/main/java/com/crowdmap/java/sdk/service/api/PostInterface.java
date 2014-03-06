@@ -62,31 +62,28 @@ public interface PostInterface {
     @Multipart
     @POST(SEGMENT_POSTS)
     Posts createPost(@Part("message") TypedString message,
-            @Part("public") TypedString isPublic,
+            @Part("public") boolean isPublic,
 
             @Part("locations[name]") TypedString locationName,
 
-            @Part("locations[lat]") TypedString lat,
+            @Part("locations[lat]") double lat,
 
             @Part("locations[lon]")
-            TypedString lon,
+            double lon,
 
             @Part("locations[geometry]")
             TypedString geometry,
 
             @Part("locations[fsq_venue_id]")
-            TypedString fsqVenueId,
-
-            @Part("map_id")
-            TypedString mapId,
+            int fsqVenueId,
 
             @Part("tweet")
-            TypedString tweet,
+            int tweet,
 
             @Part("externals[url]")
             TypedString externalUrl,
 
-            @Part("file")
+            @Part("media[file]")
             TypedFile media,
             @Part("session") TypedString sessionToken);
 
@@ -96,32 +93,30 @@ public interface PostInterface {
     @Multipart
     @PUT(SEGMENT_POSTS + "{post_id}")
     Posts updatePost(@Path("post_id") long postId, @Part("message") TypedString message,
-            @Part("public") TypedString isPublic,
+            @Part("public") boolean isPublic,
 
             @Part("locations[name]") TypedString locationName,
 
-            @Part("locations[lat]") TypedString lat,
+            @Part("locations[lat]") double lat,
 
             @Part("locations[lon]")
-            TypedString lon,
+            double lon,
 
             @Part("locations[geometry]")
             TypedString geometry,
 
             @Part("locations[fsq_venue_id]")
-            TypedString fsqVenueId,
-
-            @Part("map_id")
-            TypedString mapId,
+            int fsqVenueId,
 
             @Part("tweet")
-            TypedString tweet,
+            int tweet,
 
             @Part("externals[url]")
             TypedString externalUrl,
 
-            @Part("file")
-            TypedFile media, @Part("session") TypedString sessionToken);
+            @Part("media[file]")
+            TypedFile media,
+            @Part("session") TypedString sessionToken);
 
     /**
      * Get tags attached to a post

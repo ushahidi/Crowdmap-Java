@@ -63,7 +63,7 @@ public abstract class BaseServiceExample {
                 .setClient(new SignRequestClient(keys))
                 .setEndpoint(Endpoints.newFixedEndpoint("http://api.crdmp3.com/v1"))
                 .setRequestInterceptor(new ExampleApiHeaders())
-                .setLogLevel(RestAdapter.LogLevel.FULL)
+                //.setLogLevel(RestAdapter.LogLevel.FULL)
                 .setConverter(new GsonConverter(gson))
                 .build();
 

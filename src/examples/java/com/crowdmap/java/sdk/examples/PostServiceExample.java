@@ -19,6 +19,7 @@ import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Session;
 import com.crowdmap.java.sdk.model.Comment;
 import com.crowdmap.java.sdk.model.Post;
+import com.crowdmap.java.sdk.model.form.PostForm;
 import com.crowdmap.java.sdk.service.PostService;
 
 /**
@@ -30,9 +31,13 @@ public class PostServiceExample extends BaseServiceExample {
 
     PostService mPostService;
 
-    public PostServiceExample(String pubKey, String privKey) {
+    String mUserName;
+    String mPassword;
+    public PostServiceExample(String pubKey, String privKey, String userName, String password) {
         super(pubKey, privKey);
         mPostService = mModule.postService();
+        mUserName = userName;
+        mPassword = password;
     }
 
     /**
@@ -41,8 +46,7 @@ public class PostServiceExample extends BaseServiceExample {
      * @return Session
      */
     public Session login() {
-        //return crowdmap.login(mUserName, mPassword);
-        return null;
+        return mModule.sessionService().login(mUserName, mPassword);
     }
 
 
@@ -83,24 +87,23 @@ public class PostServiceExample extends BaseServiceExample {
     public void createPost() {
 
         // Set post fields for submission
-        //PostForm form = new PostForm();
-        //form.setMessage("Let's communication easy");
-        //form.setPublic(true);
+        PostForm form = new PostForm();
+        form.setMessage("Let's communication easy");
+        form.setPublic(true);
 
         // Login to obtain the session token
         Session session = login();
 
         // Pass the session token for authenticated requests
         if (session != null) {
-            // mPostService.setSessionToken(session.getSessionToken());
 
             // Create a new post
-            //    Posts posts = mPostService.createPost(form);
+            Posts posts = mPostService.createPost(form, session.getSessionToken());
 
-            // Print the details of the post
-            //  for (Post post : posts.getPosts()) {
-            //    System.out.println(post.toString());
-            // }
+            //Print the details of the post
+             for (Post post : posts.getPosts()) {
+                System.out.println(post.toString());
+             }
         }
     }
 
@@ -109,10 +112,19 @@ public class PostServiceExample extends BaseServiceExample {
 
             System.out.println("Please provide your apps public key and private key respectively.");
         } else {
-            PostServiceExample example = new PostServiceExample(args[0], args[1]);
+            PostServiceExample example = new PostServiceExample(args[0], args[1], args[2], args[3]);
             example.getPosts();
-            //example.createPost();
-            //example.getPost();
+            try {
+                example.createPost();
+            }catch(retrofit.RetrofitError error) {
+                System.out.println("Messages: "+error.getBody().toString()+ " Reason "+error.getResponse().getReason());
+            }
+
+            try {
+                example.getPost();
+            }catch(retrofit.RetrofitError error) {
+                System.out.println("Messages: "+error.getBody().toString()+ " Reason "+error.getResponse().getReason());
+            }
             example.getTwoPosts();
         }
     }

@@ -18,10 +18,10 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.PostTags;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
+import com.crowdmap.java.sdk.model.form.PostForm;
 import com.crowdmap.java.sdk.service.api.PostInterface;
 
 import retrofit.RestAdapter;
-import retrofit.mime.TypedFile;
 import retrofit.mime.TypedString;
 
 /**
@@ -52,7 +52,7 @@ public class PostService extends CrowdmapService<PostService> {
      */
     public Posts getPosts(long postId) {
         checkId(postId);
-        return mPostInterface.getPosts(postId,limit, offset);
+        return mPostInterface.getPosts(postId, limit, offset);
     }
 
     /**
@@ -63,7 +63,7 @@ public class PostService extends CrowdmapService<PostService> {
      */
     public Maps getPostMaps(long postId) {
         checkId(postId);
-        return mPostInterface.getPostMaps(postId,limit, offset);
+        return mPostInterface.getPostMaps(postId, limit, offset);
     }
 
     /**
@@ -76,31 +76,25 @@ public class PostService extends CrowdmapService<PostService> {
      */
     public Comments getPostComments(long postId) {
         checkId(postId);
-        return mPostInterface.getPostComments(postId,limit, offset);
+        return mPostInterface.getPostComments(postId, limit, offset);
     }
 
     /**
      * Create a new post as an authenticated user.
      *
-     * @param message The post fields to submitted.
+     * @param form The post fields to submitted.
      * @return The post created
      */
     //TODO: improve the paramter. Use MapForm field instead
-    public Posts createPost(TypedString message,
-            TypedString isPublic, TypedString locationName, TypedString lat, TypedString lon,
-            TypedString geometry, TypedString fsqVenueId,
+    public Posts createPost(PostForm form,
+            String sessionToken) {
 
-            TypedString mapId,
-
-            TypedString tweet,
-
-            TypedString externalUrl,
-
-            TypedFile media,
-            TypedString sessionToken) {
         return mPostInterface
-                .createPost(message, isPublic, locationName, lat, lon, geometry, fsqVenueId, mapId,
-                        tweet, externalUrl, media, sessionToken);
+                .createPost(form.getMessage(), form.getPublic(), form.getLocationName(),
+                        form.getLat(), form.getLon(), form.getGeometry(), form.getFsqVenueId(),
+
+                        form.getTweet(), form.getExternalUrl(), form.getMedia(),
+                        new TypedString(sessionToken));
     }
 
     public Response deletePost(long postId, String sessionToken) {
@@ -111,25 +105,18 @@ public class PostService extends CrowdmapService<PostService> {
     /**
      * Update an existing post
      *
-     * @param postId  The ID of the post to be updated
-     * @param message The post fields
+     * @param postId The ID of the post to be updated
+     * @param form   The post fields
      * @return The post updated
      */
-    public Posts updatePost(long postId, TypedString message,
-            TypedString isPublic, TypedString locationName, TypedString lat, TypedString lon,
-            TypedString geometry, TypedString fsqVenueId,
-
-            TypedString mapId,
-
-            TypedString tweet,
-
-            TypedString externalUrl,
-
-            TypedFile media,
-            TypedString sessionToken) {
+    public Posts updatePost(long postId, PostForm form,
+            String sessionToken) {
         return mPostInterface
-                .updatePost(postId, message, isPublic, locationName, lat, lon, geometry, fsqVenueId,
-                        mapId, tweet, externalUrl, media, sessionToken);
+                .updatePost(postId, form.getMessage(), form.getPublic(), form.getLocationName(),
+                        form.getLat(), form.getLon(), form.getGeometry(), form.getFsqVenueId(),
+
+                        form.getTweet(), form.getExternalUrl(), form.getMedia(),
+                        new TypedString(sessionToken));
     }
 
     /**
@@ -139,7 +126,7 @@ public class PostService extends CrowdmapService<PostService> {
      * @return The tags attached to a post
      */
     public PostTags getPostTag(String tag) {
-        return mPostInterface.getPostTag(tag,limit, offset);
+        return mPostInterface.getPostTag(tag, limit, offset);
     }
 
     /**
@@ -174,7 +161,7 @@ public class PostService extends CrowdmapService<PostService> {
     public Comments getPostComments(long postId, long mapId) {
         checkId(postId);
         checkId(mapId);
-        return mPostInterface.getPostComments(postId, mapId,limit, offset);
+        return mPostInterface.getPostComments(postId, mapId, limit, offset);
     }
 
     /**
