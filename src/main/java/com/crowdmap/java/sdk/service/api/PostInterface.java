@@ -79,7 +79,8 @@ public interface PostInterface {
 
             @Part("tweet")
             int tweet,
-
+            @Part("map_id")
+            long mapId,
             @Part("externals[url]")
             TypedString externalUrl,
 
@@ -111,6 +112,8 @@ public interface PostInterface {
             @Part("tweet")
             int tweet,
 
+            @Part("map_id")
+            long mapId,
             @Part("externals[url]")
             TypedString externalUrl,
 

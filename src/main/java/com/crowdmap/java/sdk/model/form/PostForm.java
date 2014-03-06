@@ -40,6 +40,8 @@ public class PostForm {
 
     private int tweet;
 
+    private long mapId;
+
     private TypedString externalUrl;
 
     private TypedFile media;
@@ -119,6 +121,14 @@ public class PostForm {
         this.externalUrl = new TypedString(externalUrl);
     }
 
+    public long getMapId() {
+        return mapId;
+    }
+
+    public void setMapId(long mapId) {
+        this.mapId = mapId;
+    }
+
     public TypedFile getMedia() {
         return media;
     }
@@ -138,6 +148,7 @@ public class PostForm {
                 ", geometry=" + geometry +
                 ", fsqVenueId=" + fsqVenueId +
                 ", tweet=" + tweet +
+                ", mapId=" + mapId +
                 ", externalUrl=" + externalUrl +
                 ", media=" + media +
                 '}';
