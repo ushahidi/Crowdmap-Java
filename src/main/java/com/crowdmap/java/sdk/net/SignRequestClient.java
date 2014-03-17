@@ -65,7 +65,8 @@ public class SignRequestClient extends UrlConnectionClient implements Client {
         final URL url = new URL(request.getUrl());
         final String path = url.getPath().substring(
                 ICrowdmapConstants.API_VERSION.length()
-                        + 1); // Remove the version number from the returned path. plus 1 to take care of the leading slash
+                        + 1
+        ); // Remove the version number from the returned path. plus 1 to take care of the leading slash
         final @ApiKey String key = Util
                 .generateSignature(request.getMethod(), path, mCrowdmapApiKeys.getPublicKey(),
                         mCrowdmapApiKeys.getPrivateKey());

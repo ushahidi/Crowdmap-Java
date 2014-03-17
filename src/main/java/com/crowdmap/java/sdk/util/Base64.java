@@ -863,7 +863,8 @@ public class Base64 {
             throw new IllegalArgumentException(
                     String.format(
                             "Cannot have offset of %d and length of %d with array of length %d",
-                            off, len, source.length));
+                            off, len, source.length)
+            );
         }   // end if: off < 0
 
         // Compress?
@@ -1116,7 +1117,8 @@ public class Base64 {
         } else if (len < 4) {
             throw new IllegalArgumentException(
                     "Base64-encoded string must have at least four characters, but length specified was "
-                            + len);
+                            + len
+            );
         }   // end if
 
         byte[] DECODABET = getDecodabet(options);
@@ -1454,14 +1456,16 @@ public class Base64 {
             if (file.length() > Integer.MAX_VALUE) {
                 throw new java.io.IOException(
                         "File is too big for this convenience method (" + file.length()
-                                + " bytes).");
+                                + " bytes)."
+                );
             }   // end if: file too big for int index
             buffer = new byte[(int) file.length()];
 
             // Open a stream
             bis = new Base64.InputStream(
                     new java.io.BufferedInputStream(
-                            new java.io.FileInputStream(file)), Base64.DECODE);
+                            new java.io.FileInputStream(file)), Base64.DECODE
+            );
 
             // Read until done
             while ((numBytes = bis.read(buffer, length, 4096)) >= 0) {
@@ -1515,7 +1519,8 @@ public class Base64 {
             // Open a stream
             bis = new Base64.InputStream(
                     new java.io.BufferedInputStream(
-                            new java.io.FileInputStream(file)), Base64.ENCODE);
+                            new java.io.FileInputStream(file)), Base64.ENCODE
+            );
 
             // Read until done
             while ((numBytes = bis.read(buffer, length, 4096)) >= 0) {

@@ -29,7 +29,7 @@ public final class CrowdmapApiKeys {
      */
     public String publicKey;
 
-    public CrowdmapApiKeys(String publicKey,String privateKey) {
+    public CrowdmapApiKeys(String publicKey, String privateKey) {
         this.publicKey = publicKey;
         this.privateKey = privateKey;
     }
