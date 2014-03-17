@@ -62,7 +62,7 @@ public interface PostInterface {
     @Multipart
     @POST(SEGMENT_POSTS)
     Posts createPost(@Part("message") TypedString message,
-            @Part("public") boolean isPublic,
+            @Part("public") int isPublic,
 
             @Part("locations[name]") TypedString locationName,
 
@@ -94,7 +94,7 @@ public interface PostInterface {
     @Multipart
     @PUT(SEGMENT_POSTS + "{post_id}")
     Posts updatePost(@Path("post_id") long postId, @Part("message") TypedString message,
-            @Part("public") boolean isPublic,
+            @Part("public") int isPublic,
 
             @Part("locations[name]") TypedString locationName,
 

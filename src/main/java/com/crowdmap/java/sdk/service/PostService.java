@@ -90,7 +90,7 @@ public class PostService extends CrowdmapService<PostService> {
             String sessionToken) {
 
         return mPostInterface
-                .createPost(form.getMessage(), form.getPublic(), form.getLocationName(),
+                .createPost(form.getMessage(), form.getPublic() ? 1 : 0, form.getLocationName(),
                         form.getLat(), form.getLon(), form.getGeometry(), form.getFsqVenueId(),
 
                         form.getTweet(), form.getMapId(), form.getExternalUrl(), form.getMedia(),
@@ -112,7 +112,7 @@ public class PostService extends CrowdmapService<PostService> {
     public Posts updatePost(long postId, PostForm form,
             String sessionToken) {
         return mPostInterface
-                .updatePost(postId, form.getMessage(), form.getPublic(), form.getLocationName(),
+                .updatePost(postId, form.getMessage(), form.getPublic() ? 1 : 0, form.getLocationName(),
                         form.getLat(), form.getLon(), form.getGeometry(), form.getFsqVenueId(),
 
                         form.getTweet(), form.getMapId(), form.getExternalUrl(), form.getMedia(),
