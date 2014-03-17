@@ -84,7 +84,7 @@ public interface PostInterface {
             @Part("externals[url]")
             TypedString externalUrl,
 
-            @Part("media[file]")
+            @Part("file")
             TypedFile media,
             @Part("session") TypedString sessionToken);
 
@@ -117,9 +117,10 @@ public interface PostInterface {
             @Part("externals[url]")
             TypedString externalUrl,
 
-            @Part("media[file]")
+            @Part("file")
             TypedFile media,
             @Part("session") TypedString sessionToken);
+
 
     /**
      * Get tags attached to a post
