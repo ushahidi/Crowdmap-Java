@@ -78,7 +78,6 @@ public class Crowdmap {
                 .setClient(client)
                 .setEndpoint(endpoint)
                 .setRequestInterceptor(headers)
-                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setConverter(new GsonConverter(gson))
                 .build();
     }
