@@ -19,3 +19,4 @@ build
 *.war
 *.ear
 gradle.properties
+local.properties

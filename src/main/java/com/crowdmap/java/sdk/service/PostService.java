@@ -18,55 +18,31 @@ import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.PostTags;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.model.form.CommentForm;
 import com.crowdmap.java.sdk.model.form.PostForm;
+import com.crowdmap.java.sdk.service.api.PostInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENTS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LIKE;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_TAGS;
+import retrofit.RestAdapter;
+import retrofit.mime.TypedString;
 
 /**
  * Service for interacting with Crowdmap post API
  */
-public class PostService extends CrowdmapService {
+public class PostService extends CrowdmapService<PostService> {
+
+    PostInterface mPostInterface;
+
+    public PostService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mPostInterface = restAdapter.create(PostInterface.class);
+    }
 
     /**
      * Get all posts across crowdmap - GET /posts
      */
     public Posts getPosts() {
-        setApiKey(METHOD_GET, SEGMENT_POSTS);
-        String json = client.get(SEGMENT_POSTS);
-        return fromString(json,Posts.class);
+        return mPostInterface.getPosts(limit, offset);
     }
 
-    /**
-     * Get posts based on the post ID and a segment of the URL passed to it
-     *
-     * @param postId  The ID of the post
-     * @param segment The URL segment
-     * @return The Object related to the JSON response
-     */
-    private <T> T get(long postId, String segment, Class<T> cls) {
-
-        checkId(postId);
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        // Add the segment
-        if (segment != null && segment.length() > 0) {
-            url.append(segment);
-        }
-        setApiKey(METHOD_GET, url.toString());
-        final String json = client.get(url.toString());
-        return fromString(json, cls);
-    }
 
     /**
      * Get a specific post. GET /posts/:post_id
@@ -75,8 +51,8 @@ public class PostService extends CrowdmapService {
      * @return The {@link com.crowdmap.java.sdk.json.Posts} response of the specific post
      */
     public Posts getPosts(long postId) {
-
-        return get(postId, null, Posts.class);
+        checkId(postId);
+        return mPostInterface.getPosts(postId, limit, offset);
     }
 
     /**
@@ -86,8 +62,8 @@ public class PostService extends CrowdmapService {
      * @return The {@link com.crowdmap.java.sdk.json.Maps} response for the specific post
      */
     public Maps getPostMaps(long postId) {
-
-        return get(postId, SEGMENT_MAPS, Maps.class);
+        checkId(postId);
+        return mPostInterface.getPostMaps(postId, limit, offset);
     }
 
     /**
@@ -99,7 +75,8 @@ public class PostService extends CrowdmapService {
      * @return The {@link com.crowdmap.java.sdk.json.Comments} response of the specific post
      */
     public Comments getPostComments(long postId) {
-        return get(postId, SEGMENT_COMMENTS, Comments.class);
+        checkId(postId);
+        return mPostInterface.getPostComments(postId, limit, offset);
     }
 
     /**
@@ -108,19 +85,21 @@ public class PostService extends CrowdmapService {
      * @param form The post fields to submitted.
      * @return The post created
      */
-    public Posts createPost(PostForm form) {
-        validateSession();
-        setApiKey(METHOD_POST, SEGMENT_POSTS);
-        return fromString(client.post(SEGMENT_POSTS, form.getParameters()), Posts.class);
+    //TODO: improve the paramter. Use MapForm field instead
+    public Posts createPost(PostForm form,
+            String sessionToken) {
+
+        return mPostInterface
+                .createPost(form.getMessage(), form.getPublic() ? 1 : 0, form.getLocationName(),
+                        form.getLat(), form.getLon(), form.getGeometry(), form.getFsqVenueId(),
+
+                        form.getTweet(), form.getMapId(), form.getExternalUrl(), form.getMedia(),
+                        new TypedString(sessionToken));
     }
 
-    public Response deletePost(long postId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append("/");
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()), Response.class);
+    public Response deletePost(long postId, String sessionToken) {
+        checkId(postId);
+        return mPostInterface.deletePost(postId, sessionToken);
     }
 
     /**
@@ -130,13 +109,14 @@ public class PostService extends CrowdmapService {
      * @param form   The post fields
      * @return The post updated
      */
-    public Posts updatePost(long postId, PostForm form) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append("/");
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.put(url.toString(), form.getParameters()), Posts.class);
+    public Posts updatePost(long postId, PostForm form,
+            String sessionToken) {
+        return mPostInterface
+                .updatePost(postId, form.getMessage(), form.getPublic() ? 1 : 0, form.getLocationName(),
+                        form.getLat(), form.getLon(), form.getGeometry(), form.getFsqVenueId(),
+
+                        form.getTweet(), form.getMapId(), form.getExternalUrl(), form.getMedia(),
+                        new TypedString(sessionToken));
     }
 
     /**
@@ -146,12 +126,7 @@ public class PostService extends CrowdmapService {
      * @return The tags attached to a post
      */
     public PostTags getPostTag(String tag) {
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(SEGMENT_TAGS);
-        url.append(tag);
-        url.append("/");
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.get(url.toString()), PostTags.class);
+        return mPostInterface.getPostTag(tag, limit, offset);
     }
 
     /**
@@ -160,13 +135,9 @@ public class PostService extends CrowdmapService {
      * @param postId The post to like
      * @return The liked posts.
      */
-    public Posts likePost(long postId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_LIKE);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Posts.class);
+    public Posts likePost(long postId, String sessionToken) {
+        checkId(postId);
+        return mPostInterface.likePost(postId, sessionToken);
     }
 
     /**
@@ -175,13 +146,8 @@ public class PostService extends CrowdmapService {
      * @param postId The post to un-like
      * @return The un-liked posts
      */
-    public Posts unLikePost(long postId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_LIKE);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()), Posts.class);
+    public Posts unLikePost(long postId, String sessionToken) {
+        return mPostInterface.unLikePost(postId, sessionToken);
     }
 
     /**
@@ -195,48 +161,27 @@ public class PostService extends CrowdmapService {
     public Comments getPostComments(long postId, long mapId) {
         checkId(postId);
         checkId(mapId);
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_COMMENTS);
-        url.append(mapId);
-
-        return fromString(client.get(url.toString()),
-                Comments.class);
+        return mPostInterface.getPostComments(postId, mapId, limit, offset);
     }
 
     /**
      * Add a comment on a post.
      *
-     * @param postId The ID of the post to add the comment to.
-     * @param mapId  The map ID
-     * @param form   The comment form
+     * @param postId  The ID of the post to add the comment to.
+     * @param mapId   The map ID
+     * @param comment The comment form
      * @return The posted comment
      */
-    public Comments postComment(long postId, long mapId, CommentForm form) {
+    public Comments postComment(long postId, long mapId, String comment, String sessionToken) {
         checkId(postId);
         checkId(mapId);
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_COMMENTS);
-        url.append(mapId);
-        url.append("/");
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Comments.class);
+        return mPostInterface.postComment(postId, mapId, comment, sessionToken);
     }
 
-    public Comments deletePostComments(long postId, long commentId) {
+    public Comments deletePostComments(long postId, long commentId, String sessionToken) {
         checkId(postId);
         checkId(commentId);
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_COMMENTS);
-        url.append(commentId);
-        url.append("/");
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()),
-                Comments.class);
+        return mPostInterface.deletePostComments(postId, commentId, sessionToken);
     }
 
     /**
@@ -245,15 +190,9 @@ public class PostService extends CrowdmapService {
      * @param postId The ID of the post to be deleted.
      * @return Post minus the deleted post
      */
-    public Posts deletePostFromMap(long postId) {
+    public Posts deletePostFromMap(long postId, String sessionToken) {
         checkId(postId);
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_MAPS);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()),
-                Posts.class);
+        return mPostInterface.deletePostFromMap(postId, sessionToken);
     }
 
     /**
@@ -261,40 +200,8 @@ public class PostService extends CrowdmapService {
      *
      * @return Post
      */
-    public Posts createPostMap(long postId) {
+    public Posts createPostMap(long postId, String sessionToken) {
         checkId(postId);
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_POSTS);
-        url.append(postId);
-        url.append(SEGMENT_MAPS);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()),
-                Posts.class);
-    }
-
-    public PostService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public PostService offset(int offset) {
-
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public PostService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
+        return mPostInterface.createPostMap(postId, sessionToken);
     }
 }

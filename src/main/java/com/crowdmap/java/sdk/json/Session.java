@@ -89,6 +89,6 @@ public class Session extends Response implements Serializable {
                 "userId='" + userId + '\'' +
                 ", session='" + session + '\'' +
                 ", cmId=" + cmId +
-                '}';
+                "}," + super.toString();
     }
 }

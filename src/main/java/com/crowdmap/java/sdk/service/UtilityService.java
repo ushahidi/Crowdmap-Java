@@ -18,27 +18,30 @@ import com.crowdmap.java.sdk.json.About;
 import com.crowdmap.java.sdk.json.OEmbed;
 import com.crowdmap.java.sdk.json.RegisteredMap;
 import com.crowdmap.java.sdk.json.Response;
+import com.crowdmap.java.sdk.service.api.UtilityInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_ABOUT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_HEARTBEAT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_OEMBED;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_REGISTEREDMAP;
+import retrofit.RestAdapter;
 
 /**
  * The Utility service provide resources for useful information about the Crowdmap API
  */
-public class UtilityService extends CrowdmapService {
+public class UtilityService extends CrowdmapService<UtilityService> {
+
+    private UtilityInterface utility;
+
+    public UtilityService(RestAdapter restAdapter) {
+        super(restAdapter);
+        utility = restAdapter.create(UtilityInterface.class);
+    }
+
 
     /**
      * Get status of the Crowdmap service.
      */
     public Response heartbeat() {
-        setApiKey(METHOD_GET, SEGMENT_HEARTBEAT);
-        return fromString(client.get(SEGMENT_HEARTBEAT), Response.class);
+        return utility.heartbeat();
     }
+
 
     /**
      * Get the details of which version of the Crowdmap API you're accessing and some defaults
@@ -47,8 +50,7 @@ public class UtilityService extends CrowdmapService {
      * @return Details about the Crowdmap API
      */
     public About about() {
-        setApiKey(METHOD_GET, SEGMENT_ABOUT);
-        return fromString(client.get(SEGMENT_ABOUT), About.class);
+        return utility.about();
     }
 
     /**
@@ -58,8 +60,7 @@ public class UtilityService extends CrowdmapService {
      * @return OEmbed details
      */
     public OEmbed oEmbed(String url) {
-        client.setRequestParameters("url", url);
-        return fromString(client.get(SEGMENT_OEMBED), OEmbed.class);
+        return utility.oEmbed(url);
     }
 
     /**
@@ -69,36 +70,7 @@ public class UtilityService extends CrowdmapService {
      * @return The registeration details.
      */
     public RegisteredMap registeredMap(String subdomain) {
-        StringBuilder url = new StringBuilder(SEGMENT_REGISTEREDMAP);
-        url.append(subdomain);
-        url.append("/");
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), RegisteredMap.class);
+        return utility.registeredMap(subdomain);
     }
 
-    public UtilityService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public UtilityService offset(int offset) {
-
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public UtilityService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
-    }
 }

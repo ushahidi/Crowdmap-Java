@@ -36,4 +36,11 @@ public final class Posts extends Response implements Serializable {
     public List<Post> getPosts() {
         return this.posts;
     }
+
+    @Override
+    public String toString() {
+        return "Posts{" + "Response=" + super.toString() + ", " +
+                "posts=" + posts +
+                '}';
+    }
 }

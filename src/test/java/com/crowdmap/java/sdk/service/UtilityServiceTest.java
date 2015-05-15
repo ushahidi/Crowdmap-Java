@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -14,42 +14,64 @@
 
 package com.crowdmap.java.sdk.service;
 
-import org.junit.After;
+import com.crowdmap.java.sdk.BaseTest;
+import com.crowdmap.java.sdk.json.About;
+import com.crowdmap.java.sdk.json.OEmbed;
+import com.crowdmap.java.sdk.json.RegisteredMap;
+import com.crowdmap.java.sdk.json.Response;
+import com.crowdmap.java.sdk.service.api.MockUtilityService;
+import com.crowdmap.java.sdk.service.api.UtilityInterface;
+
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test the Utility service
+ * Test for Utility Service
  */
-public class UtilityServiceTest extends BaseServiceTest {
+public class UtilityServiceTest extends BaseTest {
+
+    UtilityInterface utilityInterface;
+
+    MockUtilityService mockUtilityService;
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
 
-    }
+        mockUtilityService = new MockUtilityService(mMockServerResponse);
 
-    @After
-    public void tearDown() throws Exception {
-
+        utilityInterface = mMockRestAdapter.create(UtilityInterface.class, mockUtilityService);
     }
 
     @Test
-    public void testHearbeat() throws Exception {
-
+    public void testHeartbeat() throws Exception {
+        Response response = utilityInterface.heartbeat();
+        assertEquals(200, response.getStatus());
+        assertNotNull(response);
+        assertEquals("0.1135s", response.getElapsed());
     }
 
     @Test
     public void testAbout() throws Exception {
-
+        About about = utilityInterface.about();
+        assertNotNull(about);
+        assertEquals(200, about.getStatus());
+        assertEquals(1, about.getVersion());
     }
 
     @Test
     public void testOEmbed() throws Exception {
+        OEmbed oEmbed = utilityInterface.oEmbed("https://crowdmap.com/post/3354821");
+        assertNotNull(oEmbed);
+        assertEquals("eyedol", oEmbed.getAuthorName());
+        assertEquals(1.0f, oEmbed.getVersion());
 
     }
 
     @Test
     public void testRegisteredMap() throws Exception {
-
+        RegisteredMap registeredMap = utilityInterface.registeredMap("eyedol");
+        assertNotNull(registeredMap);
+        assertTrue(registeredMap.isRegistered());
     }
 }

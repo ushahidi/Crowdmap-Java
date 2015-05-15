@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -12,39 +12,24 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.service;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+package com.crowdmap.java.sdk.service.api;
 
 /**
- * Created by eyedol on 9/1/13.
+ * User's type of association with a map.
  */
-public class ModerationServiceTest extends BaseServiceTest {
+public enum Association {
+    OWNS("owns"),
+    COLLABORATING("collaborating"),
+    FOLLOWING("following");
 
-    @Before
-    public void setUp() throws Exception {
+    private final String value;
 
+    Association(String value) {
+        this.value = value;
     }
 
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
-    @Test
-    public void testModerateComment() throws Exception {
-
-    }
-
-    @Test
-    public void testModerateMaps() throws Exception {
-
-    }
-
-    @Test
-    public void testModerateUser() throws Exception {
-
+    @Override
+    public String toString() {
+        return value;
     }
 }

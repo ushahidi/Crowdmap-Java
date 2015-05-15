@@ -54,7 +54,7 @@ public class Geometry implements Serializable {
 
     @Override
     public String toString() {
-        return "Geometry{" +
+        return "geometry{" +
                 "type='" + type + '\'' +
                 ", coordinates=" + Arrays.toString(coordinates) +
                 '}';

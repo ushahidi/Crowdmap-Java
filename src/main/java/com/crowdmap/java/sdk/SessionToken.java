@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -12,19 +12,11 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.annotations;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package com.crowdmap.java.sdk;
 
 /**
- * FormField Annotation
+ * Session Token
  */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface FormField {
+public @interface SessionToken {
 
-    public String name();
 }

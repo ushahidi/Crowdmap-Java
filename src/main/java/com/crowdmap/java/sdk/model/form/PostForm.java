@@ -1,47 +1,52 @@
+/*******************************************************************************
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
+ * All rights reserved
+ * Website: http://www.ushahidi.com
+ *
+ * GNU AFFERO GENERAL PUBLIC LICENSE Version 3 Usage
+ * This file may be used under the terms of the GNU AFFERO GENERAL
+ * PUBLIC LICENSE Version 3 as published by the Free Software
+ * Foundation and appearing in the file LICENSE included in the
+ * packaging of this file. Please review the following information to
+ * ensure the GNU AFFERO GENERAL PUBLIC LICENSE Version 3 requirements
+ * will be met: http://www.gnu.org/licenses/agpl.html.
+ ******************************************************************************/
+
 package com.crowdmap.java.sdk.model.form;
 
-import com.crowdmap.java.sdk.annotations.Form;
-import com.crowdmap.java.sdk.annotations.FormField;
 import com.crowdmap.java.sdk.util.ValidateUtil;
 
-import java.io.File;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 /**
- * Posts form
+ * Form for posting
  */
-public class PostForm extends Form {
+public class PostForm {
 
-    @FormField(name = "message")
-    private String message;
+    private TypedString message;
 
-    @FormField(name = "public")
     private boolean isPublic;
 
-    @FormField(name = "locations[name]")
-    private String locationName;
+    private TypedString locationName;
 
-    @FormField(name = "locations[lat]")
     private double lat;
 
-    @FormField(name = "locations[lon]")
     private double lon;
 
-    @FormField(name = "locations[geometry]")
-    private String geometry;
+    private TypedString geometry;
 
-    @FormField(name = "locations[fsq_venue_id]")
     private int fsqVenueId;
 
-    @FormField(name = "tweet")
     private int tweet;
 
-    @FormField(name = "externals[url]")
-    private String externalUrl;
+    private long mapId;
 
-    @FormField(name = "media[file]")
-    private File media;
+    private TypedString externalUrl;
 
-    public String getMessage() {
+    private TypedFile media;
+
+    public TypedString getMessage() {
         return message;
     }
 
@@ -49,7 +54,7 @@ public class PostForm extends Form {
         if (ValidateUtil.empty(message)) {
             throw new IllegalArgumentException("Message cannot be empty or null");
         }
-        this.message = message;
+        this.message = new TypedString(message);
     }
 
     public boolean getPublic() {
@@ -60,11 +65,11 @@ public class PostForm extends Form {
         isPublic = aPublic;
     }
 
-    public String getLocationName() {
+    public TypedString getLocationName() {
         return locationName;
     }
 
-    public void setLocationName(String locationName) {
+    public void setLocationName(TypedString locationName) {
         this.locationName = locationName;
     }
 
@@ -76,12 +81,12 @@ public class PostForm extends Form {
         this.lat = lat;
     }
 
-    public String getGeometry() {
+    public TypedString getGeometry() {
         return geometry;
     }
 
     public void setGeometry(String geometry) {
-        this.geometry = geometry;
+        this.geometry = new TypedString(geometry);
     }
 
     public double getLon() {
@@ -108,27 +113,44 @@ public class PostForm extends Form {
         this.tweet = tweet;
     }
 
-    public String getExternalUrl() {
+    public TypedString getExternalUrl() {
         return externalUrl;
     }
 
     public void setExternalUrl(String externalUrl) {
-        this.externalUrl = externalUrl;
+        this.externalUrl = new TypedString(externalUrl);
     }
 
-    public File getMedia() {
+    public long getMapId() {
+        return mapId;
+    }
+
+    public void setMapId(long mapId) {
+        this.mapId = mapId;
+    }
+
+    public TypedFile getMedia() {
         return media;
     }
 
-    public void setMedia(File media) {
+    public void setMedia(TypedFile media) {
         this.media = media;
     }
 
     @Override
     public String toString() {
         return "PostForm{" +
-                "message='" + message + '\'' +
+                "message=" + message +
                 ", isPublic=" + isPublic +
+                ", locationName=" + locationName +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", geometry=" + geometry +
+                ", fsqVenueId=" + fsqVenueId +
+                ", tweet=" + tweet +
+                ", mapId=" + mapId +
+                ", externalUrl=" + externalUrl +
+                ", media=" + media +
                 '}';
     }
 }

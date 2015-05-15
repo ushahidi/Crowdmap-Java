@@ -13,71 +13,44 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Externals;
-import com.crowdmap.java.sdk.model.form.ExternalForm;
+import com.crowdmap.java.sdk.service.api.ExternalInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_EXTERNALS;
+import retrofit.RestAdapter;
 
 /**
  * External service
  */
-public class ExternalService extends CrowdmapService {
+public class ExternalService extends CrowdmapService<ExternalService> {
+
+    private final ExternalInterface mExternalInterface;
+
+    public ExternalService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mExternalInterface = restAdapter.create(ExternalInterface.class);
+    }
 
     /**
      * Create a new external
      *
-     * @param form The external form
-     * @return The external
+     * @param serviceId The external form
+     * @return The created external
      */
-    public Externals createExternal(ExternalForm form) {
-        validateSession();
-        return fromString(client.post(SEGMENT_EXTERNALS, form.getParameters()),
-                Externals.class);
+    public Externals createExternal(long serviceId, String idOnService,
+            @SessionToken String sessionToken) {
+        checkId(serviceId);
+        return mExternalInterface.createExternal(serviceId, idOnService, sessionToken);
     }
 
     /**
      * Get specific external. GET /externals/:external_id
      *
      * @param externalId The external ID
-     *
      * @return The externals
      */
     public Externals getExternal(long externalId) {
         checkId(externalId);
-        StringBuilder url = new StringBuilder(SEGMENT_EXTERNALS);
-        url.append(externalId);
-        url.append("/");
-        setApiKey(METHOD_GET, url.toString());
-        final String json = client.get(url.toString());
-        return fromString(json,Externals.class);
-
-    }
-
-    public ExternalService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public ExternalService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public ExternalService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
+        return mExternalInterface.getExternal(externalId, limit, offset);
     }
 }

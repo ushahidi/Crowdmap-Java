@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -12,29 +12,23 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.json;
+package com.crowdmap.java.sdk.service.api;
 
-import com.crowdmap.java.sdk.model.PostTag;
+import com.crowdmap.java.sdk.json.Session;
 
-import java.util.List;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
+import retrofit.http.POST;
+
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOGIN;
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_SESSION;
 
 /**
- * Post tags
+ * Login a User
  */
-public class PostTags extends Response {
+public interface SessionInterface {
 
-    private static final long serialVersionUID = 36455760364885900L;
-
-    private List<PostTag> postsTags;
-
-    public List<PostTag> getPostsTags() {
-        return postsTags;
-    }
-
-    @Override
-    public String toString() {
-        return "MapTags{" +
-                "mapsTags=" + postsTags +
-                '}';
-    }
+    @FormUrlEncoded
+    @POST(SEGMENT_SESSION + SEGMENT_LOGIN)
+    Session login(@Field("username") String username, @Field("password") String password);
 }

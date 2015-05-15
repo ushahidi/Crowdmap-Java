@@ -8,7 +8,7 @@ Create a Crowdmap instance. You will use this to access the various services.
 
 ```java
 // Instantiate the Crowdmap API.
-Crowdmap crowdmap = new Crowdmap("publicKey", "privateKey");
+Crowdmap crowdmap = new Crowdmap(new CrowdmapApi("pubKey", "privKey"));
 
 // Call the Utitlity Service and retrieve Crowdmap API's about information.
 final String about = crowdmap.utilityService().about().toString();

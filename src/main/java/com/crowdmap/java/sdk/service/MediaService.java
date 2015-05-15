@@ -13,36 +13,30 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Media;
-import com.crowdmap.java.sdk.json.Response;
-import com.crowdmap.java.sdk.model.form.MediaForm;
-import com.crowdmap.java.sdk.util.Util;
+import com.crowdmap.java.sdk.service.api.MediaInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MEDIA;
+import retrofit.RestAdapter;
+import retrofit.mime.TypedFile;
 
 /**
  * Service for interacting with crowdmap's media API
  */
-public class MediaService extends CrowdmapService {
+public class MediaService extends CrowdmapService<MediaService> {
+
+    private MediaInterface mMediaInterface;
+
+    public MediaService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mMediaInterface = restAdapter.create(MediaInterface.class);
+    }
 
     /**
      * Get media in crowdmap. GET /media
      */
     public Media getMedia() {
-        //Crowdmap requires a new api signature every 2 minutes
-        // so before a request is made, generate a new key
-        //generate the api key
-
-        // set the apikey for the request
-        setApiKey(METHOD_GET, SEGMENT_MEDIA);
-        final String json = client.get(SEGMENT_MEDIA);
-        Media mediaJson = fromString(json, Media.class);
-        return mediaJson;
+        return mMediaInterface.getMedia();
     }
 
     /**
@@ -53,53 +47,15 @@ public class MediaService extends CrowdmapService {
      */
     public Media getMedia(long mediaId) {
         checkId(mediaId);
-        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        url.append(mediaId);
-        setApiKey(METHOD_GET, url.toString());
-        String response = client.get(url.toString());
-        Media mediaJson = fromString(response, Media.class);
-        return mediaJson;
+        return mMediaInterface.getMedia(mediaId);
     }
 
-    public Media createMedia(MediaForm form) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.multipartPost(url.toString(), form.getParameters()), Media.class);
+    public Media createMedia(TypedFile photo) {
+        return mMediaInterface.createMedia(photo);
     }
 
-    public Response deleteMedia(long mediaId) {
+    public Media deleteMedia(long mediaId, @SessionToken String sessionToken) {
         checkId(mediaId);
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_MEDIA);
-        url.append(mediaId);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.delete(url.toString()), Response.class);
-    }
-
-
-    public MediaService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public MediaService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public MediaService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
+        return mMediaInterface.deleteMedia(mediaId, sessionToken);
     }
 }

@@ -52,11 +52,9 @@ public class Util {
         try {
             mac = Mac.getInstance(ENCRYPTION_TYPE);
             mac.init(secretKey);
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException  e ) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
 

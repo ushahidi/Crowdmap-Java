@@ -14,34 +14,27 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Maps;
 import com.crowdmap.java.sdk.json.Notifications;
 import com.crowdmap.java.sdk.json.Posts;
 import com.crowdmap.java.sdk.json.Response;
 import com.crowdmap.java.sdk.json.Users;
-import com.crowdmap.java.sdk.model.User;
-import com.crowdmap.java.sdk.model.form.UserForm;
+import com.crowdmap.java.sdk.service.api.UserInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_DELETE;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_PUT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_AVATAR;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWERS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_FOLLOWS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_ASSOCIATED;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_COLLABORATING;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_FOLLOWING;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAPS_OWNS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_NOTIFICATIONS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_POSTS;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USERS;
+import retrofit.RestAdapter;
 
 /**
  * User service
  */
-public class UserService extends CrowdmapService {
+public class UserService extends CrowdmapService<UserService> {
+
+    private UserInterface mUserInterface;
+
+    public UserService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mUserInterface = restAdapter.create(UserInterface.class);
+    }
 
     /**
      * Get users registered on Crowdmap
@@ -49,14 +42,7 @@ public class UserService extends CrowdmapService {
      * @return Users detail
      */
     public Users getUsers() {
-
-        //Set the api signature key
-        setApiKey(METHOD_GET, SEGMENT_USERS);
-
-        //Send a get request to fetch registered users
-        String json = client.get(SEGMENT_USERS);
-        return fromString(json,
-                Users.class);
+        return mUserInterface.getUsers();
     }
 
     /**
@@ -66,90 +52,74 @@ public class UserService extends CrowdmapService {
      * @return Posts the user has created
      */
     public Posts getUsersPosts(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_POSTS);
-
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Posts.class);
+        checkId(userId);
+        return mUserInterface.getUsersPosts(userId);
     }
 
     /**
      * Update details of a particular user
      *
-     * @param userId   The user's ID
-     * @param userFrom User fields;
+     * @param userId The user's ID
+     * @param name   User fields;
      */
-    public User updateUser(long userId, UserForm userFrom) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
+    public Users updateUser(long userId, String name,
+            String bio,
+            String baseLayer,
+            boolean isTwitterAutoPost,
+            boolean isInstagramAutoPost,
+            boolean isTwitterAutoPostRetweets,
+            @SessionToken String sessionToken) {
+        checkId(userId);
+        // Not sure how to send boolean value to the server. So turn true to 1 and false to 0
+        final int twitterAutoPost = isTwitterAutoPost ? 1 : 0;
+        final int instagramAutoPost = isInstagramAutoPost ? 1 : 0;
+        final int twitterAutoPostRetweet = isTwitterAutoPostRetweets ? 1 : 0;
 
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.put(url.toString(), userFrom.getParameters()), User.class);
+        return mUserInterface
+                .updateUser(userId, name, bio, baseLayer, twitterAutoPost, instagramAutoPost,
+                        twitterAutoPostRetweet, sessionToken);
     }
 
     /**
      * Get a user by the ID
      *
-     * @param userId
-     *
      * @return The User
      */
     public Users getUser(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        setApiKey(METHOD_GET, url.toString());
-        String json = client.get(url.toString());
-        return fromString(json, Users.class);
+        checkId(userId);
+        return mUserInterface.getUser(userId);
     }
 
     /**
      * Update user avatar
      *
      * @param userId The user's ID
-     *
      * @return The updated user
      */
-    public User updateUserAvatar(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_AVATAR);
-        setApiKey(METHOD_PUT, url.toString());
-        //TODO: lookup the form fields
-        return null;
-
+    public Users updateUserAvatar(long userId, String avatar, @SessionToken String sessionToken) {
+        checkId(userId);
+        return mUserInterface.updateAvatar(userId, avatar, sessionToken);
     }
 
     /**
      * Delete a user's avatar
      *
      * @param userId The user's ID
-     *
-     * @return  The user.
+     * @return The user.
      */
-    public User deleteUserAvatar(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_AVATAR);
-        setApiKey(METHOD_DELETE, url.toString());
-        //TODO: lookup the form fields for avatar
-        return fromString(client.delete(url.toString()), User.class);
+    public Users deleteUserAvatar(long userId, @SessionToken String sessionToken) {
+        checkId(userId);
+        return mUserInterface.deleteUserAvatar(userId, sessionToken);
     }
 
     /**
      * Get Users followed by a particular users
      *
      * @param userId The user ID of the user to get his/her followers.
-     *
      * @return The users
      */
     public Users getUsersFollowedBy(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_FOLLOWS);
-        setApiKey(METHOD_GET, url.toString());
-
-        return fromString(client.get(url.toString()), Users.class);
+        return mUserInterface.getUsersFollowedBy(userId);
     }
 
     /**
@@ -158,30 +128,18 @@ public class UserService extends CrowdmapService {
      * @return The Users
      */
     public Users verifyUsersFollowing(long userId, long followerId) {
-
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_FOLLOWS);
-        url.append(followerId);
-        url.append("/");
-        setApiKey(METHOD_GET, url.toString());
-
-        return fromString(client.get(url.toString()), Users.class);
+        checkId(userId);
+        return mUserInterface.verifyUsersFollowing(userId, followerId);
     }
 
     /**
      * Get a User's followers
-     * @param userId
      *
      * @return The User the user follows
      */
     public Users getUsersFollowers(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_GET, url.toString());
-
-        return fromString(client.get(url.toString()), Users.class);
+        checkId(userId);
+        return mUserInterface.getUsersFollowers(userId);
     }
 
     /**
@@ -191,106 +149,75 @@ public class UserService extends CrowdmapService {
      *
      * @return The Users the user follows with the new user the user is following.
      */
-    public Users followUser(long userId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_FOLLOWERS);
-        return fromString(client.post(url.toString()), Users.class);
+    public Users followUser(long userId, @SessionToken String sessionToken) {
+        checkId(userId);
+        return mUserInterface.followUser(userId, sessionToken);
     }
 
     /**
      * Stop following a user
      *
      * @param userId The user's ID
-     *
      * @return The users the user follows without including the user the user stopped following.
      */
-    public Users stopFollowingUser(long userId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_FOLLOWERS);
-        setApiKey(METHOD_DELETE, url.toString());
-        return fromString(client.post(url.toString()), Users.class);
+    public Users stopFollowingUser(long userId, @SessionToken String sessionToken) {
+        checkId(userId);
+        return mUserInterface.stopFollowingUser(userId, sessionToken);
     }
 
     /**
-     *  Get the map the user follows
+     * Get the map the user follows
      *
      * @param userId The user's ID
-     *
      * @return The map the user follows
      */
     public Maps getUserFollowedMap(long userId) {
-        // Set session token
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_MAPS_FOLLOWING);
-
-        return fromString(client.get(url.toString()), Maps.class);
+        checkId(userId);
+        return mUserInterface.getUserFollowedMap(userId);
     }
 
     /**
      * Get the map a user collaborates on.
      *
      * @param userId The user's ID
-     *
      * @return The maps the user collaborates on.
      */
     public Maps getMapsUserCollaboratesOn(long userId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_MAPS_COLLABORATING);
-        return fromString(client.get(url.toString()), Maps.class);
+        checkId(userId);
+        return mUserInterface.getMapsUserCollaboratesOn(userId);
     }
 
     /**
      * Get a user's map.
      *
      * @param userId The user's ID
-     *
      * @return The maps by the user.
      */
     public Maps getUsersMaps(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_MAPS_OWNS);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Maps.class);
+        checkId(userId);
+        return mUserInterface.getUsersMaps(userId);
     }
 
     /**
      * The map a user is associated with.
      *
      * @param userId The user's ID
-     *
      * @return The maps by the user.
      */
     public Maps getUsersAssociatedMaps(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_MAPS_ASSOCIATED);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Maps.class);
+        checkId(userId);
+        return mUserInterface.getUsersAssociatedMaps(userId);
     }
 
     /**
      * Get users notifications
      *
      * @param userId The user's ID to be used for fetching the notification details
-     *
      * @return The list of notifications
      */
     public Notifications getNotifications(long userId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_NOTIFICATIONS);
-        setApiKey(METHOD_GET, url.toString());
-        return fromString(client.get(url.toString()), Notifications.class);
+        checkId(userId);
+        return mUserInterface.getNotifications(userId);
     }
 
     /**
@@ -299,52 +226,8 @@ public class UserService extends CrowdmapService {
      * @param userId The user's ID
      * @return The user's notifications
      */
-    public Response markNotificationAsRead(long userId) {
-        validateSession();
-        StringBuilder url = new StringBuilder(SEGMENT_USERS);
-        url.append(userId);
-        url.append(SEGMENT_NOTIFICATIONS);
-        setApiKey(METHOD_PUT, url.toString());
-        return fromString(client.get(url.toString()), Response.class);
-    }
-
-    /**
-     * Limit the number items to return.
-     *
-     * @param limit The limit number.
-     *
-     * @return The UserSerivce.
-     */
-    public UserService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    /**
-     * The offset to use to limit the number of items returned.
-     *
-     * <p><strong>Note:</strong> This requires limit to be set.</p>
-     * @param offset
-     *
-     * @return The UserSerice
-     */
-    public UserService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public UserService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
+    public Response markNotificationAsRead(long userId, @SessionToken String sessionToken) {
+        checkId(userId);
+        return mUserInterface.markNotificationAsRead(userId, sessionToken);
     }
 }

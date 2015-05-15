@@ -40,4 +40,11 @@ public class Collaborators extends Response implements Serializable {
     public void setCollaborators(List<Collaborator> collaborators) {
         this.collaborators = collaborators;
     }
+
+    @Override
+    public String toString() {
+        return "Collaborators{" +
+                "collaborators=" + collaborators +
+                "}," + super.toString();
+    }
 }

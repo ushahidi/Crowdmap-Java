@@ -14,29 +14,35 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.SessionToken;
 import com.crowdmap.java.sdk.json.Locations;
-import com.crowdmap.java.sdk.model.form.LocationForm;
+import com.crowdmap.java.sdk.model.Geometry;
+import com.crowdmap.java.sdk.service.api.LocationInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_GET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_LOCATIONS;
+import retrofit.RestAdapter;
 
 /**
  * The location service. Locations are the points or geometries that are attached to posts.
  */
-public class LocationService extends CrowdmapService {
+public class LocationService extends CrowdmapService<LocationService> {
+
+    private LocationInterface mLocationInterface;
+
+    public LocationService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mLocationInterface = restAdapter.create(LocationInterface.class);
+    }
 
     /**
      * Create a new location.
      *
-     * @param form The location to be added to Crowdmap
+     * @param fsVenueId The location to be added to Crowdmap
      * @return The list of locations including the newly created location.
      */
-    public Locations createLocation(LocationForm form) {
-        validateSession();
-        return fromString(client.post(SEGMENT_LOCATIONS, form.getParameters()),
-                Locations.class);
+    public Locations createLocation(String fsVenueId, Geometry geometry, String name, String region,
+            @SessionToken String sessionToken) {
+        return mLocationInterface
+                .createLocation(fsVenueId, geometry.toString(), name, region, sessionToken);
     }
 
     /**
@@ -45,36 +51,11 @@ public class LocationService extends CrowdmapService {
      * @return Get location.
      */
     public Locations getLocation() {
-
-        setApiKey(METHOD_GET, SEGMENT_LOCATIONS);
-        return fromString(client.get(SEGMENT_LOCATIONS),
-                Locations.class);
-
+        return mLocationInterface.getLocation();
     }
 
-    public LocationService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public LocationService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-
-    @Override
-    public LocationService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
+    public Locations getLocation(long locationId) {
+        checkId(locationId);
+        return mLocationInterface.getLocation(locationId);
     }
 }

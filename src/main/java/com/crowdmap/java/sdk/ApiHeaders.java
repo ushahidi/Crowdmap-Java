@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -12,29 +12,38 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.json;
+package com.crowdmap.java.sdk;
 
-import com.crowdmap.java.sdk.model.PostTag;
+import com.crowdmap.java.sdk.util.ValidateUtil;
 
-import java.util.List;
+import retrofit.RequestInterceptor;
+
+import static com.crowdmap.java.sdk.net.ICrowdmapConstants.USER_AGENT;
 
 /**
- * Post tags
+ * HTTP Headers
  */
-public class PostTags extends Response {
+public final class ApiHeaders implements RequestInterceptor {
 
-    private static final long serialVersionUID = 36455760364885900L;
+    /**
+     * The user agent to use
+     */
+    private String userAgent = USER_AGENT;
 
-    private List<PostTag> postsTags;
+    public ApiHeaders() {
+        this(null);
+    }
 
-    public List<PostTag> getPostsTags() {
-        return postsTags;
+    public ApiHeaders(String agent) {
+        if (!ValidateUtil.empty(agent)) {
+            userAgent = agent;
+        }
     }
 
     @Override
-    public String toString() {
-        return "MapTags{" +
-                "mapsTags=" + postsTags +
-                '}';
+    public void intercept(RequestFacade request) {
+
+        request.addHeader("User-Agent", userAgent);
     }
+
 }

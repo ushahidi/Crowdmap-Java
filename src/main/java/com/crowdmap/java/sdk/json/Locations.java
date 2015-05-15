@@ -32,5 +32,10 @@ public class Locations extends Response implements Serializable {
         return locations;
     }
 
-
+    @Override
+    public String toString() {
+        return "Locations{" + super.toString() +
+                "locations=" + locations +
+                '}';
+    }
 }

@@ -40,10 +40,10 @@ public class External implements Serializable {
     /**
      * The service ID
      */
-    private int serviceId;
+    private long serviceId;
 
     /**
-     * The provider. The name of the site the content came from
+     * The api. The name of the site the content came from
      */
     private String provider;
 
@@ -120,26 +120,26 @@ public class External implements Serializable {
     /**
      * @return the serviceId
      */
-    public int getServiceId() {
+    public long getServiceId() {
         return serviceId;
     }
 
     /**
      * @param serviceId the serviceId to set
      */
-    public void setServiceId(int serviceId) {
+    public void setServiceId(long serviceId) {
         this.serviceId = serviceId;
     }
 
     /**
-     * @return the provider
+     * @return the api
      */
     public String getProvider() {
         return provider;
     }
 
     /**
-     * @param provider the provider to set
+     * @param provider the api to set
      */
     public void setProvider(String provider) {
         this.provider = provider;
@@ -290,7 +290,7 @@ public class External implements Serializable {
         return "External{" +
                 "id=" + id +
                 ", serviceId=" + serviceId +
-                ", provider='" + provider + '\'' +
+                ", api='" + provider + '\'' +
                 ", type='" + type + '\'' +
                 ", idOnService='" + idOnService + '\'' +
                 ", content='" + content + '\'' +

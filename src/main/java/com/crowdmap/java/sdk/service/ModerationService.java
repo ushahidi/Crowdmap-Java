@@ -16,20 +16,21 @@ package com.crowdmap.java.sdk.service;
 
 import com.crowdmap.java.sdk.json.Comments;
 import com.crowdmap.java.sdk.json.Maps;
-import com.crowdmap.java.sdk.model.User;
+import com.crowdmap.java.sdk.service.api.ModerationInterface;
 
-import static com.crowdmap.java.sdk.net.CrowdmapHttpClient.METHOD_POST;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.LIMIT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.OFFSET;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_COMMENT;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MAP;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_MODERATE;
-import static com.crowdmap.java.sdk.net.ICrowdmapConstants.SEGMENT_USER;
+import retrofit.RestAdapter;
 
 /**
  * Moderation service. Use for flagging content on Crowdmap for moderation by the Crowdmap team.
  */
-public class ModerationService extends CrowdmapService {
+public class ModerationService extends CrowdmapService<ModerationService> {
+
+    private ModerationInterface mModerationInterface;
+
+    public ModerationService(RestAdapter restAdapter) {
+        super(restAdapter);
+        mModerationInterface = restAdapter.create(ModerationInterface.class);
+    }
 
     /**
      * Flag a comment for moderation.
@@ -37,12 +38,9 @@ public class ModerationService extends CrowdmapService {
      * @param commentId The ID of the comment to be flagged for moderation.
      * @return List of comments
      */
-    public Comments moderateComment(long commentId) {
-        StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
-        url.append(SEGMENT_COMMENT);
-        url.append(commentId);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Comments.class);
+    public Comments reportComment(long commentId) {
+        checkId(commentId);
+        return mModerationInterface.reportComment(commentId);
     }
 
     /**
@@ -50,12 +48,9 @@ public class ModerationService extends CrowdmapService {
      *
      * @param mapId The ID of the map to be flagged for moderation.
      */
-    public Maps moderateMaps(long mapId) {
-        StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
-        url.append(SEGMENT_MAP);
-        url.append(mapId);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), Maps.class);
+    public Maps reportMaps(long mapId) {
+        checkId(mapId);
+        return mModerationInterface.reportMap(mapId);
     }
 
     /**
@@ -63,37 +58,9 @@ public class ModerationService extends CrowdmapService {
      *
      * @param userId The ID of the user to be flagged for moderation.
      */
-    public User moderateUser(long userId) {
-        StringBuilder url = new StringBuilder(SEGMENT_MODERATE);
-        url.append(SEGMENT_USER);
-        url.append(userId);
-        setApiKey(METHOD_POST, url.toString());
-        return fromString(client.post(url.toString()), User.class);
+    public Maps reportUser(long userId) {
+        checkId(userId);
+        return mModerationInterface.reportUser(userId);
     }
 
-
-    public ModerationService limit(int limit) {
-        if (limit > 0) {
-            getHttpClient().setRequestParameters(LIMIT, String.valueOf(limit));
-        }
-        return this;
-    }
-
-    public ModerationService offset(int offset) {
-        if (getHttpClient().getRequestParameters().containsKey(LIMIT)) {
-            throw new IllegalArgumentException("Requires that a limit be set.");
-        }
-
-        getHttpClient().setRequestParameters(OFFSET, String.valueOf(offset));
-        return this;
-    }
-
-    @Override
-    public ModerationService setSessionToken(String sessionToken) {
-        if ((sessionToken == null) || (sessionToken.length() == 0)) {
-            throw new IllegalArgumentException("Session token cannot be null or empty");
-        }
-        getHttpClient().setSessionToken(sessionToken);
-        return this;
-    }
 }

@@ -13,21 +13,36 @@
  ******************************************************************************/
 package com.crowdmap.java.sdk;
 
-import com.crowdmap.java.sdk.json.Session;
-import com.crowdmap.java.sdk.model.form.LoginForm;
-import com.crowdmap.java.sdk.net.CrowdmapHttpClient;
-import com.crowdmap.java.sdk.net.HttpClient;
-import com.crowdmap.java.sdk.service.CrowdmapService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import com.crowdmap.java.sdk.json.Date;
+import com.crowdmap.java.sdk.json.DateDeserializer;
+import com.crowdmap.java.sdk.json.UsersDeserializer;
+import com.crowdmap.java.sdk.model.User;
+import com.crowdmap.java.sdk.net.ICrowdmapConstants;
+import com.crowdmap.java.sdk.net.SignRequestClient;
 import com.crowdmap.java.sdk.service.ExternalService;
 import com.crowdmap.java.sdk.service.LocationService;
 import com.crowdmap.java.sdk.service.MapService;
 import com.crowdmap.java.sdk.service.MediaService;
-import com.crowdmap.java.sdk.service.ModerationService;
 import com.crowdmap.java.sdk.service.PostService;
 import com.crowdmap.java.sdk.service.SessionService;
 import com.crowdmap.java.sdk.service.UserService;
 import com.crowdmap.java.sdk.service.UtilityService;
-import com.crowdmap.java.sdk.util.ValidateUtil;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+import retrofit.Endpoint;
+import retrofit.Endpoints;
+import retrofit.RestAdapter;
+import retrofit.client.Client;
+import retrofit.converter.GsonConverter;
+
+import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
+
 
 /**
  * Creates the various Crowdmap API resources. Create an object of this class to get to the various
@@ -35,246 +50,84 @@ import com.crowdmap.java.sdk.util.ValidateUtil;
  */
 public class Crowdmap {
 
-    /**
-     * private app key value *
-     */
-    private String privateKey;
+    private static Gson gson;
 
-    /**
-     * public app key value *
-     */
-    private String publicKey;
+    private RestAdapter restAdapter;
 
-    /**
-     * Connection timeout (in milliseconds).
-     */
+    private CrowdmapApiKeys mCrowdmapApiKeys;
 
-    private Integer connectionTimeout;
+    static {
+        Type userListType = new TypeToken<List<User>>() {
+        }.getType();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Date.class, new DateDeserializer());
+        builder.registerTypeAdapter(userListType, new UsersDeserializer());
+        builder.setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES);
+        gson = builder.create();
+    }
 
-    /**
-     * Socket timeout (in milliseconds).
-     */
-    private Integer socketTimeout;
-
-    /**
-     * The HTTP client to use.
-     */
-    private HttpClient httpClient;
-
-    /**
-     * Default constructor
-     *
-     * @param publicKey The Crowdmap public key.
-     *
-     * @param privateKey The Crowdmap private key.
-     */
-
-    public Crowdmap(String publicKey, String privateKey) {
-        if (ValidateUtil.empty(publicKey)) {
+    public Crowdmap(Endpoint endpoint, Client client, ApiHeaders headers,
+            CrowdmapApiKeys crowdmapApiKeys) {
+        if (crowdmapApiKeys == null) {
             throw new IllegalArgumentException(
-                    "Public key cannot be null or empty. Please provide a valid public key");
+                    "Crowdmap API Key cannot be public. Please provide a valid api key");
         }
+        this.mCrowdmapApiKeys = crowdmapApiKeys;
 
-        if (ValidateUtil.empty(privateKey)) {
-            throw new IllegalArgumentException(
-                    "Private key cannot be null or empty. Please provide a valid private key");
-        }
-
-        this.publicKey = publicKey;
-
-        this.privateKey = privateKey;
+        this.restAdapter = new RestAdapter.Builder()
+                .setClient(client)
+                .setEndpoint(endpoint)
+                .setRequestInterceptor(headers)
+                .setConverter(new GsonConverter(gson))
+                .build();
     }
 
-    /**
-     * Provide custom implementation of the HTTP client.
-     *
-     * @param httpClient The custom HTTP client to use.
-     *
-     * @param publicKey The Crowdmap public key.
-     * @param privateKey The Crowdmap private key.
-     */
-    public Crowdmap(HttpClient httpClient, String publicKey, String privateKey) {
-        this(publicKey, privateKey);
-        this.httpClient = httpClient;
+    public Crowdmap(CrowdmapApiKeys crowdmapApiKeys) {
+        this(Endpoints.newFixedEndpoint(ICrowdmapConstants.CROWDMAP_HOST_API),
+                new SignRequestClient(crowdmapApiKeys), new ApiHeaders(), crowdmapApiKeys);
     }
 
-    /**
-     * Set default  connection timeout.
-     *
-     * @param connectionTimeout The timeout in milliseconds.
-     * @return Current instance.
-     */
-    public Crowdmap setConnectionTimeout(Integer connectionTimeout) {
-        this.connectionTimeout = connectionTimeout;
-        return this;
+    public Crowdmap(RestAdapter adapter, CrowdmapApiKeys crowdmapApiKeys) {
+        this(crowdmapApiKeys);
+        this.restAdapter = adapter;
     }
 
-    /**
-     * Set default socket timeout.
-     *
-     * @param socketTimeout The read timeout in milliseconds
-     * @return Current instance.
-     */
-    public Crowdmap setSocketTimeout(Integer socketTimeout) {
-        this.socketTimeout = socketTimeout;
-        return this;
+    public RestAdapter getRestAdapter() {
+        return this.restAdapter;
     }
 
-    public Session login(String username, String password) {
-
-        LoginForm form = new LoginForm(username, password);
-        return sessionService().login(form);
-
+    public UtilityService utilityService() {
+        return new UtilityService(restAdapter);
     }
 
-    private void setupService(CrowdmapService service) {
+    public ExternalService externalService() {
+        return new ExternalService(restAdapter);
+    }
 
-        if (this.connectionTimeout != null) {
-            service.getHttpClient().setConnectionTimeout(this.connectionTimeout);
-        }
+    public LocationService locationService() {
+        return new LocationService(restAdapter);
+    }
 
-        if (this.socketTimeout != null) {
-            service.getHttpClient().setSocketTimeout(this.socketTimeout);
-        }
+    public SessionService sessionService() {
+        return new SessionService(restAdapter);
+    }
 
-        if ((this.privateKey != null)) {
-            service.setPrivateKey(this.privateKey);
-        }
-
-        if ((this.publicKey != null)) {
-            service.setPublicKey(this.publicKey);
-        }
-
-        if( this.httpClient != null) {
-            service.setHttpClient(this.httpClient);
-        } else {
-            service.setHttpClient(new CrowdmapHttpClient());
-        }
+    public UserService userService() {
+        return new UserService(restAdapter);
     }
 
     /**
      * Create a new media service instance
      */
-    private static final MediaService newMediaService() {
-        return new MediaService();
-    }
-
-    /**
-     * Create a new session service instance
-     */
-    private static final SessionService newSessionService() {
-        return new SessionService();
-    }
-
-    private static final UserService newUserService() {
-        return new UserService();
-    }
-
-    private static final MapService newMapService() {
-        return new MapService();
-    }
-
-    private static final UtilityService newUtilitySerivce() {
-        return new UtilityService();
-    }
-
-    private static final ModerationService newModerationSerivce() {
-        return new ModerationService();
-    }
-
-    private static final ExternalService newExternalService() {
-        return new ExternalService();
-    }
-
-    private static final LocationService newLocationService() {
-        return new LocationService();
-    }
-
-    private static final PostService newPostService() {
-        return new PostService();
-    }
-
-    /**
-     * Get media service
-     *
-     * @return Media Resource
-     */
     public MediaService mediaService() {
-        MediaService service = Crowdmap.newMediaService();
-        this.setupService(service);
-        return service;
+        return new MediaService(restAdapter);
     }
 
-    /**
-     * Get the Session service
-     *
-     * @return Session service instance
-     */
-    public SessionService sessionService() {
-        SessionService service = Crowdmap.newSessionService();
-        this.setupService(service);
-        return service;
-    }
-
-    /**
-     * Get the User service
-     *
-     * @return User service instance
-     */
-    public UserService userService() {
-        UserService service = Crowdmap.newUserService();
-        this.setupService(service);
-        return service;
-    }
-
-    /**
-     * Get the Map service
-     *
-     * @return Map service instance
-     */
     public MapService mapService() {
-        MapService service = Crowdmap.newMapService();
-        this.setupService(service);
-        return service;
-    }
-
-    /**
-     * Get the Utility service
-     *
-     * @return Utility service instance
-     */
-    public UtilityService utilityService() {
-        UtilityService service = Crowdmap.newUtilitySerivce();
-        this.setupService(service);
-        return service;
-    }
-
-    /**
-     * Get the Moderation service
-     *
-     * @return Moderation service instance
-     */
-    public ModerationService moderationService() {
-        ModerationService service = Crowdmap.newModerationSerivce();
-        this.setupService(service);
-        return service;
-    }
-
-    public ExternalService externalService() {
-        ExternalService service = Crowdmap.newExternalService();
-        setupService(service);
-        return service;
-    }
-
-    public LocationService locationService() {
-        LocationService service = Crowdmap.newLocationService();
-        setupService(service);
-        return service;
+        return new MapService(restAdapter);
     }
 
     public PostService postService() {
-        PostService service = Crowdmap.newPostService();
-        setupService(service);
-        return service;
+        return new PostService(restAdapter);
     }
 }

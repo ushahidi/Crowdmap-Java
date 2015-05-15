@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -14,34 +14,49 @@
 
 package com.crowdmap.java.sdk.service;
 
+import com.crowdmap.java.sdk.BaseTest;
 import com.crowdmap.java.sdk.json.Externals;
+import com.crowdmap.java.sdk.service.api.ExternalInterface;
+import com.crowdmap.java.sdk.service.api.MockExternalService;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test cases for the external service.
+ * Test for External service.
  */
-public class ExternalServiceTest extends BaseServiceTest {
+public class ExternalServiceTest extends BaseTest {
 
-    ExternalService mExternalService;
+    ExternalInterface mExternalInterface;
+
+    MockExternalService mMockExternalService;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        mExternalService = crowdmap.externalService();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        super.tearDown();
+        mMockExternalService = new MockExternalService(mMockServerResponse);
+        mExternalInterface = mMockRestAdapter.create(ExternalInterface.class, mMockExternalService);
     }
 
     @Test
-    public void testCreateExternal() throws Exception {
-        Externals externals = mExternalService.getExternal(30);
+    public void testGetExternal() {
+        Externals externals = mExternalInterface.getExternal(1, 1, 0);
         assertNotNull(externals);
+        assertTrue(externals.isSuccess());
+        assertEquals(200, externals.getStatus());
+        assertEquals(1, externals.getExternals().get(0).getId());
+        assertEquals(1, externals.getExternals().get(0).getServiceId());
     }
 
+    @Test
+    public void testCreateExternal() {
+        Externals externals = mExternalInterface.createExternal(1, "0303ld", "test");
+        int lastItem = externals.getExternals().size() - 1;
+        assertNotNull(externals);
+        assertTrue(externals.isSuccess());
+        assertEquals(200, externals.getStatus());
+        assertEquals(1, externals.getExternals().get(lastItem).getId());
+        assertEquals(1, externals.getExternals().get(lastItem).getServiceId());
+        assertEquals("0303ld", externals.getExternals().get(lastItem).getIdOnService());
+    }
 }

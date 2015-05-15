@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 - 2013 Ushahidi Inc.
+ * Copyright (c) 2010 - 2014 Ushahidi Inc.
  * All rights reserved
  * Website: http://www.ushahidi.com
  *
@@ -12,31 +12,33 @@
  * will be met: http://www.gnu.org/licenses/agpl.html.
  ******************************************************************************/
 
-package com.crowdmap.java.sdk.model.form;
-
-import com.crowdmap.java.sdk.annotations.Form;
-import com.crowdmap.java.sdk.annotations.FormField;
+package com.crowdmap.java.sdk;
 
 /**
- * Comment Form
+ * Both public and private api key
  */
-public class CommentForm extends Form {
+public final class CrowdmapApiKeys {
 
-    @FormField(name = "comment")
-    private String comment;
+    /**
+     * private app key value *
+     */
+    public String privateKey;
 
-    public String getComment() {
-        return comment;
+    /**
+     * public app key value *
+     */
+    public String publicKey;
+
+    public CrowdmapApiKeys(String publicKey, String privateKey) {
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public String getPrivateKey() {
+        return this.privateKey;
     }
 
-    @Override
-    public String toString() {
-        return "CommentForm{" +
-                "comment='" + comment + '\'' +
-                '}';
+    public String getPublicKey() {
+        return this.publicKey;
     }
 }
